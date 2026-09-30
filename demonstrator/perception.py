@@ -49,6 +49,27 @@ class Camera:
         pts = self.backproject(data, depth)
         return rgb, depth, geom, pts
 
+    def capture_colour(self, data):
+        """rgb (H,W,3) and geom id per pixel, no depth: what a colour camera plus a segmenter gives. The SO-101's
+        wrist camera has no depth (dm1487, 2026-09-30)."""
+        r = self.r
+        r.update_scene(data, camera=self.name)
+        rgb = r.render().copy()
+        r.enable_segmentation_rendering()
+        r.update_scene(data, camera=self.name)
+        seg = r.render().copy()
+        r.disable_segmentation_rendering()
+        return rgb, np.where(seg[..., 1] == int(mujoco.mjtObj.mjOBJ_GEOM), seg[..., 0], -1)
+
+    def rays(self, data):
+        """The camera's position and a unit world-frame direction through every pixel's centre, (3,) and (H,W,3)."""
+        pos = data.cam_xpos[self.cid].copy()
+        rot = data.cam_xmat[self.cid].reshape(3, 3).copy()
+        v, u = np.mgrid[0:self.h, 0:self.w]
+        cam = np.stack([(u + 0.5 - self.w / 2) / self.fx, -(v + 0.5 - self.h / 2) / self.fy, -np.ones(u.shape)], -1)
+        d = cam @ rot.T
+        return pos, d / np.linalg.norm(d, axis=-1, keepdims=True)
+
     def backproject(self, data, depth):
         pos = data.cam_xpos[self.cid].copy()
         rot = data.cam_xmat[self.cid].reshape(3, 3).copy()

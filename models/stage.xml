@@ -9,7 +9,17 @@
   <include file="robotstudio_so101/so101.xml"/>
   <compiler meshdir="robotstudio_so101/assets"/>
 
-  <!-- 10 physics steps per 30 Hz control step. Menagerie ships 0.005.
+  <!-- 20 physics steps per 30 Hz control step. Menagerie ships 0.005.
+
+       Contacts are stiff (the main default below, and so101sim.env.load_model copies it onto the gripper, whose
+       vendored class would otherwise win every finger contact with solref 0.01). MuJoCo's default contact scales its
+       stiffness to the mass it touches, so a 27 g cube under a finger the servo pushes with about 12 N sank 11.9 mm
+       into the floor, and sweeps pressed cubes 13 mm into each other (dm1487, 2026-09-30: "we should not be
+       penetrating"). scripts/contact_study.py, 16 seeds: with a 1/600 s step, solref at two steps and solimp
+       0.95 to 0.99, the deepest penetration anywhere was 0.74 mm (sweeps), 0.4 mm under a pressing finger and
+       0.05 mm in a resting pile, which drifted 0.01 mm median in 10 s; every lone-cube grasp still lifted. The
+       1/300 s step with the same stiffness left 2.4 mm in sweeps; solimp to 0.999 went unstable (a sweep pushed
+       cubes 22 mm into each other, one pile flung a cube). Costs 1.7x the CPU time of 1/300 s.
 
        noslip: without it, friction doesn't hold stacked objects still. Measured 2026-09-29 on 12 bin piles held
        for 30 s with nothing touching them: every pile crept, 24 mm median, some still moving 2 to 3 mm a second
@@ -17,7 +27,7 @@
        without breaking reset (impratio 100) or at all. noslip cut the median to 2.4 mm, at about 2.5x the CPU
        time. The GPU Warp backend refuses noslip, and so101sim.mjx.put drops it with a warning; piles creep there
        under every setting tried. -->
-  <option timestep="0.0033333333333333335" noslip_iterations="10"/>
+  <option timestep="0.0016666666666666668" noslip_iterations="10"/>
 
   <visual>
     <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
@@ -33,8 +43,10 @@
     <material name="table" rgba="0.55 0.42 0.3 1"/>
   </asset>
 
-  <!-- Shared so a cube behaves the same in every task. -->
+  <!-- Shared so a cube behaves the same in every task. The main default's contact stiffness is the scene's; see
+       the timestep comment above. solref's time constant is two physics steps, the stiffest MuJoCo allows. -->
   <default>
+    <geom solref="0.0033333333333333335 1" solimp="0.95 0.99 0.001 0.5 2"/>
     <default class="cube">
       <geom type="box" size="0.015 0.015 0.015" density="1000" condim="4" friction="1 0.005 0.0001"/>
     </default>

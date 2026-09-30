@@ -48,6 +48,12 @@ SETTLE_SECONDS = 1.0
 # Partial starts keep only about 12% of dropped piles (measured 2026-09-26), so 50 attempts would give up about
 # once in 600 resets. At 200 it is about once in 10^11, and a partial reset still averages 2.7 s.
 MAX_RESET_ATTEMPTS = 200
+# The last gate before a pile is handed over: held still this long, no cube may move more than CREEP_MM. The rest
+# rule (so101sim.rest) passes a cube creeping at 0.18 mm/s, and one like that fell 32 mm mid-episode in d1031.
+# Measured 2026-09-30 on 24 fresh piles under the stiff contacts: 22 moved at most 0.37 mm in 5 s; seed 13 crept
+# 0.6 mm in the first second and then a cube tipped 12 mm, and seed 14 held for 2 s and then a cube began to fall.
+CREEP_SECONDS = 5.0
+CREEP_MM = 0.5
 
 # Visibility is counted at the default observation size whatever size the env renders, so asking for
 # small images doesn't change which piles count as buried.
@@ -326,7 +332,19 @@ class MechSearchEnv(SO101Env):
 
         resting = rest.come_to_rest(frame, self.data, self._rest_dofs)
         mujoco.mj_forward(self.model, self.data)
-        return self._rejection(buried, touch[0], resting)
+        reason, pixels = self._rejection(buried, touch[0], resting)
+        if reason is not None:
+            return reason, pixels
+        start = np.array([self.data.qpos[self._qadr[n]:self._qadr[n] + 3] for n in self.cubes])
+        for _ in range(int(round(CREEP_SECONDS * CONTROL_HZ))):
+            frame()
+        mujoco.mj_forward(self.model, self.data)
+        end = np.array([self.data.qpos[self._qadr[n]:self._qadr[n] + 3] for n in self.cubes])
+        crept = float(np.linalg.norm(end - start, axis=1).max()) * 1000
+        if crept > CREEP_MM:
+            return f"a cube crept {crept:.1f} mm in {CREEP_SECONDS:.0f} s after the pile settled", None
+        # Recount the red's pixels on the pile as handed over. It moved under CREEP_MM, so the verdict holds.
+        return self._rejection(buried, touch[0], True)
 
     def _rejection(self, buried, touched, resting):
         if touched:

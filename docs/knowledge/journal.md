@@ -1080,3 +1080,49 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   first; find the cause (contact softness against the arm's servo force); then change settings and check rest,
   reset acceptance, grasps, step cost and replay determinism.
 - By: dm1487 asked; Claude.
+
+## [2026-09-30 16:08] decision | Stiff contacts: 1/600 s step, solref at two steps, solimp 0.95 to 0.99
+- What: dm1487 asked for stable contacts and no penetration. MuJoCo's default contact scales stiffness to the mass it
+  touches, and the servos push about 12 N on 27 g cubes. `scripts/contact_study.py` measured five scenarios (a pile
+  at rest for 10 s, a lone-cube grasp, a finger pressing a cube's top, the same on a stack, a pick in a pile, a drop,
+  a sweep) under seven settings on 6 then 16 seeds (outputs `outputs/contact_study_2026-09-30/round1-3`).
+- Before (1/300 s, solref 0.02, gripper 0.01): press 11.9 mm into the floor, stack 10.9 mm, sweep 13 mm cube into
+  cube, rest 1.8 mm, rest drift up to 2.7 mm in 10 s.
+- Chosen (1/600 s, solref 1/300, solimp 0.95/0.99, scene and gripper): deepest 0.74 mm (sweep), press 0.4 mm, rest
+  0.05 mm, drift median 0.01 mm; lone-cube grasps 16 of 16; no sweep spilled; CPU 1.7x (0.43 s per sim second).
+- Rejected: the same at 1/300 s (sweeps 2.4 mm); solimp to 0.999 at either step (sweeps pushed cubes 17 to 22 mm
+  into each other, a pile flung a cube, 2 of 6 resets failed).
+- Code: `models/stage.xml` (option and main default, with the evidence), `so101sim.env.load_model` copies the
+  scene's stiffness onto the vendored gripper through MjSpec (its class would win every finger contact at 0.01);
+  `so101sim.mjx.load_model` uses it. Trap file updated. Old episode records no longer replay.
+- Knock-on: a held cube now reads 19.4 on the gripper, not 17.7; `primitives.GRIP_HOLDING` says 18 (to fix).
+- By: dm1487 asked; Claude chose and measured.
+
+## [2026-09-30 16:08] decision | Reset rejects a pile that creeps
+- What: reset now holds a finished pile still for 5 s and rejects it if any cube moves over 0.5 mm
+  (`CREEP_SECONDS`, `CREEP_MM` in `so101sim/mechsearch.py`). The rest rule passed a cube creeping at 0.18 mm/s
+  that fell 32 mm mid-episode (d1031). On 24 fresh piles 22 moved at most 0.37 mm in 5 s; seeds 13 and 14 crept and
+  then tipped, and the gate caught both. Median reset 5.4 s.
+- By: Claude, under dm1487's "stable overall".
+
+## [2026-09-30 16:08] result | observe without wrist depth
+- What: `Episode.see()` now takes 3D only from the front camera. The wrist camera gives colour and masks: floor pixels
+  land on the floor's plane; cubes only the wrist sees are placed along their rays onto the front camera's surface
+  and listed as rough ("ray"); wrist red pixels are used only when the front camera sees no red.
+- Measured on 12 piles (`demonstrator/experiments/wrist_colour_study.py`, `outputs/wrist_colour_study_2026-09-30`):
+  unseen cells front only 59%, front plus wrist colour 48%, old wrist depth 33%. Cubes listed 26 to 29. Trusted pose
+  error 1.47 mm median (wrist depth gave 0.6). Ray-placed cubes 15 mm median error, 33 max. Mixing wrist red pixels in
+  moved the red region from 14 to 18 mm off, hence front first.
+- By: Claude, under dm1487's sensing rules.
+
+## [2026-09-30 16:08] result | check measures the aim shift and fingers on the target's own top; act refuses
+- What: check now reports, for a pick, the target, how far the aim sits off its centre toward the moving finger, and
+  how deep a finger comes down inside the target's top outline while the jaws are open. act refuses a trusted target
+  with a shift over 3 mm (`SHIFT_MAX_MM`) or a finger on its top over 3 mm.
+- Tested on the 32 misses, rebuilt from the miss study's saved first frames without stepping
+  (`demonstrator/experiments/check_on_misses.py`): act would refuse 8 (all the shifted-aim misses); 18 more carried a
+  neighbour hit of 3 mm or more or deep unseen space that the players went ahead with; 6 were silent (2 were e401's
+  wrist-roll jam, fixed since; 1 a cube that fell by itself; 3 tilted cubes or a flush neighbour).
+- Not yet known: false alarms on good picks under the new physics. `demonstrator/experiments/pick_calibration.py`
+  (running) scores check against outcomes on fresh piles.
+- By: Claude, under dm1487's "reduce the frequency of missed picks".

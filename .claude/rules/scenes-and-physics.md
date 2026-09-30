@@ -42,7 +42,15 @@ evidence. The load follows the Read tool; if you read code with `cat` or `sed`, 
 - Piles are chaotic. Moving one gray cube 1 micrometre at reset changed where 21 cubes ended up after seed 304's 10
   moves, and turned a success into a miss. A saved action list replays exactly only under the same code and physics
   settings. Every plan has to look again after each move.
-- A finger driven down onto a cube's top presses that cube into whatever holds it up: up to 13.5 mm below the floor's
-  surface in d1012 (miss study, 2026-09-30, `tgt_below_floor_mm`). The arm's stiff position servo outpushes the soft
-  contact. A real arm stalls on the top face instead. So after a sim miss the pile can shift in ways the real one
-  wouldn't; the miss itself is real either way.
+- Contacts are stiff since 2026-09-30 (dm1487: "we should not be penetrating"): a 1/600 s step, the main default's
+  solref at two steps and solimp 0.95 to 0.99, in `stage.xml`. Before, a finger driven onto a 27 g cube's top pressed
+  it 11.9 mm into the floor and sweeps pressed cubes 13 mm into each other, because MuJoCo's default contact scales
+  its stiffness to the mass it touches while the servo pushes about 12 N. Now the deepest anywhere is 0.74 mm
+  (`scripts/contact_study.py`, 16 seeds). Pushing further breaks the solver: solimp 0.999 flung cubes.
+- Load anything that steps physics with `so101sim.env.load_model`. It copies the scene's contact stiffness onto the
+  vendored gripper, whose class sets solref 0.01 with priority 1 and so decides every finger contact. A bare
+  `MjModel.from_xml_path` keeps the soft fingers; that is fine for geometry-only checks, not for dynamics.
+- Episodes recorded before the stiff contacts (2026-09-30, about 16:00) do not replay under them; piles are chaotic.
+- Reset holds a finished pile still for 5 s and rejects it if any cube moves over 0.5 mm (`CREEP_SECONDS`,
+  `CREEP_MM` in `mechsearch.py`). The rest rule alone passed a cube creeping at 0.18 mm/s that later fell 32 mm
+  (d1031).

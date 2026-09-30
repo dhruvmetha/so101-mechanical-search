@@ -54,6 +54,10 @@ MARGIN = 0.003  # a finger point this far below a seen surface counts as a hit
 SELF_JAM_MM = -10.0
 SELF_TIGHT_MM = 0.0
 WALL_GAP_MM = 3.0
+# Miss study, 2026-09-30 (outputs/miss_study_2026-09-30): all 10 picks aimed more than 4 mm off a cube's centre toward
+# the moving finger missed, because the fixed finger came down on the cube's own top; no hit was shifted more than
+# 3.4 mm. act refuses a shift over SHIFT_MAX_MM when the target's pose is trusted.
+SHIFT_MAX_MM = 3.0
 
 
 def short(name):
@@ -191,59 +195,63 @@ class Episode:
     # ---- seeing ---------------------------------------------------------------------------------
 
     def see(self):
-        """Poses of seen cubes, and a height map with the cube that owns each cell's top surface, from the front and
-        wrist cameras together."""
-        shots = [(cam,) + tuple(cam.capture(self.d)) for cam in (self.front, self.wrist)]
-        cubes, pieces = {}, {}
+        """Poses of seen cubes, and a height map with the cube that owns each cell's top surface.
+
+        The front camera gives colour, depth and exact masks. The wrist camera gives colour and exact masks only, as
+        the real one has no depth (dm1487, 2026-09-30), so its pixels reach 3D only through something known. Floor
+        pixels land on the bin floor's plane and mark that floor seen and empty. A cube or red pixel the front camera
+        doesn't place is followed along its ray to where it first meets the front camera's surface; those cubes are
+        listed as rough ("ray"). Until 2026-09-30 observe back-projected wrist depth, which the real arm can't."""
+        rgb, depth, geom, pts = self.front.capture(self.d)
+        w_rgb, w_geom = self.wrist.capture_colour(self.d)
+        origin, dirs = self.wrist.rays(self.d)
+        c, h = self.bin["center"], self.bin["half"]
+        floor_z = self.bin["floor_z"]
+        n = int(round(2 * h / CELL))
+        floor_id = self.m.geom("bin_floor").id
+        front_cam = self.d.cam_xpos[self.front.cid].copy()
+
+        cubes, masks = {}, {}
         for g, name in self.geom_name.items():
-            got = []
-            for k, (cam, rgb, depth, geom, pts) in enumerate(shots):
-                mask = geom == g
-                if mask.sum() < 40:
-                    continue
+            mask = geom == g
+            if mask.sum() >= 40:
                 mask = clean_mask(mask, pts)
-                if mask.sum() < 40:
-                    continue
-                got.append((k, mask))
-            if not got:
+            if mask.sum() < 40:
                 continue
-            p = np.concatenate([shots[k][4][mask] for k, mask in got])
+            p = pts[mask]
             pos, yaw, cov, _ = top_face_pose(p)
             yaw, tilt, how = float(np.degrees(yaw)), None, "top"
             if cov < TRUST:
                 # Less than 60% of the top seen: fit the whole box instead. Measured 2026-09-29 over 186 cube views,
                 # the box fit put partly seen cubes within about 1 mm median against 7 to 9 mm from the top face,
                 # but about 1 in 10 is off by up to 16 mm, so these stay "rough".
-                k_most = max(got, key=lambda t: t[1].sum())[0]
-                pos, rot, _ = box_pose(p, self.d.cam_xpos[shots[k_most][0].cid].copy(), np.radians(yaw))
+                pos, rot, _ = box_pose(p, front_cam, np.radians(yaw))
                 yaw, tilt = yaw_and_tilt(rot)
                 how = "fit"
-            layer = int(round((pos[2] - self.bin["floor_z"] - HALF) / CUBE)) + 1
-            cubes[name] = {"pos": pos, "yaw": yaw, "cov": cov, "px": int(sum(m.sum() for _, m in got)),
-                           "layer": layer, "tilt": tilt, "how": how, "views": "".join("FW"[k] for k, _ in got)}
-            pieces[name] = got
-        c, h = self.bin["center"], self.bin["half"]
-        n = int(round(2 * h / CELL))
-        names = list(pieces)
-        floor_id = self.m.geom("bin_floor").id
-        all_p, all_lab, red = [], [], []
-        for k, (cam, rgb, depth, geom, pts) in enumerate(shots):
-            labels = np.full(pts.shape[:2], -1)
-            for i, name in enumerate(names):
-                for kk, mask in pieces[name]:
-                    if kk == k:
-                        labels[mask] = i
-            labels[ndimage.binary_erosion(geom == floor_id, iterations=1)] = len(names)  # the bin floor
-            keep = labels >= 0
-            all_p.append(pts[keep])
-            all_lab.append(labels[keep])
-            # Red pixels in the colour image, placed in 3D by depth. A thin red line at a cube's edge marked the
-            # hidden red's slot in e400 before observe could list it. Edge pixels mix depths, so treat this as a
-            # region.
-            rr, gg, bb = (rgb[..., j].astype(int) for j in range(3))
-            r = pts[(rr > 90) & (rr > 2 * gg) & (rr > 2 * bb)]
-            red.append(r[(np.abs(r[:, :2] - c) < h).all(1)])
-        p, lab = np.concatenate(all_p), np.concatenate(all_lab)
+            layer = int(round((pos[2] - floor_z - HALF) / CUBE)) + 1
+            cubes[name] = {"pos": pos, "yaw": yaw, "cov": cov, "px": int(mask.sum()), "layer": layer, "tilt": tilt,
+                           "how": how, "views": "F"}
+            masks[name] = mask
+        w_masks = {}
+        for g, name in self.geom_name.items():
+            mask = ndimage.binary_erosion(w_geom == g, iterations=1)
+            if mask.sum() >= 40:
+                w_masks[name] = mask
+                if name in cubes:
+                    cubes[name]["views"] += "W"
+
+        # The height map: the front camera's points, plus the wrist camera's floor pixels on the floor's plane.
+        names = list(masks)
+        labels = np.full(pts.shape[:2], -1)
+        for k, name in enumerate(names):
+            labels[masks[name]] = k
+        labels[ndimage.binary_erosion(geom == floor_id, iterations=1)] = len(names)
+        keep = labels >= 0
+        w_floor = ndimage.binary_erosion(w_geom == floor_id, iterations=1)
+        d_floor = dirs[w_floor]
+        on_floor = origin + ((floor_z - origin[2]) / d_floor[:, 2])[:, None] * d_floor
+        p = np.concatenate([pts[keep], on_floor])
+        lab = np.concatenate([labels[keep], np.full(len(on_floor), len(names))])
         i = np.floor((p[:, 0] - (c[0] - h)) / CELL).astype(int)
         j = np.floor((p[:, 1] - (c[1] - h)) / CELL).astype(int)
         ok = (i >= 0) & (i < n) & (j >= 0) & (j < n)
@@ -259,10 +267,57 @@ class Episode:
         # within 2 cm.
         est = ndimage.maximum_filter(np.where(unseen, -np.inf, height), size=int(0.02 / CELL))
         est[~np.isfinite(est)] = self.bin["rim_z"]
-        self.view = {"cubes": cubes, "rgb": shots[0][1], "wrist_rgb": shots[1][1], "names": names + ["floor"],
-                     "height": np.where(unseen, est, height), "owner": owner, "unseen": unseen, "n": n,
-                     "red_px": np.concatenate(red)}
+        surface = np.where(unseen, est, height)
+
+        # Cubes only the wrist camera sees: follow the mask's rays onto the surface. Rough by construction, since an
+        # unseen cell's height is only an upper bound.
+        for name, mask in w_masks.items():
+            if name in cubes:
+                continue
+            hit = self._march(origin, dirs[mask], surface)
+            if len(hit) < 20:
+                continue
+            top = float(np.percentile(hit[:, 2], 90))
+            layer = int(np.clip(round((top - floor_z) / CUBE), 1, 3))
+            xy = np.median(hit[:, :2], 0)
+            _, yaw, _, _ = top_face_pose(hit)
+            cubes[name] = {"pos": np.array([xy[0], xy[1], floor_z + HALF + (layer - 1) * CUBE]),
+                           "yaw": float(np.degrees(yaw)), "cov": 0.0, "px": int(mask.sum()), "layer": layer,
+                           "tilt": None, "how": "ray", "views": "W"}
+
+        # Red pixels, as a region: a thin red line at a cube's edge marked the hidden red's slot in e400 before observe
+        # could list it. The front camera places them by depth. The wrist camera's go along their rays onto the
+        # surface, only when the front camera sees none: on 12 piles (2026-09-30) mixing them in moved the region's
+        # median from 14 to 18 mm off the red's centre, since unseen cells are only an upper bound.
+        red = np.zeros((0, 3))
+        for img, place in ((rgb, lambda m: pts[m]), (w_rgb, lambda m: self._march(origin, dirs[m], surface))):
+            rr, gg, bb = (img[..., k].astype(int) for k in range(3))
+            r = place((rr > 90) & (rr > 2 * gg) & (rr > 2 * bb))
+            red = r[(np.abs(r[:, :2] - c) < h).all(1)] if len(r) else red
+            if len(red):
+                break
+        self.view = {"cubes": cubes, "rgb": rgb, "wrist_rgb": w_rgb, "names": names + ["floor"],
+                     "height": surface, "owner": owner, "unseen": unseen, "n": n, "red_px": red}
         return self.view
+
+    def _march(self, origin, dirs, surface, step=0.001, most=1500):
+        """Where rays from `origin` along `dirs` first drop to the surface height map, one point per ray that
+        meets it inside the bin. At most `most` rays, evenly spaced, to bound the cost."""
+        if len(dirs) > most:
+            dirs = dirs[np.linspace(0, len(dirs) - 1, most).astype(int)]
+        if not len(dirs):
+            return np.zeros((0, 3))
+        c, h, n = self.bin["center"], self.bin["half"], surface.shape[0]
+        t = np.arange(0.05, 0.9, step)
+        pts = origin + t[None, :, None] * dirs[:, None, :]
+        i = np.floor((pts[..., 0] - (c[0] - h)) / CELL).astype(int)
+        j = np.floor((pts[..., 1] - (c[1] - h)) / CELL).astype(int)
+        inside = (i >= 0) & (i < n) & (j >= 0) & (j < n)
+        below = np.zeros(inside.shape, bool)
+        below[inside] = pts[..., 2][inside] <= surface[i[inside], j[inside]]
+        first = below.argmax(1)
+        met = below[np.arange(len(dirs)), first]
+        return pts[np.arange(len(dirs)), first][met]
 
     def cells(self, xy):
         c, h, n = self.bin["center"], self.bin["half"], self.view["n"]
@@ -439,10 +494,42 @@ class Episode:
                     who = v["names"][v["owner"][i[k], j[k]]]
                     if who != held:
                         hits[who] = max(hits.get(who, 0.0), float(depth[k]))
-        return {"runs": True, "frames": len(full), "hits": hits, "unseen_mm": unseen * 1000, "wall_mm": wall * 1000,
-                "wall_gap_mm": wall_gap, "self_mm": self_mm, "self_pair": pair,
-                "yaw_err": self.yaw_error(kind, traj, deg), "fixed_deg": self.fixed_side(traj, xyz),
-                "mount_hits": mount_hits, "mount_wall_mm": mount_wall * 1000}
+        out = {"runs": True, "frames": len(full), "hits": hits, "unseen_mm": unseen * 1000, "wall_mm": wall * 1000,
+               "wall_gap_mm": wall_gap, "self_mm": self_mm, "self_pair": pair,
+               "yaw_err": self.yaw_error(kind, traj, deg), "fixed_deg": self.fixed_side(traj, xyz),
+               "mount_hits": mount_hits, "mount_wall_mm": mount_wall * 1000}
+        if kind == "pick":
+            out.update(self.pick_target(full, xyz, out["fixed_deg"]))
+        return out
+
+    def pick_target(self, full, xyz, fixed_deg):
+        """For a pick: the cube it is aimed at, how far the aim sits off that cube's centre toward the moving finger,
+        and how deep any finger comes down inside the cube's own top outline. The height-map hits leave the target
+        out, since the fingers close on it, so without this a finger landing on the target's top went unflagged:
+        7 of the 22 misses studied on 2026-09-30."""
+        near = [(np.linalg.norm(cb["pos"][:2] - np.asarray(xyz[:2], float)), n) for n, cb in self.view["cubes"].items()]
+        near = [t for t in near if t[0] < 0.012]
+        if not near:
+            return {"target": None}
+        name = min(near)[1]
+        cb = self.view["cubes"][name]
+        toward_moving = -np.array([np.cos(np.radians(fixed_deg)), np.sin(np.radians(fixed_deg))])
+        shift = float(np.dot(np.asarray(xyz[:2], float) - cb["pos"][:2], toward_moving)) * 1000
+        yaw = np.radians(cb["yaw"])
+        rot = np.array([[np.cos(yaw), np.sin(yaw)], [-np.sin(yaw), np.cos(yaw)]])
+        top = cb["pos"][2] + HALF
+        on_top = 0.0
+        for row in full[::2]:
+            # Only while the jaws are open. The plan then closes them to GRIP_CLOSE, through the cube, since the
+            # cube is what stops them.
+            if row[5] <= primitives.GRIP_PLAN:
+                continue
+            fp = self.finger_points(row)
+            local = (fp[:, :2] - cb["pos"][:2]) @ rot.T
+            inside = (np.abs(local) < HALF - 0.0015).all(1) & (fp[:, 2] < top)
+            if inside.any():
+                on_top = max(on_top, float(top - fp[inside, 2].min()))
+        return {"target": name, "trusted": cb["cov"] >= TRUST, "shift_mm": shift, "on_top_mm": on_top * 1000}
 
     # ---- reporting ------------------------------------------------------------------------------
 
@@ -596,9 +683,16 @@ def cmd_check(ep, kind, x, y, z, deg):
                      sorted(r["hits"].items(), key=lambda kv: -kv[1]) if k != target) or "none"
     print(f"{kind} {fmt([x, y, z])} {deg:.0f} deg: runs, {r['frames'] / 30:.1f} s, wrist roll {flip}")
     if kind == "pick":
-        print(f"  fixed finger toward {r['fixed_deg']:.0f} deg (4 to 14 mm out), moving finger toward "
-              f"{(r['fixed_deg'] + 180) % 360:.0f} deg (20 to 28 mm out). Shift the aim at most 2 mm away from the "
-              f"fixed finger, or it lands on the cube's own edge.")
+        print(f"  fixed finger toward {r['fixed_deg']:.0f} deg, moving finger toward {(r['fixed_deg'] + 180) % 360:.0f} "
+              f"deg. Shift the aim at most {SHIFT_MAX_MM:.0f} mm away from the fixed finger, or it lands on the cube's "
+              f"own top.")
+        if r.get("target"):
+            flag = " TOO FAR: act refuses this" if r["trusted"] and r["shift_mm"] > SHIFT_MAX_MM else ""
+            print(f"  aim is {r['shift_mm']:+.1f} mm off {short(r['target'])}'s centre toward the moving finger"
+                  f" ({'trusted' if r['trusted'] else 'rough'} pose){flag}")
+            if r["on_top_mm"] > MARGIN * 1000:
+                print(f"  A FINGER COMES DOWN ON {short(r['target'])}'S OWN TOP, {r['on_top_mm']:.0f} mm below it: act "
+                      f"refuses this. Misses studied on 2026-09-30 all closed above the cube this way.")
     alt = f"{other['self_mm']:.0f} mm" if other["runs"] else "unreachable"
     print(f"  arm to itself: {r['self_mm']:.0f} mm at the closest ({r['self_pair']}); the other roll: {alt}")
     if r["self_mm"] < SELF_JAM_MM:
@@ -679,7 +773,15 @@ def cmd_act(ep, kind, x, y, z, deg, why):
     if ep.outcome():
         sys.exit(f"episode {ep.name} is over: {ep.outcome()}. Undo the last move to keep playing.")
     ep.see()
-    flip, _ = ep.choose(kind, [x, y, z], deg)
+    flip, results = ep.choose(kind, [x, y, z], deg)
+    r = results.get(flip, {}) if flip is not None else {}
+    if kind == "pick" and r.get("target"):
+        if r["trusted"] and r["shift_mm"] > SHIFT_MAX_MM:
+            sys.exit(f"refused: the aim is {r['shift_mm']:.1f} mm off {short(r['target'])}'s centre toward the moving "
+                     f"finger (limit {SHIFT_MAX_MM:.0f} mm), so the fixed finger lands on its top. Nothing moved.")
+        if r["on_top_mm"] > MARGIN * 1000:
+            sys.exit(f"refused: a finger comes down on {short(r['target'])}'s own top ({r['on_top_mm']:.0f} mm). "
+                     f"Nothing moved.")
     op = {"op": "act", "kind": kind, "xyz": [x, y, z], "deg": deg, "why": why, "unpark": True, "flip": flip}
     res = ep._apply(op)
     op["result"] = {k: (round(v, 1) if isinstance(v, float) else v) for k, v in res.items()}

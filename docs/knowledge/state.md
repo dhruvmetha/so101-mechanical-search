@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:32 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:07 by Claude.
 
 ## Goal right now
 
@@ -38,18 +38,17 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 15:32: contact stability, no penetration (dm1487). Measuring first.
+- Since 15:32: fixing physics and tools before the demo redo (dm1487: fix all the tools, say before demos start, then
+  show one demo's video). Done: stiff contacts (1/600 s, deepest penetration 0.74 mm), a 5 s creep gate at reset,
+  observe without wrist depth, act refuses aims shifted over 3 mm toward the moving finger. Running: pick calibration
+  under the new physics. To do: 8 failing tests, GRIP_HOLDING, export with front depth, rulebook.
 
 ## Next
 
-1. Fix the tools first: observe without wrist depth (measured against the old fusion); check refuses aims shifted
-   over 3 mm toward the moving finger and flags fingertips landing on any top face (miss study). Then the honest
-   planner (Claude's design, 14:41): a per-episode memory of what the cameras saw (space seen empty,
-   where moved objects went, the target's last sighting, a map of where it could be), camera checks and rules as
-   code, looks as moves. No twin unless a measured failure needs one. Rerun the 13 pilot seeds against p0.3. Then
-   redo all demos under the new rules (dm1487).
-2. The rest of the build order: aim-error scoring, cost logging with an export gate, a capped Claude rescue, looking
-   from hover instead of parking; export the planner's solved episodes as demos, with front depth.
+1. Finish the tools (Running now). Then the honest planner (Claude's design, 14:41): a per-episode memory of what the
+   cameras saw and a map of where the target could be, rules as code, looks as moves, no twin unless a measured
+   failure needs one; rerun the 13 pilot seeds against p0.3. Then redo all demos (dm1487).
+2. The rest of the build order: cost logging with an export gate, a capped Claude rescue, looking from hover.
 3. Finish the bin-depth study from its partial files; then the container family and the object set.
 
 ## Decisions in force

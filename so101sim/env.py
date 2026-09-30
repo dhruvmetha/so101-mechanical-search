@@ -19,12 +19,28 @@ CONTROL_HZ = 30
 # Observation name -> MJCF camera name.
 CAMERAS = {"front": "front", "wrist": "wrist_cam"}
 
+# The vendored arm's finger geoms. Their class sets solref 0.01 and priority 1, so they would decide every finger
+# contact with a softer setting than the rest of the scene.
+GRIPPER_CLASSES = ("collision_gripper", "collision_gripper_mesh")
+
+
+def load_model(scene_path=SCENE_PATH):
+    """Compile a scene with the gripper's contacts as stiff as the scene's main default (models/stage.xml). Anything
+    that steps physics loads through here; a bare MjModel.from_xml_path keeps the vendored gripper's softer contacts.
+    """
+    spec = mujoco.MjSpec.from_file(str(scene_path))
+    solref, solimp = list(spec.default.geom.solref), list(spec.default.geom.solimp)
+    for geom in spec.geoms:
+        if geom.classname.name in GRIPPER_CLASSES:
+            geom.solref, geom.solimp = solref, solimp
+    return spec.compile()
+
 
 class SO101Env(gym.Env):
     metadata = {"render_modes": ["rgb_array"], "render_fps": CONTROL_HZ}
 
     def __init__(self, scene_path=SCENE_PATH, height=480, width=640, render_mode="rgb_array"):
-        self.model = mujoco.MjModel.from_xml_path(str(scene_path))
+        self.model = load_model(scene_path)
         self.data = mujoco.MjData(self.model)
         self.render_mode = render_mode
 

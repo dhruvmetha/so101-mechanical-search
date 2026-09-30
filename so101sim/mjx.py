@@ -9,8 +9,8 @@ Measured on an RTX 6000 Ada with 1024 worlds, on 2026-09-18:
     JAX      full scene          5.3 s per step for ONE world
 
 So this uses Warp with the scene as-is. Trimming contacts barely helps Warp, and the JAX backend is too slow
-for this model even when trimmed. An env-step here is one 1/300 s physics step, so a 30 Hz control step
-costs 10 of them.
+for this model even when trimmed. An env-step here is one physics step. That was 1/300 s when the table above
+was measured; since 2026-09-30 it is 1/600 s, so a 30 Hz control step costs 20 of them instead of 10.
 """
 
 import copy
@@ -21,13 +21,13 @@ import jax.numpy as jnp
 import mujoco
 from mujoco import mjx
 
-from so101sim import SCENE_PATH
+from so101sim import SCENE_PATH, env
 
 IMPL = "warp"
 
 
 def load_model(scene_path=SCENE_PATH):
-    return mujoco.MjModel.from_xml_path(str(scene_path))
+    return env.load_model(scene_path)
 
 
 def put(model, worlds, contacts_per_world=64, constraints_per_world=256):
