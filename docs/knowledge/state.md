@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 17:09 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 17:32 by Claude.
 
 ## Goal right now
 
@@ -39,9 +39,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## Running now
 
 - The first demos under the new rules (dm1487: at least one bin and one shelf, both hidden, then video). Bin b5000
-  (seed 5000, buried) through tools.py, rulebook v10.2, tools frozen at 240a037. Shelf 306 stopped after two looks
-  (no pushes allowed, no way to free the red); shelf 307 (hidden) running since 17:09 with realistic friction
-  (288769e), pushes allowed. One agent each.
+  solved in 11 moves (video sent). Shelf 306 stopped (no pushes then); shelf 307 (hidden) running with realistic
+  friction (288769e).
 
 ## Next
 

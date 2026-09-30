@@ -1,0 +1,255 @@
+{
+ "seed": 5000,
+ "buried": true,
+ "miss_reset_eps": 0.1,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.154,
+    0.005,
+    -0.051
+   ],
+   "deg": 144.0,
+   "why": "lift cover g14: the red line shows at its edges and four floor cubes box a slot under it",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.225,
+    0.087,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "park cover g14 on open floor by the +y wall, 8 cm from the red's neighbours",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.15,
+    0.053,
+    -0.052
+   ],
+   "deg": 71.0,
+   "why": "lift leaning g5 on its upright faces: it blocks g25's jaws and the red's 55 deg fixed finger",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 24.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.231,
+    0.085,
+    -0.048
+   ],
+   "deg": 179.0,
+   "why": "set g5 on g14's top by the +y wall, away from the red's neighbours",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.117,
+    -0.011,
+    -0.042
+   ],
+   "deg": 22.0,
+   "why": "lift leaning g1 by the near wall on its upright faces, high and 5 mm outward to clear the rim and the shoulder: it blocks g3, g25 and the red's 55 deg axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 20.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.23,
+    0.088,
+    -0.048
+   ],
+   "deg": 179.0,
+   "why": "set g1 on g14's top by the +y wall, far from the red's neighbours",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.131,
+    0.022,
+    -0.081
+   ],
+   "deg": 69.0,
+   "why": "lift g25, the red's neighbour on the 143 deg fixed-finger side; aim slid 3 mm along the face and 2 mm off g26",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.169,
+    0.089,
+    -0.048
+   ],
+   "deg": 155.0,
+   "why": "set g25 on g17's top by the +y wall, clear of the red's 143 deg axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "push",
+   "xyz": [
+    0.1186,
+    -0.0136,
+    -0.08
+   ],
+   "deg": 323.0,
+   "why": "slide g3 (and g23 behind it) along the red's face away from the open slot where g1 was, to clear the red's 53 deg moving-finger end; g3 and g7 have no clean grasp",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.1607,
+    0.0056,
+    -0.081
+   ],
+   "deg": 53.0,
+   "why": "pick the red on its 53 deg axis: the push cleared the moving-finger end; aim 2 mm toward the moving finger and 4 mm along the face to keep the fixed finger off g16",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.1677,
+    0.028,
+    -0.081
+   ],
+   "deg": 146.0,
+   "why": "pick the red on its 146 deg axis: fixed finger into the open slot where g25 was, moving finger slid 4 mm along the face into the 18 mm window between g7 and g27",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

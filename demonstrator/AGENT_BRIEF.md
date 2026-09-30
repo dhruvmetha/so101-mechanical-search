@@ -36,6 +36,8 @@ camera on the right.
 - act refuses some picks outright (rulebook v10.2): an aim over 3 mm toward the moving finger, a finger on the
   target's own top, a finger 10 mm or more into a neighbour, the arm overlapping itself. Read the refusal and change
   the move; nothing moved.
+- Don't open the episode files or `demonstrator/episodes/.hidden/` (they hold what the cameras can't tell you); read
+  only what the tools print and the images observe saves.
 - Don't edit anything outside `demonstrator/episodes/` and `demonstrator/notes/`. Not tools.py, not instructions.md,
   not so101sim/. Don't commit. If a tool misbehaves, work around it and describe the problem in your notes.
 - Be efficient. Check before every act, but don't check ten variations when two will do. Aim for under 60 tool calls

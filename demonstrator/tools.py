@@ -39,6 +39,9 @@ from perception import CUBE, HALF, Camera, box_pose, clean_mask, top_face_pose, 
 from reach import Clearance  # noqa: E402
 
 EPISODES = HERE / "episodes"
+# Hidden state the players must not read: each episode's friction and density, kept out of the episode file (b5000's
+# player saw them there by accident, 2026-09-30). Replays read them from here.
+HIDDEN = EPISODES / ".hidden"
 CELL = 0.002
 MAX_MOVES = 15
 MAX_UNDOS = 8
@@ -101,13 +104,16 @@ class Episode:
         # shoulder (e401). check measures how close the arm comes to itself along the whole path, for both rolls.
         self.clearance = Clearance(self.m)
         self.robot_s = 0.0
-        # The episode's friction and density (hidden state, drawn at reset from the seed) are stored in the record the
-        # first time, and replays use the stored values, so a change to the drawing code can't break old episodes.
+        # The episode's friction and density (hidden state, drawn at reset from the seed) are stored the first time, in
+        # HIDDEN rather than the episode file, and replays use the stored values, so a change to the drawing code can't
+        # break old episodes.
+        hidden = HIDDEN / f"{name}.json"
+        physics = json.loads(hidden.read_text()) if hidden.exists() else self.rec.pop("physics", None)
         options = {"buried": self.rec["buried"]}
-        if "physics" in self.rec:
-            options["physics"] = self.rec["physics"]
+        if physics is not None:
+            options["physics"] = physics
         self.prim.reset(seed=self.rec["seed"], options=options)
-        self.rec.setdefault("physics", dict(self.env.physics))
+        self.physics = dict(self.env.physics)
         if on_advance is not None:
             advance = self.env.advance
 
@@ -129,6 +135,8 @@ class Episode:
 
     def save(self):
         self.path.write_text(json.dumps(self.rec, indent=1))
+        HIDDEN.mkdir(exist_ok=True)
+        (HIDDEN / f"{self.name}.json").write_text(json.dumps(self.physics))
 
     # ---- operations -----------------------------------------------------------------------------
 
@@ -602,6 +610,13 @@ def axis_ends(view, name):
     return out
 
 
+def rough_note(cb):
+    """How an untrusted pose was found. Wrist-only cubes ("ray") come from pixel rays, with no tilt estimate."""
+    if cb["how"] == "ray":
+        return "rough, wrist camera only, placed along its pixels' rays (about 15 mm off; up to 33)"
+    return f"rough, box fit, tilt {cb['tilt']:.0f} deg"
+
+
 def holding(grip):
     """Closed on a cube reads 14 to 30. An empty close reads about 10, and open reads 35 or more."""
     if 14 < grip < 30:
@@ -654,7 +669,7 @@ def cmd_observe(ep):
     if red is None:
         print("RED: not seen")
     else:
-        state = "top face seen" if red["cov"] >= TRUST else f"only partly seen, box fit, tilt {red['tilt']:.0f} deg"
+        state = "top face seen" if red["cov"] >= TRUST else rough_note(red)
         print(f"RED: {state}: {red['px']} px, top face {red['cov']:.0%}, at {fmt(red['pos'])}, layer {red['layer']}, "
               f"yaw {red['yaw']:.0f}")
     if red is not None:
@@ -668,7 +683,7 @@ def cmd_observe(ep):
     print(f"seen cubes (pose trusted when top face >= {TRUST:.0%}; F front camera, W wrist camera), highest first:")
     for name in sorted(cubes, key=lambda n: -cubes[n]["pos"][2]):
         cb = cubes[name]
-        flag = "" if cb["cov"] >= TRUST else f"  rough, box fit, tilt {cb['tilt']:.0f} deg"
+        flag = "" if cb["cov"] >= TRUST else "  " + rough_note(cb)
         print(f"  {short(name):>4} layer {cb['layer']} at {fmt(cb['pos'])} yaw {cb['yaw']:4.0f}  top {cb['cov']:4.0%}"
               f"  {cb['views']:>2}{flag}")
     print(f"unseen: {v['unseen'].mean():.0%} of the bin floor area")

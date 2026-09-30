@@ -61,7 +61,7 @@ def record(name, size):
     matched = all(a == b for a, b in results)
     solved = ep.outcome() == "solved"
     meta = {"name": name, "seed": ep.rec["seed"], "buried": ep.rec["buried"], "moves": ep.moves(),
-            "undone": len(ep.rec.get("undone", [])), "physics": ep.rec.get("physics"),
+            "undone": len(ep.rec.get("undone", [])), "physics": ep.physics,
             "resets": {g: sum(u.get("granted", "before v10") == g for u in ep.rec.get("undone", []))
                        for g in ("spill", "miss draw", "before v10")}, "robot_s": round(ep.robot_s, 1), "solved": solved,
             "replay_matched": matched}

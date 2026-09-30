@@ -1214,3 +1214,21 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Shelf retry: seed 307 hidden (a fresh seed, since a player on 306 would start knowing where an earlier player saw
   the red), pushes allowed, `outputs/shelf_demo_307`.
 - By: Claude, under dm1487's realistic-physics decision.
+
+## [2026-09-30 17:32] result | First demo under the new rules: bin b5000 solved in 11 moves
+- Run: agent with `demonstrator/AGENT_BRIEF.md`, rulebook v10.2, tools at 240a037; seed 5000, buried. Solved in 11
+  moves, 0 undos, 0 resets, 1 kept miss (move 10; the draw 0.109 against eps 0.1), 89.3 s of robot time, about 50 tool
+  calls, 47 min wall clock. Notes `demonstrator/notes/b5000.md`; video `outputs/videos/b5000.mp4` (replayed from the
+  record, same outcome), sent to dm1487.
+- Plan it followed: a red line along g14's edges and a cube-sized floor slot under g14 put the red at (0.154, 0.006);
+  lift g14, then leaning g5 and g1 and neighbour g25, push g3 along the red's face from the slot g1 left, pick the red
+  on its 146 deg axis with the moving finger in an 18 mm window between g7 and g27.
+- Player's lessons (for the rulebook): a push that slides a flush neighbour along the target's face, from a slot a
+  removed cube left, clears that end in one move; the axis report can hide a window between two cubes at one end, and
+  a slide along the face (not the jaw axis) reaches it; treat a rough neighbour at the fixed-finger end as flush (move
+  10 missed that way); re-read the fixed-finger line after every shift, since a 3 mm shift flipped the roll.
+- Tool problems it found, fixed after the run: observe crashed on wrist-only ("ray") cubes (a None tilt formatted as a
+  number); the episode file held the hidden friction and density in plain text and the player saw them by accident
+  (it says it didn't use them). They now live in `demonstrator/episodes/.hidden/`, and the brief says not to open
+  episode files.
+- By: agent; Claude.
