@@ -29,8 +29,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - Analysis: `demonstrator/REPORT.md` (overnight results and what would make demos cheaper),
   `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
-- Sweep pilot: `demonstrator/experiments/sweep_test.py` and `render_sweep.py`, results and pictures in
-  `outputs/sweep_pilot_2026-09-30/`. Numbers in `mechanical-search-learnings.md`, "Strategy".
+- Sweep pilot: `demonstrator/experiments/`, pictures in `outputs/sweep_pilot_2026-09-30/`.
 - The knowledge system (2026-09-30): `.claude/hooks/knowledge.sh` boots this file, the index and the latest journal
   headings; traps load from `.claude/rules/`. `docs/knowledge/README.md` explains it.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
