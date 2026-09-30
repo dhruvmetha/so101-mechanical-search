@@ -66,8 +66,8 @@ discourages it. Plan so you never need it. The record and the dataset count ever
 - Undo every move that knocks a cube out of the bin. The episode ends on that frame, and undo is the only way on.
   `tools.py undo` refuses any other move.
 - Keep a missed pick, or a push that made things worse, and recover from it in the next moves. A miss and its
-  recovery are honest play. Until v10, misses that hurt could be undone: 12 of the 13 undos in the 26 overnight
-  demonstrations were misses.
+  recovery are honest play. Until v10, a move that made things worse could be undone: the 13 undos in the 26
+  overnight demonstrations were 10 missed picks and 3 cubes dropped on the way to a place, and no spills.
 - After an undo, choose a different move. Repeating the same move repeats the same result, since the sim is exact.
 - At most 8 undos per episode. Every undo also costs the robot time of the move you took back, in real life.
 - Never read the simulator's true cube poses while playing. Decide from observe, check and the image only.

@@ -153,8 +153,9 @@ Measured 2026-09-30 on 13 cube-bin seeds (7 played by agents overnight, 6 new), 
   answer only the move actually made. Moves that uncover the target then score well because they shrink the doubt,
   and a look becomes a move worth making. Scoring under aim errors (the build order) is a separate, smaller check.
 - Undo on the real pile leaks the same way (found 2026-09-30 14:41). Taking a move back and trying another keeps the one
-  that worked on cubes nobody saw. The 26 player demos hold 13 undone attempts in 10 episodes, 12 of them misses, so
-  those demos show an expert that never misses. Honest play keeps a miss and the recovery from it.
+  that worked on cubes nobody saw. The 26 player demos hold 13 undone attempts in 10 episodes, none of them spills:
+  10 missed picks and 3 cubes dropped on the way to a place (corrected 14:58; it said 12 misses). So those demos show
+  an expert that never misses. Honest play keeps a miss and the recovery from it.
 - Privileged steps are allowed only where dm1487 grants them, and each is marked and counted. The one granted so far
   (2026-09-30 14:46): reset a spill, so one spill doesn't cost a whole demo. It's discouraged: plan so it's never
   needed, and report how often it happened. The tools refuse every other undo.

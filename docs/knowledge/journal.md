@@ -921,3 +921,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   twin unless a measured failure needs one). dm1487 hasn't objected to it and added this allowance on top of it.
 - Open: the 10 overnight demos with pre-v10 miss undos. Keep, mark or redo.
 - By: dm1487 decided; Claude enforced it in the tool.
+
+## [2026-09-30 14:52] correction | What the 13 overnight undos were
+- The entries at 14:41 and 14:46 said 12 of the 13 undos were misses. Read one by one, they were 10 missed picks
+  (d1001, d1005, d1009, d1012, d1016, d1031, e402 four times) and 3 cubes that fell out of the gripper on the swing to
+  a place (d1013, d1027, d1030). None was a spill. The rule they used, rulebook v4 to v9, allowed undoing "a missed
+  pick or a push when it made things worse": the red buried deeper, cubes tipped onto it, or the red wedged against a
+  wall. Two undos (d1012, d1016) took back misses that moved nothing, as wasted moves.
+- Corrected in the learnings file and rulebook v10. Evidence: `demonstrator/episodes/*.json`, `undone[].why`.
