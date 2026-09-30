@@ -34,9 +34,11 @@ GRIP_PLAN = 22.0
 GRIP_CLOSE = 10.0
 
 # The angle the gripper joint actually sits at while holding a cube. Commanding GRIP_CLOSE does not get
-# there: the cube blocks the jaws at a 30 mm gap, which the gap curve puts at 18. IK for a loaded arm has
-# to use this, not the command, because 8 lerobot units of gripper is 13 mm of jaw midpoint.
-GRIP_HOLDING = 18.0
+# there: the cube blocks the jaws. IK for a loaded arm has to use this, not the command, because the jaw midpoint,
+# where a held cube sits, moves with the gripper: 6.1 mm from 10 to 18, 1.1 mm from 18 to 19.4 (measured on the
+# model 2026-09-30; this comment had said 8 units was 13 mm). Measured with a held 30 mm cube: 17.7 under the old soft contacts,
+# where the jaws sank into it, and 19.3 to 19.4 under the stiff contacts of 2026-09-30 (8 positions and yaws).
+GRIP_HOLDING = 19.4
 
 # Transit height for the jaw midpoint. Has to clear the 29 mm bin rim carrying a cube, and stay low
 # enough that top-down IK still solves, which gets harder with height and gives out near z=0.10.

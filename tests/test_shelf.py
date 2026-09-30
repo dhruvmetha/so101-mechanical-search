@@ -482,6 +482,10 @@ def test_a_missed_pick_backs_out_cleanly(prim):
     assert not terminated and info["refused"] is None, info["failure"]
 
 
+@pytest.mark.xfail(strict=True, reason=(
+    "Stiff contacts (2026-09-30): with cylinder-board friction 1, a 15 mm radius cylinder tips when pushed above about "
+    "15 mm, and the fingers can't push below 25 mm without hitting the board, so every push topples it. The soft "
+    "contacts hid this. Lower the friction to a realistic value or drop the shelf push: dm1487's call."))
 def test_a_low_push_slides_a_cylinder_without_tipping_it(prim):
     name, _ = stage(prim)
     start = xy_of(prim, name) + [0.0, 0.035]  # on its left, pushing right
@@ -546,6 +550,10 @@ def test_the_path_check_keeps_a_margin(prim):
     assert prim._path_hit([clear]) is None and prim._path_hit([near]) is not None
 
 
+@pytest.mark.xfail(strict=True, reason=(
+    "Stiff contacts (2026-09-30): with cylinder-board friction 1, a 15 mm radius cylinder tips when pushed above about "
+    "15 mm, and the fingers can't push below 25 mm without hitting the board, so every push topples it. The soft "
+    "contacts hid this. Lower the friction to a realistic value or drop the shelf push: dm1487's call."))
 def test_a_pushed_cylinder_comes_to_rest_upright(prim):
     """With condim 4 the rolling coefficient in the friction triple is ignored, and a cylinder pushed off-centre
     wobbled on its rim for good, its tilt growing from 7.8 to 9.0 degrees over 10 s (2026-09-26)."""

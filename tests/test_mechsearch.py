@@ -218,7 +218,9 @@ def test_object_poses_stay_out_of_the_observation(env):
 
 # First of seeds 0 to 19 that dig_out clears. Re-found 2026-09-29 after stage.xml turned noslip on: 15 of the 20
 # succeed, against 12 under the old creeping physics, and seed 0 now spills a gray.
-SOLVABLE_SEED = 1
+# The scripted dig-out succeeds on seeds 11 and 23 of 0 to 23 under the stiff contacts of 2026-09-30 (it was seed 1
+# before). Its fixed grasps often put fingers on neighbours, which no longer give way.
+SOLVABLE_SEED = 11
 
 
 @pytest.fixture(scope="module")

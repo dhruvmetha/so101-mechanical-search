@@ -95,6 +95,15 @@ class SO101Env(gym.Env):
     def render(self):
         return self._render("front")
 
+    def render_depth(self, name="front"):
+        """Metres along the view axis from the named observation camera, at the observation size. The real front
+        camera gives depth and the wrist camera doesn't (dm1487, 2026-09-30), so datasets store only the front's."""
+        self._renderer.enable_depth_rendering()
+        self._renderer.update_scene(self.data, camera=CAMERAS[name])
+        depth = self._renderer.render().copy()
+        self._renderer.disable_depth_rendering()
+        return depth
+
     def close(self):
         self._renderer.close()
 

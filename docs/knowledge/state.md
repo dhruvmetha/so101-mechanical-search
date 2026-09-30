@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:07 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:30 by Claude.
 
 ## Goal right now
 
@@ -38,10 +38,9 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 15:32: fixing physics and tools before the demo redo (dm1487: fix all the tools, say before demos start, then
-  show one demo's video). Done: stiff contacts (1/600 s, deepest penetration 0.74 mm), a 5 s creep gate at reset,
-  observe without wrist depth, act refuses aims shifted over 3 mm toward the moving finger. Running: pick calibration
-  under the new physics. To do: 8 failing tests, GRIP_HOLDING, export with front depth, rulebook.
+- Physics and tools fixed for the demo redo (journal, 15:32 to 16:21): stiff contacts, a creep gate, observe without wrist
+  depth, act refuses four kinds of bad pick (calibrated on 342 picks), GRIP_HOLDING 19.4, export with front depth,
+  demonstrator/video.py. CPU suite: 215 passed, 2 expected failures (shelf push). Next: dm1487 decides realistic friction first or the first demo.
 
 ## Next
 
@@ -73,6 +72,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
 - Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
+- The shelf push topples every cylinder under stiff contacts: lower base friction or drop the push? (dm1487)
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap

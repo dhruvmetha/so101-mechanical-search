@@ -57,6 +57,9 @@ behaviour or a measured number in it changes.
   the midphase off.
   `tests/test_shelf.py::dig_out` clears a hidden red on 1 of seeds 0 to 19: 14 cylinders crowd the board. Claude
   played seeds 300 and 301 from images on 2026-09-26 and failed both; `outputs/shelf_play_30*.md` says why.
+- Physics: `so101sim.env.load_model` compiles a scene with the gripper as stiff as the scene (models/stage.xml); use
+  it for anything that steps physics. `SO101Env.render_depth` gives a camera's depth at observation size.
+  `scripts/contact_study.py` measures penetration and pile stability under contact settings.
 - `demonstrator/` is Claude playing the bin task from camera data, to make demonstrations. `tools.py` is the CLI it
   plays through (new, observe, check, act, status), with episodes replayed exactly from `demonstrator/episodes/`.
   `perception.py` turns depth and segmentation from the front camera and the wrist camera (at the park pose) into
@@ -67,7 +70,8 @@ behaviour or a measured number in it changes.
   (`tests/test_demonstrator_live.py`). Restore order matters: `mj_setState`, `mj_forward`, `mj_setState` again.
   A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see `planner.md`):
   `python demonstrator/planner.py --seeds S... --procs N --out DIR`, one process per seed, a record per seed with every
-  candidate it tried. `export.py` turns solved episodes into a LeRobot dataset; `report.py` and `postmortem.py` tally
+  candidate it tried. `video.py` renders an episode (front and wrist side by side, captioned). `export.py` turns
+  solved episodes into a LeRobot dataset, with front depth in millimetres as `observation.depth.front`; `report.py` and `postmortem.py` tally
   and replay finished ones; `experiments/` holds the sweep pilot.
 - `MechSearchPrimitiveEnv` (since f5790cd) also takes a `sweep` kind (a push with its own `stroke`, starting up to 5 mm
   from a wall and up to 3 cm above the rim, refused if it would end against a wall) and an optional `lift_z` on pick

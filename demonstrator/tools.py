@@ -58,6 +58,11 @@ WALL_GAP_MM = 3.0
 # the moving finger missed, because the fixed finger came down on the cube's own top; no hit was shifted more than
 # 3.4 mm. act refuses a shift over SHIFT_MAX_MM when the target's pose is trusted.
 SHIFT_MAX_MM = 3.0
+# Pick calibration under the stiff contacts, 2026-09-30 (342 picks on 24 fresh piles, outputs/pick_calibration_2026-09-30):
+# with a finger 10 mm or more into a neighbour the target lifted in 33 of 209 picks, since a stiff neighbour stops the
+# finger and the jaws close above the target (the old soft contacts let the finger press it down). Picks that pass
+# every refusal lifted 50 of 60 (83%), 49 of 57 with unseen space under 40 mm. act refuses HIT_REFUSE_MM and SELF_JAM_MM.
+HIT_REFUSE_MM = 10.0
 
 
 def short(name):
@@ -704,12 +709,17 @@ def cmd_check(ep, kind, x, y, z, deg):
         print(f"  jaws end {r['yaw_err']:.0f} deg off the asked yaw: the wrist roll is at its limit")
     aside = f" (target {short(target)} left out)" if target else ""
     print(f"  fingers pass through seen cubes: {hits}{aside}")
+    if kind == "pick":
+        worst = max((x for k, x in r["hits"].items() if k != target), default=0.0) * 1000
+        if worst >= HIT_REFUSE_MM:
+            print(f"  REFUSED by act: a finger goes {worst:.0f} mm into a neighbour; 33 of 209 such picks lifted the "
+                  f"target under the stiff contacts.")
     print(f"  into unseen space: {r['unseen_mm']:.0f} mm deep" if r["unseen_mm"] else "  into unseen space: none")
     if r["wall_mm"]:
         print(f"  bin wall: fingers go {r['wall_mm']:.0f} mm below the rim outside the bin")
     elif r["wall_gap_mm"] < WALL_GAP_MM:
-        print(f"  bin wall: fingers pass {r['wall_gap_mm']:.0f} mm from a wall. Only 8 of 80 such picks tracked; the "
-              f"open finger catches the wall.")
+        print(f"  bin wall: fingers pass {r['wall_gap_mm']:.0f} mm from a wall. Under the stiff contacts 21 of 40 otherwise "
+              f"clean picks this close lifted the target (pick calibration, 2026-09-30); the open finger catches the wall.")
     if r["mount_hits"] or r["mount_wall_mm"]:
         mh = ", ".join(f"{short(k) if k not in ('floor', 'unseen') else k} {v * 1000:.0f} mm"
                        for k, v in sorted(r["mount_hits"].items(), key=lambda kv: -kv[1]))
@@ -782,6 +792,16 @@ def cmd_act(ep, kind, x, y, z, deg, why):
         if r["on_top_mm"] > MARGIN * 1000:
             sys.exit(f"refused: a finger comes down on {short(r['target'])}'s own top ({r['on_top_mm']:.0f} mm). "
                      f"Nothing moved.")
+    if kind == "pick" and r:
+        worst = max(((k, x) for k, x in r["hits"].items() if k != r.get("target")), key=lambda kx: kx[1],
+                    default=(None, 0.0))
+        if worst[1] * 1000 >= HIT_REFUSE_MM:
+            sys.exit(f"refused: a finger goes {worst[1] * 1000:.0f} mm into {short(worst[0]) if worst[0] != 'floor' else 'the floor'}"
+                     f" (limit {HIT_REFUSE_MM:.0f} mm). Under stiff contacts that closes the jaws above the target: 33 of"
+                     f" 209 such picks lifted it. Clear that side first. Nothing moved.")
+    if r and r.get("self_mm", 0) < SELF_JAM_MM:
+        sys.exit(f"refused: the arm overlaps itself by {-r['self_mm']:.0f} mm on this path; none of 23 such picks "
+                 f"tracked. Try the other axis or a different spot. Nothing moved.")
     op = {"op": "act", "kind": kind, "xyz": [x, y, z], "deg": deg, "why": why, "unpark": True, "flip": flip}
     res = ep._apply(op)
     op["result"] = {k: (round(v, 1) if isinstance(v, float) else v) for k, v in res.items()}

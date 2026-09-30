@@ -1,4 +1,6 @@
-"""Turn solved episodes into a LeRobot dataset: every 30 Hz frame the arm was commanded, with both camera images.
+"""Turn solved episodes into a LeRobot dataset: every 30 Hz frame the arm was commanded, with both camera images and
+the front camera's depth (millimetres, uint16). The expert decides from front depth, so the student gets it too; the
+wrist camera has no depth on the real arm (dm1487, 2026-09-30).
 
     python demonstrator/export.py --out demonstrator/dataset d1000 d1001 ...
     python demonstrator/export.py --out demonstrator/dataset --all-solved
@@ -30,7 +32,7 @@ FPS = 30
 
 def record(name, size):
     """Frames of one episode: dict of arrays, plus whether the replay matched the record."""
-    frames = {"state": [], "action": [], "front": [], "wrist": [], "op": []}
+    frames = {"state": [], "action": [], "front": [], "front_depth": [], "wrist": [], "op": []}
 
     def on_advance(ep, row):
         obs = ep.env._obs()
@@ -38,6 +40,7 @@ def record(name, size):
         low, high = ep.env.action_space.low, ep.env.action_space.high
         frames["action"].append(np.clip(np.asarray(row, np.float32), low, high))
         frames["front"].append(obs["observation.images.front"])
+        frames["front_depth"].append(np.clip(ep.env.render_depth("front") * 1000, 0, 65535).astype(np.uint16))
         frames["wrist"].append(obs["observation.images.wrist"])
         frames["op"].append(ep.op_index)
 
@@ -74,6 +77,7 @@ def features(size):
         "action": dict(joints),
         "observation.images.front": image,
         "observation.images.wrist": dict(image),
+        "observation.depth.front": {"dtype": "uint16", "shape": (size, size), "names": ["height", "width"]},
         "op_index": {"dtype": "int64", "shape": (1,), "names": None},
     }
 
@@ -114,6 +118,7 @@ def main():
                 "action": frames["action"][k],
                 "observation.images.front": frames["front"][k],
                 "observation.images.wrist": frames["wrist"][k],
+                "observation.depth.front": frames["front_depth"][k],
                 "op_index": np.array([frames["op"][k]], dtype=np.int64),
                 "task": TASK,
             })

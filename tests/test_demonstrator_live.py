@@ -32,6 +32,14 @@ def test_restoring_a_snapshot_replays_the_rest_of_the_episode_bit_for_bit(name):
         second = live.d.qpos.copy(), [op.get("result") for op in live.rec["ops"][k:]]
     finally:
         live.close()
+    # And both match a run of the whole line from reset, which is what export.py checks. The recorded results can't be
+    # the reference: they were played before the stiff contacts of 2026-09-30, and piles are chaotic.
+    fresh = Live(name, rec={**rec, "ops": []})
+    try:
+        fresh.run([dict(op) for op in rec["ops"]])
+        whole = fresh.d.qpos.copy(), [op.get("result") for op in fresh.rec["ops"][k:]]
+    finally:
+        fresh.close()
     assert np.array_equal(first[0], second[0])
     assert first[1] == second[1]
-    assert first[1] == [op.get("result") for op in rec["ops"][k:]]  # and both match what was played
+    assert np.array_equal(first[0], whole[0]) and first[1] == whole[1]

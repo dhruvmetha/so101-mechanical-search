@@ -166,12 +166,28 @@ class ShelfEnv(SO101Env):
 
     def arm_hit(self):
         """Name of the shelf panel, leg or table an arm geom is touching, or None."""
-        for c in self.data.contact[: self.data.ncon]:
-            if c.geom1 in self._arm_ids and c.geom2 in self._shelf_ids:
-                return self.model.geom(c.geom2).name
-            if c.geom2 in self._arm_ids and c.geom1 in self._shelf_ids:
-                return self.model.geom(c.geom1).name
+        n = self.data.ncon
+        if not n:
+            return None
+        g = self.data.contact.geom[:n]
+        if not hasattr(self, "_arm_arr"):
+            self._arm_arr, self._shelf_arr = np.array(sorted(self._arm_ids)), np.array(sorted(self._shelf_ids))
+        for a, b in ((0, 1), (1, 0)):
+            k = np.flatnonzero(np.isin(g[:, a], self._arm_arr) & np.isin(g[:, b], self._shelf_arr))
+            if len(k):
+                return self.model.geom(int(g[k[0], b])).name
         return None
+
+    def _apply(self, action):
+        """One 30 Hz control step, checking for arm-shelf contact after every physics step. Stiff contacts
+        (2026-09-30) push a touching arm back out within a few steps, so a check at the frame's end missed touches."""
+        action = np.clip(action, self.action_space.low, self.action_space.high)
+        self.data.ctrl[:] = units.to_rad(action, self._gripper_range)
+        self._hit = None
+        for _ in range(self._n_substeps):
+            mujoco.mj_step(self.model, self.data)
+            if self._hit is None:
+                self._hit = self.arm_hit()
 
     def settled(self):
         return bool(np.abs(self.data.qvel).max() <= SETTLE_QVEL)
@@ -343,7 +359,7 @@ class ShelfEnv(SO101Env):
         return None, {"target_pixels": pixels, "target_visible_share": shares}
 
     def _failure(self):
-        hit = self.arm_hit()
+        hit = getattr(self, "_hit", None) or self.arm_hit()
         if hit is not None:
             return f"hit the shelf: {hit}"
         for name in self.cyls:

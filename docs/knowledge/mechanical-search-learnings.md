@@ -108,6 +108,13 @@ What they mean for search:
   find lucky outcomes; decide whether that matters for the use.
 - Warp (GPU) has no noslip and its piles creep under every setting tried. Don't trust GPU results that need objects
   to stay put.
+- Check penetration before trusting any contact-rich result. MuJoCo's default contact scales stiffness to the mass it
+  touches, so a light object under a strong servo sinks: a 27 g cube went 11.9 mm into the floor under a finger. Soft
+  contacts flattered the expert: fingers pressed neighbours down and still grasped, and pushes slid tall objects that
+  real physics tips (a 15 mm radius cylinder with base friction 1 tips when pushed above about 15 mm). Under stiff
+  contacts (2026-09-30), a finger 10 mm or more into a neighbour lifted the target in 33 of 209 picks.
+- Hand over a scene only once nothing in it creeps. A speed threshold passes slow creep; hold the scene still for a
+  few seconds and measure displacement instead (0.5 mm in 5 s caught both creepers in 24 piles).
 
 ## Running the expert
 

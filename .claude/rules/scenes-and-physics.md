@@ -47,6 +47,11 @@ evidence. The load follows the Read tool; if you read code with `cat` or `sed`, 
   it 11.9 mm into the floor and sweeps pressed cubes 13 mm into each other, because MuJoCo's default contact scales
   its stiffness to the mass it touches while the servo pushes about 12 N. Now the deepest anywhere is 0.74 mm
   (`scripts/contact_study.py`, 16 seeds). Pushing further breaks the solver: solimp 0.999 flung cubes.
+- Why contacts were soft (2026-09-30): MuJoCo's solref sets a contact spring in acceleration units, so its stiffness in
+  N/m scales with the mass touched. Under a steady push, penetration is about (1 - d) x timeconst^2 x (force / mass),
+  d from solimp. A 12 N finger on a 27 g cube at the defaults (d 0.95, timeconst 0.02) gives about 9 mm (measured
+  11.9); gravity alone gives 0.2 mm, which is why resting piles looked fine. MuJoCo won't take a timeconst under two
+  timesteps, hence the 1/600 s step. Compare force / mass with g before trusting contacts on light objects.
 - Load anything that steps physics with `so101sim.env.load_model`. It copies the scene's contact stiffness onto the
   vendored gripper, whose class sets solref 0.01 with priority 1 and so decides every finger contact. A bare
   `MjModel.from_xml_path` keeps the soft fingers; that is fine for geometry-only checks, not for dynamics.

@@ -31,10 +31,12 @@ Run from the repo root with the so101sim conda env active.
 - When the red is seen, observe lists the seen cubes at both ends of each of its two jaw axes, with the gap to each.
   An axis is ready once both ends are clear. That is the axis to work on: pick the one whose listed cubes are easiest
   to lift, and lift them all.
-- observe uses two cameras: the fixed front camera and the wrist camera on the parked arm, which looks down on the
-  pile from above the base. Together they see about 60% of the bin floor against 40% for the front camera alone, and
-  trusted poses came within 0.6 mm median, 3.2 mm at the 90th percentile (2026-09-30, six piles). Each listed cube
-  says which cameras saw it: F, W or FW. A cube seen only by W is less certain, about 4 mm median.
+- observe uses two cameras: the fixed front camera (colour, depth, masks) and the wrist camera on the parked arm
+  (colour and masks, no depth, as on the real arm). All 3D comes from the front camera. The wrist camera adds floor
+  it sees empty and cubes the front can't see. Measured on 12 piles (v10.2): 52% of the bin seen against 41% for the
+  front camera alone; trusted poses within 1.5 mm median. Each listed cube says which cameras saw it: F, FW or W.
+  A W-only cube is placed along its pixels' rays ("ray"), about 15 mm off median and up to 33: find it again after
+  the cube hiding it moves before planning a grasp on it.
 - The image has two panels. Left, the front camera cropped to the bin: top is the base side (low x), bottom the far
   wall, left -y. Right, the wrist camera: left is the base side, right the far wall, top +y, bottom -y.
 - observe parks the arm and lists every cube the cameras see, with its pose. Trust a pose only when at least
@@ -94,10 +96,11 @@ record and the dataset count every one. Plan so you never need them.
 - The jaws need room on both sides of the cube along the jaw axis. The fixed finger lands 4 to 14 mm outside one
   face, usually the face toward the base. The open moving finger lands 20 to 28 mm outside the other face. That is
   about 42 mm of free space in total. Check both jaw axes, yaw and yaw + 90, and take the one with fewer hits.
-- Hits predict misses less than the numbers suggest. Scored over 76 agent picks on 2026-09-30: with the worst hit
-  under 3 mm the target came up 96% of the time, 3 to 10 mm 80%, and 10 mm or more 75%, because a finger landing on
-  a loose neighbour often shoves it aside. A hit on a neighbour that is itself boxed in or against a wall is the one
-  to fear. A pick with no hits still missed 4% of the time, from hidden cubes.
+- Hits matter more since the stiff contacts of 2026-09-30. A neighbour no longer gives way under a finger, so the
+  jaws stop on its top and close above the target. Over 342 calibration picks: a finger 10 mm or more into a
+  neighbour lifted the target 33 times in 209, and act now refuses it; picks that pass every refusal lifted it 50 of
+  60 times. Clear the side a finger needs before picking; nudging no longer works. (Before, on soft contacts, 76
+  scored picks gave 96%, 80% and 75% for worst hits under 3, 3 to 10 and over 10 mm.)
 - A pick that comes up holding two cubes, or holding a gray stuck to the red, won't count. Place and re-pick.
 - The red only counts once its lowest corner is 2 cm above where a top-layer cube rests. The pick lifts to travel
   height, which leaves about 2 mm to spare for a level cube. A red held tilted 10 deg missed by 0.7 mm (e400 move 9).
@@ -124,8 +127,9 @@ record and the dataset count every one. Plan so you never need them.
   d1033 put a finger on the red or over the wall. When a neighbour has open floor behind it, a nudge whose moving
   finger lands on it can shove it clear (g21 moved 7 mm). Near the near wall, nothing within about 2 cm can be picked,
   and a nudge moved the red from x 0.109 to 0.129 (d1013). Try the nudge there first.
-- Nudging, a pick on the red that lands the fingers on its neighbours, is a last resort. In e400 it opened a 12 mm gap
-  once. In e402 it tilted the red 30 deg and the two high grasps after it both missed.
+- Nudging, a pick on the red that lands the fingers on its neighbours, is gone since v10.2: act refuses a finger 10 mm
+  or more into a neighbour. Under soft contacts it opened a 12 mm gap once (e400); under stiff ones the neighbour
+  doesn't give. To move a cube a little, push or sweep it. The nudges described in the bullet above predate this.
 - Never shift a grasp centre more than about 2 mm away from the fixed finger, toward the moving finger's side. The
   fixed finger lands only 4 mm outside its face, so a 4 mm shift that way puts it on the cube's own top edge, and check
   does not flag that (d1009, whose aim moved 4 mm toward the moving finger). Replayed on 2026-09-30, all 10 picks
@@ -294,3 +298,6 @@ and the entries here are only the practice seeds that changed the tools.)
 - v10, 2026-09-30 afternoon (dm1487): undo only resets a spill, and the tool refuses anything else. Misses stay in the
   demonstration and get recovered from.
 - v10.1, 2026-09-30 afternoon (dm1487): act resets a missed pick with probability eps, by a fixed draw; eps = 0.1.
+- v10.2, 2026-09-30 evening: stiff contacts. observe takes 3D from the front camera only (the wrist gives colour and
+  masks). act refuses aims over 3 mm toward the moving finger, fingers on the target's own top, fingers 10 mm or
+  more into a neighbour, and arm self-overlap past 10 mm.

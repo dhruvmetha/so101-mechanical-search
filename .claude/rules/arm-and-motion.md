@@ -28,8 +28,9 @@ evidence. The load follows the Read tool; if you read code with `cat` or `sed`, 
 - The gripper is a rotating single jaw, not a parallel one. The jaw midpoint travels 64.7 mm between
   lerobot gripper 0 and 100, so IK has to be solved at the gripper value the arm will actually be at.
   Plan a grasp at the approach width and closing drags the cube 12.6 mm into the fixed jaw.
-- Holding a 30 mm cube, the gripper joint sits near 18 no matter what you command, because the cube
-  blocks it. IK for a loaded arm must use 18, not the commanded 10.
+- Holding a 30 mm cube, the gripper joint sits near 19.4 no matter what you command, because the cube
+  blocks it. IK for a loaded arm must use `primitives.GRIP_HOLDING`, not the commanded 10. (Corrected
+  2026-09-30: it read 17.7 and this said 18 under the old soft contacts, where the jaws sank into the cube.)
 - Fit a circle over a full sweep, not an arc. Measuring the wrist_roll circle over ±86 degrees and taking
   the mean distance from the centroid gives 8.7 mm; over the full ±180 it gives 12.00 mm. The partial
   version's standard deviation was 3.1 mm against 0.05 mm, which is the tell. The `so101` session caught
