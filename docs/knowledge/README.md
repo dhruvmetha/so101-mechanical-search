@@ -19,6 +19,7 @@ Files named without a folder are in `docs/knowledge/`.
 | `journal.md` | Every decision, dm1487's and Claude's, with why and evidence; runs, results, mistakes | boot, headings |
 | `operating-principles.md` | Working habits, each with the incident behind it | before long runs |
 | `mechanical-search-learnings.md` | Lessons for any objects and containers, with evidence | before changing the expert |
+| `planner.md` | The expert as a program; what counts as honest play | before changing the planner |
 | `codebase.md` | What each module does, its conventions and numbers | before changing a module |
 | `real-arm.md` | The physical arm: measurements, what blocks transfer | before hardware work |
 | `.claude/rules/*.md` | Code and simulator traps, one file per subsystem | on Read of a covered file |

@@ -846,6 +846,8 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Decided: no assumption; the planner's rule is that a move is judged in the simulator first and any spilling move is
   rejected, so the expert doesn't throw things out by mistake. Taller walls are a layout parameter, to be measured,
   since they raise the success line and the travel height and may hit the gripper housing near walls.
+  (Corrected 2026-09-30 15:21: that simulator check ran on the real hidden pile and is gone. Spills are now avoided by
+  camera checks and rules, and a spill that happens gets reset, counted, as a privileged step.)
 - By: dm1487 asked; Claude (main session) answered.
 - Evidence: this journal's planner rules; `docs/knowledge/mechanical-search-learnings.md`, "Containers".
 
@@ -999,3 +1001,31 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - What: dm1487: "Yes, front camera can give depth." So the front camera stays RGB-D in the sim and the height map
   keeps its metric source. Still open: what segments objects in reality (dm1487 asked whether SAM would be used).
 - By: dm1487.
+
+## [2026-09-30 15:20] direction | No SAM: the expert runs in sim, the distilled policy runs on the real arm
+- What: dm1487: "If we want to distill, why will we use SAM?" The expert never runs on the real arm; the student
+  learns from its demos and runs from images. So the test for any expert input is whether the student's observations
+  hold that information, not what a real perception stack could compute.
+- The rule that follows (Claude's reading of it): the expert may use ideal perception of what the student's sensors
+  see, including the sim's exact segmentation, which labels only visible surfaces. It may not use a channel the
+  student lacks (wrist depth), hidden state, or outcomes of moves it didn't make.
+- Caution: exact masks can know more than 224 px images show, like the seam between two flush gray cubes. Check
+  later whether the expert's choices hinge on that.
+- Gap found: the expert decides from front depth, but `export.py` stores colour images only. If the student gets the
+  real front camera's depth, the dataset should carry it.
+- By: dm1487 raised it; Claude wrote the rule.
+
+## [2026-09-30 15:21] consolidation | After the honesty and sensor decisions
+- Checked the 27 entries since 11:40 against their homes. Fixed:
+  - The walls entry (14:14) relied on the simulator rejecting spills on the real pile; corrected in place.
+  - The learnings' fusion numbers (60% to 38% unseen floor) used wrist depth; marked in place.
+  - The partial bin-depth result lived only here; now in the learnings file, "Containers".
+- Moved: the learnings' "The planner" section (44 lines) to `planner.md`, unchanged, with a pointer left behind and
+  a row in the README index; `state.md` and `codebase.md` point there.
+- Deduplicated: the eps value now lives in `demonstrator/tools.py` (`MISS_RESET_EPS`), the rulebook and state.md's
+  decision; Claude's memory note points to the code. The overnight undo breakdown lives in `planner.md`; the
+  rulebook points to it.
+- Retired from state.md: the p0.3 planner decision (superseded by no hidden state and the no-twin design); the 09-29
+  camera-only line, merged into the distillation decision. Added to Next: observe without wrist depth, and front
+  depth in the export.
+- The journal is 1,000+ lines but every entry is from 2026-09, so nothing moves to `journal/`.

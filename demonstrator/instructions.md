@@ -69,8 +69,8 @@ record and the dataset count every one. Plan so you never need them.
   says so. Otherwise the miss stays. eps sets how often demonstrations miss: resetting every miss would show an arm
   that never misses, and resetting none keeps every miss and makes demonstrations longer (dm1487).
 - Keep every other result: a kept miss, a push that made things worse, a cube dropped on the way to a place. Recover
-  from it in the next moves. Until v10, a move that made things worse could be undone by choice: the 13 undos in the
-  26 overnight demonstrations were 10 missed picks and 3 cubes dropped on the way to a place, and no spills.
+  from it in the next moves. Until v10, a move that made things worse could be undone by choice
+  (`docs/knowledge/planner.md` says what those undos were and why they leak).
 - After a reset, choose a different move. Repeating the same move repeats the same result, since the sim is exact.
 - At most 8 resets per episode. Every reset also costs the robot time of the move taken back, in real life.
 - Never read the simulator's true cube poses while playing. Decide from observe, check and the image only.

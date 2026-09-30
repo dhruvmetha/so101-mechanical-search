@@ -65,7 +65,7 @@ behaviour or a measured number in it changes.
   `live.py` keeps an episode in memory with `snapshot()`/`restore()` (MuJoCo integration state including the warm
   start, the env's counters, the episode's bookkeeping); a restored line replays bit for bit
   (`tests/test_demonstrator_live.py`). Restore order matters: `mj_setState`, `mj_forward`, `mj_setState` again.
-  A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see the learnings file, "The planner"):
+  A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see `planner.md`):
   `python demonstrator/planner.py --seeds S... --procs N --out DIR`, one process per seed, a record per seed with every
   candidate it tried. `export.py` turns solved episodes into a LeRobot dataset; `report.py` and `postmortem.py` tally
   and replay finished ones; `experiments/` holds the sweep pilot.

@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:19 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:21 by Claude.
 
 ## Goal right now
 
@@ -31,7 +31,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - Sweep pilot: `demonstrator/experiments/`, `outputs/sweep_pilot_2026-09-30/`.
 - The knowledge system: `docs/knowledge/README.md`; `.claude/hooks/knowledge.sh` boots it, traps in `.claude/rules/`.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
-  it judged moves with the true hidden state, so it cheats (learnings, "The planner"). Its demos are not usable yet.
+  it judged moves with the true hidden state, so it cheats (`planner.md`). Its demos are not usable yet.
 - Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` (Google Scanned Objects in MuJoCo, about 80
   fit the gripper; stay on MuJoCo CPU), `scripts/objects_*.py`, `models/objects_test_*`. Bin depth, partial: tip reach
   z -0.225 to +0.085 m (journal).
@@ -39,31 +39,31 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 14:56: a subagent replays the 22 missed picks to find why; then cut the miss rate at its causes (dm1487) (`outputs/miss_study_2026-09-30/`).
+- Since 14:56: a subagent replays the 22 missed picks to find why (`outputs/miss_study_2026-09-30/`). Then cut the
+  miss rate at its causes (dm1487).
 
 ## Next
 
-1. Make the planner honest (Claude's design, 14:41): a per-episode memory of what the cameras saw (space seen empty,
+1. After the miss study: observe without wrist depth, measured against what it had. Then make the planner honest
+   (Claude's design, 14:41): a per-episode memory of what the cameras saw (space seen empty,
    where moved objects went, the target's last sighting, a map of where it could be), camera checks and rules as
    code, looks as moves. No twin unless a measured failure needs one. Rerun the 13 pilot seeds against p0.3.
 2. The rest of the build order: aim-error scoring, cost logging with an export gate, a capped Claude rescue, looking
-   from hover instead of parking; export the planner's solved episodes as demos.
+   from hover instead of parking; export the planner's solved episodes as demos, with front depth.
 3. Finish the bin-depth study from its partial files; then the container family and the object set.
 
 ## Decisions in force
 
 - 2026-09-25: the task is mechanical search in a bin; spec amended twice since.
 - 2026-09-29: noslip on in `models/stage.xml`; resets hand over piles at rest.
-- 2026-09-29: the expert decides from camera data only; looks are real motions.
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
-- 2026-09-30 15:09: the real front camera gives depth; the wrist camera gives colour only (dm1487). observe's fusion of
-  wrist depth is privileged and has to go; the 26 demos and p0.3 used it.
+- 2026-09-30: the expert runs only in sim, deciding from camera data (looks are real motions); a policy distilled
+  from its demos runs on the real arm. The expert may use ideal perception of what the student's sensors see (exact
+  masks included), no other channel: front camera RGB-D, wrist colour only (dm1487).
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
   journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
-- 2026-09-30: the planner commits only moves that help, rejects empty picks and wrong-cube picks, scores the target's
-  better grasp axis, and looks two moves ahead over its three best first moves; no full search tree.
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
   back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
@@ -74,6 +74,6 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
-- Finish the 8 half-played episodes? And the 10 demos with pre-v10 miss undos: keep, mark or redo?
+- The 26 demos used wrist depth, and 10 hold miss undos: keep, mark or redo? Finish the 8 half-played episodes?
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap
   grasp sampler sooner (Fable's last point).
