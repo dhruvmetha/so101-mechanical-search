@@ -59,11 +59,13 @@ behaviour or a measured number in it changes.
   played seeds 300 and 301 from images on 2026-09-26 and failed both; `outputs/shelf_play_30*.md` says why.
 - `demonstrator/` is Claude playing the bin task from camera data, to make demonstrations. `tools.py` is the CLI it
   plays through (new, observe, check, act, status), with episodes replayed exactly from `demonstrator/episodes/`.
-  `perception.py` turns front-camera depth and segmentation into cube poses. `reach.py` has the arm clearance check.
+  `perception.py` turns depth and segmentation from the front camera and the wrist camera (at the park pose) into
+  cube poses (corrected 2026-09-30: this line said front camera only). `reach.py` has the arm clearance check.
   `instructions.md` is the rulebook and memory: read it before playing, and add each episode's lessons after.
   `live.py` keeps an episode in memory with `snapshot()`/`restore()` (MuJoCo integration state including the warm
   start, the env's counters, the episode's bookkeeping); a restored line replays bit for bit
-  (`tests/test_demonstrator_live.py`). `planner.py` is the expert as a program (see the learnings file, "The planner"):
+  (`tests/test_demonstrator_live.py`). Restore order matters: `mj_setState`, `mj_forward`, `mj_setState` again.
+  A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see the learnings file, "The planner"):
   `python demonstrator/planner.py --seeds S... --procs N --out DIR`, one process per seed, a record per seed with every
   candidate it tried. `export.py` turns solved episodes into a LeRobot dataset; `report.py` and `postmortem.py` tally
   and replay finished ones; `experiments/` holds the sweep pilot.

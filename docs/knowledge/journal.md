@@ -883,3 +883,10 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Evidence: `demonstrator/planner.py` (`truth()` feeds `score()`; `decide()` runs candidates on `live`, the real
   pile); `outputs/planner_pilot_p0.3/p1038.json` (no red pixels seen, scored by the red's true position).
 - Replaces: the planner caveat that treated this as luck to be fixed by aim-error scoring.
+
+## [2026-09-30 14:25] note | Compaction done; write-back check
+- What: dm1487 ran `/compact` once (a second run was interrupted). Compared the summary with the knowledge files.
+  Everything was there except the snapshot restore order and its cost, now in `codebase.md`, and a stale line in
+  `codebase.md` that said perception uses the front camera only, corrected there.
+- By: Claude (main session).
+- Next: state.md Next #1, the honest planner.
