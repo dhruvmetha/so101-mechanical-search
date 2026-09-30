@@ -28,11 +28,13 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-PLANNER = "p0"
+PLANNER = "p0.3"
 LIFT_ABOVE_TRAVEL = 0.03   # the red's final lift, above travel height
 MAX_DECISIONS = 20
 MAX_ROBOT_S = 200.0
 FLUSH = 0.0375             # neighbour centres closer than this, on the red's level, box it in
+LOOKAHEAD = 3              # first moves scored by the best second move each allows
+FOLLOW_WEIGHT = 0.9        # how much a second move's value counts toward the first
 OVER = 0.036               # a cube this close in xy and higher than the red covers it
 
 
@@ -51,10 +53,15 @@ def versions():
 # ---- truth, for judging only ----------------------------------------------------------------------------------------
 
 def truth(env):
-    """(cubes over the red, flush neighbours on its level) from true poses. Held cubes don't count."""
+    """(cubes over the red, flush neighbours on its level, blocked ends of its better jaw axis) from true poses.
+
+    An end is blocked when a cube on the red's level sits with its face within 15 mm of the red's face there and
+    overlaps the face's width: the fingers need 4 to 28 mm beyond the face. Held cubes don't count."""
     from so101sim.mechsearch import TARGET
-    red = env.cube_pose(TARGET)["pos"]
+    rp = env.cube_pose(TARGET)
+    red, yaw = rp["pos"], rp["yaw"]
     over = side = 0
+    blocked = [[False, False], [False, False]]
     for n in env.grays:
         p = env.cube_pose(n)["pos"]
         if p[2] > -0.005:
@@ -63,9 +70,14 @@ def truth(env):
         h = np.linalg.norm(d[:2])
         if d[2] > 0.015 and h < OVER:
             over += 1
-        elif abs(d[2]) < 0.015 and h < FLUSH:
-            side += 1
-    return over, side
+        elif abs(d[2]) < 0.015:
+            side += h < FLUSH
+            for k, a in enumerate((yaw, yaw + np.pi / 2)):
+                along = d[:2] @ np.array([np.cos(a), np.sin(a)])
+                across = d[:2] @ np.array([-np.sin(a), np.cos(a)])
+                if abs(along) < 0.045 and abs(across) < 0.03:
+                    blocked[k][0 if along > 0 else 1] = True
+    return over, side, min(sum(b) for b in blocked)
 
 
 def poses(env):
@@ -125,11 +137,14 @@ def act(kind, xyz, deg, why, **extra):
     return op
 
 
-def pick_op(live, name, cb, why, lift_z=None, dz=0.0):
-    """The better of a cube's two jaw axes by check's hits, with check's wrist roll; None if neither runs."""
+def pick_op(live, name, cb, why, lift_z=None, dz=0.0, slide=0.0, axes=None):
+    """The better of a cube's two jaw axes by check's hits, with check's wrist roll; None if neither runs. `slide`
+    moves the aim along the gripped faces, across the jaw axis, to dodge an offset neighbour (d1010)."""
     best = None
-    for deg in (cb["yaw"], cb["yaw"] + 90.0):
-        xyz = [cb["pos"][0], cb["pos"][1], cb["pos"][2] + dz]
+    for deg in axes if axes is not None else (cb["yaw"], cb["yaw"] + 90.0):
+        a = np.radians(deg)
+        off = slide * np.array([-np.sin(a), np.cos(a)])
+        xyz = [cb["pos"][0] + off[0], cb["pos"][1] + off[1], cb["pos"][2] + dz]
         flip, res = live.choose("pick", xyz, deg)
         if flip is None:
             continue
@@ -147,9 +162,11 @@ def candidates(live, v, red, red_cb):
     cubes, out = v["cubes"], []
     rim, floor = live.bin["rim_z"], live.bin["floor_z"]
     if red is None:
-        # Nothing of the red in sight: dig where the pile is highest.
+        # Nothing of the red in sight: dig where the pile is highest, and try sweeping the top off it there.
         targets = sorted((n for n in cubes if n != TARGET), key=lambda n: -cubes[n]["pos"][2])[:3]
         covers, blockers = targets, []
+        top = np.asarray(cubes[targets[0]]["pos"], float) if targets else None
+        red = None if top is None else np.array([top[0], top[1], live.bin["floor_z"] + live_half()])
     else:
         covers = sorted((n for n, cb in cubes.items() if n != TARGET
                          and np.linalg.norm(np.asarray(cb["pos"][:2]) - red[:2]) < OVER
@@ -158,14 +175,18 @@ def candidates(live, v, red, red_cb):
         if red_cb is not None:
             axes = axis_ends(v, TARGET)
             per_axis = [[n for sign in (1, -1) for gap, n, _ in ends[sign] if gap < 0.015] for _, ends in axes]
-            blockers = min(per_axis, key=len)
+            per_axis.sort(key=len)
+            blockers = list(dict.fromkeys(per_axis[0] + per_axis[1]))
     # a pick on the red, both axes, with the higher lift
     if red_cb is not None:
         dz = 0.006 if (red_cb["tilt"] or 0) > 10 else 0.0
-        op = pick_op(live, TARGET, red_cb, "pick the red, lift it clear", lift_z=live.prim.travel_z + LIFT_ABOVE_TRAVEL,
-                     dz=dz)
-        if op:
-            out.append(("red pick", [op]))
+        for deg in (red_cb["yaw"], red_cb["yaw"] + 90.0):
+            for slide in (0.0, 0.008, -0.008):
+                why = "pick the red, lift it clear" + (f", aim slid {slide * 1000:+.0f} mm along its faces" if slide else "")
+                op = pick_op(live, TARGET, red_cb, why, lift_z=live.prim.travel_z + LIFT_ABOVE_TRAVEL, dz=dz,
+                             slide=slide, axes=(deg,))
+                if op:
+                    out.append((f"red pick {deg % 180:.0f}{'' if not slide else f' slid {slide * 1000:+.0f}'}", [op]))
     # sweeps across the red's spot
     if red is not None and covers:
         c, h = np.asarray(live.bin["center"]), live.bin["half"]
@@ -182,7 +203,7 @@ def candidates(live, v, red, red_cb):
     keep_clear = [np.asarray(cb["pos"][:2]) for n, cb in cubes.items()
                   if red is not None and np.linalg.norm(np.asarray(cb["pos"][:2]) - red[:2]) < 0.05]
     spots = place_spots(live, v, None if red is None else red[:2], keep_clear)
-    for name in list(dict.fromkeys(covers[:2] + blockers[:2])):
+    for name in list(dict.fromkeys(covers[:2] + blockers[:3])):
         why = "cover over the red" if name in covers else "flush on the red's jaw axis"
         op = pick_op(live, name, cubes[name], f"lift {short(name)}: {why}")
         if op is None:
@@ -201,84 +222,120 @@ def score(before, after, res, env, moved_ok, robot_s):
         return -1e9, "refused"
     if res["terminated"] and not res["success"]:
         return -1e9, f"spill: {res['failure']}"
+    if res.get("empty_pick"):
+        return -1e9, "a pick lifted nothing"
     if res["success"]:
         return 1000.0 - robot_s, "success"
-    (o0, s0), (o1, s1) = before["state"], truth(env)
+    (o0, s0, b0), (o1, s1, b1) = before["state"], truth(env)
     now = poses(env)
+    if res.get("red_pick") and now[TARGET][2] - before["poses"][TARGET][2] < 0.02 and 14 < res["grip"] < 30:
+        return -1e9, "the red pick lifted a gray"
     disturbed = sum(1 for n in env.cubes if n not in moved_ok and n != TARGET
                     and np.linalg.norm(now[n] - before["poses"][n]) > 0.003)
-    val = 10.0 * (o0 - o1) + 4.0 * (s0 - s1) - 0.05 * robot_s - 0.3 * disturbed
-    return val, f"over {o0}->{o1}, flush {s0}->{s1}, disturbed {disturbed}, {robot_s:.1f} s"
+    val = 10.0 * (o0 - o1) + 6.0 * (b0 - b1) + 2.0 * (s0 - s1) - 0.05 * robot_s - 0.3 * disturbed
+    return val, (f"over {o0}->{o1}, axis ends blocked {b0}->{b1}, flush {s0}->{s1}, disturbed {disturbed}, "
+                 f"{robot_s:.1f} s")
+
+
+def decide(live, stats):
+    """From the live state: park if needed, look, propose, and try every candidate on a snapshot.
+
+    Returns (tried, base, base_ops, holding), tried sorted best first as (value, label, why, end snapshot, ops). The
+    live episode is left at `base`, the state after the look."""
+    if not live.parked() and not (14 < float(live.env.joint_state[5]) < 30):
+        live.run([{"op": "park", "keep_grip": True}])
+    v = live.see()
+    held = live.held_cube()
+    if held is not None:
+        # Holding something at the start of a decision: a red that came up tilted, short of the line. Set it down
+        # level where it can be grasped square again (d1004, e402).
+        cands = [(f"set down {held}", [act("place", [xy[0], xy[1], z], yaw % 180.0,
+                                           "set the held cube down level to grasp it again")])
+                 for xy, z, yaw in place_spots(live, v, None, [], k=5)]
+    else:
+        red, red_cb = red_estimate(live, v)
+        cands = candidates(live, v, red, red_cb)
+    base = live.snapshot()
+    before = {"state": truth(live.env), "poses": poses(live.env)}
+    base_ops = list(live.rec["ops"])
+    tried = []
+    for label, ops in cands:
+        live.restore(base)
+        live.rec["ops"] = list(base_ops)
+        r0 = live.robot_s
+        ops = [dict(op) for op in ops]
+        if ops[0]["kind"] == "place" and "flip" not in ops[0]:
+            ops[0]["flip"] = live.choose("place", ops[0]["xyz"], ops[0]["deg"])[0]
+        res = live.run(ops[:1])
+        stats["sims"] += 1
+        if res is not None and ops[0]["kind"] == "pick" and not res["success"] and res["grip"] <= 14:
+            res = {**res, "empty_pick": True}
+        if res is not None and label.startswith("red pick"):
+            res = {**res, "red_pick": True}
+        if len(ops) > 1 and res is not None and not res["terminated"] and 14 < res["grip"] < 30:
+            # choose the place's wrist roll from where the pick left the arm
+            ops[1]["flip"] = live.choose("place", ops[1]["xyz"], ops[1]["deg"])[0]
+            res = live.run(ops[1:])
+            stats["sims"] += 1
+        moved_ok = set()
+        for op in ops:
+            if op["kind"] == "pick":
+                moved_ok.add(min(live.env.cubes, key=lambda n: np.linalg.norm(before["poses"][n] - op["xyz"])))
+        val, why = score(before, None, res, live.env, moved_ok, live.robot_s - r0)
+        tried.append((val, label, why, live.snapshot(), list(live.rec["ops"])))
+    live.restore(base)
+    live.rec["ops"] = list(base_ops)
+    tried.sort(key=lambda t: -t[0])
+    return tried, base, base_ops, held is not None
 
 
 def run_seed(seed, buried, out_dir):
     from live import Live
-    from so101sim.mechsearch import TARGET
     name = f"p{seed}"
     rec = {"seed": int(seed), "buried": bool(buried), "ops": [], "versions": versions(), "log": []}
     live = Live(name, rec=rec)
-    t0, sims, stuck, outcome = time.time(), 0, 0, "unfinished"
+    t0, stats, outcome = time.time(), {"sims": 0}, "unfinished"
     try:
         while True:
             acts = [op for op in live.rec["ops"] if op["op"] == "act"]
             if len(acts) >= MAX_DECISIONS * 2 or live.robot_s > MAX_ROBOT_S:
                 outcome = "out of budget"
                 break
-            if not live.parked() and not (14 < float(live.env.joint_state[5]) < 30):
-                live.run([{"op": "park", "keep_grip": True}])
-            v = live.see()
-            held = live.held_cube()
-            if held is not None:
-                # Holding something at the start of a decision: a red that came up tilted, short of the line. Set it
-                # down level where it can be grasped square again (d1004, e402).
-                cands = [(f"set down {held}", [act("place", [xy[0], xy[1], z], yaw % 180.0,
-                                                   "set the held cube down level to grasp it again")])
-                         for xy, z, yaw in place_spots(live, v, None, [])]
-                red, red_cb = None, None
-            else:
-                red, red_cb = red_estimate(live, v)
-                cands = candidates(live, v, red, red_cb)
-            base = live.snapshot()
-            before = {"state": truth(live.env), "poses": poses(live.env)}
-            base_ops = list(live.rec["ops"])
-            tried = []
-            for label, ops in cands:
-                live.restore(base)
-                live.rec["ops"] = list(base_ops)
-                r0 = live.robot_s
-                ops = [dict(op) for op in ops]
-                if ops[0]["kind"] == "place" and "flip" not in ops[0]:
-                    ops[0]["flip"] = live.choose("place", ops[0]["xyz"], ops[0]["deg"])[0]
-                res = live.run(ops[:1])
-                sims += 1
-                if len(ops) > 1 and res is not None and not res["terminated"] and 14 < res["grip"] < 30:
-                    # choose the place's wrist roll from where the pick left the arm
-                    ops[1]["flip"] = live.choose("place", ops[1]["xyz"], ops[1]["deg"])[0]
-                    res = live.run(ops[1:])
-                    sims += 1
-                moved_ok = set()
-                for op in ops:
-                    if op["kind"] == "pick":
-                        near = min(live.env.cubes, key=lambda n: np.linalg.norm(before["poses"][n] - op["xyz"]))
-                        moved_ok.add(near)
-                val, why = score(before, None, res, live.env, moved_ok, live.robot_s - r0)
-                tried.append((val, label, why, live.snapshot(), list(live.rec["ops"])))
-            live.restore(base)
-            live.rec["ops"] = list(base_ops)
+            tried, base, base_ops, holding = decide(live, stats)
             if not tried:
                 outcome = "no candidates"
                 break
-            tried.sort(key=lambda t: -t[0])
-            val, label, why, snap, ops = tried[0]
-            rec["log"].append({"decision": len(rec["log"]) + 1, "chosen": label, "value": round(val, 2), "why": why,
-                               "tried": [(t[1], round(t[0], 2), t[2]) for t in tried]})
-            if val <= 0:
-                stuck += 1
-                if stuck >= 2:
-                    outcome = "stuck"
-                    break
+            entry = {"decision": len(rec["log"]) + 1, "tried": [(t[1], round(t[0], 2), t[2]) for t in tried]}
+            if tried[0][0] >= 900 or holding:
+                total, pick, follow = tried[0][0], tried[0], None
             else:
-                stuck = 0
+                # Two-step lookahead: a move that gains nothing now but opens the next one can win (seed 1004 in p0.2).
+                best = None
+                for t in [t for t in tried if t[0] > -1e8][:LOOKAHEAD]:
+                    live.restore(t[3])
+                    live.rec["ops"] = list(t[4])
+                    t2, _, _, _ = decide(live, stats)
+                    v2 = t2[0][0] if t2 else -1e9
+                    total = t[0] + (FOLLOW_WEIGHT * v2 if v2 > 0 else 0.0)
+                    if best is None or total > best[0]:
+                        best = (total, t, (t2[0][1], round(v2, 2)) if t2 else None)
+                    live.restore(base)
+                    live.rec["ops"] = list(base_ops)
+                if best is None:
+                    outcome = "stuck"
+                    rec["log"].append(entry)
+                    break
+                total, pick, follow = best
+            val, label, why, snap, ops = pick
+            entry.update({"chosen": label, "value": round(val, 2), "with_follow_up": round(total, 2),
+                          "follow_up": follow, "why": why})
+            rec["log"].append(entry)
+            must = holding and val > -1e8  # a held cube has to go somewhere
+            if total <= 0 and not must:
+                # Nothing helps from here, even two moves out. Committing the least bad move is how p0 put a spill
+                # in seed 1000's line.
+                outcome = "stuck"
+                break
             live.restore(snap)
             live.rec["ops"] = ops
             if val >= 900:
@@ -293,7 +350,7 @@ def run_seed(seed, buried, out_dir):
     acts = [op for op in live.rec["ops"] if op["op"] == "act"]
     summary = {"seed": seed, "buried": buried, "outcome": outcome, "moves": len(acts),
                "picks_empty": sum(1 for op in acts if op["kind"] == "pick" and op["result"]["grip"] <= 14),
-               "robot_s": round(live.robot_s, 1), "wall_s": round(wall, 1), "sims": sims,
+               "robot_s": round(live.robot_s, 1), "wall_s": round(wall, 1), "sims": stats["sims"],
                "decisions": len(rec["log"]), "versions": rec["versions"]}
     rec["summary"] = summary
     (out_dir / f"{name}.json").write_text(json.dumps(rec, indent=1, default=float))
