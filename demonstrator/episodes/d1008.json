@@ -1,0 +1,162 @@
+{
+ "seed": 1008,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.226,
+    0.024,
+    -0.051
+   ],
+   "deg": 0.0,
+   "why": "a red line runs along the base of g26's far face, so the red is likely under g26",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.125,
+    0.091,
+    -0.05
+   ],
+   "deg": 8.0,
+   "why": "set g26 on g28 in the near +y corner, 13 cm from the red, clean path",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.257,
+    0.024,
+    -0.081
+   ],
+   "deg": 90.0,
+   "why": "red is boxed on all four sides; g6 on its +x side has the cleanest grasp (g21 graze 9 mm), and g11 sits 27 mm behind it",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.169,
+    0.081,
+    -0.05
+   ],
+   "deg": 18.0,
+   "why": "set g6 on g27's top, clean path, off both of the red's jaw axes",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.227,
+    0.024,
+    -0.081
+   ],
+   "deg": 0.0,
+   "why": "nudge: g6's slot on the red's +x side is open 26 mm, so a grasp across x should wedge the red off g18 into it",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 16.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.23,
+    0.024,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "red came up tilted 9 deg and short of the line; set it down level in its old slot, which now has room on both x sides",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.231,
+    0.022,
+    -0.081
+   ],
+   "deg": 0.0,
+   "why": "red sits level with 11 mm to g18 and 27 mm to g11; aim 4 mm toward the open side so no finger touches g18",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 15.6,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

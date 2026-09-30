@@ -1,0 +1,122 @@
+{
+ "seed": 1014,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.191,
+    0.02,
+    -0.022
+   ],
+   "deg": 78.0,
+   "why": "no red seen; g21 is the only layer-3 cube, on top of the central stack over four floor cubes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.231,
+    -0.088,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "put g21 on the open floor by the -y wall, 11 cm from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.177,
+    0.023,
+    -0.051
+   ],
+   "deg": 112.0,
+   "why": "the wrist camera showed red seams under g25; lift g25 off, 112 deg is clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.289,
+    -0.049,
+    -0.048
+   ],
+   "deg": 65.0,
+   "why": "set g25 on g8 in the far -y quarter, away from the red and its neighbours",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.177,
+    0.023,
+    -0.081
+   ],
+   "deg": 113.0,
+   "why": "red is boxed on all four faces; nudge across 113, where g16 has open floor behind it toward the +y wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  }
+ ]
+}

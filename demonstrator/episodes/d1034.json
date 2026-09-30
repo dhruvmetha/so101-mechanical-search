@@ -1,0 +1,98 @@
+{
+ "seed": 1034,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.197,
+    0.089,
+    -0.035
+   ],
+   "deg": 164.0,
+   "why": "g14 is the tilted layer-3 cube by the +y wall over the red-line area; top first, box-fit yaw parallel to the wall, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.187,
+    0.055,
+    -0.051
+   ],
+   "deg": 115.0,
+   "why": "g19 is the layer-2 cover beside the red line; slid 8 mm along its face so neither finger touches g23 or g24",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.224,
+    -0.086,
+    -0.048
+   ],
+   "deg": 177.0,
+   "why": "set g19 on trusted flat g3, 14 cm from the red, no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.18,
+    0.011,
+    -0.051
+   ],
+   "deg": 103.0,
+   "why": "the red is boxed; its 113 axis is the one to open, and g24 is the layer-2 cube over its -y end; clean at 103",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ]
+}

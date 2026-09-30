@@ -1,0 +1,30 @@
+{
+ "seed": 1021,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.2655,
+    0.0885,
+    -0.041
+   ],
+   "deg": 74.0,
+   "why": "red is uncovered on layer 2 by the +y wall; axis 74 has no cube hits, grasp raised 9 mm so the wall-side finger clears the rim",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.5,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

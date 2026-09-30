@@ -1,0 +1,218 @@
+{
+ "seed": 1027,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.261,
+    0.074,
+    -0.042
+   ],
+   "deg": 67.0,
+   "why": "g19 leans on the red's -y side; take it off. 157 axis hits g5 15 mm, 67 axis clean when raised 4 mm off the wall line",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.2635,
+    0.076,
+    -0.043
+   ],
+   "deg": 75.0,
+   "why": "g19 now level on layer 2 over the red's -y half; 75 axis clean once raised 8 mm and shifted 2 mm off the +y wall",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.289,
+    -0.049,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g19 on g18's well-seen top, 14 cm from the red, no hits, arm 102 mm clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.287,
+    0.066,
+    -0.045
+   ],
+   "deg": 84.0,
+   "why": "g5 blocks the red's wall-parallel 165 axis (43 mm hit); jaws along y at 84, moved 5 mm off the far wall along the face, 2 mm toward the fixed finger and 8 mm up to clear both walls",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 16.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.231,
+    0.007,
+    -0.048
+   ],
+   "deg": 9.0,
+   "why": "set g5 on g1's top, a shorter swing than to g17, no hits, arm 95 mm clear",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.273,
+    0.064,
+    -0.051
+   ],
+   "deg": 50.0,
+   "why": "g5 fell back level beside the red; now trusted, so grasp it at centre height on the 50 axis, no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.22,
+    -0.066,
+    -0.047
+   ],
+   "deg": 37.0,
+   "why": "set g5 on g17's top, 16 cm from the red, no hits, arm 71 mm clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.261,
+    0.087,
+    -0.079
+   ],
+   "deg": 164.0,
+   "why": "red's 164 axis, near parallel to the +y wall, is clear at both ends; slid 4 mm along the face off the wall and up 2 mm to clear the rim line",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 5,
+   "why": "g5, held 8 mm above centre on its tilted faces, fell out on the swing to g17 and landed back flush against the red; nothing reached g17",
+   "ops": [
+    {
+     "op": "act",
+     "kind": "place",
+     "xyz": [
+      0.219,
+      -0.061,
+      -0.047
+     ],
+     "deg": 9.0,
+     "why": "set g5 on g17's top, 16 cm from the red, no hits, arm 79 mm clear",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 35.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

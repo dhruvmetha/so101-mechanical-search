@@ -1,0 +1,330 @@
+{
+ "seed": 1013,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.14,
+    -0.063,
+    -0.049
+   ],
+   "deg": 81.0,
+   "why": "g25 is a layer-2 cube over the red's +x -y corner, and its 81 deg grasp is clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.155,
+    0.031,
+    -0.048
+   ],
+   "deg": 67.0,
+   "why": "set g25 on g0, 7 cm to the +y side of the red and clear of walls",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.116,
+    -0.067,
+    -0.042
+   ],
+   "deg": 0.0,
+   "why": "g28 covers the red's -y edge by the near wall; grasp across x, high and 8 mm off the wall so the fingers clear the rim",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.277,
+    0.067,
+    -0.048
+   ],
+   "deg": 111.0,
+   "why": "set g28 on g24 in the far +y corner, away from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.119,
+    -0.025,
+    -0.048
+   ],
+   "deg": 98.0,
+   "why": "g11 leans on the red's +y side; grasp across y, high and 10 mm off the near wall so the arm clears the shoulder",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.187,
+    0.015,
+    -0.048
+   ],
+   "deg": 28.0,
+   "why": "set g11 on g21 mid-bin; a short path, since the long swing to the far wall dropped it",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.118,
+    -0.027,
+    -0.045
+   ],
+   "deg": 97.0,
+   "why": "g11 fell back flat over the red's +y edge; grasp it across y, 6 mm high so the moving finger stays above the red, 9 mm off the wall for reach",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.6,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.187,
+    0.014,
+    -0.048
+   ],
+   "deg": 28.0,
+   "why": "set g11 on g21 mid-bin, now held level",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.12,
+    -0.054,
+    -0.081
+   ],
+   "deg": 90.0,
+   "why": "red is pinned to the near wall with g6 and g16 flush on its y faces; nudge across y at the reach-friendly roll (arm 12 mm) to shove them apart",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.117,
+    0.008,
+    -0.051
+   ],
+   "deg": 105.0,
+   "why": "g11 sits over the red's +y fixed-finger side; grasp it centred and square this time, arm 11 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.188,
+    0.014,
+    -0.048
+   ],
+   "deg": 31.0,
+   "why": "set g11 on g21, 7 cm from the red, by the shortest path",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.133,
+    -0.039,
+    -0.081
+   ],
+   "deg": 108.0,
+   "why": "red is off the wall and g11 is gone; grasp across y, aimed 6 mm toward the open -y side so the fixed finger clears g16",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.134,
+    -0.038,
+    -0.081
+   ],
+   "deg": 105.0,
+   "why": "grasp the red across y, slid 8 mm along its face toward +x so the fingers pass beside g6's corner and g16; check shows g16 4 mm, arm 14 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 6,
+   "why": "g11 dropped back onto the red during the long swing to the far wall",
+   "ops": [
+    {
+     "op": "act",
+     "kind": "place",
+     "xyz": [
+      0.289,
+      -0.037,
+      -0.048
+     ],
+     "deg": 119.0,
+     "why": "set g11 on g1 by the far wall, away from the red",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 35.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

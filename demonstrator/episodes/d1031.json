@@ -1,0 +1,218 @@
+{
+ "seed": 1031,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.217,
+    0.03,
+    -0.03
+   ],
+   "deg": 34.0,
+   "why": "g15 is the layer-3 cube over the red's +x+y half; box-fit yaw 34 closes on its upright faces, clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.201,
+    0.045,
+    -0.051
+   ],
+   "deg": 25.0,
+   "why": "the miss dropped g15 flat onto the red's +y half; now well seen, 25 is clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.239,
+    -0.09,
+    -0.046
+   ],
+   "deg": 170.0,
+   "why": "g15 onto g3's top by the -y wall, 11 cm from the red and off both its jaw axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    0.005,
+    -0.049
+   ],
+   "deg": 48.0,
+   "why": "g16 leans on the red's -y side and sits at the - end of both its jaw axes; 48 is clean, 138 hits g0 26 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.1,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.259,
+    -0.057,
+    -0.048
+   ],
+   "deg": 171.0,
+   "why": "g16 onto g7's top, 9 cm off toward the -y wall and away from both red axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.238,
+    0.052,
+    -0.049
+   ],
+   "deg": 15.0,
+   "why": "g17 again, now on its upright faces (box-fit yaw) and 10 mm high; the moving finger grazes tilted g6 12 mm",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.125,
+    0.03,
+    -0.048
+   ],
+   "deg": 132.0,
+   "why": "g17 onto g14's top toward the base, clear of the red's 53 axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.208,
+    0.029,
+    -0.081
+   ],
+   "deg": 55.0,
+   "why": "g17 is off the red's +x+y face and g1 fell away 16 mm; the 55 axis checks clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 6,
+   "why": "g17 pick on its tilted faces closed empty and only tipped it from 34 to 41 deg",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.24,
+      0.051,
+      -0.053
+     ],
+     "deg": 99.0,
+     "why": "g17 leans on the red's +x+y face, blocking the 53 axis; 6 mm high and 2 mm +y gives a clean check",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

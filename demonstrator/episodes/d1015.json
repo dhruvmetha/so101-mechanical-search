@@ -1,0 +1,230 @@
+{
+ "seed": 1015,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.193,
+    -0.032,
+    -0.051
+   ],
+   "deg": 14.0,
+   "why": "g21 is a layer-2 cover next to the red line; clean jaws at yaw 14",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.163,
+    0.075,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g21 on top of well-seen g16, far from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.228,
+    -0.025,
+    -0.051
+   ],
+   "deg": 32.0,
+   "why": "g20 is the layer-2 cover over the red line; aim shifted 12 mm toward the base along the jaw axis to keep the moving finger off g10",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.229,
+    -0.016,
+    -0.051
+   ],
+   "deg": 14.0,
+   "why": "g20 sits right on top of the red; yaw 14 jaws are clear",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.185,
+    0.045,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g20 on well-seen g8, 7 cm from the red in y",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.205,
+    0.014,
+    -0.051
+   ],
+   "deg": 0.0,
+   "why": "red's x axis is blocked by flush g2; clear layer-2 g17 off the red's +y side to open its y axis",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.123,
+    0.047,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g17 on well-seen g14, far from the red; yaw 90 keeps the arm 17 mm off itself",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.216,
+    0.015,
+    -0.081
+   ],
+   "deg": 52.0,
+   "why": "g9 sits flush on the red's +y face and blocks its y-axis grasp; yaw 52 jaws hit no seen cube",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.168,
+    -0.049,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g9 on well-seen g6, 6 cm from the red and off its y-axis jaw path",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.229,
+    -0.024,
+    -0.081
+   ],
+   "deg": 102.0,
+   "why": "red's y axis is clear now that g17 and g9 are off; no seen hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

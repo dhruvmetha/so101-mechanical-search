@@ -1,0 +1,198 @@
+{
+ "seed": 1009,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.175,
+    0.057,
+    -0.051
+   ],
+   "deg": 99.0,
+   "why": "g2 sits on layer 2 over half the red's top; clear it first, yaw 99 has no finger hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.229,
+    -0.023,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g2 on top of g21, a well-seen layer-1 cube 8 cm from the red; no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.162,
+    -0.003,
+    -0.081
+   ],
+   "deg": 26.0,
+   "why": "red's y-axis grasp puts the moving finger 16-17 mm into g3; lift g3 out of the way, yaw 26 has no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.221,
+    -0.019,
+    -0.018
+   ],
+   "deg": 2.0,
+   "why": "set g3 on g2, a flat top 6 cm from the red and clear of the walls; no hits, nothing unseen",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.152,
+    0.036,
+    -0.051
+   ],
+   "deg": 94.0,
+   "why": "g9 slid onto the red's near edge and now sits in the path of the red's grasp (42 mm); lift it off, yaw 94 has no hits and keeps the arm 47 mm off itself",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.145,
+    0.086,
+    -0.048
+   ],
+   "deg": 177.0,
+   "why": "set g9 on g0, beside the red's x-faces rather than its planned y-axis jaws; the other spots hit g3, g8 or the arm itself",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.176,
+    0.038,
+    -0.081
+   ],
+   "deg": 94.0,
+   "why": "retry the red on its y faces, 2 mm less offset toward the fixed finger than the undone try and 4 mm further +x from g11's corner; check shows g11 4 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 7,
+   "why": "missed the red and left it tilted 17 deg against its +y neighbour; the fixed finger likely came down on g11's corner",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.172,
+      0.036,
+      -0.081
+     ],
+     "deg": 94.0,
+     "why": "red top 87% seen and uncovered; y-axis jaws shifted 4 mm to -y into g3's old slot clear g11, no hits",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

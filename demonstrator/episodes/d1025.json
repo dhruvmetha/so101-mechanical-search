@@ -1,0 +1,206 @@
+{
+ "seed": 1025,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.244,
+    -0.053,
+    -0.023
+   ],
+   "deg": 42.0,
+   "why": "g9 is the top cover over the red's visible corner; box-fit yaw, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.144,
+    0.002,
+    -0.048
+   ],
+   "deg": 54.0,
+   "why": "set g9 on g26's well-seen top, 11 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.24,
+    -0.076,
+    -0.044
+   ],
+   "deg": 113.0,
+   "why": "g15 lies on the red; yaw 23 drives a finger into g4 (layer 3 at the wall), so yaw 113 raised 8 mm to keep the finger above the rim",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.282,
+    0.065,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g15 on g5 in the far +y corner, 14 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.222,
+    -0.094,
+    -0.047
+   ],
+   "deg": 177.0,
+   "why": "g4 fell against the red's -y side and blocks both red axes; jaws parallel to the -y wall, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.233,
+    0.089,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g4 on g16's top at the +y side, far from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.224,
+    -0.026,
+    -0.052
+   ],
+   "deg": 178.0,
+   "why": "g27 blocks the red's +y end; the -y end runs into the wall, so the red must come off the wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.123,
+    -0.06,
+    -0.048
+   ],
+   "deg": 86.0,
+   "why": "set g27 on g24's top by the base wall, 11 cm from the red; shifted 7 mm off the -y wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.228,
+    -0.02,
+    -0.081
+   ],
+   "deg": 65.0,
+   "why": "red's -y end is on the wall, so the red must be pushed +y; g6 is 19 mm off its +y face and would stop it. g7 grazes the moving finger",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 16.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ]
+}

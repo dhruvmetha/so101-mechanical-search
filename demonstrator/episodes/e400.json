@@ -1,0 +1,229 @@
+{
+ "seed": 400,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.257,
+    -0.035,
+    -0.022
+   ],
+   "deg": 62.0,
+   "why": "g3 is the top of the tallest stack, over where the red seam showed",
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.241,
+    0.067,
+    -0.048
+   ],
+   "deg": 44.0,
+   "why": "set g3 on top of g24, far from the dig site, path clear",
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.255,
+    -0.043,
+    -0.051
+   ],
+   "deg": 8.0,
+   "why": "g2 covers the likely red spot; pick has no seen hits, only 20 mm unseen on the base side",
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.265,
+    0.027,
+    -0.048
+   ],
+   "deg": 171.0,
+   "why": "set g2 on g5, 7 cm from the dig site",
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.255,
+    -0.042,
+    -0.081
+   ],
+   "deg": 9.0,
+   "why": "red boxed on all four sides; nudge grasp along x to loosen g7 and g9",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.256,
+    -0.043,
+    -0.081
+   ],
+   "deg": 101.0,
+   "why": "nudge grasp along y to spread g0 and g20",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.251,
+    -0.085,
+    -0.051
+   ],
+   "deg": 89.0,
+   "why": "g10 on layer 2 over the red's -y side, clear at 89 deg",
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.137,
+    -0.001,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "g10 to a flat top 12 cm from the red",
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.256,
+    -0.052,
+    -0.081
+   ],
+   "deg": 279.0,
+   "why": "red grasp across y; fixed finger in the 12 mm gap at g0, moving finger shoves g20 toward the wall",
+   "result": {
+    "grip": 17.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park"
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.256,
+    -0.054,
+    -0.06
+   ],
+   "deg": 99.0,
+   "why": "the red sticks up tilted in its slot; grasp high across y, no neighbour hits",
+   "result": {
+    "grip": 17.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.175,
+    -0.008,
+    -0.051
+   ],
+   "deg": 96.0,
+   "why": "red lies level on top of the pile; 96 deg touches nothing else",
+   "result": {
+    "grip": 18.1,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "seed": 1020,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.175,
+    -0.004,
+    -0.022
+   ],
+   "deg": 82.0,
+   "why": "red pixels at floor-top z by g11's +y edge; g1 (layer 3) tops that stack, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.285,
+    -0.041,
+    -0.048
+   ],
+   "deg": 140.0,
+   "why": "set g1 on g21's well-seen top by the far wall, clean check, 10 cm from the dig",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.179,
+    -0.016,
+    -0.052
+   ],
+   "deg": 66.0,
+   "why": "205 red pixels down to floor-top z around g11; the red lies under g11 (layer 2), clean check at 66",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.243,
+    0.043,
+    -0.048
+   ],
+   "deg": 162.0,
+   "why": "set g11 on g27's well-seen top, clean check, 7 cm from the red and off its jaw axes",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.162,
+    0.023,
+    -0.051
+   ],
+   "deg": 29.0,
+   "why": "g22 leans 39 deg over the red's -x+y corner and sits on both of its jaw axes; box-fit yaw, clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.2,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.279,
+    0.05,
+    -0.048
+   ],
+   "deg": 75.0,
+   "why": "set g22 on g6's well-seen top in the far +y quarter, clean check, 12 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.138,
+    -0.063,
+    -0.054
+   ],
+   "deg": 159.0,
+   "why": "clear the moving-finger side of the red's 66 axis: g3 (layer 2, leaning) sits behind g5; box-fit yaw, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 20.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.226,
+    -0.09,
+    -0.048
+   ],
+   "deg": 160.0,
+   "why": "set g3 on g20's well-seen top by the -y wall, clean check, 8 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  }
+ ]
+}

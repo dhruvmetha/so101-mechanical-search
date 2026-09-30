@@ -1,0 +1,162 @@
+{
+ "seed": 1019,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.221,
+    -0.009,
+    -0.051
+   ],
+   "deg": 119.0,
+   "why": "g16 (layer 2) sits over the red's +y half; lift it, clean check at 119",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.189,
+    0.039,
+    -0.044
+   ],
+   "deg": 90.0,
+   "why": "set g16 on the flat spot at g10's top, clean check, away from the red's jaw axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.25,
+    -0.05,
+    -0.055
+   ],
+   "deg": 10.0,
+   "why": "g6 leans 46 deg on the red's +x-y corner and blocks the moving finger on the red's x axis; grasp its vertical x faces 10 mm above centre, clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.153,
+    0.004,
+    -0.048
+   ],
+   "deg": 115.0,
+   "why": "set g6 on g0's well-seen top, clean check, 7 cm from the red and off its jaw axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.206,
+    -0.043,
+    -0.056
+   ],
+   "deg": 177.0,
+   "why": "g22 leans 41 deg over the red's -x-y corner and takes the fixed finger's path on the red's x axis; box-fit yaw, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.282,
+    -0.088,
+    -0.048
+   ],
+   "deg": 81.0,
+   "why": "set g22 on g9's top in the far -y corner, clean check, clear of the red's +x side",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.221,
+    -0.018,
+    -0.081
+   ],
+   "deg": 167.0,
+   "why": "both covers off; red's x axis has g21 16 mm on the fixed side and nothing on the moving side, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

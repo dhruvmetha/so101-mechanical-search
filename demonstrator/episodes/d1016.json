@@ -1,0 +1,330 @@
+{
+ "seed": 1016,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.293,
+    -0.036,
+    -0.021
+   ],
+   "deg": 70.0,
+   "why": "g18 is a layer-3 cube by the far wall on top of the stack near the red line; clear it first, jaws parallel to the wall",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.159,
+    0.079,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "set g18 on an open floor spot at +y, far from the red line",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.252,
+    -0.019,
+    -0.051
+   ],
+   "deg": 82.0,
+   "why": "g26 is a layer-2 cover whose corner meets the red line; yaw 82 is clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.201,
+    0.045,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g26 on well-seen g9, 7 cm from the red line",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.283,
+    -0.026,
+    -0.045
+   ],
+   "deg": 133.0,
+   "why": "g4 overhangs the red; aim 6 mm high and 5 mm off the far wall keeps the open finger above the rim",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.147,
+    -0.044,
+    -0.042
+   ],
+   "deg": 90.0,
+   "why": "set g4 on well-seen g1, 10 cm from the red; 6 mm high because g4 was grasped 6 mm above its centre",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.237,
+    -0.067,
+    -0.038
+   ],
+   "deg": 78.0,
+   "why": "red is boxed on four sides; g12 leans over g27 on the red's -y side and is the loose top cube there, clean at yaw 78",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 22.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.153,
+    -0.01,
+    -0.046
+   ],
+   "deg": 0.0,
+   "why": "set g12 on well-seen g21, 10 cm from the red; 2 mm high since the grip read 22",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.253,
+    -0.019,
+    -0.081
+   ],
+   "deg": 83.0,
+   "why": "red is flush on all four sides; nudge across y, where g25 and g27 have 10-16 mm of room behind them, against 5 mm and a wall on the x axis",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 16.6,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.229,
+    0.019,
+    -0.048
+   ],
+   "deg": 83.0,
+   "why": "the red came up with g17 stuck on its +x side, which does not count; set it down level on g7 and g25, keeping the jaw axis so g17 lands off the y axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.249,
+    -0.021,
+    -0.073
+   ],
+   "deg": 178.0,
+   "why": "red fell back into its own slot tilted, with g17's slot empty on +x and 21 mm to g3 on -x; close across x on its most vertical faces",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 16.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.254,
+    -0.021,
+    -0.076
+   ],
+   "deg": 178.0,
+   "why": "red is held tilted 10 deg and missed success; set it down level in the empty floor slot, which has room along x, to regrasp square",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.245,
+    -0.022,
+    -0.081
+   ],
+   "deg": 175.0,
+   "why": "red sits level with 17 mm free on -x and nothing seen on +x; grasp square across x",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 5,
+   "why": "the 9 mm shifted g4 pick closed empty and moved nothing useful; g4 turned 4 deg and the red is no more open",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.281,
+      -0.024,
+      -0.051
+     ],
+     "deg": 133.0,
+     "why": "g4 overhangs the red and blocks its yaw-126 axis; aim shifted 9 mm off the far wall so no finger passes over the rim",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

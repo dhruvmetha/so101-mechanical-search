@@ -1,0 +1,162 @@
+{
+ "seed": 1007,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.213,
+    -0.091,
+    -0.051
+   ],
+   "deg": 177.0,
+   "why": "g24 covers the red's near half by the side wall; jaws along x, parallel to the wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.173,
+    0.029,
+    -0.078
+   ],
+   "deg": 177.0,
+   "why": "set g24 on the open floor spot on the +y side, far from the red by the -y wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.214,
+    -0.064,
+    -0.051
+   ],
+   "deg": 148.0,
+   "why": "g27 lies over the red's +y half; both yaws clear, 148 keeps the fingers off the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.177,
+    0.029,
+    -0.05
+   ],
+   "deg": 148.0,
+   "why": "set g27 on g24's top, clean path, 12 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.174,
+    -0.088,
+    -0.059
+   ],
+   "deg": 7.0,
+   "why": "g9 leans on the red's -x face, blocking the only usable jaw axis (0 deg, along the wall)",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 21.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.171,
+    0.066,
+    -0.05
+   ],
+   "deg": 7.0,
+   "why": "set g9 on g22's top, away from the wall and the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.206,
+    -0.088,
+    -0.081
+   ],
+   "deg": 0.0,
+   "why": "g24, g27 and g9 are off; jaws along the wall only graze g7 by 4 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

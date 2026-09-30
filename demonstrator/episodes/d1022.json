@@ -1,0 +1,306 @@
+{
+ "seed": 1022,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.154,
+    -0.0205,
+    -0.051
+   ],
+   "deg": 172.0,
+   "why": "red line at z -0.067 along g4's +y edge puts the red on the floor under g4; lift g4, jaws across x, aim 3 mm far-side for arm clearance",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.169,
+    0.089,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "set g4 on the floor spot by the +y wall, away from the red's x axis, jaws parallel to the wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.146,
+    -0.052,
+    -0.051
+   ],
+   "deg": 80.0,
+   "why": "red is boxed on all four faces; g20 on layer 2 covers g22, the red's -y neighbour, and has a clean grasp",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.167,
+    0.092,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g20 on g4's top by the +y wall, well clear of the red's box",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.1605,
+    0.01,
+    -0.074
+   ],
+   "deg": 171.0,
+   "why": "g13 is the red's +y neighbour; jaws across x, aim 2.5 mm far-side and 7 mm high so the fingers clear g23 and g19",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.229,
+    0.087,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g13 on g5's top by the +y wall, away from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.1695,
+    -0.086,
+    -0.045
+   ],
+   "deg": 110.0,
+   "why": "red is locked on all four sides; g28 leans in the only lane for a push that slides g22 and the red +y into g13's empty slot; grasp g28 high on its vertical faces, 3 mm off the wall",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.2,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.216,
+    0.035,
+    -0.019
+   ],
+   "deg": 132.0,
+   "why": "set g28 on g27's top in the middle of the bin; every floor spot is in the push lane or the red's target slot",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "push",
+   "xyz": [
+    0.1375,
+    -0.0925,
+    -0.085
+   ],
+   "deg": 81.0,
+   "why": "every neighbour of the red is flush; push g22 along the faces so it slides the red about 29 mm +y into g13's empty slot, where g13 itself had a clean x-axis grasp",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.214,
+    0.021,
+    -0.022
+   ],
+   "deg": 135.0,
+   "why": "g28 settled on layer 3 right where the red's moving finger has to come down; take it off again",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.18,
+    -0.059,
+    -0.047
+   ],
+   "deg": 79.0,
+   "why": "set g28 on g1's well-seen top, 4 cm from the red and off both of its jaw paths",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.216,
+    0.031,
+    -0.051
+   ],
+   "deg": 44.0,
+   "why": "the undone red pick's open finger swept g27 into the red; lift g27 out of that path first",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 12,
+   "why": "pick closed empty and left the red tilted 53 deg with g27 and g16 knocked over; the fixed finger likely landed on the red's own edge at a 3.7 mm shift",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.16,
+      0.02,
+      -0.072
+     ],
+     "deg": 173.0,
+     "why": "red now sits in g13's old slot; jaws across x, slid 10 mm along the face toward +y where the gap to g23 is widest, raised 9 mm, so only a rough g19 shows a 5 mm graze",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

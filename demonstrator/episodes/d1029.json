@@ -1,0 +1,118 @@
+{
+ "seed": 1029,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.228,
+    -0.043,
+    -0.052
+   ],
+   "deg": 60.0,
+   "why": "red is under g17; g17's 128 axis hits g13 13 mm and its 38 axis hits g28 16 mm. g13 (layer 2, top 99%) also sits at the red's -x+y corner and is clean at 60",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.25,
+    0.081,
+    -0.048
+   ],
+   "deg": 166.0,
+   "why": "set g13 on g25's top on the far +y side, 14 cm from the red, no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.26,
+    -0.065,
+    -0.052
+   ],
+   "deg": 128.0,
+   "why": "g17 (layer 2) covers the red's +x-y corner and blocks both red axes by 50 mm; with g13 gone its 128 axis is clean",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.282,
+    0.026,
+    -0.048
+   ],
+   "deg": 104.0,
+   "why": "set g17 on g7's well-seen top, 9 cm from the red and off both its axes, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.287,
+    -0.047,
+    -0.044
+   ],
+   "deg": 126.0,
+   "why": "g28 (layer 2 by the far wall) blocks the red's 170 axis by 48 mm and its 80 axis once slid off g18; level, so grasp 8 mm high at 126 to clear the rim line",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ]
+}

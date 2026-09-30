@@ -1,0 +1,142 @@
+{
+ "seed": 1003,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.225,
+    -0.073,
+    -0.022
+   ],
+   "deg": 17.0,
+   "why": "g2 is the layer-3 cover over g20 and the red; jaws along x since it sits 2 cm from the -y wall",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.25,
+    0.056,
+    -0.048
+   ],
+   "deg": 76.0,
+   "why": "set g2 on the well-seen top of g19, on the +y side away from the red; the listed spots put fingers over a wall or into g14",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.226,
+    -0.071,
+    -0.051
+   ],
+   "deg": 53.0,
+   "why": "g20 now lies level on the red, 90% of its top seen; 53 deg clears every seen cube",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.218,
+    0.01,
+    -0.048
+   ],
+   "deg": 10.0,
+   "why": "set g20 on g5, 9 cm from the red on the +y side, where check shows no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.227,
+    -0.084,
+    -0.081
+   ],
+   "deg": 0.0,
+   "why": "red is uncovered but sits at 45 deg with a corner 5 mm off the -y wall; both face grasps put a finger through the wall, so close across its corners along x, where the floor is open",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.217,
+    -0.091,
+    -0.077
+   ],
+   "deg": 16.0,
+   "why": "the miss turned the red square to the -y wall; jaws along x, parallel to that wall, clear every seen cube",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.0,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+{
+ "seed": 1032,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.184,
+    0.016,
+    -0.022
+   ],
+   "deg": 123.0,
+   "why": "g14 is the layer-3 cube over the two red pixels; top of the pile, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.273,
+    -0.076,
+    -0.048
+   ],
+   "deg": 139.0,
+   "why": "g14 onto g17's top in the far -y corner, 10 cm from the red pixels",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.191,
+    0.026,
+    -0.051
+   ],
+   "deg": 121.0,
+   "why": "a red line runs along the base of g15's -y face, so the red is under it; 121 is clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.148,
+    -0.069,
+    -0.048
+   ],
+   "deg": 108.0,
+   "why": "g15 onto g6's top toward the -y wall, 10 cm from the red, arm 17 mm clear",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.222,
+    0.033,
+    -0.052
+   ],
+   "deg": 33.0,
+   "why": "g18 (layer 2) sits over the + end of the red's 32 axis; clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,378 @@
+{
+ "seed": 1000,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.287,
+    0.031,
+    -0.022
+   ],
+   "deg": 101.0,
+   "why": "take layer-3 g16 off the stack near where the red line shows",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.129,
+    -0.079,
+    -0.048
+   ],
+   "deg": 145.0,
+   "why": "set g16 on well-seen layer-1 g22, far from the dig",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.247,
+    0.053,
+    -0.051
+   ],
+   "deg": 56.0,
+   "why": "lift layer-2 g6, which covers the floor spot the red line points at",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.212,
+    -0.091,
+    -0.048
+   ],
+   "deg": 170.0,
+   "why": "set g6 on well-seen layer-1 g12, away from the dig",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.228,
+    0.08,
+    -0.051
+   ],
+   "deg": 42.0,
+   "why": "lift g2 off the red's +y edge; aim shifted 7 mm off the side wall so the open finger clears the rim",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.127,
+    0.035,
+    -0.048
+   ],
+   "deg": 110.0,
+   "why": "set g2 on well-seen layer-1 g13, near wall side away from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.283,
+    0.037,
+    -0.045
+   ],
+   "deg": 144.0,
+   "why": "lift layer-2 g8, which overhangs the red's +x side; grasp 6 mm high so the open finger stays over the far rim",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.167,
+    -0.02,
+    -0.018
+   ],
+   "deg": 68.0,
+   "why": "set g8 on well-seen g15 in mid-bin, clear of walls and of the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.245,
+    0.052,
+    -0.081
+   ],
+   "deg": 148.0,
+   "why": "nudge: red is boxed on both axes; grasp across 148 where g9 has about 20 mm of room toward the far wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.29,
+    0.076,
+    -0.05
+   ],
+   "deg": 82.0,
+   "why": "lift leaning g21 from the far corner so the red's +x+y side and g9's 62-deg axis open up",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.267,
+    -0.027,
+    -0.048
+   ],
+   "deg": 37.0,
+   "why": "set g21 on well-seen layer-1 g5, clear of the red's box",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.261,
+    0.083,
+    -0.081
+   ],
+   "deg": 150.0,
+   "why": "take g11 off the red's 55-deg + end (gap 2 mm) where the moving finger must land",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.285,
+    -0.06,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g11 on well-seen layer-1 g1, far from the red's jaw axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.248,
+    0.057,
+    -0.081
+   ],
+   "deg": 59.0,
+   "why": "red's 59-deg + end is clear now; aim 5 mm toward it so the fixed finger lands at the g20 seam",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.242,
+    0.057,
+    -0.081
+   ],
+   "deg": 60.0,
+   "why": "last move: red across 60 with the + end clear and g20 now 4 mm off the - end; aim slid 4 mm along the face, not across it",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 15.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 9,
+   "why": "g11 pick missed and left g11 tilted 11 deg against the red's +y side; red's 59-deg axis got tighter (g11 hit 20 -> 22 mm)",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.248,
+      0.084,
+      -0.074
+     ],
+     "deg": 156.0,
+     "why": "take g11 off the red's +y side so the moving finger gets room on the red's 58-deg axis",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

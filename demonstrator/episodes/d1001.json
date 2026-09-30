@@ -1,0 +1,222 @@
+{
+ "seed": 1001,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.177,
+    -0.015,
+    -0.047
+   ],
+   "deg": 41.0,
+   "why": "lift leaning g12 off the red; it is flush at the - end of both red axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 20.1,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.148,
+    -0.076,
+    -0.048
+   ],
+   "deg": 171.0,
+   "why": "set g12 on well-seen layer-1 g16, off both red axes",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "push",
+   "xyz": [
+    0.162,
+    0.025,
+    -0.05
+   ],
+   "deg": 0.0,
+   "why": "push tilted layer-2 g4 off the red's + end toward the far wall; picks on it hit g24 or g15",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.207,
+    -0.065,
+    -0.021
+   ],
+   "deg": 177.0,
+   "why": "lift layer-3 g2 off g7, the cube that blocks the red's - end once the aim slides off g23",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.29,
+    -0.037,
+    -0.048
+   ],
+   "deg": 88.0,
+   "why": "set g2 on well-seen g9 by the far wall, far from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    -0.04,
+    -0.051
+   ],
+   "deg": 17.0,
+   "why": "lift layer-2 g7, which blocks the moving finger when the red grasp slides off g23",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.287,
+    0.047,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g7 on g14 by the far wall, far from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.178,
+    -0.012,
+    -0.081
+   ],
+   "deg": 78.0,
+   "why": "red across 78 with the aim slid 10 mm along the face (+x) so the fixed finger clears g23; g7 is gone so the moving side is clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.7,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 3,
+   "why": "g4 pick missed: g4 dropped to layer 1 tilted 29 deg, wedged 7 mm from the red's + end, and layer-3 g2 tipped 21 deg",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.192,
+      0.023,
+      -0.05
+     ],
+     "deg": 93.0,
+     "why": "lift tilted layer-2 g4 over the + end of the red's 77-deg axis; 7 mm high and slid 3 mm along the face to miss g24",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

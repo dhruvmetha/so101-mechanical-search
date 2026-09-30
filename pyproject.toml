@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so101sim"
+version = "0.1.0"
+description = "SO-101 arm in MuJoCo, with lerobot-style actions and observations"
+requires-python = ">=3.10"
+dependencies = [
+    "mujoco==3.8.1",
+    "gymnasium",
+    "numpy",
+    "imageio[ffmpeg]",
+]
+
+[project.optional-dependencies]
+# jax 0.6.2 is the last release that supports Python 3.10. It installs next to torch 2.10 without
+# replacing any of torch's CUDA libraries. The warp extra adds warp-lang for the MuJoCo Warp backend.
+mjx = ["mujoco-mjx[warp]==3.8.1", "jax[cuda12]"]
+
+[tool.setuptools]
+packages = ["so101sim"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["mjx: compiles MJX on the GPU, takes minutes. Skip with -m 'not mjx'"]

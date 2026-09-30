@@ -1,0 +1,282 @@
+{
+ "seed": 1005,
+ "buried": false,
+ "ops": [
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.134,
+    -0.061,
+    -0.021
+   ],
+   "deg": 2.0,
+   "why": "g19 is the layer-3 cube flush against g22's -y face and caught the finger on the undone pick; take it first, jaws along x to stay clear of g22",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.277,
+    0.051,
+    -0.048
+   ],
+   "deg": 76.0,
+   "why": "set g19 on g11 by the far wall, 17 cm from the red; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.139,
+    -0.028,
+    -0.022
+   ],
+   "deg": 92.0,
+   "why": "with g19 gone, g22's -y side is open; lift the layer-3 cover off the red, jaws along y",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.273,
+    0.015,
+    -0.048
+   ],
+   "deg": 120.0,
+   "why": "set g22 on the far layer-1 tops, 14 cm from the red; clean check and a third of the other spot's robot time",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.185,
+    -0.009,
+    -0.025
+   ],
+   "deg": 40.0,
+   "why": "g18 is a layer-3 cube leaning on the red's +x side, where the 55 deg grasp's open finger goes into 39 mm of unseen space; take it off first, on its box-fit yaw",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.283,
+    -0.043,
+    -0.048
+   ],
+   "deg": 97.0,
+   "why": "set g18 on g13 at the far wall, 14 cm from the red; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.16,
+    0.007,
+    -0.053
+   ],
+   "deg": 7.0,
+   "why": "g9 leans against the red's +y side and takes 13 mm of the 56 deg grasp; its box-fit yaw 7 is a clean pick",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 18.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.241,
+    -0.049,
+    -0.048
+   ],
+   "deg": 21.0,
+   "why": "set g9 on g8, 10 cm from the red toward the far wall; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.147,
+    -0.066,
+    -0.051
+   ],
+   "deg": 16.0,
+   "why": "g0 is the last neighbour in the red's 58 deg grasp (15 mm); jaws along x keep off the -y wall and the red, at the cost of grazing the leaning g15 by 11 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.258,
+    0.094,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g0 on g2 in the far +y corner, well away from the red; the g23 spot sent fingers 70 mm into unseen space",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.145,
+    -0.028,
+    -0.051
+   ],
+   "deg": 58.0,
+   "why": "g9 and g0 are gone, so both ends of the red's 58 deg axis are clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 1,
+   "why": "the miss tipped g22 29 deg back onto the red, knocked g19 down a layer and tilted the red 30 deg; the red went from 145 to 63 seen pixels",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.139,
+      -0.029,
+      -0.021
+     ],
+     "deg": 91.0,
+     "why": "g22 is the layer-3 cube sitting on the red, 85% of its top seen; 91 deg is clean and keeps the arm 31 mm off itself",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,274 @@
+{
+ "seed": 1018,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.218,
+    0.032,
+    -0.022
+   ],
+   "deg": 73.0,
+   "why": "g0 is the layer-3 top of the highest stack (g0 over g14); no red pixels, so dig the tallest stack first",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.254,
+    -0.053,
+    -0.049
+   ],
+   "deg": 80.0,
+   "why": "set g0 on g26's well-seen top at g26's yaw, clean check, away from the g14 stack",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.208,
+    0.038,
+    -0.051
+   ],
+   "deg": 9.0,
+   "why": "red pixels at floor-top z show at g14's +x edge, so the red lies under g14; lift g14",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.223,
+    -0.088,
+    -0.049
+   ],
+   "deg": 165.0,
+   "why": "set g14 on g24's top by the -y wall, clean check, 5 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.235,
+    0.017,
+    -0.051
+   ],
+   "deg": 77.0,
+   "why": "red is boxed; clear its 101 axis, starting with g19, the layer-2 cube resting over g9 on the red's -y end",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.289,
+    -0.059,
+    -0.078
+   ],
+   "deg": 90.0,
+   "why": "set g19 on the floor by the far wall behind g26, clean check, away from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.176,
+    -0.014,
+    -0.051
+   ],
+   "deg": 95.0,
+   "why": "red is boxed on all four sides; g28 (layer 2 over g10) blocks both g8 and g9 grasps, so it comes off first",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.171,
+    -0.07,
+    -0.049
+   ],
+   "deg": 19.0,
+   "why": "set g28 on g7's well-seen top, clean check, 11 cm from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    0.068,
+    -0.081
+   ],
+   "deg": 11.0,
+   "why": "every neighbour of the red is interlocked with flush cubes; try g22 with the fixed finger in the open floor at -x, accepting the moving finger on g16's top",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.19,
+    0.064,
+    -0.062
+   ],
+   "deg": 101.0,
+   "why": "g22 now leans 37 deg and sticks up; grasp its vertical y faces 13 mm above centre so the fixed finger clears the red's top",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.286,
+    -0.056,
+    -0.048
+   ],
+   "deg": 87.0,
+   "why": "set g22 on g19 by the far wall, clean check, 10 cm from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    0.036,
+    -0.081
+   ],
+   "deg": 110.0,
+   "why": "red's +y side is now open but g9 is flush on -y and can't be lifted; nudge: grasp the red across y and hope closing slides it toward the open side",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 16.7,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

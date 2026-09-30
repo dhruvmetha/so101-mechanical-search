@@ -1,0 +1,73 @@
+{
+ "seed": 401,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.135,
+    0.013,
+    -0.019
+   ],
+   "deg": 59.0,
+   "why": "g3 on layer 3 blocks the red; clear, pose rough",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.131,
+    0.009,
+    -0.022
+   ],
+   "deg": 148.0,
+   "why": "g3 re-aimed from the box fit; jaws across its most vertical faces",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.131,
+    0.009,
+    -0.022
+   ],
+   "deg": 148.0,
+   "why": "retry g3 with the unpark step, so the wrist turns over the bin, not against the shoulder",
+   "unpark": true,
+   "result": {
+    "grip": 24.8,
+    "success": false,
+    "failure": "cube left the bin: cube_gray_25",
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

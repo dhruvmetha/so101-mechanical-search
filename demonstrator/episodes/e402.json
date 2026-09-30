@@ -1,0 +1,408 @@
+{
+ "seed": 402,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.193,
+    -0.052,
+    -0.051
+   ],
+   "deg": 121.0,
+   "why": "g14 covers where the red pixels are; clear it, jaws at 121 miss every seen cube",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.238,
+    0.002,
+    -0.018
+   ],
+   "deg": 35.0,
+   "why": "set g14 on g10's top, mid-bin and 8 cm from the dig, clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.225,
+    -0.053,
+    -0.05
+   ],
+   "deg": 6.0,
+   "why": "g27 hides the red's top from the camera; lift it, jaws along x hit nothing seen",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 21.2,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.151,
+    0.003,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g27 on g28, 7 cm from the red, clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.149,
+    -0.057,
+    -0.051
+   ],
+   "deg": 22.0,
+   "why": "g16 leans over g12 and blocks g23's 29 deg grasp; clear it, box-fit yaw, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.111,
+    0.071,
+    -0.078
+   ],
+   "deg": 90.0,
+   "why": "g16 to the empty floor in the near +y corner, far from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.193,
+    -0.056,
+    -0.081
+   ],
+   "deg": 29.0,
+   "why": "nudge: the red is boxed on all four sides; grasp across 29 so the fingers shove g20 and g12 apart",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.176,
+    -0.087,
+    -0.044
+   ],
+   "deg": 33.0,
+   "why": "g1 blocks the - end of the red's 120 axis; leaning, so grasp 8 mm high and 2 mm off the side wall, clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.256,
+    -0.054,
+    -0.048
+   ],
+   "deg": 48.0,
+   "why": "g1 onto g25's top, 7 cm from the red; places' best, clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.177,
+    -0.056,
+    -0.064
+   ],
+   "deg": 120.0,
+   "why": "red tilted 24: grasp its vertical faces 12 mm high, slid 8 mm along the face off g4; clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.193,
+    0.005,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "red held tilted 23, no success; set it down level on the open flat spot to regrasp",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.192,
+    0.006,
+    -0.051
+   ],
+   "deg": 90.0,
+   "why": "regrasp the level red across y: fixed finger on the +y side with 25 mm to g13, moving finger on the open side; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 5,
+   "why": "the miss tipped g20 onto the red and hid it",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.22,
+      -0.042,
+      -0.081
+     ],
+     "deg": 118.0,
+     "why": "g20 is flush on the red's far side along 29 deg; clear it so the moving finger has room",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  },
+  {
+   "at_move": 7,
+   "why": "the miss tilted g23 36 deg and left both red axes blocked",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.177,
+      -0.03,
+      -0.081
+     ],
+     "deg": 28.0,
+     "why": "g23 is flush on the red's +y side along 119; clean check now g16 is gone",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  },
+  {
+   "at_move": 9,
+   "why": "high grasp across 31 missed and gained nothing",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.185,
+      -0.05,
+      -0.066
+     ],
+     "deg": 31.0,
+     "why": "the red leans back on g12; high grasp across 31 with the other roll, g20 grazed 4 mm",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  },
+  {
+   "at_move": 8,
+   "why": "high grasp across 30 missed and tilted g12",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.181,
+      -0.054,
+      -0.068
+     ],
+     "deg": 30.0,
+     "why": "the red leans 30 deg after the nudge; grasp it high across 30, only g12 grazed 6 mm",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 10.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    }
+   ]
+  }
+ ]
+}

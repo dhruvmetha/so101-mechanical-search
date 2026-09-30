@@ -1,0 +1,294 @@
+{
+ "seed": 1024,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.201,
+    0.007,
+    -0.022
+   ],
+   "deg": 145.0,
+   "why": "g2 is the layer-3 cover over g1 and g21; four flush floor cubes (g26, g4, g8, g15) box a cell under g1 at about (0.200, 0.022), so dig there",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.149,
+    -0.024,
+    -0.048
+   ],
+   "deg": 94.0,
+   "why": "set g2 on g27's well-seen top, away from the dig cell under g1",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    -0.014,
+    -0.051
+   ],
+   "deg": 179.0,
+   "why": "g21 blocks every g1 grasp on the y axis and sits on g8, the -y neighbour of the suspected red cell",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.14,
+    -0.057,
+    -0.048
+   ],
+   "deg": 2.0,
+   "why": "set g21 on g19's top, shifted 7 mm off the base wall so the open finger clears it",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.201,
+    0.022,
+    -0.052
+   ],
+   "deg": 84.0,
+   "why": "red pixels at floor-top height right under g1; lift the cover",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.285,
+    0.004,
+    -0.048
+   ],
+   "deg": 100.0,
+   "why": "set g1 on g23's top by the far wall, clear of the red's cell",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.228,
+    0.061,
+    -0.055
+   ],
+   "deg": 58.0,
+   "why": "g20 leans over g15, the red's +y neighbour; red axis 85 is blocked by g8 and g15, and g15 can't be seen until g20 is off",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 22.6,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.199,
+    -0.089,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "set g20 on open floor by the -y wall, far from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.204,
+    0.054,
+    -0.081
+   ],
+   "deg": 177.0,
+   "why": "g15 is the red's +y neighbour on axis 85; its x axis is clear now that g20 is off",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.261,
+    -0.043,
+    -0.048
+   ],
+   "deg": 99.0,
+   "why": "set g15 on g6's level top, away from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.198,
+    -0.007,
+    -0.081
+   ],
+   "deg": 174.0,
+   "why": "g8 is the last cube on the red's axis 86; +y end is clear now. Only x axis is possible, g2 and g17 graze the fingers",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.157,
+    -0.085,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g8 on the layer-1 tops by the -y wall, well away from the red's axis 85",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.193,
+    0.023,
+    -0.081
+   ],
+   "deg": 86.0,
+   "why": "both ends of the red's axis 86 are clear now that g15 and g8 are gone",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

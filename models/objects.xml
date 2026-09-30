@@ -1,0 +1,45 @@
+<mujoco>
+  <!-- The bin-picking task's table, front camera and objects. The cube and bin_wall classes come from
+       stage.xml. Edit this file to change what's on the table.
+
+       Every position here is measured against what the arm can reach with the gripper pointing straight
+       down, which is the only grasp family a 5-DOF arm has. Top-down grasping reaches x 0.12..0.34,
+       |y| <= 0.24. Releasing a held cube over a 2.5 cm rim reaches x 0.14..0.28, |y| <= 0.22. Jaw yaw is
+       fully controllable inside x <= 0.26, and starts dropping out beyond that at negative y. The cube
+       spawn region in binpick.py sits inside all three limits. -->
+  <worldbody>
+    <!-- Table top surface is z=0, where the arm base sits. -->
+    <geom name="table" type="box" size="0.35 0.45 0.02" pos="0.2 0 -0.02" material="table"/>
+
+    <body name="front_cam_target" pos="0.18 0 0.02"/>
+    <camera name="front" mode="targetbody" target="front_cam_target" pos="0.7 0 0.45" fovy="50"/>
+
+    <!-- Starting poses only. BinPickEnv.reset() scatters these across the spawn region. -->
+    <body name="cube_red" pos="0.20 -0.10 0.015">
+      <freejoint name="cube_red"/>
+      <geom name="cube_red" class="cube" rgba="0.85 0.15 0.15 1"/>
+    </body>
+    <body name="cube_green" pos="0.24 -0.06 0.015">
+      <freejoint name="cube_green"/>
+      <geom name="cube_green" class="cube" rgba="0.15 0.7 0.2 1"/>
+    </body>
+    <body name="cube_blue" pos="0.18 -0.02 0.015">
+      <freejoint name="cube_blue"/>
+      <geom name="cube_blue" class="cube" rgba="0.15 0.3 0.85 1"/>
+    </body>
+
+    <!-- Open bin, 8 x 8 cm inside, floor top at z=0.004, rim at z=0.029. Two measurements pin this down.
+         Rim height, because top-down reach collapses as the gripper rises and runs out entirely near
+         z=0.10, so a taller bin would make placing impossible rather than merely hard. And position:
+         carrying a cube at 5 to 5.5 cm, reach is an annulus ending around radius 0.27, so this sits at
+         radius 0.261. The obvious spot straight out in front, (0.24, 0.15), is radius 0.283 and the arm
+         cannot get a cube over it. -->
+    <body name="bin" pos="0.18 0.19 0">
+      <geom name="bin_floor" class="bin_wall" size="0.044 0.044 0.002" pos="0 0 0.002"/>
+      <geom name="bin_wall_px" class="bin_wall" size="0.002 0.044 0.0125" pos="0.042 0 0.0165"/>
+      <geom name="bin_wall_nx" class="bin_wall" size="0.002 0.044 0.0125" pos="-0.042 0 0.0165"/>
+      <geom name="bin_wall_py" class="bin_wall" size="0.044 0.002 0.0125" pos="0 0.042 0.0165"/>
+      <geom name="bin_wall_ny" class="bin_wall" size="0.044 0.002 0.0125" pos="0 -0.042 0.0165"/>
+    </body>
+  </worldbody>
+</mujoco>

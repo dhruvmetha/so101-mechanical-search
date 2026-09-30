@@ -1,0 +1,282 @@
+{
+ "seed": 1030,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.251,
+    0.022,
+    -0.051
+   ],
+   "deg": 173.0,
+   "why": "g27 is the layer-2 cover right where the red line shows; 173 is clean",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.217,
+    -0.061,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "set g27 on the flat spot over g14, 8 cm from the dig",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.194,
+    0.029,
+    -0.056
+   ],
+   "deg": 85.0,
+   "why": "clearing the red's 174 axis: g0 leans over g24, the -x neighbour; 85 is clean",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.244,
+    0.087,
+    -0.048
+   ],
+   "deg": 173.0,
+   "why": "g0 onto g16's top, by the +y wall, away from the 174 axis",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.214,
+    0.027,
+    -0.081
+   ],
+   "deg": 84.0,
+   "why": "g24 is the red's -x neighbour on the 173 axis; aim slid 6 mm along its faces toward -x to keep the fixed finger off g7",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.156,
+    0.09,
+    -0.048
+   ],
+   "deg": 146.0,
+   "why": "g24 onto g1's top by the +y wall, well off the red's x axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.286,
+    -0.008,
+    -0.052
+   ],
+   "deg": 85.0,
+   "why": "g17 leans over g3, the red's +x neighbour; jaws parallel to the far wall, 5 mm high for the lean, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 20.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.287,
+    0.075,
+    -0.048
+   ],
+   "deg": 111.0,
+   "why": "g17 hangs tilted in the jaws, so a short hop to g25's top by the far wall instead of the long swing that dropped it",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.283,
+    0.021,
+    -0.074
+   ],
+   "deg": 87.0,
+   "why": "g3 is the last cube on the red's 174 axis; 7 mm high and 2 mm toward the fixed finger cuts the moving finger's g6 hit to 8 mm",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.7,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.191,
+    0.071,
+    -0.078
+   ],
+   "deg": 90.0,
+   "why": "g3 onto the open floor between g10 and g4, off the red's 174 axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.25,
+    0.022,
+    -0.081
+   ],
+   "deg": 177.0,
+   "why": "both ends of the red's 177 axis are clear now; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 8,
+   "why": "g17 fell out of the jaws on the swing to g10 and landed back by g3; the place moved nothing",
+   "ops": [
+    {
+     "op": "act",
+     "kind": "place",
+     "xyz": [
+      0.175,
+      0.052,
+      -0.048
+     ],
+     "deg": 45.0,
+     "why": "g17 onto g10's top, away from g3 which comes out next",
+     "unpark": true,
+     "flip": 1,
+     "result": {
+      "grip": 35.0,
+      "success": false,
+      "failure": null,
+      "refused": null,
+      "terminated": false
+     }
+    },
+    {
+     "op": "park",
+     "keep_grip": true
+    }
+   ]
+  }
+ ]
+}

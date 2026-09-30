@@ -1,0 +1,162 @@
+{
+ "seed": 1010,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.166,
+    0.051,
+    -0.051
+   ],
+   "deg": 52.0,
+   "why": "a red line shows at floor level at (0.185, 0.054), where the red's +x face would sit if it lies under g16; lift g16, yaw 52 has no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.209,
+    -0.059,
+    -0.048
+   ],
+   "deg": 41.0,
+   "why": "red found under g16; set g16 on g2, 11 cm from the red, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.176,
+    -0.01,
+    -0.051
+   ],
+   "deg": 136.0,
+   "why": "the red is boxed on all four faces; g14 on layer 2 blocks the grasps on g28 and g19, two of its neighbours; yaw 136 is clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.24,
+    -0.073,
+    -0.048
+   ],
+   "deg": 28.0,
+   "why": "set g14 on g25, 13 cm from the red and 2 cm clear of the side wall; clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.189,
+    0.035,
+    -0.081
+   ],
+   "deg": 52.0,
+   "why": "take g28 off the red's 323 face to open one side; jaws across g28's 52 axis, shifted 4 mm toward the open hole to clear g3's corner, clean check",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.253,
+    -0.009,
+    -0.048
+   ],
+   "deg": 16.0,
+   "why": "set g28 on g18, 9 cm from the red and clear of the walls; clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.182,
+    0.035,
+    -0.081
+   ],
+   "deg": 48.0,
+   "why": "red flush with g19 and g9 on its 48 axis, but both sit toward its 138 side; slide the grasp 12 mm along the faces into g28's old slot, where check shows no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.6,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

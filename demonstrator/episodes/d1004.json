@@ -1,0 +1,186 @@
+{
+ "seed": 1004,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.199,
+    0.036,
+    -0.051
+   ],
+   "deg": 157.0,
+   "why": "the thin red line runs along g9's +x and +y edges, so g9 is a layer-2 cover on the red; 157 deg clears all seen cubes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.211,
+    -0.077,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g9 on g17 on the -y side, far from the red; jaws along x keep the fingers off the wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.205,
+    0.079,
+    -0.029
+   ],
+   "deg": 143.0,
+   "why": "red is boxed; g27 is the leaning layer-3 cube over its +y side and the grasp at 67 goes 49 mm into it. 143 is its box-fit yaw and clears all seen cubes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 20.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.145,
+    -0.075,
+    -0.048
+   ],
+   "deg": 0.0,
+   "why": "set g27 on the layer-1 tops by the -y wall near the base, far from the red; check is clean",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.199,
+    0.036,
+    -0.081
+   ],
+   "deg": 67.0,
+   "why": "red is uncovered; the 67 axis has open space on +y since g27 left and only g26 flush on -y, with a 14 mm gap behind it, so grasp there and let the finger shove g26",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.191,
+    0.028,
+    -0.07
+   ],
+   "deg": 159.0,
+   "why": "red now tilts 18 deg; close on its near-vertical faces (box-fit yaw 159), 7 mm above centre so the finger only grazes g6 by 8 mm",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.5,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.223,
+    -0.009,
+    -0.048
+   ],
+   "deg": 71.0,
+   "why": "holding the red tilted 20 deg, which can't clear the success line; set it level on g28's open top, aligned with g28, to regrasp square",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.218,
+    -0.014,
+    -0.051
+   ],
+   "deg": 161.0,
+   "why": "red now sits level on g28 with clear jaws both ways; 161 keeps the arm 66 mm off itself",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

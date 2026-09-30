@@ -1,0 +1,162 @@
+{
+ "seed": 1017,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.165,
+    -0.013,
+    -0.022
+   ],
+   "deg": 79.0,
+   "why": "g21 is the layer-3 top cube over g5, which covers the red's yaw-136 axis; clean at yaw 79",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.126,
+    0.086,
+    -0.048
+   ],
+   "deg": 158.0,
+   "why": "set g21 on well-seen g10 in the far +y corner, 13 cm from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.156,
+    -0.032,
+    -0.051
+   ],
+   "deg": 14.0,
+   "why": "g5 is layer 2 over the red's -x edge and flush on both its axes; clean at yaw 14",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.163,
+    0.049,
+    -0.048
+   ],
+   "deg": 137.0,
+   "why": "set g5 on well-seen g11, 8.5 cm from the red and off both its jaw axes",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.146,
+    0.008,
+    -0.052
+   ],
+   "deg": 118.0,
+   "why": "g1 is the layer-2 cube the red's yaw-135 fixed finger would pass through (20 mm); sliding the aim only cut it to 11 mm; yaw 118 is clean",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.127,
+    0.039,
+    -0.048
+   ],
+   "deg": 100.0,
+   "why": "set g1 on g8, 9 cm from the red and 19 mm off its yaw-135 axis; the unseen space is the held arm hiding the view",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.174,
+    -0.035,
+    -0.081
+   ],
+   "deg": 135.0,
+   "why": "the red's yaw-135 axis is clear at both ends (21 and 24 mm) with g5 and g1 gone; no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "seed": 1028,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.181,
+    0.046,
+    -0.051
+   ],
+   "deg": 83.0,
+   "why": "no red pixels listed, but the image shows a faint red seam along g15's base-side edge, so the red is likely under g16 (layer 2, just behind g15). Jaws slid 10 mm along g16's face to clear g27",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.6,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.256,
+    -0.083,
+    -0.048
+   ],
+   "deg": 31.0,
+   "why": "red found right under g16; set g16 on g26's top in the far -y corner, 15 cm from the red, no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.201,
+    0.04,
+    -0.081
+   ],
+   "deg": 83.0,
+   "why": "red boxed on all four faces; g15 is the +x end of the red's 174 axis and the only neighbour with a clean grasp (83 deg, no hits)",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.274,
+    -0.034,
+    -0.048
+   ],
+   "deg": 108.0,
+   "why": "set g15 on g24's top near the far wall, 12 cm from the red, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.132,
+    0.076,
+    -0.021
+   ],
+   "deg": 75.0,
+   "why": "red's -x side is a stack g5 on g18 on g0 (fixed finger hits all three); take the top one, g5, clean at 75",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.273,
+    0.063,
+    -0.048
+   ],
+   "deg": 121.0,
+   "why": "set g5 on g2's well-seen top, 11 cm from the red, no hits",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.136,
+    0.061,
+    -0.051
+   ],
+   "deg": 4.0,
+   "why": "g18 (layer 2) is the middle of the stack on the red's -x side; clean at 4 deg, arm 10 mm from itself",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.224,
+    0.086,
+    -0.048
+   ],
+   "deg": 148.0,
+   "why": "set g18 on g25's top; every floor spot and layer-1 top on the far side failed check, g25 is clean and off the red's 172 axis",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.169,
+    0.044,
+    -0.081
+   ],
+   "deg": 172.0,
+   "why": "nudge: red's +x end is open and only g0 (1 mm gap, 18 mm hit) remains on the -x end; g0 itself hits g12 67 mm on its only axis, so grasp across 172 as in d1008 with the moving finger on the open side",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.1,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.2,
+    0.044,
+    -0.078
+   ],
+   "deg": 172.0,
+   "why": "red held but not counted, so set it down level in the open slot g15 left, jaws along x where both ends are free",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.2,
+    0.044,
+    -0.081
+   ],
+   "deg": 169.0,
+   "why": "red now level in the open slot; 169 axis has no hits, grasp square to its faces",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

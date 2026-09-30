@@ -1,0 +1,230 @@
+{
+ "seed": 1033,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.253,
+    -0.067,
+    -0.022
+   ],
+   "deg": 36.0,
+   "why": "g18 is the layer-3 cube on top of g1 over the red; clear jaws",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.266,
+    0.007,
+    -0.048
+   ],
+   "deg": 138.0,
+   "why": "set g18 on well-seen g17, 9 cm from the red, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.259,
+    -0.078,
+    -0.051
+   ],
+   "deg": 142.0,
+   "why": "g1 is the layer-2 cover over the red's +x end; yaw 142 has no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.159,
+    0.033,
+    -0.048
+   ],
+   "deg": 179.0,
+   "why": "set g1 on g16, 12 cm from the red, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.186,
+    -0.091,
+    -0.036
+   ],
+   "deg": 46.0,
+   "why": "g19 leans over g22's -x side by the wall; lifting it first keeps the g22 pick from shoving it over the rim; box-fit yaw, no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.199,
+    -0.008,
+    -0.048
+   ],
+   "deg": 112.0,
+   "why": "set g19 on well-seen g12, 7 cm from the red and off its 168 jaw axis",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.223,
+    -0.088,
+    -0.052
+   ],
+   "deg": 19.0,
+   "why": "g22 is the layer-2 cube over the red's -x end on its 169 axis; jaws parallel to the side wall, no hits now g19 is gone",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.175,
+    -0.04,
+    -0.048
+   ],
+   "deg": 5.0,
+   "why": "set g22 on trusted layer-1 g25, 7 cm from the red and clear of its jaw paths",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.232,
+    -0.079,
+    -0.081
+   ],
+   "deg": 169.0,
+   "why": "red fully uncovered; 169 axis is the one parallel to the side wall. g21 and g3 can't be lifted cleanly (every g21 grasp lands a finger on the red or the wall), so nudge: g21 has open floor toward the far wall to be shoved into",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.227,
+    -0.075,
+    -0.072
+   ],
+   "deg": 176.0,
+   "why": "move 9 opened an 18 mm gap on the red's +x side; this roll puts the fixed finger in that gap, moving finger grazes g3 by 10 mm; 4 mm high because the red is tilted 25 deg",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.7,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

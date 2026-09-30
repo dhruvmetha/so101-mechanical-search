@@ -1,0 +1,61 @@
+<mujoco>
+  <!-- What every task scene shares: the arm, physics settings, visuals, default classes, lights, the
+       ground and the base's stand-in collision box. A task's top-level scene includes this file, then its
+       own objects file with the table, the front camera and the task's objects.
+
+       The vendored arm, untouched. Its compiler sets meshdir="assets", which MuJoCo resolves against the
+       top-level file's directory, so the compiler line after the include points it back at the vendored
+       assets. That's also why every top-level scene has to live in models/. -->
+  <include file="robotstudio_so101/so101.xml"/>
+  <compiler meshdir="robotstudio_so101/assets"/>
+
+  <!-- 10 physics steps per 30 Hz control step. Menagerie ships 0.005.
+
+       noslip: without it, friction doesn't hold stacked objects still. Measured 2026-09-29 on 12 bin piles held
+       for 30 s with nothing touching them: every pile crept, 24 mm median, some still moving 2 to 3 mm a second
+       after 30 s. More solver iterations, impratio, stiffer contacts and a shorter timestep did not fix it
+       without breaking reset (impratio 100) or at all. noslip cut the median to 2.4 mm, at about 2.5x the CPU
+       time. The GPU Warp backend refuses noslip, and so101sim.mjx.put drops it with a warning; piles creep there
+       under every setting tried. -->
+  <option timestep="0.0033333333333333335" noslip_iterations="10"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="160" elevation="-20" offwidth="1280" offheight="960"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="floor" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="floor" texture="floor" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="table" rgba="0.55 0.42 0.3 1"/>
+  </asset>
+
+  <!-- Shared so a cube behaves the same in every task. -->
+  <default>
+    <default class="cube">
+      <geom type="box" size="0.015 0.015 0.015" density="1000" condim="4" friction="1 0.005 0.0001"/>
+    </default>
+    <default class="bin_wall">
+      <geom type="box" rgba="0.3 0.3 0.35 1"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <light pos="0.6 0.4 1.0" dir="-0.5 -0.3 -1" diffuse="0.3 0.3 0.3"/>
+    <geom name="floor" type="plane" size="0 0 0.05" pos="0 0 -0.75" material="floor"/>
+
+    <!-- The MJCF base has no collision geometry, so planners and contacts pass through it. Stand-in box
+         from the so101 session's planning_scene.xml. The shoulder is bolted to the base, hence the exclude. -->
+    <body name="base_collision" pos="0.010 0 0.040">
+      <geom name="base_box" type="box" size="0.045 0.045 0.040" group="3"/>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="base_collision" body2="shoulder"/>
+  </contact>
+</mujoco>

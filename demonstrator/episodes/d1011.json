@@ -1,0 +1,30 @@
+{
+ "seed": 1011,
+ "buried": false,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.206,
+    0.084,
+    -0.043
+   ],
+   "deg": 41.0,
+   "why": "red on layer 2 by the +y wall, tilted 14 deg, nothing on top; jaws on its 41 axis 3 mm off the wall and 5 mm high so the fingers stay above the rim; clean check",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.8,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

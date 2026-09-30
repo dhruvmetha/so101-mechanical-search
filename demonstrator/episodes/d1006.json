@@ -1,0 +1,206 @@
+{
+ "seed": 1006,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.207,
+    0.052,
+    -0.051
+   ],
+   "deg": 141.0,
+   "why": "g3 sits on the red line; lift it off, jaw axis 141 has no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.155,
+    -0.067,
+    -0.018
+   ],
+   "deg": 141.0,
+   "why": "set g3 on g14's top, away from the red at (0.207, 0.053)",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.258,
+    0.045,
+    -0.056
+   ],
+   "deg": 150.0,
+   "why": "g16 leans over g2 and g17; clearing it frees g2's 49 deg grasp",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.194,
+    -0.093,
+    -0.05
+   ],
+   "deg": 0.0,
+   "why": "set g16 on g28, on the far side of the bin from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.23,
+    0.033,
+    -0.081
+   ],
+   "deg": 49.0,
+   "why": "g2 boxes the red on its 140 axis; with g16 gone its 49 deg grasp only grazes g5",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.267,
+    -0.012,
+    -0.02
+   ],
+   "deg": 14.0,
+   "why": "set g2 on g0's top, clear path with no hits, 7 cm from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.182,
+    0.069,
+    -0.081
+   ],
+   "deg": 51.0,
+   "why": "g8 is the last neighbour on the red's 142 axis; aim 3 mm off the side wall so the open finger clears it",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.21,
+    -0.007,
+    -0.05
+   ],
+   "deg": 49.0,
+   "why": "set g8 on g19's top, clean path, off the red's 142 grasp axis",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.207,
+    0.052,
+    -0.081
+   ],
+   "deg": 141.0,
+   "why": "g2 and g8 are gone, so the red's 141 axis is clear",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.9,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}

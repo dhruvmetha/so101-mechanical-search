@@ -1,0 +1,242 @@
+{
+ "seed": 1002,
+ "buried": true,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.165,
+    -0.01,
+    -0.028
+   ],
+   "deg": 27.0,
+   "why": "lift leaning layer-3 g1 off the stack over the red line at g12's -x edge",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.182,
+    -0.012,
+    -0.033
+   ],
+   "deg": 164.0,
+   "why": "second try at leaning layer-3 g1, on its new box-fit yaw, before lifting g17 off the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.1,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.272,
+    0.041,
+    -0.048
+   ],
+   "deg": 161.0,
+   "why": "set g1 on well-seen layer-1 g21, far side, away from the red",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.165,
+    -0.039,
+    -0.051
+   ],
+   "deg": 163.0,
+   "why": "lift layer-2 g17 off the red's +x/-y corner",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 17.8,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.236,
+    0.087,
+    -0.048
+   ],
+   "deg": 156.0,
+   "why": "set g17 on well-seen g13, far +y side, away from the red",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.198,
+    -0.038,
+    -0.081
+   ],
+   "deg": 93.0,
+   "why": "lift g12, flush on the red's +x side where the moving finger lands on its 1-deg axis; aim slid 7 mm along the face off g15",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 17.9,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.195,
+    0.067,
+    -0.048
+   ],
+   "deg": 143.0,
+   "why": "set g12 on well-seen g7, +y side, clear of the red's axes",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.171,
+    -0.089,
+    -0.046
+   ],
+   "deg": 166.0,
+   "why": "switch to the red's 91-deg axis (g26 end is walled in by g2/g27 by the near wall); first lift tilted layer-2 g22 off g6, raised 6 mm for the side wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 18.2,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.286,
+    0.088,
+    -0.048
+   ],
+   "deg": 115.0,
+   "why": "set g22 on well-seen g0 in the far +y corner, nowhere near the dig",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  }
+ ],
+ "undone": [
+  {
+   "at_move": 8,
+   "why": "red pick with g26 flush on the fixed end shoved g26 into layer-2 g2 by the near wall, and g2 left the bin",
+   "ops": [
+    {
+     "op": "park",
+     "keep_grip": true
+    },
+    {
+     "op": "act",
+     "kind": "pick",
+     "xyz": [
+      0.161,
+      -0.038,
+      -0.081
+     ],
+     "deg": 1.0,
+     "why": "red across 1 deg: + end clear since g12 came off; g26 flush on the fixed-finger end, walled in by g2/g25, so this pick doubles as a nudge",
+     "unpark": true,
+     "flip": 0,
+     "result": {
+      "grip": 17.8,
+      "success": false,
+      "failure": "cube left the bin: cube_gray_2",
+      "refused": null,
+      "terminated": true
+     }
+    }
+   ]
+  }
+ ]
+}

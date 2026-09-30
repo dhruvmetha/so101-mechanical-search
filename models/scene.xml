@@ -1,0 +1,5 @@
+<mujoco model="so101_table">
+  <!-- The bin-picking scene: the shared stage, then this task's table, front camera and objects. -->
+  <include file="stage.xml"/>
+  <include file="objects.xml"/>
+</mujoco>
