@@ -890,3 +890,18 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   `codebase.md` that said perception uses the front camera only, corrected there.
 - By: Claude (main session).
 - Next: state.md Next #1, the honest planner.
+
+## [2026-09-30 14:41] finding | Undo leaks hidden state too; a perception-built twin may not pay
+- What: dm1487 asked why the planner needs a digital twin at all, and whether a memory document read every turn would
+  do. Measured before answering:
+  - p0.3 simulated 348 candidates over 27 decisions: 127 helped, 100 gained nothing, 89 picks lifted nothing,
+    21 red picks lifted a gray, 11 spilled. It ran them on the true pile, so these catches don't show what a twin
+    rebuilt from perception would catch.
+  - The 26 solved player episodes (228 kept moves) hold 13 undone attempts in 10 episodes, 12 of them misses.
+    Undo on the real pile is the same leak as simulating on it, in a smaller dose.
+  - No solved player episode spilled; the players used camera checks and the rulebook, no simulator.
+- Proposal (Claude, not yet decided): a per-episode memory document as the expert's belief (seen-empty space, where
+  moved objects went, where the target was last seen, a map of where it could be), camera checks and rules as code,
+  no twin and no undo. Add a twin only if measurement shows a failure the rules can't catch.
+- Evidence: `outputs/planner_pilot_p0.3/p*.json` (`log[].tried`), `demonstrator/episodes/*.json` (`undone`).
+- Learnings: "The planner", two bullets added.

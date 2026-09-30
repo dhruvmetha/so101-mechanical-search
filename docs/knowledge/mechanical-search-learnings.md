@@ -152,3 +152,10 @@ Measured 2026-09-30 on 13 cube-bin seeds (7 played by agents overnight, 6 new), 
   space filled with plausible objects, the target where the evidence allows), several of them, and let the real world
   answer only the move actually made. Moves that uncover the target then score well because they shrink the doubt,
   and a look becomes a move worth making. Scoring under aim errors (the build order) is a separate, smaller check.
+- Undo on the real pile leaks the same way (found 2026-09-30 14:41). Taking a move back and trying another keeps the one
+  that worked on cubes nobody saw. The 26 player demos hold 13 undone attempts in 10 episodes, 12 of them misses, so
+  those demos show an expert that never misses. Honest play keeps a miss and the recovery from it.
+- A twin rebuilt from perception may not pay (open, 2026-09-30 14:41). Misses come from perception error, which a twin
+  built from the same perception can't foresee. The spills p0.3's simulator caught (11 of 348 candidates) came from
+  its own untargeted candidates; players using camera checks and the rulebook spilled in none of 26 solved episodes.
+  And for realistic objects a twin needs shapes and masses of objects only partly seen. Measure before building one.
