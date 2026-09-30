@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:09 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:19 by Claude.
 
 ## Goal right now
 
@@ -56,7 +56,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-29: noslip on in `models/stage.xml`; resets hand over piles at rest.
 - 2026-09-29: the expert decides from camera data only; looks are real motions.
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
-- 2026-09-30 15:09: the wrist camera gives colour only, no depth, as on the real arm (dm1487). observe's fusion of
+- 2026-09-30 15:09: the real front camera gives depth; the wrist camera gives colour only (dm1487). observe's fusion of
   wrist depth is privileged and has to go; the 26 demos and p0.3 used it.
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).

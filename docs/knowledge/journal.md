@@ -994,3 +994,8 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - What: Claude offered to test in sim whether a depth camera on the real wrist would pay. dm1487: "Dont worry about
   this fornow." The sim's wrist camera stays colour only; no hardware study.
 - By: dm1487.
+
+## [2026-09-30 15:19] decision | The real front camera gives depth
+- What: dm1487: "Yes, front camera can give depth." So the front camera stays RGB-D in the sim and the height map
+  keeps its metric source. Still open: what segments objects in reality (dm1487 asked whether SAM would be used).
+- By: dm1487.
