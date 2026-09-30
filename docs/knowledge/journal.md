@@ -989,3 +989,8 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Open, asked of dm1487: does the real rig's front camera give depth, and what stands in for the sim's exact
   segmentation (`perception.py` calls it "the optimistic part")?
 - By: dm1487 decided.
+
+## [2026-09-30 15:18] direction | Park the wrist depth camera question
+- What: Claude offered to test in sim whether a depth camera on the real wrist would pay. dm1487: "Dont worry about
+  this fornow." The sim's wrist camera stays colour only; no hardware study.
+- By: dm1487.
