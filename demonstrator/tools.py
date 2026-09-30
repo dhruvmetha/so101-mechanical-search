@@ -43,8 +43,8 @@ CELL = 0.002
 MAX_MOVES = 15
 MAX_UNDOS = 8
 # The chance that a missed pick gets reset (dm1487, 2026-09-30). The rest stay in the demonstration with their recovery,
-# because real picks miss sometimes. The value is Claude's default; each record stores the one it was played with.
-MISS_RESET_EPS = 0.1
+# because real picks miss sometimes. dm1487 set 0.5 (2026-09-30 14:59); each record stores the value it was played with.
+MISS_RESET_EPS = 0.5
 TRUST = 0.6  # top-face coverage below this: the pose is only a rough guess
 MARGIN = 0.003  # a finger point this far below a seen surface counts as a hit
 # Empty-bin picks near the base, 2026-09-30, 182 runs. With the jaws 3 mm or more from every wall, a planned arm-to-itself

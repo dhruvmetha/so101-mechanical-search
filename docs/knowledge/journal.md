@@ -949,3 +949,10 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   A subagent replays each miss and 20 or so good picks, and measures z, yaw, tilt, how far the jaws got down, and
   what the fingers touched. Script `demonstrator/experiments/miss_study.py`, output `outputs/miss_study_2026-09-30/`.
 - By: Claude (main session), after dm1487's question.
+
+## [2026-09-30 14:59] decision | eps = 0.5 for missed-pick resets
+- What: dm1487 set eps to 0.5 ("Maybe 5 in 10 gets reset"), replacing Claude's default of 0.1 from the entry above.
+- Expected effect, from the overnight rate (22 misses in 138 picks, 16%): about 8% of picks reset, so demos split
+  roughly evenly between a clean retry and a shown recovery after a miss.
+- Code: `MISS_RESET_EPS = 0.5` in `demonstrator/tools.py`; rulebook v10.1 text and state.md updated.
+- By: dm1487.
