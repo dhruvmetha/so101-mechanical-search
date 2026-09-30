@@ -117,6 +117,11 @@ What they mean for search:
   means remembering what objects did earlier in the episode. And whatever the expert remembers, the student must be
   able to remember too, or it can't copy the choice from the current frame. An expert that looks after every move
   corrects without that memory, at the cost of more moves; a narrow, realistic range keeps a memoryless policy viable.
+- Judge a push by what it moves and where things end, not by what it touches. A pick-style check that flags every
+  contact made every push look dangerous, and the players pushed once in 260 moves (2026-09-30). Measured on 768
+  strokes: carrying a cube that rides above the lower layer to within 15 mm of the wall ahead spilled 18%; other
+  strokes 4.5%, and 2% with little unseen space in the path; longer strokes spill more. Most cubes a stroke moves are
+  ones the cameras didn't predict, so push toward open space and away from walls.
 - Hand over a scene only once nothing in it creeps. A speed threshold passes slow creep; hold the scene still for a
   few seconds and measure displacement instead (0.5 mm in 5 s caught both creepers in 24 piles).
 

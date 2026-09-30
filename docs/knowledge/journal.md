@@ -1304,3 +1304,35 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   TAMP-style planner with Claude only when it finds no plan; a stateless Claude player as a bridge (about 150k tokens a
   demo against 5M).
 - By: dm1487 asked; Claude answered.
+
+## [2026-09-30 19:16] start | Pushes made first-class in the bin tools
+- What: dm1487: "I'm really annoyed that you sidelined pushes too. First, lets resolve it." Claude's own miss: the
+  tools gave players a 5 cm push only and a check that flagged every touch as danger, and nobody questioned it until
+  dm1487 asked (1 push in 260 bin moves).
+- Done so far: `tools.py` has `sweep X Y Z DEG STROKE` (the env's long push, 3 to 18 cm) next to the 5 cm push, and
+  a push report in check (what moves, how far, whether it's driven into a wall while riding at layer 2 or higher,
+  whether the red moves), replacing the pick-style hit list for pushes.
+- Bug found on the way: check dropped every finger point above the rim, so contacts with third-layer cubes (which
+  ride above the rim) were never seen, by pushes or picks; the cut is now the highest seen surface. The pick
+  calibration's numbers predate this fix.
+- Running: `demonstrator/experiments/push_calibration.py`, 24 piles, ~16 strokes each. A one-pile smoke test spilled
+  5 of 16 strokes, 4 of them through deep unseen space.
+- Noticed, unrelated: seed 5004, a buried start, shows 63 red pixels in the wrist camera's mask at the park pose; the
+  reset's buried test and observe's mask threshold disagree.
+- By: dm1487 asked; Claude.
+
+## [2026-09-30 19:39] result | Pushes are first-class: sweep in the tools, a push report, a calibrated refusal
+- Code: `tools.py` `sweep X Y Z DEG STROKE` (3 to 18 cm) next to the 5 cm push; check's push report (what moves,
+  how far, spill risk, the red) replaces the pick-style hit list for strokes; the height cut fix (third-layer contacts
+  were invisible); act refuses a stroke that carries a cube riding at layer 2 or higher to within 15 mm
+  (`PUSH_WALL_MM`) of the wall ahead. Rulebook v10.4 (push guidance), agent brief updated.
+- Calibration, `demonstrator/experiments/push_calibration.py`, strokes at listed cubes, random headings, 5 to 16 cm,
+  from snapshots, outcomes from truth; outputs in `outputs/push_calibration_2026-09-30/`:
+  - round 1 (seeds 3100 to 3123, 384 strokes): 11% spilled, 70% moved the pushed cube 15 mm its way. Spilled cubes
+    were never the pushed cube: 30 of 44 were predicted movers the first wall test missed, 14 unpredicted. 42 of 44
+    spills had 30 mm or more of unseen space in the path.
+  - round 2 (3124 to 3147): fitted the rule; refused class 25 of 149 spilled (17%), allowed 10 of 235 (4.3%).
+  - round 3 (3148 to 3171), held out: refused class 30 of 164 (18%), allowed 10 of 220 (4.5%), 161 of 220 useful;
+    allowed with under 30 mm unseen 1 of 55. Deep unseen space stays a warning (5.5% among allowed strokes).
+- Not done: the planner's candidates don't use the push report yet; the pick calibration predates the height cut fix.
+- By: Claude, after dm1487's "I'm really annoyed that you sidelined pushes too."

@@ -1,22 +1,25 @@
 """The demonstrator's tools for the bin task. Claude plays an episode by calling these from the shell.
 
     python demonstrator/tools.py new EP SEED buried|partial
-    python demonstrator/tools.py observe EP            park the arm, look with the front camera, list what's seen
-    python demonstrator/tools.py check EP KIND X Y Z DEG
-    python demonstrator/tools.py act EP KIND X Y Z DEG "why"
+    python demonstrator/tools.py observe EP            park the arm, look with both cameras, list what's seen
+    python demonstrator/tools.py check EP KIND X Y Z DEG [STROKE]
+    python demonstrator/tools.py act EP KIND X Y Z DEG [STROKE] "why"
     python demonstrator/tools.py status EP
     python demonstrator/tools.py undo EP "why"       take back the last act if it spilled; nothing else
     python demonstrator/tools.py list                every episode and how it ended
     python demonstrator/tools.py places EP [X Y]     checked spots to set a held cube down, away from X Y or the red
 
 An episode is a JSON file in demonstrator/episodes/ listing every operation since reset. Each command rebuilds the
-scene by replaying it, which is exact (checked 2026-09-29, bit-identical across processes). KIND is pick, place or
-push. X Y Z are metres in the world frame. DEG is jaw yaw for pick and place, heading for push. Only act counts as
-a move. Parking costs robot time but no move.
+scene by replaying it, which is exact (checked 2026-09-29, bit-identical across processes). KIND is pick, place,
+push or sweep. A push is a 5 cm stroke with the jaws closed; a sweep is the same motion with a STROKE in metres you
+choose, 0.03 to 0.18, and may start up to 5 mm from a wall and up to 3 cm above the rim. X Y Z are metres in the world
+frame. DEG is jaw yaw for pick and place, heading for push and sweep. Only act counts as a move. Parking costs robot
+time but no move.
 
-Perception is depth plus MuJoCo segmentation from the fixed front camera (see perception.py). check reports which
-seen cubes each finger would pass through, and where fingers enter space the camera can't see. It never blocks a
-move: deciding which contact is acceptable is the demonstrator's job.
+Perception (perception.py): the front camera gives colour, depth and masks, the wrist camera colour and masks only.
+check reports, for a pick, the cubes each finger would pass through and the target's clearance; for a push or sweep,
+what it would move and the risks. act refuses the picks that calibration showed almost always miss (see SHIFT_MAX_MM
+and HIT_REFUSE_MM) and the paths where the arm hits itself; other contact is the demonstrator's call.
 """
 import hashlib
 import json
@@ -66,6 +69,13 @@ SHIFT_MAX_MM = 3.0
 # finger and the jaws close above the target (the old soft contacts let the finger press it down). Picks that pass
 # every refusal lifted 50 of 60 (83%), 49 of 57 with unseen space under 40 mm. act refuses HIT_REFUSE_MM and SELF_JAM_MM.
 HIT_REFUSE_MM = 10.0
+# Push calibration, 2026-09-30 (384 strokes on 24 fresh piles, outputs/push_calibration_2026-09-30/round2): a stroke that
+# carries a cube riding at layer 2 or higher to within PUSH_WALL_MM of the wall ahead spilled 25 times in 149 (17%);
+# the rest spilled 10 in 235 (4.3%). act refuses the first kind. Held out on 24 new piles (round3): refused 30 in 164
+# (18%), allowed 10 in 220 (4.5%), and among allowed strokes unseen space 30 mm or deeper in the path spilled 9 in 165
+# (5.5%), under 30 mm 1 in 55. That stays a warning, since refusing it would remove most pushes.
+PUSH_WALL_MM = 15.0
+PUSH_UNSEEN_MM = 30.0
 
 
 def short(name):
@@ -417,17 +427,17 @@ class Episode:
             out.append(local @ dd.geom_xmat[g].reshape(3, 3).T + dd.geom_xpos[g])
         return np.concatenate(out)
 
-    def plan_path(self, kind, xyz, deg, flip):
+    def plan_path(self, kind, xyz, deg, flip, stroke=None):
         """Every frame act would command, from the unpark hover (if parked) through the bridge and the primitive,
         and the primitive's own frames."""
-        traj = self.prim._plan(kind, np.asarray(xyz, float), float(np.radians(deg)), flip)
+        traj = self.prim._plan(kind, np.asarray(xyz, float), float(np.radians(deg)), flip, stroke=stroke)
         start = self._unpark_plan()[-1] if self.last is None else self.env.joint_state
         return primitives.bridge(self.m, start, traj, hover_z=self.prim.travel_z), traj
 
     def yaw_error(self, kind, traj, deg):
         """How far the jaws end up from the asked-for yaw at the primitive's lowest frame, in degrees mod 180. IK
         gives up yaw before position, so a wrist roll pinned at its limit shows up here."""
-        want = deg + (90.0 if kind == "push" else 0.0)
+        want = deg + (90.0 if kind in ("push", "sweep") else 0.0)
         row = min(traj, key=lambda r: primitives.tool_pose(self.m, r, self.probe)[0][2])
         got = np.degrees(primitives.tool_pose(self.m, row, self.probe)[1])
         return abs((got - want + 90.0) % 180.0 - 90.0)
@@ -441,9 +451,9 @@ class Episode:
         d = tip[:2] - np.asarray(xyz[:2], float)
         return float(np.degrees(np.arctan2(d[1], d[0]))) % 360.0
 
-    def choose(self, kind, xyz, deg):
+    def choose(self, kind, xyz, deg, stroke=None):
         """Check both wrist rolls. Returns (the flip to use, {flip: check result})."""
-        results = {f: self.check(kind, xyz, deg, f) for f in (0, 1)}
+        results = {f: self.check(kind, xyz, deg, f, stroke) for f in (0, 1)}
         ok = [f for f, r in results.items() if r["runs"] and r["yaw_err"] < 5.0]
         if not ok:
             ok = [f for f, r in results.items() if r["runs"]]
@@ -461,9 +471,9 @@ class Episode:
         near = [t for t in near if t[0] < 0.03]
         return min(near)[1] if near else None
 
-    def check(self, kind, xyz, deg, flip):
+    def check(self, kind, xyz, deg, flip, stroke=None):
         try:
-            full, traj = self.plan_path(kind, xyz, deg, flip)
+            full, traj = self.plan_path(kind, xyz, deg, flip, stroke)
         except Exception as exc:
             return {"runs": False, "why": str(exc)}
         v = self.view
@@ -472,6 +482,7 @@ class Episode:
         self_mm, pair = np.inf, ""
         mount_hits, mount_wall = {}, 0.0
         c, h = self.bin["center"], self.bin["half"]
+        top_seen = max(self.bin["rim_z"], float(v["height"].max())) + 0.005
         for row in full[::2]:
             fp = self.finger_points(row)  # also leaves the probe at this arm pose
             s_, _, p_ = self.clearance.measure(self.probe)
@@ -491,7 +502,10 @@ class Episode:
                         who = "unseen" if v["unseen"][mi[q], mj[q]] else v["names"][v["owner"][mi[q], mj[q]]]
                         if who != held:
                             mount_hits[who] = max(mount_hits.get(who, 0.0), float(md[q]))
-            fp = fp[fp[:, 2] < self.bin["rim_z"] + 0.005]
+            # Points above everything seen can't touch anything. Until 2026-09-30 the cut was the rim, which dropped every
+            # contact with a third-layer cube (they ride above the rim): pushes along the top saw nothing, and a pick
+            # could put a finger into a top-layer neighbour unflagged.
+            fp = fp[fp[:, 2] < top_seen]
             if len(fp) == 0:
                 continue
             low = fp[fp[:, 2] < self.bin["rim_z"]]
@@ -519,8 +533,52 @@ class Episode:
                "mount_hits": mount_hits, "mount_wall_mm": mount_wall * 1000}
         if kind == "pick":
             out.update(self.pick_target(full, xyz, out["fixed_deg"]))
+        if kind in ("push", "sweep"):
+            out.update(self.push_report(xyz, deg, stroke, hits))
         return out
 
+    def push_report(self, xyz, deg, stroke, hits):
+        """What a push or sweep should move, judged from the cameras' view only: the cubes its fingers meet, the ones
+        lined up in front of those, how far each is carried, and the risks: a cube driven into a wall while riding
+        high enough to go over it, the red moving. Straight-line geometry, not a simulation: hidden cubes move too.
+
+        Before 2026-09-30 check reported every cube a push touched as a hit, as for a pick, so every push looked
+        dangerous and the players almost never pushed (1 push in 260 moves)."""
+        v = self.view
+        cubes = v["cubes"]
+        d = np.array([np.cos(np.radians(deg)), np.sin(np.radians(deg))])
+        side = np.array([-d[1], d[0]])
+        stroke = self.prim.push_stroke if stroke is None else float(stroke)
+        start = np.asarray(xyz[:2], float)
+        carried = {n: None for n, x in hits.items() if n in cubes and x > MARGIN}
+        # Cubes lined up in front of a carried cube, on about its layer, get shoved along with it.
+        frontier = list(carried)
+        while frontier:
+            c = frontier.pop()
+            pc = cubes[c]["pos"]
+            for o, cb in cubes.items():
+                if o in carried or abs(cb["pos"][2] - pc[2]) > 0.02:
+                    continue
+                rel = cb["pos"][:2] - pc[:2]
+                if 0.0 < rel @ d < CUBE + 0.008 and abs(rel @ side) < CUBE:
+                    carried[o] = None
+                    frontier.append(o)
+        c, h = self.bin["center"], self.bin["half"]
+        report, risky = {}, []
+        for n in carried:
+            cb = cubes[n]
+            travel = max(0.0, stroke - (max(0.0, (cb["pos"][:2] - start) @ d - HALF)))
+            # Room before the wall in the push's direction, from the cube's near side of the wall.
+            room = min(((h - HALF) - s_ * (cb["pos"][k] - c[k])) / abs(d[k]) if abs(d[k]) > 1e-6 else np.inf
+                       for k, s_ in ((0, np.sign(d[0])), (1, np.sign(d[1]))))
+            jam = travel > room
+            top = cb["pos"][2] + HALF
+            high = cb["layer"] >= 2 or top > self.bin["rim_z"] - 0.005
+            report[n] = {"travel_mm": round(min(travel, max(room, 0.0)) * 1000, 1), "to_wall_mm": round(room * 1000, 1),
+                         "jam": bool(jam), "high": bool(high)}
+            if high and room < travel + PUSH_WALL_MM / 1000:
+                risky.append(n)
+        return {"push": {"moves": report, "spill_risk": risky, "moves_red": TARGET in carried, "stroke": stroke}}
     def pick_target(self, full, xyz, fixed_deg):
         """For a pick: the cube it is aimed at, how far the aim sits off that cube's centre toward the moving finger,
         and how deep any finger comes down inside the cube's own top outline. The height-map hits leave the target
@@ -610,6 +668,17 @@ def axis_ends(view, name):
     return out
 
 
+def print_push(p):
+    moves = ", ".join(f"{short(n)} ~{m['travel_mm']:.0f} mm" + (" INTO THE WALL" if m["jam"] else "")
+                      for n, m in sorted(p["moves"].items(), key=lambda kv: -kv[1]["travel_mm"])) or "nothing seen"
+    print(f"  stroke {p['stroke'] * 1000:.0f} mm moves: {moves}")
+    if p["spill_risk"]:
+        print(f"  SPILL RISK, act refuses: {', '.join(short(n) for n in p['spill_risk'])} rides at layer 2 or higher and "
+              f"would end within {PUSH_WALL_MM:.0f} mm of the wall ahead (17% of such strokes spilled in calibration)")
+    if p["moves_red"]:
+        print("  moves the red (check where it ends up: against a wall or under a cube is worse)")
+
+
 def rough_note(cb):
     """How an untrusted pose was found. Wrist-only cubes ("ray") come from pixel rays, with no tilt estimate."""
     if cb["how"] == "ray":
@@ -691,9 +760,9 @@ def cmd_observe(ep):
     print(f"image: {img}")
 
 
-def cmd_check(ep, kind, x, y, z, deg):
+def cmd_check(ep, kind, x, y, z, deg, stroke=None):
     ep.see()
-    flip, results = ep.choose(kind, [x, y, z], deg)
+    flip, results = ep.choose(kind, [x, y, z], deg, stroke)
     if flip is None:
         why = results[0].get("why") or results[1].get("why")
         print(f"{kind} {fmt([x, y, z])} {deg:.0f} deg: REFUSED or unreachable: {why}")
@@ -729,7 +798,14 @@ def cmd_check(ep, kind, x, y, z, deg):
     if r["yaw_err"] >= 5.0:
         print(f"  jaws end {r['yaw_err']:.0f} deg off the asked yaw: the wrist roll is at its limit")
     aside = f" (target {short(target)} left out)" if target else ""
-    print(f"  fingers pass through seen cubes: {hits}{aside}")
+    if kind in ("push", "sweep"):
+        print_push(r["push"])
+        if r["unseen_mm"] >= PUSH_UNSEEN_MM:
+            print(f"  pushes through unseen space {r['unseen_mm']:.0f} mm deep: hidden cubes move too; 5.5% of such "
+                  f"allowed strokes spilled one in calibration, against 2% with less. Prefer strokes that end away "
+                  f"from the walls.")
+    else:
+        print(f"  fingers pass through seen cubes: {hits}{aside}")
     if kind == "pick":
         worst = max((x for k, x in r["hits"].items() if k != target), default=0.0) * 1000
         if worst >= HIT_REFUSE_MM:
@@ -800,11 +876,11 @@ def cmd_places(ep, avoid=None, k=6):
         print("  none found; check spots by hand")
 
 
-def cmd_act(ep, kind, x, y, z, deg, why):
+def cmd_act(ep, kind, x, y, z, deg, why, stroke=None):
     if ep.outcome():
         sys.exit(f"episode {ep.name} is over: {ep.outcome()}. Undo the last move to keep playing.")
     ep.see()
-    flip, results = ep.choose(kind, [x, y, z], deg)
+    flip, results = ep.choose(kind, [x, y, z], deg, stroke)
     r = results.get(flip, {}) if flip is not None else {}
     if kind == "pick" and r.get("target"):
         if r["trusted"] and r["shift_mm"] > SHIFT_MAX_MM:
@@ -820,10 +896,16 @@ def cmd_act(ep, kind, x, y, z, deg, why):
             sys.exit(f"refused: a finger goes {worst[1] * 1000:.0f} mm into {short(worst[0]) if worst[0] != 'floor' else 'the floor'}"
                      f" (limit {HIT_REFUSE_MM:.0f} mm). Under stiff contacts that closes the jaws above the target: 33 of"
                      f" 209 such picks lifted it. Clear that side first. Nothing moved.")
+    if kind in ("push", "sweep") and r and r["push"]["spill_risk"]:
+        sys.exit(f"refused: {', '.join(short(n) for n in r['push']['spill_risk'])} rides at layer 2 or higher and would "
+                 f"end within {PUSH_WALL_MM:.0f} mm of the wall ahead; 17% of such strokes spilled. Push away from the "
+                 f"wall, shorten the stroke, or pick it off first. Nothing moved.")
     if r and r.get("self_mm", 0) < SELF_JAM_MM:
         sys.exit(f"refused: the arm overlaps itself by {-r['self_mm']:.0f} mm on this path; none of 23 such picks "
                  f"tracked. Try the other axis or a different spot. Nothing moved.")
     op = {"op": "act", "kind": kind, "xyz": [x, y, z], "deg": deg, "why": why, "unpark": True, "flip": flip}
+    if stroke is not None:
+        op["stroke"] = stroke
     res = ep._apply(op)
     op["result"] = {k: (round(v, 1) if isinstance(v, float) else v) for k, v in res.items()}
     ep.rec["ops"].append(op)
@@ -942,9 +1024,11 @@ def main():
         if cmd == "observe":
             cmd_observe(ep)
         elif cmd == "check":
-            cmd_check(ep, args[1], *map(float, args[2:6]))
+            n = 7 if args[1] == "sweep" else 6
+            cmd_check(ep, args[1], *map(float, args[2:6]), *(map(float, args[6:n])))
         elif cmd == "act":
-            cmd_act(ep, args[1], *map(float, args[2:6]), " ".join(args[6:]))
+            n = 7 if args[1] == "sweep" else 6
+            cmd_act(ep, args[1], *map(float, args[2:6]), " ".join(args[n:]), *(map(float, args[6:n])))
         elif cmd == "status":
             cmd_status(ep)
         elif cmd == "places":

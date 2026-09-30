@@ -70,7 +70,8 @@ behaviour or a measured number in it changes.
   (`tests/test_demonstrator_live.py`). Restore order matters: `mj_setState`, `mj_forward`, `mj_setState` again.
   A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see `planner.md`):
   `python demonstrator/planner.py --seeds S... --procs N --out DIR`, one process per seed, a record per seed with every
-  candidate it tried. `video.py` renders an episode (front and wrist side by side, captioned). `export.py` turns
+  candidate it tried. tools' check gives picks a hit list and pushes and sweeps a push report (what moves, spill risk);
+  act refuses the calibrated bad classes (constants at the top of tools.py). `video.py` renders an episode (front and wrist side by side, captioned). `export.py` turns
   solved episodes into a LeRobot dataset, with front depth in millimetres as `observation.depth.front`; `report.py` and `postmortem.py` tally
   and replay finished ones; `experiments/` holds the sweep pilot.
 - `MechSearchPrimitiveEnv` (since f5790cd) also takes a `sweep` kind (a push with its own `stroke`, starting up to 5 mm

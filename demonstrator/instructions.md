@@ -127,13 +127,25 @@ record and the dataset count every one. Plan so you never need them.
   d1033 put a finger on the red or over the wall. When a neighbour has open floor behind it, a nudge whose moving
   finger lands on it can shove it clear (g21 moved 7 mm). Near the near wall, nothing within about 2 cm can be picked,
   and a nudge moved the red from x 0.109 to 0.129 (d1013). Try the nudge there first.
+- Pushes and sweeps are first-class moves (v10.4). One push can clear what pick-and-place needs two moves or more
+  for: a pick and a place per cube, about 12 s of robot time each. Use `push` (5 cm) or `sweep X Y Z DEG STROKE`
+  (0.03 to 0.18 m, may start 5 mm from a wall and 3 cm above the rim). check lists what a stroke moves and how far.
+  Calibrated on 768 strokes (2026-09-30): 70% moved the pushed cube 15 mm or more its way; act refuses a stroke that
+  carries a layer-2 or higher cube to within 15 mm of the wall ahead (18% spilled); allowed strokes spilled 4.5%, 2%
+  when the path had under 30 mm of unseen space. So:
+  - Push toward open floor and away from walls; push along a wall, not into it.
+  - Sweep covers off the red's spot toward the far side when it has room. 16 cm sweeps spilled more (18 to 28%) than
+    5 to 8 cm strokes (8 to 9%): use the shortest stroke that does the job.
+  - Push a flush neighbour out of a jaw's path along the red's face from a slot a removed cube left (b5000).
+  - Pick-and-place when the cube has to go far, change layer, or every push path is refused or blocked.
+  - Before 2026-09-30 the tools had no sweep and check called every touch a hit, so players pushed once in 260 moves.
 - Under stiff contacts both ends of a jaw axis need clearing (b5002): the finger that can't be avoided lands on the
   flush neighbour and act refuses it. Where one roll is unreachable, the fixed finger's side is fixed too; plan for it.
 - Look for a window along the face before digging out a neighbour. Two cubes at one end can leave a gap: in b5000 g7
   and g27 left 18 mm, and sliding the aim 4 mm along the face (not the jaw axis) put the finger in it. In b5002 a 2 mm
   gap took 1 mm steps along the face to find.
 - A push that slides a flush neighbour along the red's face, started from a slot a removed cube left, clears that end
-  in one move (b5000, g3 moved 44 mm). In a dense pile most pushes fail check (b5002: 20 to 50 mm hits on every one).
+  in one move (b5000, g3 moved 44 mm). In a dense pile most pushes fail check (b5002: 20 to 50 mm hits on every one, from the old pick-style check; see the push bullet above).
 - Treat a rough neighbour at the fixed-finger end as flush: check said no hits and the pick missed (b5000 move 10).
 - Nudging, a pick on the red that lands the fingers on its neighbours, is gone since v10.2: act refuses a finger 10 mm
   or more into a neighbour. Under soft contacts it opened a 12 mm gap once (e400); under stiff ones the neighbour
@@ -310,6 +322,7 @@ and the entries here are only the practice seeds that changed the tools.)
 - v10.2, 2026-09-30 evening: stiff contacts. observe takes 3D from the front camera only (the wrist gives colour and
   masks). act refuses aims over 3 mm toward the moving finger, fingers on the target's own top, fingers 10 mm or
   more into a neighbour, and arm self-overlap past 10 mm.
-
 - v10.3, 2026-09-30 evening, after b5000 and b5002: both ends of an axis, windows along the face, the push along
   the red's face from a slot, rough neighbours at the fixed-finger end.
+- v10.4, 2026-09-30 night (dm1487: pushes were sidelined): sweeps in the tools, a push report in check, act
+  refuses strokes that carry a high cube to the wall, push guidance from 768 calibration strokes.
