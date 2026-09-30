@@ -132,12 +132,16 @@ record and the dataset count every one. Plan so you never need them.
   (0.03 to 0.18 m, may start 5 mm from a wall and 3 cm above the rim). check lists what a stroke moves and how far.
   Calibrated on 768 strokes (2026-09-30): 70% moved the pushed cube 15 mm or more its way; act refuses a stroke that
   carries a layer-2 or higher cube to within 15 mm of the wall ahead (18% spilled); allowed strokes spilled 4.5%, 2%
-  when the path had under 30 mm of unseen space. So:
-  - Push toward open floor and away from walls; push along a wall, not into it.
-  - Sweep covers off the red's spot toward the far side when it has room. 16 cm sweeps spilled more (18 to 28%) than
-    5 to 8 cm strokes (8 to 9%): use the shortest stroke that does the job.
-  - Push a flush neighbour out of a jaw's path along the red's face from a slot a removed cube left (b5000).
-  - Pick-and-place when the cube has to go far, change layer, or every push path is refused or blocked.
+  when the path had under 30 mm of unseen space. Those strokes were aimed at random cubes in random directions, so
+  they measure risk, not usefulness. Where each point below comes from:
+  - Push away from walls (measured: the refused class above). Push along a wall rather than into it (reasoning,
+    untested).
+  - Use the shortest stroke that does the job (measured on random strokes: 16 cm sweeps spilled 18 to 28%, 5 to 8 cm
+    strokes 8 to 9%).
+  - Push a flush neighbour out of a jaw's path along the red's face from a slot a removed cube left (one episode,
+    b5000).
+  - Sweep covers off the red's spot toward the far side when it has room; pick-and-place when a cube has to go far,
+    change layer, or every push path is refused or blocked (reasoning, untested; confirm or correct from episodes).
   - Before 2026-09-30 the tools had no sweep and check called every touch a hit, so players pushed once in 260 moves.
 - Under stiff contacts both ends of a jaw axis need clearing (b5002): the finger that can't be avoided lands on the
   flush neighbour and act refuses it. Where one roll is unreachable, the fixed finger's side is fixed too; plan for it.

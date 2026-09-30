@@ -1350,3 +1350,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - dm1487 asked whether Claude brings its common sense reasoning. Claude: yes for the task (what to try, what's
   suspicious), not millimetre geometry; and today it failed to apply it to the tools it built, which is how pushes
   got sidelined. New habit in operating-principles.md: audit the expert's move mix and misses with common sense.
+
+## [2026-09-30 19:51] correction | Where the rulebook's push guidance comes from
+- dm1487: "When does the rulebook say when? Did you get this from experience?" Only partly. Measured: the wall
+  refusal and spill rates (768 random strokes, held-out check) and stroke length against spills. One episode: the push
+  along the red's face (b5000). Claude's reasoning, untested: pushing along walls, sweeping covers toward the far side,
+  and when to pick-and-place instead. The v10.4 text now says which is which. The rulebook's own convention is that
+  rules come from episodes; v10.4 broke it without saying so.
+- Next: a calibration of purposeful pushes at the red's covers and blockers, measuring whether they open its access.
