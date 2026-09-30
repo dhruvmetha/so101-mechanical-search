@@ -1174,3 +1174,14 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Claude's recommendation, not decided: a narrow realistic range (friction about 0.4 to 0.7), the expert re-observing
   after every move as now, adaptive memory later if wanted.
 - By: dm1487 raised it; Claude.
+
+## [2026-09-30 16:41] decision | Friction and density drawn per episode (bin task)
+- What: dm1487 said yes to realistic, varied physics. `MechSearchEnv` draws friction U(0.4, 0.7) for cubes and bin
+  and density U(600, 1200) kg/m^3 (cubes 16 to 32 g) at reset, from the seed on a stream of its own, and reports them
+  in info["physics"]. `tools.Episode` stores them in the record the first time and replays with the stored values;
+  export writes them to demos.json. The expert never reads them. mj_setConst runs after the mass change.
+- Before: friction 1.0 everywhere (MuJoCo's default, never chosen), density 1000.
+- Reset cost: buried starts 3 to 15 s; partial starts up to 80 s, rejected mostly for the red being too visible or no
+  free floor spot (12 seeds: 56 no free spot, 54 red too visible, 21 landed outside). Worth tuning later.
+- Not yet: the shelf task keeps friction 1.0; tests not rerun; pick calibration not redone under varied physics.
+- By: dm1487 decided; Claude chose the ranges.

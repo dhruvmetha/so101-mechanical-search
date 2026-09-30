@@ -101,7 +101,13 @@ class Episode:
         # shoulder (e401). check measures how close the arm comes to itself along the whole path, for both rolls.
         self.clearance = Clearance(self.m)
         self.robot_s = 0.0
-        self.prim.reset(seed=self.rec["seed"], options={"buried": self.rec["buried"]})
+        # The episode's friction and density (hidden state, drawn at reset from the seed) are stored in the record the
+        # first time, and replays use the stored values, so a change to the drawing code can't break old episodes.
+        options = {"buried": self.rec["buried"]}
+        if "physics" in self.rec:
+            options["physics"] = self.rec["physics"]
+        self.prim.reset(seed=self.rec["seed"], options=options)
+        self.rec.setdefault("physics", dict(self.env.physics))
         if on_advance is not None:
             advance = self.env.advance
 

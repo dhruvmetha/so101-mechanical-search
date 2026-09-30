@@ -54,6 +54,13 @@ MAX_RESET_ATTEMPTS = 200
 # 0.6 mm in the first second and then a cube tipped 12 mm, and seed 14 held for 2 s and then a cube began to fall.
 CREEP_SECONDS = 5.0
 CREEP_MM = 0.5
+# The objects' physical properties are hidden state (dm1487, 2026-09-30): nobody knows a real object's friction or
+# mass, and the robot only sees images. So each episode draws them from realistic ranges, fixed at reset from the seed
+# and reported as info["physics"] for the record, never for the expert. Friction was MuJoCo's default 1.0 before, about
+# rubber on rubber; wood, plastic and cardboard measure about 0.2 to 0.6. A contact takes the larger of its two geoms'
+# friction, so cubes and bin get the same draw; the gripper's priority keeps its own.
+FRICTION_RANGE = (0.4, 0.7)
+DENSITY_RANGE = (600.0, 1200.0)  # kg/m^3; a 30 mm cube weighs 16 to 32 g
 
 # Visibility is counted at the default observation size whatever size the env renders, so asking for
 # small images doesn't change which piles count as buried.
@@ -111,6 +118,10 @@ class MechSearchEnv(SO101Env):
         self._body = {n: self.model.body(n).id for n in self.cubes}
         self._geom = {n: self.model.geom(n).id for n in self.cubes}
         self._cube_geoms = frozenset(self._geom.values())
+        self._bin_geoms = tuple(g for g in range(self.model.ngeom) if self.model.geom(g).name.startswith("bin_"))
+        self._nominal_mass = {n: float(self.model.body_mass[self._body[n]]) for n in self.cubes}
+        self._nominal_inertia = {n: self.model.body_inertia[self._body[n]].copy() for n in self.cubes}
+        self.physics = None
         self._jaw_ids = grasp.jaw_geom_ids(self.model)
         self._arm_ids = grasp.arm_geom_ids(self.model)
         self._home = np.asarray(self.layout.home, dtype=np.float64)
@@ -134,6 +145,7 @@ class MechSearchEnv(SO101Env):
         # Seed np_random only. SO101Env.reset would also render an observation nobody uses.
         gym.Env.reset(self, seed=seed)
         options = options or {}
+        self.physics = self._set_physics(seed, options.get("physics"))
         buried = options.get("buried")
         if buried is None:
             buried = bool(self.np_random.random() < self.buried_prob)
@@ -146,7 +158,7 @@ class MechSearchEnv(SO101Env):
         else:
             raise RuntimeError(f"no usable pile in {MAX_RESET_ATTEMPTS} attempts, the last because {reason}")
         self._steps, self._streak = 0, 0
-        self._reset_info = {"buried": bool(buried), **pixels, "reset_attempts": attempt}
+        self._reset_info = {"buried": bool(buried), **pixels, "reset_attempts": attempt, "physics": dict(self.physics)}
         return self._obs(), self._info(False, None)
 
     def step(self, action):
@@ -226,6 +238,24 @@ class MechSearchEnv(SO101Env):
         return self._info(False, None)
 
     # ---- internals -----------------------------------------------------------------------------
+
+    def _set_physics(self, seed, given=None):
+        """Friction and density for this episode: `given` (a replay passes what its record holds), else drawn from the
+        seed on a stream of its own, else from np_random. Density scales each cube's mass and inertia from the scene's
+        1000 kg/m^3."""
+        if given is None:
+            rng = np.random.default_rng([int(seed), 1]) if seed is not None else self.np_random
+            given = {"friction": round(float(rng.uniform(*FRICTION_RANGE)), 4),
+                     "density": round(float(rng.uniform(*DENSITY_RANGE)), 1)}
+        for g in (*self._cube_geoms, *self._bin_geoms):
+            self.model.geom_friction[g, 0] = given["friction"]
+        k = given["density"] / 1000.0
+        for n in self.cubes:
+            self.model.body_mass[self._body[n]] = self._nominal_mass[n] * k
+            self.model.body_inertia[self._body[n]] = self._nominal_inertia[n] * k
+        # Constants MuJoCo derives from masses at compile time, such as the constraint scaling, follow the new ones.
+        mujoco.mj_setConst(self.model, self.data)
+        return {"friction": float(given["friction"]), "density": float(given["density"])}
 
     def _start_pose(self):
         mujoco.mj_resetData(self.model, self.data)
