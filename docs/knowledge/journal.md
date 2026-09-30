@@ -964,3 +964,14 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Updated: the comment on `MISS_RESET_EPS` in `demonstrator/tools.py`, rulebook v10.1, the learnings file, Claude's
   memory note.
 - By: dm1487.
+
+## [2026-09-30 15:02] decision | eps back to 0.1; cut the miss rate at its causes
+- What: dm1487 asked what value Claude thought right. Claude argued for lower than 0.5: eps can only push the demo
+  miss rate below the expert's own 16% (16% x (1 - eps)), and a real arm will likely miss more than the sim expert,
+  since it droops about 9 mm per 100 mm of reach and repeats to about 5 mm peak to peak at full reach (real-arm.md).
+  A reset buys shorter demos and fewer runs into the 15-move cap, and leaks a little each time. dm1487: "0.1 is fine
+  then."
+- Also dm1487: reduce how often the expert misses, and learn and record why it misses. The replay study (entry at
+  14:56) finds the causes; fixes go in at the source, and the miss rate gets measured before and after.
+- Code: `MISS_RESET_EPS = 0.1`; rulebook v10.1 and state.md updated.
+- By: dm1487 decided; Claude argued the value.

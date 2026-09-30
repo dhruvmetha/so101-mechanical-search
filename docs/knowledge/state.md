@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 14:59 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:02 by Claude.
 
 ## Goal right now
 
@@ -40,7 +40,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 14:56: a subagent replays the 22 missed picks to find why (`outputs/miss_study_2026-09-30/`).
+- Since 14:56: a subagent replays the 22 missed picks to find why; then cut the miss rate at its causes (dm1487) (`outputs/miss_study_2026-09-30/`).
 
 ## Next
 
@@ -66,7 +66,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   better grasp axis, and looks two moves ahead over its three best first moves; no full search tree.
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
-  back a spill; a missed pick resets only by a fixed draw below eps = 0.5 (rulebook v10.1).
+  back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
 
 ## Open questions
 

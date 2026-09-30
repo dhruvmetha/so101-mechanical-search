@@ -65,7 +65,7 @@ record and the dataset count every one. Plan so you never need them.
 - Undo every move that knocks a cube out of the bin. The episode ends on that frame, and undo is the only way on.
   `tools.py undo` refuses any other move.
 - A missed pick (the gripper closes on nothing) gets reset by chance, not by choice. After the miss, act draws a
-  number from the seed and the move; below eps (0.5 unless the record says otherwise) it resets the move itself and
+  number from the seed and the move; below eps (0.1 unless the record says otherwise) it resets the move itself and
   says so. Otherwise the miss stays. eps sets how often demonstrations miss: resetting every miss would show an arm
   that never misses, and resetting none keeps every miss and makes demonstrations longer (dm1487).
 - Keep every other result: a kept miss, a push that made things worse, a cube dropped on the way to a place. Recover
@@ -292,4 +292,4 @@ and the entries here are only the practice seeds that changed the tools.)
   from the red's neighbours; places doesn't screen for leaning neighbours; more ways to find a buried red.
 - v10, 2026-09-30 afternoon (dm1487): undo only resets a spill, and the tool refuses anything else. Misses stay in the
   demonstration and get recovered from.
-- v10.1, 2026-09-30 afternoon (dm1487): act resets a missed pick with probability eps, by a fixed draw; eps = 0.5.
+- v10.1, 2026-09-30 afternoon (dm1487): act resets a missed pick with probability eps, by a fixed draw; eps = 0.1.
