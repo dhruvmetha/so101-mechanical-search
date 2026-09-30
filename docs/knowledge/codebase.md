@@ -65,7 +65,8 @@ behaviour or a measured number in it changes.
   `perception.py` turns depth and segmentation from the front camera and the wrist camera (at the park pose) into
   cube poses (corrected 2026-09-30: this line said front camera only). `reach.py` has the arm clearance check.
   `instructions.md` is the rulebook and memory: read it before playing, and add each episode's lessons after.
-  `live.py` keeps an episode in memory with `snapshot()`/`restore()` (MuJoCo integration state including the warm
+  Each episode's hidden friction and density sit in `demonstrator/episodes/.hidden/EP.json`, which replays read and
+  players must not open. `live.py` keeps an episode in memory with `snapshot()`/`restore()` (MuJoCo integration state including the warm
   start, the env's counters, the episode's bookkeeping); a restored line replays bit for bit
   (`tests/test_demonstrator_live.py`). Restore order matters: `mj_setState`, `mj_forward`, `mj_setState` again.
   A snapshot costs about 2 µs with `mj_getState`, against 35 ms for a deepcopy of `MjData`. `planner.py` is the expert as a program (see `planner.md`):

@@ -39,6 +39,9 @@ common sense, but you seem to not activate it every turn."
   Pace agents, and schedule a restart after a limit resets.
 - Freeze tools and rules for the length of a batch, and record their version in the output. Changing them under
   running agents made early and late demonstrations differ.
+- Know what an agent-played unit costs before scaling it. Measured 2026-09-30 on one bin demo: 50 requests, 5.1M
+  tokens re-read from cache, 164k new; cost grows with calls times context, so it rises with the square of the calls.
+  Cut calls and context, or hand routine steps to a program.
 - One unit of work per agent context. Agents that played three episodes in a row paid for the first two on every call
   of the third.
 - Keep progress on disk as it happens (episodes save after every move), so a crash loses only the move in flight.

@@ -48,7 +48,8 @@ say where the evidence is. When a section passes about 40 lines, split it into i
 - One fixed camera leaves most of a pile hidden. Adding the wrist camera, from the parked arm, cut unseen floor from
   about 60% to 38% and pose error from 1.4 mm to 0.6 mm median. A second viewpoint from the other side is worth more
   than any pose-fitting cleverness. (Corrected 2026-09-30 15:21: those numbers used wrist depth, which the real wrist
-  camera lacks; what colour alone recovers is not measured yet.)
+  camera lacks. Measured at 19:40 on 12 piles: with colour and masks only, unseen cells go from 59% to 48%, not 33%;
+  floor pixels on the known floor plane do most of it, and trusted poses stay at the front camera's 1.5 mm.)
 - Give the expert only what the student's observations hold (dm1487, 2026-09-30). The expert runs in sim and a
   policy distilled from its demos runs on the robot, so perfect perception of what the student's cameras see is fair,
   exact segmentation included. A channel the robot lacks is not: the sim renders depth for every camera, and using one

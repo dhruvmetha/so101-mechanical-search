@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 19:39 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 19:40 by Claude.
 
 ## Goal right now
 
@@ -17,11 +17,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## What exists
 
 - Sim tasks: the bin (`so101sim/mechsearch.py`) and the shelf (`so101sim/shelf.py`), specs in `docs/superpowers/specs/`.
-- The expert's tools, `demonstrator/tools.py`: observe (front and wrist cameras fused, target pixels in 3D, what
-  blocks each of the target's jaw axes), check (both wrist rolls, dense finger sweep against a height map, walls, arm
-  clearance, which side the fixed finger lands), act, undo, places, list, status. Perception in `perception.py`, arm
-  clearance in `reach.py`.
-- The rulebook the players follow: `demonstrator/instructions.md` v10.1. The agent brief: `demonstrator/AGENT_BRIEF.md`.
+- The expert's tools, `demonstrator/tools.py` (`codebase.md` has the parts): observe, check (picks and strokes), act
+  with calibrated refusals, undo (spills), places. Rulebook `demonstrator/instructions.md` v10.4; brief AGENT_BRIEF.md.
 - Demonstrations v1, superseded (redo, dm1487): 26 episodes in `outputs/mechsearch_demos_v1` (LeRobot, 43,392
   frames); records in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
 - Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
@@ -63,6 +60,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
   journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
+- 2026-09-30: friction U(0.4, 0.7) and density U(600, 1200) drawn per episode from the seed, hidden from players
+  (`demonstrator/episodes/.hidden/`); stiff contacts at 1/600 s (dm1487: realistic, no penetration).
 - 2026-09-30: redo all demos; `outputs/mechsearch_demos_v1` used wrist depth and miss undos (dm1487).
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
   back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
@@ -70,8 +69,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## Open questions
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
-- Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
-- Awaiting dm1487 (19:10): a push with a chosen stroke (spec amendment); wall height (measure with the sizing script);
+- Awaiting dm1487 (19:10): the sweep is in the tools (a push with a chosen stroke); wall height (sizing script);
   the expert as belief-space TAMP (plan on the belief, one move, look, replan); a stateless Claude player (fresh call
   per move with a compact memory doc) as a cheap bridge. Measured: a Claude demo costs about 5M cached tokens.
 - How often will an honest planner still need Claude?

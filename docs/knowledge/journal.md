@@ -1336,3 +1336,12 @@ time are in no known order. When this file passes 800 lines, entries from earlie
     allowed with under 30 mm unseen 1 of 55. Deep unseen space stays a warning (5.5% among allowed strokes).
 - Not done: the planner's candidates don't use the push report yet; the pick calibration predates the height cut fix.
 - By: Claude, after dm1487's "I'm really annoyed that you sidelined pushes too."
+
+## [2026-09-30 19:40] consolidation | After the physics, sensing, reset and push work
+- Checked the 26 entries since 15:2x. Homes confirmed: stiff contacts and the creep gate (rules file, stage.xml,
+  learnings), observe without wrist depth (rulebook, learnings), pick and push refusals (tools constants, rulebook
+  v10.4, learnings), GRIP_HOLDING (arm rules), demo results (journal, notes), the reading list (docs/reports).
+- Fixed: the learnings' wrist camera line said colour-only was not measured; it now has the 59 to 48% result. The
+  per-episode friction and density decision added to state.md's decisions. The hidden physics folder added to
+  codebase.md. The measured cost of an agent-played demo added to operating-principles.md.
+- state.md trimmed: the tools line points to codebase.md; the answered push-stroke question removed.
