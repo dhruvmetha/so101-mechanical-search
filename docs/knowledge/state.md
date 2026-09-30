@@ -42,7 +42,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-Nothing. The honest planner's design (Next #1) is with dm1487 for a go, 14:27.
+Nothing. The honest planner's design (Next #1) awaits dm1487's go, 14:27.
 
 ## Next
 
