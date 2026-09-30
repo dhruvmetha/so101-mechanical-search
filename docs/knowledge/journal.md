@@ -1232,3 +1232,16 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   (it says it didn't use them). They now live in `demonstrator/episodes/.hidden/`, and the brief says not to open
   episode files.
 - By: agent; Claude.
+
+## [2026-09-30 17:53] result | Shelf demo 307 solved in 11 primitives
+- Run: agent, `scripts/shelf_play.py`, seed 307 hidden, realistic friction (288769e), pushes allowed. SUCCESS in 11 of
+  20: 2 looks, 4 pushes, 2 pick-and-places, the red pick, the pull. Nothing tipped. About 100 tool calls, 43 min.
+  Video `outputs/videos/shelf307.mp4` (replayed from the action list, same result), sent to dm1487. Action lists and
+  notes for 306 and 307 copied to `demonstrator/shelf/` (outputs/ isn't in git).
+- Honesty check by Claude: the player's helpers (`outputs/shelf_demo_307/aid.py`, `sweep.py`) use camera
+  calibration, joint angles, pixel rays and stand-in cylinders at positions estimated from pixels; no cylinder pose.
+- Player's lessons: a hidden red near the right wall comes with a gray at its front-right on the front camera's sight
+  line, which can't be picked (its moving jaw hits the wall) or pushed left; push it straight back along the wall.
+  Re-estimate from every new wrist view: pixel estimates moved 1 cm between views, the whole margin in a packed corner,
+  and one view invented a cylinder the next showed was empty board.
+- By: agent; Claude.

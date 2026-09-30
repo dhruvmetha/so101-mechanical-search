@@ -1,0 +1,88 @@
+[
+ {
+  "kind": "look",
+  "cam": "front",
+  "px": [
+   411,
+   276
+  ]
+ },
+ {
+  "kind": "pick",
+  "cam": "wrist",
+  "px": [
+   321,
+   145
+  ]
+ },
+ {
+  "kind": "place",
+  "cam": "front",
+  "px": [
+   249,
+   268
+  ]
+ },
+ {
+  "kind": "look",
+  "cam": "front",
+  "px": [
+   411,
+   276
+  ]
+ },
+ {
+  "kind": "push",
+  "cam": "wrist",
+  "px": [
+   441,
+   224
+  ],
+  "heading": 0
+ },
+ {
+  "kind": "push",
+  "cam": "wrist",
+  "px": [
+   307,
+   210
+  ],
+  "heading": 0
+ },
+ {
+  "kind": "push",
+  "cam": "wrist",
+  "px": [
+   170,
+   257
+  ],
+  "heading": 4
+ },
+ {
+  "kind": "pick",
+  "cam": "wrist",
+  "px": [
+   306,
+   75
+  ]
+ },
+ {
+  "kind": "place",
+  "cam": "wrist",
+  "px": [
+   247,
+   392
+  ]
+ },
+ {
+  "kind": "pick",
+  "cam": "wrist",
+  "px": [
+   493,
+   62
+  ]
+ },
+ {
+  "kind": "pull"
+ }
+]
