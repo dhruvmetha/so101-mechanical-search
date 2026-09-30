@@ -40,6 +40,10 @@ say where the evidence is. When a section passes about 40 lines, split it into i
 - One fixed camera leaves most of a pile hidden. Adding the wrist camera, from the parked arm, cut unseen floor from
   about 60% to 38% and pose error from 1.4 mm to 0.6 mm median. A second viewpoint from the other side is worth more
   than any pose-fitting cleverness.
+- Give the expert only the sensors the real robot has (dm1487, 2026-09-30). The sim renders depth and exact
+  segmentation for every camera, and using one the robot lacks leaks as surely as reading true poses. The SO-101's
+  wrist camera gives colour only, so wrist pixels reach 3D only through something known: the floor plane, another
+  camera's surface, or an object's known size.
 - Check every camera's intrinsics. The wrist camera has a 16:9 sensor, so its pixels are not square in a 4:3 render,
   and assuming square pixels put x off by a third.
 - A few pixels of the target are enough to know where to dig. In every buried episode the target was under the object

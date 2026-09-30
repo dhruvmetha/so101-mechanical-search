@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:02 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:09 by Claude.
 
 ## Goal right now
 
@@ -24,8 +24,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - The rulebook the players follow: `demonstrator/instructions.md` v10.1. The agent brief: `demonstrator/AGENT_BRIEF.md`.
 - Demonstrations: 26 solved episodes exported to `outputs/mechsearch_demos_v1` (LeRobot format, 43,392 frames at 30 Hz,
   front and wrist images at 224). Episode files in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
-- Unfinished: d1000 failed (out of moves); d1002, d1014, d1020, d1022, d1025, d1029, d1032, d1034 are half played,
-  stopped by the account's session limit at 02:33 on 2026-09-30. Their moves are saved and they can be finished.
+- Unfinished: d1000 failed (out of moves); 8 episodes are half played (journal, 2026-09-30 02:33), moves saved.
 - Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
   `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
@@ -57,7 +56,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-29: noslip on in `models/stage.xml`; resets hand over piles at rest.
 - 2026-09-29: the expert decides from camera data only; looks are real motions.
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
-- 2026-09-30: observe fuses the wrist camera with the front camera.
+- 2026-09-30 15:09: the wrist camera gives colour only, no depth, as on the real arm (dm1487). observe's fusion of
+  wrist depth is privileged and has to go; the 26 demos and p0.3 used it.
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The

@@ -975,3 +975,17 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   14:56) finds the causes; fixes go in at the source, and the miss rate gets measured before and after.
 - Code: `MISS_RESET_EPS = 0.1`; rulebook v10.1 and state.md updated.
 - By: dm1487 decided; Claude argued the value.
+
+## [2026-09-30 15:09] decision | The wrist camera has no depth
+- What: dm1487: "No depth on the wrist camera (we dont have that in reality)". The wrist camera gives colour only.
+- Why it matters: `Episode.see()` in `demonstrator/tools.py` back-projects wrist depth into 3D points and uses them
+  for cube poses, the height map and the red pixels' positions. That fusion cut unseen floor from about 60% to 38%
+  and trusted pose error from 1.4 to 0.6 mm median. It was a privileged sensor, so the 26 overnight demos and p0.3
+  decided with information the real arm lacks.
+- Plan (Claude, not built yet): the wrist image keeps what colour alone can give. Red pixels become rays, placed where
+  they meet the front camera's surface. Floor pixels meet the known floor plane. A cube top of known size gives its
+  pose from one image. Measure each against front-only perception before keeping it. Wait until the miss study stops
+  replaying through `tools.py`, so its numbers come from one version of the tools.
+- Open, asked of dm1487: does the real rig's front camera give depth, and what stands in for the sim's exact
+  segmentation (`perception.py` calls it "the optimistic part")?
+- By: dm1487 decided.
