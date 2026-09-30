@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:42 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 17:09 by Claude.
 
 ## Goal right now
 
@@ -38,9 +38,10 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 16:42: the first demos under the new rules (dm1487: at least one bin and one shelf, both hidden, then video).
-  Bin b5000 (seed 5000, buried) through tools.py, rulebook v10.2; shelf seed 306 hidden through shelf_play.py, no
-  pushes (they topple). One agent each. Tools and physics frozen (240a037) until both finish.
+- The first demos under the new rules (dm1487: at least one bin and one shelf, both hidden, then video). Bin b5000
+  (seed 5000, buried) through tools.py, rulebook v10.2, tools frozen at 240a037. Shelf 306 stopped after two looks
+  (no pushes allowed, no way to free the red); shelf 307 (hidden) running since 17:09 with realistic friction
+  (288769e), pushes allowed. One agent each.
 
 ## Next
 
@@ -72,7 +73,6 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
 - Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
-- The shelf push topples every cylinder under stiff contacts: lower base friction or drop the push? (dm1487)
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap
