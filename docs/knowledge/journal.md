@@ -905,3 +905,19 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   no twin and no undo. Add a twin only if measurement shows a failure the rules can't catch.
 - Evidence: `outputs/planner_pilot_p0.3/p*.json` (`log[].tried`), `demonstrator/episodes/*.json` (`undone`).
 - Learnings: "The planner", two bullets added.
+
+## [2026-09-30 14:46] decision | Undo only resets a spill: privileged, allowed for now, discouraged
+- What: dm1487: "We can also allow spill resets (but we discourage the behavior, and we want you to understand this
+  and remember this) -- this can be priveleged for now to get decent demos." So undo may take back a move that knocked
+  an object out of the container and nothing else. Misses and moves that made things worse stay in the demo, and
+  the expert recovers from them.
+- Why: undo picks the next move after seeing how the hidden pile answered (entry 14:41). A spill ends the episode,
+  so without a reset one spill wastes a whole demo; dm1487 accepts that privilege for now and no other.
+- How it's enforced: `demonstrator/tools.py` `cmd_undo` refuses unless the last act's `result.failure` says an object
+  left the bin (`spilled()`); `tests/test_demonstrator_undo.py`. Rulebook v10 and `AGENT_BRIEF.md` say the same. Every
+  record keeps its undone attempts, and `export.py` already writes the undo count per episode. The honest planner
+  will follow the same rule.
+- Also: Next #1 in state.md now names Claude's design from 14:41 (memory of what the cameras saw, rules as code, no
+  twin unless a measured failure needs one). dm1487 hasn't objected to it and added this allowance on top of it.
+- Open: the 10 overnight demos with pre-v10 miss undos. Keep, mark or redo.
+- By: dm1487 decided; Claude enforced it in the tool.

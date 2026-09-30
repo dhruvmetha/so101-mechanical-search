@@ -5,7 +5,7 @@
     python demonstrator/tools.py check EP KIND X Y Z DEG
     python demonstrator/tools.py act EP KIND X Y Z DEG "why"
     python demonstrator/tools.py status EP
-    python demonstrator/tools.py undo EP "why"       take back the last act (spills always, misses when they hurt)
+    python demonstrator/tools.py undo EP "why"       take back the last act if it spilled; nothing else
     python demonstrator/tools.py list                every episode and how it ended
     python demonstrator/tools.py places EP [X Y]     checked spots to set a held cube down, away from X Y or the red
 
@@ -685,6 +685,11 @@ def cmd_act(ep, kind, x, y, z, deg, why):
           f"robot time {ep.robot_s:.1f} s")
 
 
+def spilled(act):
+    """Whether a recorded act knocked an object out of the container, which ends the episode."""
+    return "left the bin" in str(act["result"].get("failure") or "")
+
+
 def cmd_undo(ep, why):
     """Drop the last act and whatever came after it. The dropped ops go into the record's "undone" list with the
     reason, so the attempt stays on file. A demonstration keeps only what was kept."""
@@ -695,6 +700,10 @@ def cmd_undo(ep, why):
     last = max((k for k, op in enumerate(ops) if op["op"] == "act"), default=None)
     if last is None:
         sys.exit("nothing to undo")
+    # Undo is privileged: the next move gets chosen after seeing how the hidden pile answered, which no real robot
+    # can do. dm1487 allows it only to reset a spill, and discourages even that (2026-09-30). Misses stay.
+    if not spilled(ops[last]):
+        sys.exit("undo only takes back a spill, and the last move spilled nothing. Keep it and recover from it.")
     # Take back the park that led into the act too, so the scene is as it was when that decision was made.
     cut = last - 1 if last > 0 and ops[last - 1]["op"] == "park" else last
     undone.append({"at_move": sum(1 for op in ops[:last] if op["op"] == "act") + 1, "why": why, "ops": ops[cut:]})

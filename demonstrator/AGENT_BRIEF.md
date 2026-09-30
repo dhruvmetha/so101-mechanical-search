@@ -31,8 +31,8 @@ camera on the right.
 - Decide only from what observe, check and the images tell you. Never write or run your own Python against the
   simulator, and never read true cube poses. That would make the demonstration something a camera-based policy
   can't copy.
-- Follow the undo rules in the instructions: always undo a spill, undo a move that made things worse, and never
-  repeat an undone move exactly.
+- Follow the undo rules in the instructions: undo only a spill (the tool refuses anything else), keep every other
+  result and recover from it, and never repeat an undone move exactly.
 - Don't edit anything outside `demonstrator/episodes/` and `demonstrator/notes/`. Not tools.py, not instructions.md,
   not so101sim/. Don't commit. If a tool misbehaves, work around it and describe the problem in your notes.
 - Be efficient. Check before every act, but don't check ten variations when two will do. Aim for under 60 tool calls

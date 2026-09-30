@@ -56,13 +56,18 @@ Run from the repo root with the so101sim conda env active.
   the held cube's centre goes, using a spot from observe. For push, XYZ is where the closed jaws start, at the height
   to push at. DEG is the heading. The stroke is 5 cm.
 
-## Undo
+## Undo: spill resets only
 
-A demonstration should show good moves, so a bad one can be taken back with undo. The record keeps the undone attempt.
+Undo takes back a move that knocked a cube out of the bin, and nothing else (dm1487, 2026-09-30). It is privileged: a
+real robot can't take a move back, and choosing the next move after seeing how the hidden pile answered uses what the
+cameras never saw. dm1487 allows it for spills for now, so one spill doesn't cost a whole demonstration, and
+discourages it. Plan so you never need it. The record and the dataset count every undo.
 
 - Undo every move that knocks a cube out of the bin. The episode ends on that frame, and undo is the only way on.
-- Undo a missed pick or a push when it made things worse: it buried the red deeper, tipped cubes onto it, or wedged
-  it against a wall. Keep a miss that nudged things usefully; in e400 misses opened the gaps the final grasp needed.
+  `tools.py undo` refuses any other move.
+- Keep a missed pick, or a push that made things worse, and recover from it in the next moves. A miss and its
+  recovery are honest play. Until v10, misses that hurt could be undone: 12 of the 13 undos in the 26 overnight
+  demonstrations were misses.
 - After an undo, choose a different move. Repeating the same move repeats the same result, since the sim is exact.
 - At most 8 undos per episode. Every undo also costs the robot time of the move you took back, in real life.
 - Never read the simulator's true cube poses while playing. Decide from observe, check and the image only.
@@ -73,7 +78,7 @@ A demonstration should show good moves, so a bad one can be taken back with undo
 2. Decide on one move, using the rules below.
 3. check it. If it hits cubes you didn't mean to touch, adjust it or pick another move.
 4. act.
-5. If a cube left the bin, or the move made things worse, undo it and pick another move.
+5. If a cube left the bin, undo it and pick another move. Keep any other result, good or bad, and plan from it.
 6. If it was a pick, read the gripper before doing anything else. Place only when holding. While holding, observe
    looks without parking, because a swing home shook a held cube out even with the grip closed (e400).
 7. Go back to 1. After the episode, update this file.
@@ -224,7 +229,7 @@ A demonstration should show good moves, so a bad one can be taken back with undo
 - If the red is partly seen, clear the cubes on top of it and on its better jaw axis, one at a time. If one axis is
   blocked by a floor cube backed by others or a wall, clear the other axis (d1015).
 - A miss can still help: in d1015 a miss knocked two cubes down a layer and bared the red's side, and the next pick
-  was clean. Keep a miss like that; undo one that buried or tilted the red.
+  was clean. Since v10 every miss stays, so plan the recovery from one that buried or tilted the red.
 
 ### Rough poses
 
@@ -281,3 +286,5 @@ and the entries here are only the practice seeds that changed the tools.)
   d1030, d1031, d1033): the 2 mm shift rule was backwards and now says away from the fixed finger; the moving finger's
   end first; check a neighbour's own grasp; grip leaning cubes on the upright pair or expect a drop; "far" means away
   from the red's neighbours; places doesn't screen for leaning neighbours; more ways to find a buried red.
+- v10, 2026-09-30 afternoon (dm1487): undo only resets a spill, and the tool refuses anything else. Misses stay in the
+  demonstration and get recovered from.

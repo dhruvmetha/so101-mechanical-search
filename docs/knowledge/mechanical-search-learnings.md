@@ -155,6 +155,9 @@ Measured 2026-09-30 on 13 cube-bin seeds (7 played by agents overnight, 6 new), 
 - Undo on the real pile leaks the same way (found 2026-09-30 14:41). Taking a move back and trying another keeps the one
   that worked on cubes nobody saw. The 26 player demos hold 13 undone attempts in 10 episodes, 12 of them misses, so
   those demos show an expert that never misses. Honest play keeps a miss and the recovery from it.
+- Privileged steps are allowed only where dm1487 grants them, and each is marked and counted. The one granted so far
+  (2026-09-30 14:46): reset a spill, so one spill doesn't cost a whole demo. It's discouraged: plan so it's never
+  needed, and report how often it happened. The tools refuse every other undo.
 - A twin rebuilt from perception may not pay (open, 2026-09-30 14:41). Misses come from perception error, which a twin
   built from the same perception can't foresee. The spills p0.3's simulator caught (11 of 348 candidates) came from
   its own untargeted candidates; players using camera checks and the rulebook spilled in none of 26 solved episodes.
