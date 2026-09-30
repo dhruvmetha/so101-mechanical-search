@@ -1345,3 +1345,8 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   per-episode friction and density decision added to state.md's decisions. The hidden physics folder added to
   codebase.md. The measured cost of an agent-played demo added to operating-principles.md.
 - state.md trimmed: the tools line points to codebase.md; the answered push-stroke question removed.
+
+## [2026-09-30 19:48] note | Common sense applied to our own tools
+- dm1487 asked whether Claude brings its common sense reasoning. Claude: yes for the task (what to try, what's
+  suspicious), not millimetre geometry; and today it failed to apply it to the tools it built, which is how pushes
+  got sidelined. New habit in operating-principles.md: audit the expert's move mix and misses with common sense.

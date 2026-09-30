@@ -26,6 +26,9 @@ common sense, but you seem to not activate it every turn."
   backwards and printed by the tools for hours because it was copied from a note, not derived.
 - When a check disagrees with what happens, find out why before adjusting a threshold. The finger check missed a flush
   neighbour because the meshes had 60 mm faces with no vertices inside; the fix was denser sampling, not a margin.
+- Audit the expert's behaviour with common sense, not only its success rate. Count what it does (the mix of moves,
+  misses, refusals) and ask whether a sensible person would work that way. On 2026-09-30 the players had pushed once
+  in 260 moves because the tools discouraged it, and nobody looked until dm1487 asked.
 - Score tools against real outcomes. The finger check was scored against 76 real picks, which showed hits mean less
   than assumed.
 - Check what agents report, too. On 2026-09-30 a docs-lookup agent said SessionStart hook output had no size cap and
