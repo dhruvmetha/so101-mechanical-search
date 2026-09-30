@@ -42,8 +42,9 @@ EPISODES = HERE / "episodes"
 CELL = 0.002
 MAX_MOVES = 15
 MAX_UNDOS = 8
-# The chance that a missed pick gets reset (dm1487, 2026-09-30). The rest stay in the demonstration with their recovery,
-# because real picks miss sometimes. dm1487 set 0.5 (2026-09-30 14:59); each record stores the value it was played with.
+# The chance that a missed pick gets reset (dm1487, 2026-09-30). It sets how often the demonstrations miss: reset every
+# miss and the arm never misses, reset none and every miss stays and demonstrations run longer. dm1487 set 0.5; each
+# record stores the value it was played with.
 MISS_RESET_EPS = 0.5
 TRUST = 0.6  # top-face coverage below this: the pose is only a rough guess
 MARGIN = 0.003  # a finger point this far below a seen surface counts as a hit

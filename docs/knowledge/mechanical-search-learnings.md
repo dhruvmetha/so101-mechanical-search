@@ -157,8 +157,9 @@ Measured 2026-09-30 on 13 cube-bin seeds (7 played by agents overnight, 6 new), 
   10 missed picks and 3 cubes dropped on the way to a place (corrected 14:58; it said 12 misses). So those demos show
   an expert that never misses. Honest play keeps a miss and the recovery from it.
 - Privileged steps are allowed only where dm1487 grants them, and each is marked and counted. Granted on 2026-09-30:
-  reset a spill, so one spill doesn't cost a whole demo; and reset a missed pick with probability eps, because real
-  picks miss sometimes and most demos should show the recovery. Both are discouraged. A chance reset has to be drawn by
+  reset a spill, so one spill doesn't cost a whole demo; and reset a missed pick with probability eps, which sets how
+  often demos miss. Reset every miss and the demos show an arm that never misses; reset none and every miss stays and
+  demos run longer. Both are discouraged. A chance reset has to be drawn by
   the tool, not chosen: a player who chooses resets the misses that hurt, and that choice is the leak again.
 - A twin rebuilt from perception may not pay (open, 2026-09-30 14:41). Misses come from perception error, which a twin
   built from the same perception can't foresee. The spills p0.3's simulator caught (11 of 348 candidates) came from

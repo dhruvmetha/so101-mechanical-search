@@ -956,3 +956,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   roughly evenly between a clean retry and a shown recovery after a miss.
 - Code: `MISS_RESET_EPS = 0.5` in `demonstrator/tools.py`; rulebook v10.1 text and state.md updated.
 - By: dm1487.
+
+## [2026-09-30 14:59] direction | Why eps: it sets the demos' miss rate
+- What: dm1487 confirmed the reason for eps: resetting every miss gives demos where the arm never misses, resetting
+  none keeps every miss and makes demos longer, and eps sets the point between. This replaces Claude's reading at
+  14:55 ("most misses stay, so most demos show the recovery"), which no longer holds at eps = 0.5.
+- Updated: the comment on `MISS_RESET_EPS` in `demonstrator/tools.py`, rulebook v10.1, the learnings file, Claude's
+  memory note.
+- By: dm1487.

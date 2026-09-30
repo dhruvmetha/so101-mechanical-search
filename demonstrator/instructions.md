@@ -66,7 +66,8 @@ record and the dataset count every one. Plan so you never need them.
   `tools.py undo` refuses any other move.
 - A missed pick (the gripper closes on nothing) gets reset by chance, not by choice. After the miss, act draws a
   number from the seed and the move; below eps (0.5 unless the record says otherwise) it resets the move itself and
-  says so. Otherwise the miss stays. Misses happen on real robots, so most demonstrations should show the recovery.
+  says so. Otherwise the miss stays. eps sets how often demonstrations miss: resetting every miss would show an arm
+  that never misses, and resetting none keeps every miss and makes demonstrations longer (dm1487).
 - Keep every other result: a kept miss, a push that made things worse, a cube dropped on the way to a place. Recover
   from it in the next moves. Until v10, a move that made things worse could be undone by choice: the 13 undos in the
   26 overnight demonstrations were 10 missed picks and 3 cubes dropped on the way to a place, and no spills.
