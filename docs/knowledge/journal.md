@@ -1,120 +1,799 @@
 # Journal
 
-The project's log: what happened and when, oldest first, newest at the bottom. Append only. Never edit or delete an
-entry; to correct one, append a new entry that names the old one and says what was wrong. `state.md` says where things
-stand now; this file says how they got there.
+The project's log of what happened, what was decided and why, oldest first, newest at the bottom. Append only. Never
+edit or delete an entry; to correct one, append a new entry that names the old one and says what was wrong.
+`state.md` says where things stand now; this file says how they got there.
+
+It is also the record that lets another person, with an LLM, reproduce the demonstrations. dm1487, 2026-09-30:
+"maintain a log of every decision we make and also you make to maintain memory, because that is what helps another
+person replicate the demos (information to instruct an LLM)". So every decision goes in, dm1487's and Claude's, large
+or small: a rule adopted or dropped, a number picked, a tool feature added, a run's settings, an approach rejected.
+Per-move choices inside an episode are the one exception: every act in `demonstrator/episodes/*.json` stores its own
+"why".
+
+## Entry format
 
 Each entry starts with a heading in one fixed form, so `grep '^## \[' docs/knowledge/journal.md | tail -5` lists the
-last five (the form follows Karpathy's llm-wiki log). Under it go one to four lines: what happened, the numbers, who
-decided, and the path to the evidence. Use local time from `date`.
+last five; the form follows Karpathy's LLM Wiki log. Take the time from `date`.
 
     ## [YYYY-MM-DD HH:MM] kind | title
 
-Kinds: `run` (a batch or job started or stopped), `result` (a measurement or outcome, with numbers), `decision`
-(with who made it), `direction` (what dm1487 asked for, quoted where possible), `mistake` (ours, and what it cost),
-`compaction` (a write-back after one), `consolidation` (what moved where). When this file passes 400 lines, move every
-month but the current one to `journal/YYYY-MM.md`, unchanged.
+Kinds: `decision`, `direction` (dm1487's words, quoted where possible), `run`, `result`, `mistake`, `compaction` (a
+write-back after one), `consolidation` (what moved where), `note`.
 
-## [2026-09-30 11:22] note | Entries before this one were reconstructed from existing files
+A decision or direction entry has these lines:
 
-The entries dated 2026-09-18 to 2026-09-30 11:13 were written on 2026-09-30 from the specs, CLAUDE.md, state.md,
-demonstrator/REPORT.md, the rulebook's change log and Claude's memory files. Times appear only where a file records
-one. They are in date order below this note, not in the order they were written.
+    - Decided: what, exactly, with the values.
+    - Why: the reason, with numbers, and the alternatives turned down.
+    - By: dm1487 | Claude (main session) | Claude, approved by dm1487 | agent dNNNN.
+    - Evidence: code, commit, notes, outputs, as paths.
+    - Replaces: the earlier entry it reverses or amends, if any.
 
-## [2026-09-18] decision | Sim design spec
+A run entry, for a batch of episodes or any job whose output someone may want to reproduce, has:
 
-`docs/superpowers/specs/2026-09-18-so101-sim-design.md`: the SO-101 in MuJoCo on arrakis, headless.
+    - Commit: `git rev-parse --short HEAD`, and whether `git status --short` showed changes.
+    - Simulator: the MuJoCo version (`pyproject.toml` pins 3.8.1) and any change to `models/stage.xml`.
+    - Seeds and start kinds; the player (the agent's model, or Claude by hand); how many ran in parallel.
+    - Rulebook and brief: the `demonstrator/instructions.md` version, and `AGENT_BRIEF.md` as of the commit.
+    - Commands: exactly as run, with the conda env.
+    - Directions from dm1487 that shaped the run.
 
-## [2026-09-22] result | Hardware measurements from the `so101` session
+A result entry closes the run: outcomes with numbers, and where the files are.
 
-Sag, backlash and stiffness fits as of this date, in `docs/knowledge/real-arm.md`.
+Entries with "(reconstructed)" in the title were written after the fact, on 2026-09-30, from the files named in their
+Evidence line; where the files give no time, the heading has the date only, and entries of the same date without a
+time are in no known order. When this file passes 800 lines, entries from earlier months move unchanged to
+`journal/YYYY-MM.md`.
 
-## [2026-09-25] decision | The task is mechanical search in a bin
+## [2026-09-18] decision | Sim design spec (reconstructed)
 
-A 22 cm bin sunk 10 cm below the base, 29 gray cubes and one red. Spec:
-`docs/superpowers/specs/2026-09-25-mechanical-search-design.md`, amended twice after measurements. The same day the
-Warp renderer drew the scene's cameras at about 7,000 images/s at 128x128 for 1024 worlds (`codebase.md`), and
-`primitives.bridge` switched from a fixed z = 0.03 to `hover_z`.
+- Decided: the SO-101 in MuJoCo on arrakis, headless, with lerobot units at the env boundary.
+- Why and alternatives: in the spec.
+- By: not recorded in this journal; see the spec.
+- Evidence: `docs/superpowers/specs/2026-09-18-so101-sim-design.md`.
 
-## [2026-09-26] decision | Second task: shelf search
+## [2026-09-22] result | Hardware measurements from the `so101` session (reconstructed)
 
-14 upright cylinders on a shelf, one red, reached sideways. Spec:
-`docs/superpowers/specs/2026-09-26-shelf-search-design.md`. Claude played shelf seeds 300 and 301 from images and
-failed both (`outputs/shelf_play_30*.md`).
+- Sag, backlash and per-joint stiffness fits on the physical arm, as of this date.
+- Evidence: `docs/knowledge/real-arm.md`.
 
-## [2026-09-28] result | Hand-played bin seeds 301 to 310, all solved
+## [2026-09-25] decision | Bin task definition (reconstructed)
 
-Claude as planner, 2026-09-26 to 09-28: 5.8 moves on average (buried 7.6, partial 4.0), 24 of 37 grasps missed.
-Lessons in Claude's memory file `mechsearch-planner-playbook.md`. The weekly advisor log artifact was first published
-on 2026-09-28.
+- Decided: a bin holds a pile of 30 mm cubes up to three layers deep, one red and the rest gray, and the robot lifts
+  the red one out. Cubes only, no language instruction. Starts are 50/50 buried and partly visible. A cube centre
+  leaving the bin fails the episode, with no buffer area. Two interfaces: a 30 Hz joint env and a pick, place and push
+  primitive env. CPU MuJoCo only; `BinPickEnv` stays as it is.
+- Why: it settles the task CLAUDE.md had left open, following mechanical search (Danielczuk et al., ICRA 2019). The
+  individual choices have no recorded reasons.
+- By: dm1487 approved the spec on 2026-09-25.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:3, 7-19, 24-30.
 
-## [2026-09-29] decision | noslip on; piles handed over at rest
+## [2026-09-25] decision | Sink the bin below the base, and the height rules (reconstructed)
 
-`models/stage.xml` sets `noslip_iterations="10"`: 10 s of idle drift fell to 0.85 mm median. The scripted dig-out
-went from 12 to 15 of seeds 0 to 19. Resets now hand over piles only once they hold still (`so101sim/rest.py`).
+- Decided: the arm stands on a riser, so the bin floor sits below the base. The floor is 4 mm thick with its top at
+  f = -D + 0.004. Layer centres at f + 1.5, 4.5 and 7.5 cm. TRAVEL_Z = max(f + 11 cm, rim + 3 cm).
+- Why: top-down reach narrows with height and ends about 9 cm above the base. On the base's own table a two-layer pile
+  needs an 8.4 cm crossing where the band is 5 cm wide, which caps the bin at 10 cm with 5% still unreachable. With the
+  floor 10 cm down, 12, 15 and 18 cm bins reached 100% (without collision checks). TRAVEL_Z keeps a carried cube 5 mm
+  over the pile and a lifted cube 1.5 cm over the rim.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:18, 32-64.
 
-## [2026-09-29] decision | The expert decides from camera data only
+## [2026-09-25] decision | Bin sizing, camera and start-pose rules (reconstructed)
 
-Undo covers spills and most bad misses, and looks are real arm motions. Rulebook `demonstrator/instructions.md` v1 and
-v2 written the same day.
+- Decided: search depth D in {6, 8, 10, 12} cm, width in {18, 15, 12} cm, centre x in {0.19, 0.20, 0.21}, walls in
+  {6, 8, 10} cm. Checks on a 5 mm grid: layer-1 and layer-3 grasp, travel at GRIP_PLAN and GRIP_HOLDING, open-jaw
+  clearance for at least one of 4 yaws, corners exempt. Rank by widest, then shallowest D, tallest wall, centre
+  nearest 0.20. Front camera at x = 0.70, at the lowest z in {0.45, 0.55, 0.65, 0.75} that sees at least 70% of the
+  floor. Start pose HOME by default, clear of the drop column below f + 13 cm, with the wrist camera seeing at least
+  50%. If nothing passes at 12 cm, stop and bring it to dm1487.
+- Why: a lower riser is easier to build, and a low camera sees the pile from the side.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:82-101, 117-127;
+  `docs/superpowers/plans/2026-09-25-mechanical-search.md`:1181-1197.
 
-## [2026-09-29] direction | Weekly advisor log paused
+## [2026-09-25] decision | Bin reset, acceptance and cube-count rules (reconstructed)
 
-dm1487: no need for the advisor log for now; focus on the demonstrator. Memory file `weekly-advisor-log.md`.
+- Decided: cubes drop in waves of at most 4, at least 4.5 cm apart, 1 cm over the highest cube, each wave settling to
+  max|qvel| <= 0.2 (capped at 1 s). A pile is kept if every centre is in the footprint, none sits above f + 8.5 cm,
+  a free floor spot exists 1.8 cm from the walls and 4.5 cm from bottom-layer centres, the pile has settled, no cube
+  touched the arm, and the red rule holds (buried: 0 red pixels in both cameras; visible: at least 100 in one, at
+  640x480). Retries reuse the same `np_random`, up to 50 attempts. The count starts at 30 and drops until at least 50%
+  of piles are kept for each start type over 100 seeds, with a floor of 10. Reset should average under 3 s; if not,
+  report the number rather than cut cubes.
+- Why: a seed always gives the same pile. f + 8.5 cm caps the pile at three layers. The 4.5 cm spacing is two
+  half-diagonals plus 2.6 mm.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:129-152, 166;
+  `docs/superpowers/plans/2026-09-25-mechanical-search.md`:1531-1558.
 
-## [2026-09-30 02:33] run | Overnight agent run stopped by the account's session limit
+## [2026-09-25] decision | Bin env contracts and the solvability gate (reconstructed)
 
-Eight agents played seeds 1000 to 1034 in parallel; the limit stopped all of them mid-episode with no recovery until
-morning. 24 agent episodes and 2 of Claude's (e400, e402) were solved. The rulebook went from v4 to v9 overnight.
-`MUJOCO_LOG.TXT` recorded "Insufficient arena memory" at 00:02. Report: `demonstrator/REPORT.md`.
+- Decided: `MechSearchEnv` terminates when a cube leaves the bin. Success is both jaws on the red with its lowest
+  corner at least 1 cm over the rim for 5 frames. max_steps 1800. The primitive env's action: kind Discrete(3), an xyz
+  box pulled in by a cube half-width with z from f + 1.5 to f + 7.5 cm, and an angle. Push stroke 0.05 m, a 60-frame
+  settle, refused moves leave the arm still, max_primitives 15. Gate: a scripted dig-out from `info` poses must
+  succeed on some buried seed in 0 to 19.
+- Why: one xy can hold a cube on any of three layers, so z is in the action. A red under a two-cube stack needs 5
+  primitives, and jammed neighbours add pushes.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:168-218, 245;
+  `docs/superpowers/plans/2026-09-25-mechanical-search.md`:34-38, 2372-2397.
 
-## [2026-09-30 08:22] result | 26 solved demos exported
+## [2026-09-25] decision | Where the bin plan departed from the spec (reconstructed)
 
-`outputs/mechsearch_demos_v1`: LeRobot format, 43,392 frames at 30 Hz, front and wrist images at 224. Every episode
-replayed exactly against its record before export.
+- Decided: the layout and SEARCH_HOME live in the XML's `<custom>` fields, and TRAVEL_Z is computed from the bin.
+  Camera coverage uses 6 mm marker tiles 1 cm apart in a segmentation render instead of `mj_ray`. The drop column is
+  an invisible collision box. `bridge` ramps joints only below hover_z - 0.025. `info["cubes"]` is added.
+- Why: the chosen layout can't drift from the code. Hand-written camera maths would get the wrist camera's
+  sensorsize intrinsics wrong. A fixed z = 0.03 threshold would ramp every crossing in the sunken bin through the pile.
+- By: not recorded.
+- Evidence: `docs/superpowers/plans/2026-09-25-mechanical-search.md`:46-56, 425-433, 494-498.
+- Replaces: the spec's constants and its `mj_ray` wording (spec lines 119, 225).
 
-## [2026-09-30] decision | Wrist flip and camera fusion
+## [2026-09-25] decision | Bin amendment 1: walls at most 6 cm, and a 2 cm wall strip (reconstructed)
 
-Primitives take a wrist `flip`, and check picks the roll that keeps the arm clear of itself: 54 of 55 empty-bin
-picks landed within 6 mm. Observe fuses the wrist camera with the front camera: unseen floor went from about 60% to
-38%, pose error from 1.4 mm to 0.6 mm median.
+- Decided: walls in {6, 5, 4} cm. The clearance check skips any cube whose face is within 2 cm of a wall; those
+  cubes need a push first. The pile keeps three layers.
+- Why: the first sizing run found no layout, because clearance failed everywhere. With a 10 cm riser, 6 cm walls on a
+  15 cm bin blocked 41 of 169 positions, all at the wall; 8 cm walls blocked 82 of 169, up to the middle, on the
+  camera mount; 10 cm walls on an 18 cm bin blocked 65 of 225.
+- By: not recorded; the amendment sits in the spec dm1487 approved.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:20, 90, 95, 103-115;
+  `docs/superpowers/plans/2026-09-25-mechanical-search.md`:916.
+- Replaces: walls of 6, 8 or 10 cm and the corner-only exemption.
 
-## [2026-09-30] mistake | The fixed-finger shift rule was backwards
+## [2026-09-25] decision | Bin amendment 2: face pixels, a boxed burial, bins up to 24 cm (reconstructed)
 
-It was copied from a note instead of derived, and the tools printed it for hours. Fixed in rulebook v9.
+- Decided: a red pixel counts only if its whole 5x5 patch is red. A buried red sits on the floor with four grays flush
+  against its sides, 1 mm apart, and a fifth on top, all settled as one wave. Widths of 24, 22 and 20 cm join the
+  search.
+- Why: with one gray on top, the red still showed through 1 mm seams. Piles kept out of 30, one-on-top against boxed:
+  0 vs 26 at 14 cubes, 3 vs 20 at 18, 1 vs 9 at 24. Most losses at 24 had no free floor spot, which a wider bin eases.
+- By: not recorded; the amendment sits in the spec dm1487 approved.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:21, 88, 141, 152, 154-164;
+  `docs/superpowers/plans/2026-09-25-mechanical-search.md`:1388.
+- Replaces: the one-gray-on-top recipe and the raw zero-pixel rule.
 
-## [2026-09-30] direction | The goal is the expert, and cubes are a proof of concept
+## [2026-09-25] decision | The bin layout the sizing script picked (reconstructed)
 
-dm1487: "It's not about the student. I want the expert to give me good demos and fast." The expert should later work
-with deeper bins up to sink-like basins, bins set into the table, and YCB objects or toys.
+- Decided: a 22 cm bin at x = 0.20, 10 cm riser, 5 cm walls, travel z +0.014. Front camera at (0.70, 0, 0.45), seeing
+  86% of the floor. Start pose [0, -30, 30, 90, 0, 50], which is HOME (`so101sim/env.py`:16), with a wrist view of 79%.
+- Why: the first candidate by rank to pass, found by `scripts/size_search_bin.py` in 35 s after 57 better-ranked
+  candidates failed.
+- By: the script, under the rules above.
+- Evidence: `models/search_objects.xml`:5-8, 12-13, 19.
 
-## [2026-09-30] direction | Common sense every turn
+## [2026-09-25] decision | A stricter success height for the bin (reconstructed)
 
-dm1487: "I really like that you have common sense, but you seem to not activate it every turn." Led to
-`operating-principles.md` and to keeping `docs/knowledge/` current.
+- Decided: the red's lowest corner must also sit 2 cm above where a top-layer cube rests, floor + 8 cm.
+- Why: with 5 cm walls, rim + 1 cm equals that resting height, so a grasp and a 2 mm lift counted. A primitive pick
+  holds the corner at about floor + 8.8 cm.
+- By: not recorded ("changed after the final review"). Date from the spec's filename; the spec gives none.
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:175.
+- Replaces: rim + 1 cm alone (`docs/superpowers/plans/2026-09-25-mechanical-search.md`:25).
 
-## [2026-09-30 10:57] result | Related work and the sweep pilot
+## [2026-09-25] result | Warp's batch renderer draws this scene (reconstructed)
 
-`demonstrator/RELATED_WORK.md` covers sweeping, pushing and scripted planners. The pilot
-(`outputs/sweep_pilot_2026-09-30/`): one long stroke cleared the target in 8 of 16 tries on two piles, and 2 of 16
-pushed an object out, both toward a nearby wall.
+- The MuJoCo Warp backend rendered the front and wrist cameras, meshes and segmentation included, at about 7,000
+  images/s at 128x128 for 1024 worlds. Shadows are off by default and the lighting is brighter than the CPU
+  renderer's, so training and evaluation must use the same renderer.
+- Evidence: `docs/knowledge/codebase.md`, the `so101sim/mjx.py` entry.
 
-## [2026-09-30 11:12] result | Fable consult, and the cost of lookahead
+## [2026-09-26] decision | Bin amendment 3: partial starts replace visible ones (reconstructed)
 
-`demonstrator/consult/fable-2026-09-30.md`: build a depth-1 planner first, no search tree. Checked the same day: a
-pick costs 1.9 s of CPU and a place 0.7 s, saving the physics state 2 microseconds, copying the full MjData 35 ms;
-about 25 to 45 episodes per core-hour at 8 candidates per move.
+- Decided: a non-buried start needs at least 100 face pixels in one camera, and no camera may show more than half of
+  what it would see of the red with the grays hidden (grays sit in geom group 1). The red drops in a random middle
+  wave. The mix stays 50/50.
+- Why: "a fully visible red cube is a plain pick and tests nothing about search."
+- By: dm1487 ("dm1487's call").
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:22, 142, 148;
+  `models/search_objects.xml`:33.
+- Replaces: visible starts with the red in the last wave.
 
-## [2026-09-30 11:13] decision | Knowledge moves into docs/knowledge/
+## [2026-09-26] decision | 30 cubes, and partial starts judged by reset time (reconstructed)
 
-README, state, operating principles and mechanical-search learnings created. dm1487 asked that they always be kept
-current so the common sense survives compaction.
+- Decided: the half-kept rule covers buried starts only; partial starts are judged by the 3 s reset budget. Reset
+  attempts go from 50 to 200. The count stays at 30.
+- Why: partial starts kept about 12% at every count from 30 down to 10, averaging 2.7 s at 30. The recorded run kept
+  59% of buried piles at 0.5 s per reset and 14% of partial piles at 2.3 s.
+- By: dm1487 ("dm1487 chose").
+- Evidence: `docs/superpowers/specs/2026-09-25-mechanical-search-design.md`:131; `models/search_objects.xml`:9. No
+  date of its own; it goes with amendment 3.
+- Replaces: the 50% rule for both start types, and 50 reset attempts.
 
-## [2026-09-30 11:22] consolidation | Boot hook, journal and path-scoped traps
+## [2026-09-26] decision | Shelf task definition (reconstructed)
 
-dm1487 asked for a memory system along the lines of Karpathy's LLM OS. CLAUDE.md went from 311 to about 110 lines:
-the layout section moved to `codebase.md`, the hardware notes to `real-arm.md`, and the traps to five files in
-`.claude/rules/`. `.claude/hooks/knowledge.sh` now loads state, the index and this journal's tail at every boot and
-after compaction, and flags stale state when a prompt is sent. The simulator lessons in the learnings file were
-deduplicated against the traps; the noslip numbers there had mixed a 30 s and a 10 s window and are now correct.
-The design is in `docs/knowledge/README.md`.
+- Decided: a shelf bay with a top board holds upright cylinders, all 3 by 8 cm, one red. The gripper enters level
+  through the front. Success is the red held in both jaws and pulled past the front edge. A tilt past 20 degrees
+  fails, as does any gray leaving the board. Two interfaces, CPU only. Claude plays the primitive env from images
+  alone: seeds 300 (hidden) and 301 (partial), fixed before looking, no undo, at most 20 primitives, pixel actions
+  through `scripts/shelf_play.py`.
+- Why: follows LAX-RAY (Huang et al., 2020). atan(3/8) = 20.6 degrees is the tilt past which a cylinder can't right
+  itself.
+- By: dm1487 approved the spec on 2026-09-26.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:3, 15-29, 363-382;
+  `docs/superpowers/plans/2026-09-26-shelf-search.md`:3059-3070.
+
+## [2026-09-26] decision | Shelf above the base, mount-up roll, fixed heights (reconstructed)
+
+- Decided: the board sits above the base plane. Every grasp uses the roll with the camera mount on top, so the moving
+  jaw opens to the right. GRASP_Z = b + 4 cm, CARRY_Z = b + 5 cm. The aisle line at f + 2 cm and the standoff line at
+  f - 3 cm; reset keeps centres at x >= f + 5.5 cm. Primitives run along rays: pick, place, pull (the only move off
+  the board), push (jaws closed, 5 cm, 16 headings), look.
+- Why: level reach is wide above the base and absent below -0.08 m. With the mount down it hangs 8 to 9 cm under the
+  gripper, hits the board, and the gripper gets only 4.5 cm into the bay.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:50-122, 247-271.
+
+## [2026-09-26] decision | Shelf sizing, reset and count rules (reconstructed)
+
+- Decided: search b in {3, 6, 9} cm, opening in {13, 15, 18} cm, f in {0.27, 0.285, 0.30} m, depth 16 to 22 cm, width
+  20 to 32 cm. Six checks on a 5 mm grid, with a 6 cm right-wall exemption for the open jaw. Rank by graspable area,
+  then smallest opening, then nearest edge; stop below 12x18 cm. Front camera sees at least 60% of the board, wrist
+  camera at least 40%. A hidden red goes in the back two thirds with a gray 3.5 to 5 cm in front on each camera's
+  sight line; a partial red goes last, at random. Cylinders at least 3.5 cm apart, upright within 2 degrees, 50
+  attempts. The count starts at 18 with a floor of 8, and at least 50% must be kept per start type.
+- Why: reach bottoms out near 0.255 m, so f can't come closer. GRIP_OPEN swings the moving jaw 55 mm and would knock
+  over the right-hand neighbour.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:141-167, 224-237, 273-303.
+
+## [2026-09-26] decision | Shelf env contracts (reconstructed)
+
+- Decided: checks in order: topple (over 20 degrees, held or not), off-board (any gray, or the red when not held),
+  success (both jaws, 2 cm past the edge, tilt under 20 degrees, 5 frames). max_steps 2700. The primitive env's kind is
+  Discrete(5) and it takes an xy with no z. max_primitives 20. Holding is read from the gripper joint.
+- Why: moving in and out along rays is slower than the bin's hover moves, hence 90 s. Every cylinder stands on one
+  board, so no z. The joint stops near 18 on a cylinder, and the real arm reads the same joint.
+- By: dm1487 approved the spec.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:319-361;
+  `docs/superpowers/plans/2026-09-26-shelf-search.md`:2550-2554.
+
+## [2026-09-26] decision | Where the shelf plan departed after the reach spike (reconstructed)
+
+- Decided: rays start at the pan axis (0.0388, 0). A push enters at grasp height and drops past the edge. Push height
+  is fixed at b + 2.5 cm. The "12x18 cm" stop rule means 216 cm² of area. Holding means the last command was at most
+  GRIP_CLOSE + 1 and the joint reads at least 14. The side-open value is the smallest lerobot value with a gap of at
+  least 5 cm, which is 33.
+- Why: the spike measured reach inner limits of 0.220, 0.225 and 0.240 m and an outer limit of 0.440 m, so only
+  f = 0.30 works. A 5 cm push at 2 cm left a cylinder leaning 9 degrees, at 2.5 cm slid it 4 cm upright, at 3 cm
+  toppled it.
+- By: not recorded.
+- Evidence: `docs/superpowers/plans/2026-09-26-shelf-search.md`:60-88, 481-483, 898-900.
+- Replaces: the spec's "lowest of b + 2, 2.5 or 3 cm" push height (spec line 115).
+
+## [2026-09-26] decision | Shelf amendment 1: arm contact fails, a 3 cm wall strip (reconstructed)
+
+- Decided: the arm touching any shelf panel, leg or the table ends the episode, and the primitive env refuses such
+  paths. Sizing skips centres within 3 cm of a side wall, and the red always starts outside that strip. Digs try a
+  push before a pick.
+- Why: the first sizing run found no layout. At 2 to 2.5 cm from a wall the closed gripper hits the walls. A red the
+  gripper can't fit around would make the start impossible rather than hard.
+- By: dm1487 ("dm1487 decided").
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:31-33, 169-189.
+- Replaces: sizing with no wall exemption.
+
+## [2026-09-26] decision | Shelf amendment 2: partial starts occluded on purpose (reconstructed)
+
+- Decided: a partial red goes in the back two thirds with a gray on each camera's line 3.5 to 5 cm in front, shifted
+  0.8 to 1.6 cm to one side.
+- Why: with a random red, partial starts kept at most 22% at 14 cylinders; 79 of 150 attempts showed more than half
+  the red. Over 200 seeds a 0.8 to 1.6 cm shift kept 57%, against 49% for 1.2 to 2.2 cm.
+- By: dm1487, over a reset-time rule.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:35-36, 305-317.
+- Replaces: the random partial red (spec line 284).
+
+## [2026-09-26] decision | Shelf amendment 3: 6 mm clearance, 15 cm opening, lowest camera and pose (reconstructed)
+
+- Decided: every collision check needs 6 mm of clearance, run on a model with the shelf boxes grown and the midphase
+  off, and sizing adds a carry check at every centre. Result: b = 9 cm, a 15 cm opening, f = 0.30 m, 18x32 cm. The
+  front camera takes the lowest height in {0.20, 0.25, 0.30, 0.40} m that sees at least 60%, the start pose the lowest
+  whose wrist camera sees at least 40%. Hidden starts add up to three grays wherever a camera still sees the red.
+- Why: every place hit the top board, and the arm bounces about 5 mm at carry height; at 8 mm no shelf passes. The
+  midphase skipped pairs in the grown band. dm1487 wants starts that are really hidden: a camera at 0.40 m kept 0% of
+  hidden starts and one at 0.20 m kept 40 to 50%; with the wrist camera 4.5 cm over the cylinder tops no hidden start
+  survived, at 1.5 cm 90% did.
+- By: dm1487 chose 6 mm and set the hidden-start goal.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:38-40, 191-222.
+- Replaces: contact-only checks, the 13 cm opening, spec lines 230-236 and the one-gray-per-camera recipe (281-283).
+
+## [2026-09-26] decision | The shelf layout and count the scripts picked (reconstructed)
+
+- Decided: board +9 cm, opening 15 cm, f 0.300 m, 18x32 cm, centres over 10.5x28 cm. Front camera at (-0.10, -0.30,
+  0.20), seeing 95%. Start pose [-21.43, -37.73, 83.26, -45.53, -87.21, 22.0], wrist view 75%. 14 cylinders: 83% of
+  hidden starts kept at 0.1 s, 54% of partial at 0.0 s. The open jaw at lerobot 28.
+- Why: the first candidate by rank to pass, found in 70 s after 124 better-ranked candidates failed. On 28 against 33:
+  `so101sim/side_primitives.py`:19-23 says 33 dragged a released cylinder 14 mm and 28 dragged it 1.4 mm (undated).
+- By: `scripts/size_shelf.py` and `scripts/shelf_smoke.py --tune-count`, under the rules above.
+- Evidence: `models/shelf_objects.xml`:5-14, 30.
+- Replaces: a side-open value of 33.
+
+## [2026-09-26] decision | Cylinders use condim 6 (reconstructed)
+
+- Decided: condim 6, friction "1 0.005 0.0001", density 1000.
+- Why: under condim 4 a pushed cylinder wobbled on its rim without end; condim 4 ignores the rolling coefficient.
+- By: not recorded. `so101sim/shelf_layout.py`:38-40 dates the measurement 2026-09-26.
+- Evidence: `docs/superpowers/specs/2026-09-26-shelf-search-design.md`:135-137; `models/shelf_objects.xml`:33.
+- Replaces: condim 4.
+
+## [2026-09-26] decision | Shelf seeds 300 and 301 played from images only (reconstructed)
+
+- Decided: Claude plays the shelf from the front and wrist images and the printed step results, with no poses and no
+  undo: seed 300 hidden, 301 partial. Both failed; a grasp short of the cylinder's axis swung the red past 20 degrees
+  on 300.
+- Why: not recorded.
+- By: Claude.
+- Evidence: `outputs/shelf_play_300.md`:1-3, 91-100; `outputs/shelf_play_301.md`:1-3, 26-33.
+
+## [2026-09-26] decision | Shelf pull's holding threshold lowered from 14 to 11 (reconstructed)
+
+- Decided: `pull` counts the red as held at gripper 11 or more instead of 14, with a test. Seed 300's action list was
+  replayed unchanged.
+- Why: an off-centre grasp with both jaws on the red read 12.7 and pull refused it; an empty close reads 10.0.
+- By: Claude ("I set the threshold to 11 with a test").
+- Evidence: `outputs/shelf_play_300.md`:83-89.
+
+## [2026-09-26] decision | Shelf trials on seeds 302 to 305 (reconstructed)
+
+- Decided: seeds fixed before looking (302 and 304 hidden, 303 and 305 partial), at most 20 primitives, no poses, no
+  undo. Aids limited to pixel deprojection (`where.py`) and a path check with a stand-in cylinder (`plancheck.py`).
+  Result: 3 of 4 solved.
+- Why: the path check "would have flagged the pick that failed seed 301".
+- By: Claude.
+- Evidence: `outputs/shelf_trials.md`:1-7, 61-63.
+- Replaces: the 300 and 301 setup. The shelf has since shrunk (18 to 15 cm opening, 8 to 6 mm path check), so 300 and
+  301 no longer replay (`outputs/shelf_play_300.md`:5-7).
+
+## [2026-09-28] decision | Hand-played bin seeds 301 to 310 become the teacher's spec (reconstructed)
+
+- Decided: Claude hand-played bin seeds 301 to 310 as planner from 2026-09-26 to 09-28, and its lessons became "the
+  spec for the teacher program that is to come next": the 42 mm grasp budget across two faces, a 15 mm slot behind a
+  push, a layer-2 push toward the base to slide a cover off, reading the gripper (about 18 holding, 10 empty) before
+  queuing a place.
+- Why: 10 of 10 solved, 5.8 moves on average (buried 7.6, partial 4.0), 24 of 37 grasps missed.
+- By: Claude.
+- Evidence: Claude's memory file `mechsearch-planner-playbook.md`; videos `outputs/llm_*_seed30*.mp4` are likely from
+  these runs, but no file says so.
+
+## [2026-09-28] decision | One artifact for the weekly advisor meetings (reconstructed)
+
+- Decided: dm1487 kept one artifact, "Mechanical Search Log", for weekly advisor meetings, first published 2026-09-28,
+  covering both tasks.
+- Why: one stable link to present every week, with results, videos and findings.
+- By: dm1487.
+- Evidence: Claude's memory file `weekly-advisor-log.md`.
+
+## [2026-09-29] decision | noslip on; piles handed over at rest; old action lists retired (reconstructed)
+
+- Decided: `models/stage.xml` sets `noslip_iterations="10"`. Resets hand over a pile only once it holds still
+  (`so101sim/rest.py`: every object under 2 mm/s and 0.1 rad/s for 15 frames). The action lists of bin seeds 301 to 310
+  and shelf seeds 302 to 305 no longer replay, and their videos are the record.
+- Why: without noslip, piles left alone for 30 s drifted 24 mm median; with it, 10 s of idle drift is 0.85 mm median,
+  at about 2.5x the CPU time. Solver iterations, impratio, stiffer solref or solimp, pyramidal cones and a 1/600 s
+  timestep did not fix it. The scripted dig-out went from 12 to 15 of seeds 0 to 19.
+- By: not recorded.
+- Evidence: `.claude/rules/scenes-and-physics.md`; `mechsearch-planner-playbook.md` (memory);
+  `outputs/shelf_trials.md`:65-66.
+
+## [2026-09-29] direction | Advisor log paused (reconstructed)
+
+- Decided: no advisor log for now; focus on the demonstrator.
+- By: dm1487, as recorded in Claude's memory: "no need for the advisor log for now and to focus on the demonstrator".
+- Evidence: Claude's memory file `weekly-advisor-log.md`:11.
+
+## [2026-09-29] direction | The rulebook is the memory (reconstructed)
+
+- Decided: `demonstrator/instructions.md` replaces the playbook as the working rulebook. Claude follows it when
+  playing, and adds each episode's lessons and a change-log line after every episode.
+- By: dm1487 ("dm1487 asked for it to act as memory").
+- Evidence: `mechsearch-planner-playbook.md` (memory):11-13; `demonstrator/instructions.md`:3-5.
+- Replaces: the playbook memory file as the rulebook.
+
+## [2026-09-29] decision | Episodes are replayed op lists; the expert decides from camera data only (reconstructed)
+
+- Decided: an episode is a JSON op list (`demonstrator/episodes/NAME.json`: seed, buried, ops, undone), rebuilt by
+  replay from reset on every tool call. Only `act` counts as a move; parks cost robot time and are real motions;
+  `check` never blocks. The player never reads true poses.
+- Why: replay was "checked 2026-09-29, bit-identical across processes". True poses "would make the demonstration
+  something a camera-based policy can't copy."
+- By: not stated in the files. `state.md` lists it as a 2026-09-29 decision.
+- Evidence: `demonstrator/tools.py`:1-19; `demonstrator/instructions.md`:68; `demonstrator/AGENT_BRIEF.md`:31-33.
+
+## [2026-09-29] decision | Rulebook v1 (reconstructed)
+
+- Decided: the first rulebook, with a 15-move cap and a loss on any cube leaving the bin.
+- Why: built from hand-played seeds 301 to 310 and "the program test on seeds 400 to 403" (no file describes that
+  test, and there is no e403).
+- By: not stated; Claude wrote it.
+- Evidence: `demonstrator/instructions.md`:12, 258.
+
+## [2026-09-29] decision | Rulebook v2, after e400 (reconstructed)
+
+- Decided: the success line and the set-down-and-regrasp rule, nudging a boxed red, grasping a tilted cube high, where
+  to put covers, reading the red line in the image. Tools: observe doesn't park while holding, and check leaves the
+  target cube out of its hits.
+- Why: e400 (Claude, buried): solved in 11 moves and 68 s. Move 9 held the red tilted and missed success by 0.7 mm;
+  then the tool's park opened the gripper and dropped it (a bug, fixed), and the next park swing shook it out.
+- By: Claude.
+- Evidence: `demonstrator/instructions.md`:240-246, 259-261.
+
+## [2026-09-30] decision | Rulebook v3: the wrist flip, after e401 and the reach study (reconstructed)
+
+- Decided: primitives take `flip` (0 or 1) to pick the wrist roll. check tries both rolls over the full path and
+  reports the arm against itself, fingers within 3 mm of a wall, and the camera mount against the scene. An unpark
+  step. `reach.Clearance` samples points instead of trusting `mj_geomDistance`.
+- Why: e401 (partial) failed at move 3 by knocking a cube out. Move 2 missed by 4.5 cm because the wrist had to roll 93
+  degrees from home, grounded its camera mount on the shoulder and lagged; move 3's IK chose a roll that folded the arm
+  into the shoulder, and the lagging arm swept a layer-3 cube over the rim. On an empty bin, 182 picks: 54 of 55 landed
+  within 6 mm with the arm 10 mm or more from itself and the fingers 3 mm from every wall; fingers within 3 mm of a wall
+  tracked in 8 of 80. `mj_geomDistance` returned 0 for boxes 30 mm apart.
+- By: Claude.
+- Evidence: `demonstrator/instructions.md`:183-191, 248-254, 262-264; `demonstrator/REPORT.md`:40-45.
+- Replaces: the near-base "dead strip" (x at or below 0.14), which was the wrist roll, not reach.
+
+## [2026-09-30] decision | Rulebook v4: undo, and the red-pixel line (reconstructed)
+
+- Decided: `undo`, which keeps the attempt under "undone" and out of the demo. Always undo a spill, undo a miss that
+  made things worse, keep a useful miss, never repeat an undone move exactly, at most 8 undos. observe places red
+  pixels in 3D.
+- Why: "A demonstration should show good moves." The sim is exact, so an undone line replays as if it never happened,
+  and e400's misses had opened gaps.
+- By: not stated; Claude wrote it. (`state.md` files undo under 2026-09-29; the change log says v4, 2026-09-30.)
+- Evidence: `demonstrator/instructions.md`:28-30, 59-68, 265; `demonstrator/REPORT.md`:93-94.
+
+## [2026-09-30] run | Overnight agent run, seeds 1000 to 1034 (reconstructed)
+
+- Commit: none. The code was not committed until b0455b2 at 11:26, after the run, and tools changed during the run.
+- Simulator: MuJoCo 3.8.1 on CPU, noslip on (since 2026-09-29).
+- Seeds and start kinds: 1000 to 1034, episode dSEED, even seeds buried and odd partial (true of every d episode
+  file). d1023 and d1026 were never started.
+- Player: eight Claude agents in parallel. Which model they ran on, and which agent got which seeds, is not recorded.
+- Rulebook and brief: `demonstrator/instructions.md` from v4 at the start to v8 during the run (see the mistake entry
+  below); `demonstrator/AGENT_BRIEF.md` (read the rulebook first; decide only from observe, check and images; write
+  no Python; edit only `episodes/` and `notes/`; under 60 tool calls; a note of 20 lines or fewer per episode).
+- Commands: `python demonstrator/tools.py new|observe|check|act|undo|places|status|list ...`, each run as in
+  `AGENT_BRIEF.md`:19 with the `so101sim` conda env and a 600000 ms Bash timeout.
+- Directions from dm1487: none recorded for the run itself.
+- Evidence: `demonstrator/AGENT_BRIEF.md`; `demonstrator/REPORT.md`; Claude's memory `common-sense-every-turn.md`:15.
+
+## [2026-09-30] mistake | Tools and rules changed under running agents (reconstructed)
+
+- What: rulebook v5 to v8 and tool changes went live mid-run, with no freeze per batch, so early and late episodes
+  were played under different rules. d1000 saw v5 to v6.2 arrive and re-read the rulebook at move 14; observe's
+  output changed partway through d1005, d1013 and d1016. The brief also changed during the run, and neither its old
+  versions nor the spawn prompt were kept.
+- Cost: which rulebook version each overnight episode followed is not recorded. From the change log: d1003, d1004,
+  d1006, d1009, d1012 and d1015 ran under v4; d1000, d1005, d1013 and d1016 saw changes mid-episode; the rest fall
+  between v5 and v8. An agent read the rulebook once, before its first episode, so later episodes may have followed an
+  older copy.
+- By: Claude.
+- Evidence: `demonstrator/notes/d1000.md`:15, `d1005.md`:19-20, `d1013.md`:21-22, `d1016.md`:20;
+  `demonstrator/REPORT.md`:91-92.
+
+## [2026-09-30] decision | Rulebook v5 and v5.1 (reconstructed)
+
+- Decided: clear both ends of one jaw axis instead of aiming around neighbours; nudging only as a last resort; a 2 mm
+  limit on shifting away from the fixed finger (worded backwards until v9); 40 mm or more of unseen space on a finger's
+  path counts as a hit; a diagonal red is taken across its corners parallel to the wall; find place spots by hand; the
+  red is under the cube that shows the red line. v5.1: observe lists the cubes at each end of each jaw axis.
+- Why: from d1003, d1004, d1006, d1009, d1012 and d1015, all solved. Shifts of 6 to 13 mm or turns of 9 to 15 degrees
+  never cleared a flush neighbour. 47 mm of unseen space hid a cube.
+- By: Claude, from the agents' notes.
+- Evidence: `demonstrator/instructions.md`:100-102, 118-125, 129-130, 142-145, 206-208, 266-270.
+
+## [2026-09-30] decision | Rulebook v6, v6.1 and v6.2: the wrist camera joins observe (reconstructed)
+
+- Decided: observe fuses the wrist camera with the front camera. check leaves the held cube out of a place's hits and
+  names the fixed finger's side. `places` lists checked spots 6 cm from the red at two yaws.
+- Why: unseen floor fell from about 60% to 38%, pose error from 1.4 to 0.6 mm median. The wrist camera's pixels are
+  not square (16:9 sensor in a 4:3 render), which had put x off by a third. e402 lost two picks to a cube the front
+  camera couldn't see.
+- By: Claude.
+- Evidence: `demonstrator/instructions.md`:34-37, 154-156, 271-273; `demonstrator/REPORT.md`:46-49;
+  `demonstrator/notes/e402.md`:21, `d1008.md`:17. The brief lacked `places` for part of the night (`d1018.md`:19,
+  `d1024.md`:14-15).
+
+## [2026-09-30] decision | Rulebook v7 and v7.1 (reconstructed)
+
+- Decided: slide the grasp along the faces, up to 12 mm, before digging out an offset neighbour (d1010); a nudge after
+  one cleared end costs two more moves (d1008); gaps of 3 mm or less count as flush (d1005); raise a layer-2 grasp by a
+  wall (d1011); near the base, use the axis with 30 mm of clearance; check both axes on a partial start, since one-move
+  starts exist (d1011); places need finger room. v7.1: check samples the finger meshes every 2 mm.
+- Why: from d1005, d1007, d1008, d1010 and d1011. The finger meshes have faces up to 60 mm across with vertices only at
+  the corners, and a vertex-only check passed a finger through a flush neighbour (d1005). Over 76 scored picks, a worst
+  hit under 3 mm lifted 96%, 3 to 10 mm 80%, 10 mm or more 75%.
+- By: Claude.
+- Evidence: `demonstrator/instructions.md`:88-91, 103-109, 126-128, 192-198, 220-221, 274-277.
+
+## [2026-09-30] decision | Rulebook v8 (reconstructed)
+
+- Decided: raise a layer-2 grasp by a wall in 1 mm steps (5 to 9 mm worked four times); a nudge can pinch a gray; set a
+  tilted red down in an empty slot; a grip that reads over 20 needs more than 5 mm of room; count moves against the cap.
+- Why: d1000 failed at move 15 with the red held tilted 15 degrees; it needed about 16 moves. Also from d1016, d1017,
+  d1021 and e402.
+- By: Claude.
+- Evidence: `demonstrator/instructions.md`:110-113, 167-168, 192-196, 216-219, 278-279; `demonstrator/notes/d1000.md`:1,
+  8.
+
+## [2026-09-30 02:33] mistake | No usage budget or restart plan for the overnight run (reconstructed)
+
+- What: eight agents ran with no pacing and no recovery. The account's session limit stopped every agent mid-episode
+  at 02:33, and the run sat dead until morning. d1002, d1014, d1020, d1022, d1025, d1029, d1032 and d1034 are half
+  played; their moves are saved. `MUJOCO_LOG.TXT` logged "Insufficient arena memory" at 00:02; which episode it hit is
+  unknown.
+- Result: 24 agent episodes solved (10 of 11 buried and 14 of 14 partial among those finished), d1000 failed. About 38
+  requests, 4.8M cached tokens and 15 to 20 minutes per episode.
+- By: Claude.
+- Evidence: `demonstrator/REPORT.md`:9-12; `demonstrator/consult/fable-2026-09-30.md`:11-12; Claude's memory
+  `common-sense-every-turn.md`:15-16.
+
+## [2026-09-30] decision | Rulebook v9 (reconstructed)
+
+- Decided: the 2 mm shift rule now says away from the fixed finger, in the rulebook and in check's printout. Also:
+  clear the moving finger's end first (d1018); check a neighbour's own grasp first (d1033); nudge a red at the near wall
+  first (d1013); grip leaning cubes on the upright pair or expect a drop; "far" means away from the red's neighbours;
+  `places` doesn't screen for leaning neighbours; a bridging layer-2 cube or a seam can mark a buried red (d1024,
+  d1028); don't plan axes until the red's top is fully seen.
+- Why: d1033's agent noticed the shift wording was backwards; it had been copied from d1009's note instead of derived,
+  and the tools printed it for hours. Grips on tilted pairs dropped cubes five times.
+- By: Claude; d1033's agent caught the error.
+- Evidence: `demonstrator/instructions.md`:97-99, 114-125, 134-137, 159-164, 211-215, 280-283;
+  `demonstrator/REPORT.md`:52-54; `demonstrator/notes/d1033.md`:22-23.
+- Replaces: v5's shift wording; v5's "both ends" rule, now relaxed.
+
+## [2026-09-30] decision | Ground truth only after the fact (reconstructed)
+
+- Decided: `demonstrator/report.py` tallies episodes (a kept pick that ends at gripper 14 or below counts as missed).
+  `demonstrator/postmortem.py` replays finished episodes against true poses, "never for playing one".
+- Why: to measure where moves and time go without leaking true poses into play. Results: 205 moves in the solved agent
+  episodes, 80% shuttling grays, 12 of 128 picks lifted nothing, parking took 14% of robot time.
+- By: Claude.
+- Commands: `python demonstrator/report.py [--time] [--json OUT] [--prefix d]`;
+  `python demonstrator/postmortem.py --out outputs/postmortem_2026-09-30.json [names]`.
+- Evidence: `demonstrator/report.py`:1-9; `demonstrator/postmortem.py`:1-8; `demonstrator/REPORT.md`:16-36.
+
+## [2026-09-30 08:22] result | 26 solved demos exported (reconstructed)
+
+- Decided: the 24 solved agent episodes plus Claude's e400 and e402 go to `outputs/mechsearch_demos_v1`: LeRobot
+  format, front and wrist images at 224, 43,392 frames at 30 Hz, 282 MB. Parks and settling are frames; undone moves
+  are not. An episode whose replay disagrees with its recorded results is skipped; all 26 matched. Episodes played
+  before v6 stayed in.
+- By: not stated; Claude ran it. The exact command is not recorded; the form is
+  `python demonstrator/export.py --out DIR NAMES|--all-solved [--size 224]`.
+- Evidence: `demonstrator/REPORT.md`:5-8, 91-97; `demonstrator/export.py`:1-12;
+  `outputs/mechsearch_demos_v1/demos.json`.
+
+## [2026-09-30] direction | The goal is the expert, and cubes are a proof of concept (reconstructed)
+
+- Decided: judge demonstrator changes by demos per hour and cost per demo; the student is out of scope until dm1487
+  says otherwise. YCB objects or toys, deeper bins up to sink-like basins and bins set into the table come later, so
+  keep object-agnostic lessons apart from cube-specific ones.
+- Why: Claude had framed choices around the student while briefing the consult.
+- By: dm1487: "It's not about the student. I want the expert to give me good demos and fast."
+- Evidence: Claude's memory `demonstrator-goal.md`; `state.md`, "Goal right now".
+
+## [2026-09-30] direction | Common sense every turn (reconstructed)
+
+- Decided: start each turn from the skills, the state and a decision log, not the last message. Budget long parallel
+  runs (limits, a wakeup after resets, tools frozen per batch). Encode recurring rules as checks in the tools.
+- Why: the overnight lapses above.
+- By: dm1487: "I really like that you have common sense, but you seem to not activate it every turn."
+- Evidence: Claude's memory `common-sense-every-turn.md`; `docs/knowledge/operating-principles.md`.
+
+## [2026-09-30 10:57] decision | Sweep pilot and a planner proposal (reconstructed)
+
+- Decided: a pilot of 16 long strokes on the piles of seeds 1006 and 1012, aimed with true poses. Proposed order: add
+  stroke length and height to the push, run a stroke study on 20 + 20 seeds, fit a corridor rule, build snapshot and
+  restore last.
+- Why: 8 of 16 strokes took every object off the target; 2 of 16 pushed a cube out, both toward a nearby wall. Buried
+  starts need a median of 5 relocations offline.
+- By: Claude.
+- Evidence: `demonstrator/RELATED_WORK.md`:38-50, 71-74, 149-155; `demonstrator/experiments/sweep_test.py`,
+  `render_sweep.py`; `outputs/sweep_pilot_2026-09-30/`.
+
+## [2026-09-30 11:12] decision | The Fable consult's order becomes Claude's proposal (reconstructed)
+
+- Decided: `demonstrator/consult/fable-2026-09-30.md`, from Fable 5.1, proposes: snapshots in a long-lived env; a
+  depth-1 planner where perception proposes moves and the sim judges each on a copy; relocate as one decision and a
+  higher red lift; perturbation scoring, cost logging and an export gate; a capped Claude rescue. No search tree.
+  Claude agreed and filed it as proposed, not yet approved.
+- Why: replay costs 5 to 30 s per tool call; about 38 requests and 4.8M tokens go into each episode; a tree would only
+  serve the fallback. Measured the same day: a pick is 1.9 s of CPU for 3.6 s of robot time, a place 0.7 s, saving the
+  state 2 microseconds, copying the full MjData 35 ms; about 25 to 45 episodes per core-hour at 8 candidates per move.
+- By: Claude, on Fable's advice.
+- Evidence: `demonstrator/consult/fable-2026-09-30.md`:9-72, 242-258.
+- Replaces: the morning's plan (a snapshot search tree plus a scripted planner) and the sweep-first order above.
+
+## [2026-09-30 11:13] decision | Knowledge moves into docs/knowledge/ (reconstructed)
+
+- Decided: README, state, operating principles and the mechanical-search learnings, kept current so the common sense
+  survives compaction.
+- By: Claude, on dm1487's request.
+- Evidence: the files' write times; `docs/knowledge/`.
+
+## [2026-09-30] direction | A memory system along the lines of Karpathy's LLM OS
+
+- Decided: set up the project's documentation and memory so what it learns, and the working common sense, survives
+  compaction, restarts and new sessions: tiers with size budgets, a boot hook in the project's settings, an
+  append-only journal kept apart from `state.md`, a consolidation routine, rules for subagents, and docs that stay
+  general beyond cubes. No changes to code, the rulebook's rules or user-level settings; no commits.
+- By: dm1487, before 11:22; carried out by a subagent of the main session.
+- Evidence: `docs/knowledge/README.md`.
+
+## [2026-09-30] direction | Follow the Fable build order, as a pilot on a few seeds
+
+- Decided: build in the consult's order (snapshots in a long-lived env; the depth-1 planner with relocate and a
+  higher final red lift; perturbation scoring, cost logging and an export gate; a capped Claude rescue), first as a
+  pilot on a few seeds. The order's first step is to commit and stamp versions.
+- Why: the consult's case, `demonstrator/consult/fable-2026-09-30.md`; Claude agreed with the order (state.md).
+- By: dm1487, before 11:26. Recorded from the main session's report, not from a file.
+- Evidence: `demonstrator/consult/fable-2026-09-30.md`; `state.md`, "Next".
+- Replaces: "Proposed next, not yet approved" in `state.md`.
+
+## [2026-09-30 11:26] decision | First commit on mechanical-search: b0455b2
+
+- Decided: commit everything up to then as b0455b2, "Bin mechanical search, shelf search, and the Claude
+  demonstrator": the sim, both search tasks, their sizing scripts and tests, the demonstrator (tools, perception, arm
+  clearance, export, report and post-mortem scripts), the rulebook, 36 episode records and their notes, the knowledge
+  docs and the sweep pilot scripts. Observe PNGs in `demonstrator/episodes/` and `MUJOCO_LOG.TXT` stay out of git;
+  replaying an episode regenerates the PNGs.
+- Why: dm1487 approved a build order whose first step was committing, so later runs can name the code they ran on.
+- By: Claude (main session), approved by dm1487.
+- Evidence: `git show --stat b0455b2`; `.gitignore`.
+- Replaces: "Nothing is committed" in `state.md`.
+
+## [2026-09-30 11:28] decision | A sweep primitive, and picks that can lift higher
+
+- Decided: `MechSearchPrimitiveEnv` takes a fourth kind, `sweep`: a push with its own stroke of 0.03 to 0.18 m
+  (`SWEEP_MIN_STROKE`, `SWEEP_MAX_STROKE`), starting anywhere in the bin up to 5 mm from a wall (`SWEEP_INSET`), at any
+  height from a floor cube's centre to 3 cm above the rim (`SWEEP_MAX_ABOVE_RIM`), and refused if it would end against
+  a wall. `pick` takes an optional `lift_z` that ends the lift above travel height. Both are optional keys, so old
+  episode records replay unchanged.
+- Why: the sweep pilot cleared the target in 8 of 16 strokes, and both of its spills headed toward a nearby wall. The
+  consult's items 4 and 10 ask for a higher final lift for the red and for sweeps as a candidate move.
+- By: Claude (main session), inside the build order dm1487 approved.
+- Evidence: `so101sim/mechsearch.py` (the `SWEEP_*` constants, `_plan_sweep`), `so101sim/primitives.py` (`pick`),
+  and in `tests/test_mechsearch.py`: `test_a_sweep_drags_the_closed_jaws_the_whole_stroke_at_the_chosen_height`,
+  `test_a_sweep_that_would_run_into_a_wall_is_refused`, `test_a_pick_can_end_higher_than_travel_height`. Committed
+  in f5790cd at 11:34.
+
+## [2026-09-30 11:29] decision | Episodes kept alive in memory, with snapshot and restore
+
+- Decided: `demonstrator/live.py`, class `Live(tools.Episode)`. `snapshot()` saves MuJoCo's integration state
+  (`mjSTATE_INTEGRATION`, which includes the solver's warm start), the env's step, success-streak and move counters,
+  and the episode's robot time, arm state and op list; `restore()` puts them all back.
+- Why: `tools.py` replays every op from reset on each call, 5 to 30 s, while saving the state takes 2 microseconds.
+  The consult's item 1.
+- By: Claude (main session), inside the build order dm1487 approved.
+- Evidence: `demonstrator/live.py`; `tests/test_demonstrator_live.py` checks that restoring a snapshot replays the
+  rest of an episode bit for bit. Committed in f5790cd at 11:34.
+
+## [2026-09-30 11:34] decision | Planner pilot p0 committed as f5790cd
+
+- Decided: `demonstrator/planner.py`, planner version p0.1. Each decision parks and looks, proposes candidates from
+  camera data only (a pick on the red on both jaw axes with a higher final lift, sweeps across the red's spot, and
+  relocations of covers and axis blockers), runs each on a snapshot (`live.py`), scores it with the simulator's true
+  poses (a spill is out, success wins, else cubes taken off the red, flush neighbours freed, robot time, disturbance),
+  keeps the best, and stops after two decisions in a row find nothing that helps. Caps: 20 decisions, 200 s of robot
+  time. Episode records carry the git commit, the MuJoCo version and the planner version.
+- Why: step 2 of the approved build order. Candidates come from perception, so every kept move has a reason a camera
+  could see; true poses only judge outcomes.
+- By: Claude (main session), inside the build order dm1487 approved. The main session will log the pilot's runs.
+- Commands: `python demonstrator/planner.py --seeds 1000 1001 --out outputs/planner_pilot` (one process per seed).
+- Evidence: `git show f5790cd`; the docstring of `demonstrator/planner.py`.
+
+## [2026-09-30 11:35] direction | Log every decision, so another person can replicate the demos
+
+- Decided: the journal records every decision, dm1487's and Claude's, with what was decided, why, who decided and
+  where the evidence or code is, in enough detail that another person with an LLM could reproduce the demonstrations.
+  Run entries carry the commit, simulator version, seeds, rulebook version, commands, and which directions came from
+  dm1487. Decisions from 2026-09-25 on get backfilled from the files, marked reconstructed.
+- By: dm1487: "maintain a log of every decision we make and also you make to maintain memory, because that is what
+  helps another person replicate the demos (information to instruct an LLM)". Relayed by the main session; the time is
+  when it arrived.
+- Evidence: this file's header; `docs/knowledge/README.md`, "The journal as a replication record".
+
+## [2026-09-30 11:40] result | What a replication of the overnight demos lacks
+
+- No episode file records the rulebook, tool or code version it was played under; the records hold only seed,
+  buried, ops and undone. The overnight code was never committed as it stood: b0455b2 came after the run, and
+  `tools.py`, `mechsearch.py` and `primitives.py` have changed since.
+- No file names the model the agents ran on, or which agent played which seeds.
+- The brief changed during the run and its old versions were not kept. The plan Fable reviewed is not in the repo.
+- Old acts rely on `tools.py`'s fallbacks for a missing `flip` or `unpark` (14 and 13 acts).
+- What does replay: every episode record replays exactly under the current code (export checked all 26 before it kept
+  them), and every act stores its "why".
+- Going forward: run entries in this journal carry the commit and versions, and planner episodes stamp them into
+  their records (see 11:34).
+- Evidence: the reconstruction on 2026-09-30 from the files named in the entries above.
+
+## [2026-09-30 11:40] decision | How the memory system works
+
+- Decided: (1) `CLAUDE.md` keeps only what every session needs, 111 lines from 311: the layout section moved to
+  `docs/knowledge/codebase.md`, the hardware notes to `real-arm.md`, and the traps to five files in `.claude/rules/`
+  that Claude Code loads when Claude Reads a file they cover. (2) A SessionStart hook with no matcher runs
+  `.claude/hooks/knowledge.sh boot`: `state.md`, the README's index section, the headings of the last 8 journal
+  entries and budget checks, under 9,800 characters. (3) A UserPromptSubmit hook, `knowledge.sh nudge`, prints one line
+  when `state.md` is over 20 minutes old and project files changed after it. (4) Budgets: `CLAUDE.md` 150 lines,
+  `state.md` 6,000 characters, the index section 2,000; consolidate after 25 journal entries; move earlier months out
+  of the journal past 800 lines. (5) Only the main session writes `docs/knowledge/` and `.claude/rules/`; subagents
+  write their own files and return summaries. (6) Project facts live in the repo, not in Claude's memory directory.
+- Why: Claude Code swaps hook output over 10,000 characters for a file path and a 2,000-character preview; it re-reads
+  the project `CLAUDE.md` after compaction; every subagent except Explore and Plan loads `CLAUDE.md`, so its size is
+  paid per agent. Rule files keep traps out of sessions that never touch the code, such as demonstrator play.
+- Turned down: a PreCompact hook (it can block compaction but can't reach Claude, and blocking a compaction forced by a
+  context-limit error fails the request); a PostCompact hook (it can't add context, and the transcript keeps the
+  summary); a Stop hook forcing a write-back (fires every turn, needs a loop guard, invites filler); injecting
+  `state.md` into subagents; `@` imports in `CLAUDE.md` (they load in full at launch); search or embeddings.
+- By: Claude (a subagent of the main session), on dm1487's request.
+- Evidence: `.claude/settings.json`, `.claude/hooks/knowledge.sh`, `.claude/rules/`, `docs/knowledge/README.md`
+  ("Boot" has the tests); the hooks and memory pages of the Claude Code docs.
+
+## [2026-09-30 11:40] consolidation | Knowledge restructured for the memory system
+
+- `CLAUDE.md`: layout to `codebase.md`, hardware to `real-arm.md`, traps to `.claude/rules/`
+  (`scenes-and-physics.md`, `arm-and-motion.md`, `gpu.md`, `bin-task.md`, `shelf-task.md`). Every sentence of the
+  old file was checked against the new files.
+- `state.md`: the consult's 11-point summary left for the consult file, the timing numbers for the learnings file and
+  this journal; it records the two commits and the approved pilot.
+- Learnings: the simulator section points to the rule files and no longer copies their numbers; its noslip line had
+  mixed a 30 s and a 10 s window and now reads correctly; the mj_geomDistance line points to its trap.
+- `operating-principles.md`: the knowledge habits now name the journal and the one-home rule.
+- Claude's memory: `demonstrator-goal.md` dropped its copy of the state; `common-sense-every-turn.md` names the journal
+  and the boot hook; new `project-knowledge-home.md` says project facts go in the repo.
+- This journal: backfilled with reconstructed decisions from 2026-09-18 to 2026-09-30, from the specs, plans, layout
+  XML, rulebook change log, REPORT, consult, episode notes and memory files.
+
+## [2026-09-30 11:46] run | Planner pilot p0, p0.1 and p0.2 on 13 seeds
+
+- Commit: f5790cd for p0 (clean); p0.1 and p0.2 were edits to `demonstrator/planner.py` on top of it, uncommitted
+  while they ran, so their episode records stamp `f5790cd+dirty`.
+- Simulator: MuJoCo 3.8.1, `models/stage.xml` unchanged (noslip on).
+- Seeds: 1000, 1003, 1004, 1005, 1006, 1009, 1012 (played by agents overnight, for comparison) and 1036 to 1041 (new);
+  even seeds buried, odd partial. Player: the planner, no LLM. 7 to 13 processes in parallel on arrakis.
+- Commands: `conda activate /common/users/dm1487/envs/so101sim; python demonstrator/planner.py --seeds ... --procs N
+  --out outputs/planner_pilot_p0` (and `_p0.1`, `_p0.2`).
+- Directions from dm1487: "Lets follow the build order on a few seeds to check performance" (the build order in
+  `state.md`, from the Fable consult).
+
+## [2026-09-30 11:46] result | Planner pilot: 5 of 7, then 9 of 13 twice, with one- and two-move solutions
+
+- p0 (7 seeds): 5 solved in 2 to 4 moves against the agents' 7 to 11, 38 to 119 s of wall clock each and no tokens.
+  Two bugs: it committed moves that scored at or below zero (seed 1000's line took a spill that way) and let a pick
+  that lifted nothing into a kept line (seed 1005).
+- p0.1 (13 seeds): 9 solved, every kept line free of empty picks, spills and harmful moves; solved episodes took 1 or 2
+  moves and 5 to 18 s of robot time. Stuck: 1000, 1003, 1036, 1038.
+- p0.2 (13 seeds): 9 solved; 1003 now solved, 1004 now stuck. The greedy choice took a relocation scoring 8.97 over a
+  sweep scoring 8.75 that p0.1 had followed to success: one-step scoring is myopic.
+- A single sweep across the red's spot was the first move in 4 of the 5 p0 solutions.
+- Files: `outputs/planner_pilot_p0*/` (one record per seed with every candidate tried and its score, and summary.json).
+
+## [2026-09-30 11:46] decision | Planner rules from the pilot
+
+- Decided: commit a move only if it scores above zero, else stop the seed as stuck (a held cube is the exception: it
+  must be set down, so the best non-spilling set-down is committed); reject any pick that lifts nothing, and any red
+  pick that lifts a gray; score progress by cubes over the red (10), blocked ends of its better jaw axis (6), flush
+  neighbours (2), minus 0.05 per robot second and 0.3 per disturbed cube; offer red picks slid 8 mm either way along
+  the faces, blockers from both axes, and sweeps over the highest spot when no red is seen.
+- Why: the p0 bugs above, and the stuck seeds' logs (the four-sided flush count hid progress on one axis; a "red pick"
+  on seed 1003 lifted a gray cover and scored as progress).
+- By: Claude (main session), within the pilot dm1487 approved.
+- Evidence: `demonstrator/planner.py` (PLANNER = "p0.2"), `outputs/planner_pilot_p0.1/`, `outputs/planner_pilot_p0.2/`.
+
+## [2026-09-30 11:46] decision | Next: a two-step lookahead for the planner
+
+- Decided: score the top three first moves by the best second move each allows, instead of the best single move.
+- Why: seed 1004 (above). Fable's consult ranked a depth-2 loop below a full search tree in cost, and recommended the
+  tree only if the planner stalls on the neighbour step in more than about a fifth of buried seeds; 4 of 7 buried
+  seeds stalled or regressed in p0.2.
+- By: Claude (main session).
+- Evidence: this journal's p0.2 result; `demonstrator/consult/fable-2026-09-30.md`.
+
+## [2026-09-30 11:46] decision | Keep the memory system's hooks
+
+- Decided: commit `.claude/settings.json` (SessionStart runs `knowledge.sh boot`; UserPromptSubmit runs `knowledge.sh
+  nudge`) and the restructured docs.
+- Why: dm1487 asked for the system; the hook script only reads files (cat, find, stat, wc, awk) and prints context.
+- By: Claude (main session), after reading the script.
+- Evidence: `.claude/hooks/knowledge.sh`, `.claude/settings.json`.

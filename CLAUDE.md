@@ -24,11 +24,13 @@ to sink-like basins, bins set into the table with the rim flush, and contents fr
 ## Memory: boot and write-back
 
 - At startup, resume, `/clear` and after every compaction, `.claude/hooks/knowledge.sh` puts
-  `docs/knowledge/state.md`, the knowledge index and the last journal entries into context. Read them before acting.
+  `docs/knowledge/state.md`, the knowledge index and the latest journal headings into context. Read them before acting.
   If they aren't in context, read those files yourself.
 - Write back as you go, not at the end. When anything starts, finishes, gets decided or gets blocked, edit `state.md`
   and append an entry to `docs/knowledge/journal.md`. A lesson goes to its one home, in general form, and anywhere
   else gets a pointer. Correct a wrong entry where it lives and date the correction.
+- Log every decision in the journal, dm1487's and Claude's, with what, why, who and the evidence. A run's entry names
+  its commit, seeds, rulebook version and commands, so another person with an LLM can replicate the demos.
 - Right after a compaction, compare the summary with `state.md` and write back whatever it lacks before new work.
 - Subagents write only their own output files and return a summary. The main session merges results into
   `docs/knowledge/`.

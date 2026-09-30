@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 11:30 by
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 11:40 by
 Claude.
 
 ## Goal right now
@@ -32,18 +32,20 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
 - Sweep pilot: `demonstrator/experiments/sweep_test.py` and `render_sweep.py`, results and pictures in
   `outputs/sweep_pilot_2026-09-30/`. Numbers in `mechanical-search-learnings.md`, "Strategy".
-- The knowledge system (2026-09-30): `.claude/hooks/knowledge.sh` boots this file, the index and the journal's tail;
-  traps load from `.claude/rules/`. `docs/knowledge/README.md` explains it.
-- Nothing is committed. The branch `mechanical-search` has no commits yet; everything is staged or untracked. dm1487
-  has not asked for commits.
+- The knowledge system (2026-09-30): `.claude/hooks/knowledge.sh` boots this file, the index and the latest journal
+  headings; traps load from `.claude/rules/`. `docs/knowledge/README.md` explains it.
+- Commits on `mechanical-search`: b0455b2 (11:26, everything up to then; observe PNGs and `MUJOCO_LOG.TXT` stay out
+  of git) and f5790cd (11:34, planner pilot p0).
 
 ## Running now
 
-- Nothing known to be running (2026-09-30 11:30).
+- The main session runs the pilot of the Fable order (approved by dm1487): p0 is in f5790cd (sweep kind, pick
+  `lift_z`, `demonstrator/live.py`, `demonstrator/planner.py`); results land in `outputs/planner_pilot_p0*`. Also
+  under way, uncommitted: `scripts/objects_*.py` with `models/objects_test_*`, and `scripts/bin_depth.py`.
 
-## Next, proposed and not yet approved
+## Next: the Fable order, approved as a pilot on a few seeds
 
-The Fable consult's order, which Claude agrees with: (1) keep the env alive on snapshots instead of replaying every
+The consult's order, which Claude agrees with: (1) keep the env alive on snapshots instead of replaying every
 tool call; (2) a depth-1 planner, where perception proposes candidate moves and the sim judges each on a copy, with
 relocate as one decision and a higher final lift for the red; (3) perturbation scoring at perception scale, cost and
 throughput logging, and an export gate; (4) a capped Claude rescue for when the planner is stuck. Commit and stamp
@@ -57,11 +59,14 @@ Separately: size the container family (how deep a sink the SO-101 can work top-d
 
 - 2026-09-25: the task is mechanical search in a bin; spec amended twice since.
 - 2026-09-29: noslip on in `models/stage.xml`; resets hand over piles at rest.
-- 2026-09-29: the expert decides from camera data only; undo spills and most bad misses; looks are real motions.
+- 2026-09-29: the expert decides from camera data only; looks are real motions. Undo for spills and most bad misses
+  came with rulebook v4 on 2026-09-30 (corrected 2026-09-30: this line had dated undo 2026-09-29).
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
 - 2026-09-30: observe fuses the wrist camera with the front camera.
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
-- 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md.
+- 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
+- 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
+  journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
 
 ## Open questions
 

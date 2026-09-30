@@ -1,13 +1,13 @@
 #!/bin/bash
 # Project memory hooks for the rearrange repo. docs/knowledge/README.md explains the system.
 #
-#   knowledge.sh boot    SessionStart: print state.md, the index and the journal's last entries, plus budget checks.
+#   knowledge.sh boot    SessionStart: print state.md, the index and the journal's last headings, plus checks.
 #                        Claude Code adds this stdout to Claude's context at startup, resume, /clear and compaction.
 #   knowledge.sh nudge   UserPromptSubmit: print one line when state.md looks stale, nothing otherwise.
 #   knowledge.sh check   By hand, during consolidation: budgets and the files changed since state.md was written.
 #
 # Hook stdout over 10,000 characters is swapped for a file path and a 2,000-character preview, so boot keeps its
-# output under BOOT_CAP by dropping journal entries first, then the index, then the tail of state.md.
+# output under BOOT_CAP by dropping journal headings first, then the index, then the tail of state.md.
 # Never blocks: every path exits 0.
 set -u
 
@@ -18,14 +18,14 @@ STATE="$K/state.md"
 INDEX="$K/README.md"
 JOURNAL="$K/journal.md"
 
-BOOT_CAP=9500          # characters (counted as bytes, which is stricter)
+BOOT_CAP=9800          # characters (counted as bytes, which is stricter); Claude Code caps at 10,000
 STATE_BUDGET=6000      # characters
-INDEX_BUDGET=2500      # characters in README's boot section
+INDEX_BUDGET=2000      # characters in README's boot section
 CLAUDE_MD_BUDGET=150   # lines
-JOURNAL_ROTATE=400     # lines
+JOURNAL_ROTATE=800     # lines, past which earlier months move to journal/YYYY-MM.md
 CONSOLIDATE_AFTER=25   # journal entries since the last consolidation
 NUDGE_AFTER=1200       # seconds since state.md was written before nudge speaks
-JOURNAL_ENTRIES=4      # entries shown at boot
+JOURNAL_ENTRIES=8      # journal entry headings shown at boot
 
 [ -d "$K" ] || exit 0
 NOW=$(date +%s)
@@ -38,6 +38,7 @@ age() {
   elif [ "$s" -lt 172800 ]; then echo "$((s / 3600)) h $(((s % 3600) / 60)) min"
   else echo "$((s / 86400)) days"; fi
 }
+plural() { [ "$1" -eq 1 ] && echo file || echo files; }
 nbytes() { wc -c < "$1" 2>/dev/null | tr -d ' ' || echo 0; }
 
 # Files that record work, changed after state.md was last written. Episode files and notes are left out: agents
@@ -61,21 +62,22 @@ journal_count_since_consolidation() {
 }
 
 checks() {
-  local warn="" s_bytes i_bytes c_lines j_lines j_since changed n_changed
+  local warn="" s_bytes i_bytes c_lines j_lines j_since j_old changed n_changed
   s_bytes=$(nbytes "$STATE")
   i_bytes=$(index_section | wc -c | tr -d ' ')
   c_lines=$(wc -l < "$ROOT/CLAUDE.md" 2>/dev/null | tr -d ' ' || echo 0)
   j_lines=$(wc -l < "$JOURNAL" 2>/dev/null | tr -d ' ' || echo 0)
   j_since=$(journal_count_since_consolidation)
+  j_old=$(grep "^## \[" "$JOURNAL" 2>/dev/null | grep -vc "^## \[$(date +%Y-%m)" | tr -d ' ')
   changed=$(changed_since_state)
   n_changed=$(printf '%s' "$changed" | grep -c . )
   echo "state.md ${s_bytes}/${STATE_BUDGET} chars; index section ${i_bytes}/${INDEX_BUDGET}; CLAUDE.md ${c_lines}/${CLAUDE_MD_BUDGET} lines; journal ${j_lines} lines, ${j_since} entries since the last consolidation (consolidate at ${CONSOLIDATE_AFTER})."
   [ "$s_bytes" -gt "$STATE_BUDGET" ] && warn="${warn}- state.md is over budget: move finished work to the journal and history out of state.md.\n"
   [ "$i_bytes" -gt "$INDEX_BUDGET" ] && warn="${warn}- The README index section is over budget: shorten it; detail belongs below the boot markers.\n"
   [ "$c_lines" -gt "$CLAUDE_MD_BUDGET" ] && warn="${warn}- CLAUDE.md is over budget: move material into docs/knowledge/ or .claude/rules/ and leave a pointer.\n"
-  [ "$j_lines" -gt "$JOURNAL_ROTATE" ] && warn="${warn}- journal.md passed ${JOURNAL_ROTATE} lines: move earlier months to docs/knowledge/journal/YYYY-MM.md.\n"
+  [ "$j_lines" -gt "$JOURNAL_ROTATE" ] && [ "$j_old" -gt 0 ] && warn="${warn}- journal.md passed ${JOURNAL_ROTATE} lines: move the entries from earlier months, unchanged, to docs/knowledge/journal/YYYY-MM.md.\n"
   [ "$j_since" -ge "$CONSOLIDATE_AFTER" ] && warn="${warn}- ${j_since} journal entries since the last consolidation: run the consolidation in docs/knowledge/README.md.\n"
-  [ "$n_changed" -gt 0 ] && warn="${warn}- ${n_changed} project files changed after state.md was last written, e.g. $(printf '%s' "$changed" | head -3 | paste -sd, - | sed 's/,/, /g'). Check that state.md covers that work.\n"
+  [ "$n_changed" -gt 0 ] && warn="${warn}- ${n_changed} project $(plural "$n_changed") changed after state.md was last written, e.g. $(printf '%s' "$changed" | head -3 | paste -sd, - | sed 's/,/, /g'). Check that state.md covers that work.\n"
   if [ -n "$warn" ]; then printf 'Warnings:\n%b' "$warn"; else echo "No warnings."; fi
   if [ "$MODE" = check ] && [ "$n_changed" -gt 0 ]; then
     echo "Changed after state.md:"; printf '%s\n' "$changed" | sed 's/^/  /'
@@ -91,12 +93,9 @@ index_section() {
   fi
 }
 
-journal_tail() {  # last $1 entries of the journal
+journal_tail() {  # headings of the journal's last $1 entries
   [ -f "$JOURNAL" ] && [ "$1" -gt 0 ] || return 0
-  awk -v n="$1" '
-    /^## \[/ { k++ }
-    { line[NR] = $0; entry[NR] = k }
-    END { for (i = 1; i <= NR; i++) if (entry[i] > k - n) print line[i] }' "$JOURNAL"
+  grep '^## \[' "$JOURNAL" | tail -n "$1"
 }
 
 cap_lines() {  # keep whole lines up to $1 bytes
@@ -130,12 +129,12 @@ boot() {
     printf '%s\n\n%s\n%s\n\n' "$head" "$state_hdr" "$state_body"
     if [ "$2" = 1 ]; then printf '=== docs/knowledge/README.md, index section ===\n%s\n\n' "$idx"; fi
     if [ "$1" -gt 0 ]; then
-      printf '=== docs/knowledge/journal.md, last %s entries ===\n%s\n\n' "$1" "$(journal_tail "$1")"
+      printf '=== docs/knowledge/journal.md, last %s entry headings (the file has the text) ===\n%s\n\n' "$1" "$(journal_tail "$1")"
     fi
     printf '=== checks ===\n%s\n' "$checks_out"
   }
 
-  for n in $JOURNAL_ENTRIES 2 0; do
+  for n in $JOURNAL_ENTRIES 4 0; do
     body=$(assemble "$n" 1)
     total=$(printf '%s' "$body" | wc -c | tr -d ' ')
     [ "$total" -le "$BOOT_CAP" ] && { printf '%s\n' "$body"; return 0; }
@@ -161,7 +160,7 @@ nudge() {
   changed=$(changed_since_state)
   n=$(printf '%s' "$changed" | grep -c . )
   [ "$n" -eq 0 ] && exit 0
-  echo "[project memory] docs/knowledge/state.md was last written $(age "$since") ago ($(stamp "$s_mt")), and ${n} project files changed since, e.g. $(printf '%s' "$changed" | head -3 | paste -sd, - | sed 's/,/, /g'). If that work started, finished or decided anything, update state.md and append to journal.md."
+  echo "[project memory] docs/knowledge/state.md was last written $(age "$since") ago ($(stamp "$s_mt")), and ${n} project $(plural "$n") changed since, e.g. $(printf '%s' "$changed" | head -3 | paste -sd, - | sed 's/,/, /g'). If that work started, finished or decided anything, update state.md and append to journal.md."
 }
 
 case "$MODE" in

@@ -6,7 +6,7 @@ common sense, but you seem to not activate it every turn."
 
 ## Before deciding anything
 
-- Rebuild the picture first. The boot hook puts `state.md`, the index and the journal's last entries in context; also
+- Rebuild the picture first. The boot hook puts `state.md`, the index and the latest journal headings in context; also
   read the relevant rulebook, topic files and memory, not only the last message. After a compaction or restart this
   is mandatory: summaries drop details, and decisions made from a summary repeat old mistakes.
 - Look at the available skills and use the ones that fit: `recall` to rebuild context, `compute-resources` before using
