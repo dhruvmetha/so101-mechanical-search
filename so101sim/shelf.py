@@ -21,7 +21,8 @@ from gymnasium import spaces
 
 from so101sim import SHELF_SCENE_PATH, grasp, primitives, rest, side_primitives as sp, units
 from so101sim.env import CAMERAS, CONTROL_HZ, SO101Env
-from so101sim.mechsearch import PARTIAL_MAX_SHARE, VISIBILITY_SIZE, VISIBLE_MIN_PIXELS, face_pixels
+from so101sim.mechsearch import (DENSITY_RANGE, FRICTION_RANGE, PARTIAL_MAX_SHARE, VISIBILITY_SIZE,
+                                  VISIBLE_MIN_PIXELS, face_pixels)
 from so101sim.shelf_checks import WALL_STRIP, add_clearance
 from so101sim.shelf_layout import CYL_HALF_HEIGHT, CYL_RADIUS, GRAY_GROUP, TARGET_NAME, ShelfLayout
 
@@ -91,6 +92,12 @@ class ShelfEnv(SO101Env):
         self._body = {n: self.model.body(n).id for n in self.cyls}
         self._geom = {n: self.model.geom(n).id for n in self.cyls}
         self._cyl_geoms = frozenset(self._geom.values())
+        # Friction and density are hidden state drawn per episode, as in the bin (so101sim.mechsearch, FRICTION_RANGE).
+        # A contact takes the larger friction of its two geoms, so the shelf's boards get the same draw.
+        self._support_geoms = tuple(g for g in range(self.model.ngeom) if self.model.geom(g).name.startswith("shelf_"))
+        self._nominal_mass = {n: float(self.model.body_mass[self._body[n]]) for n in self.cyls}
+        self._nominal_inertia = {n: self.model.body_inertia[self._body[n]].copy() for n in self.cyls}
+        self.physics = None
         self._jaw_ids = grasp.jaw_geom_ids(self.model)
         self._arm_ids = grasp.arm_geom_ids(self.model)
         # The arm touching any of these is a failure (spec, first amendment).
@@ -111,6 +118,7 @@ class ShelfEnv(SO101Env):
         # Seed np_random only. SO101Env.reset would render an observation nobody uses.
         gym.Env.reset(self, seed=seed)
         options = options or {}
+        self.physics = self._set_physics(seed, options.get("physics"))
         hidden = options.get("hidden")
         if hidden is None:
             hidden = bool(self.np_random.random() < self.hidden_prob)
@@ -123,7 +131,7 @@ class ShelfEnv(SO101Env):
         else:
             raise RuntimeError(f"no usable shelf in {MAX_RESET_ATTEMPTS} attempts, the last because {reason}")
         self._steps, self._streak = 0, 0
-        self._reset_info = {"hidden": bool(hidden), **labels, "reset_attempts": attempt}
+        self._reset_info = {"hidden": bool(hidden), **labels, "reset_attempts": attempt, "physics": dict(self.physics)}
         return self._obs(), self._info(False, None)
 
     def step(self, action):
@@ -163,6 +171,21 @@ class ShelfEnv(SO101Env):
     def held(self, name):
         """Both jaws on the cylinder."""
         return grasp.is_grasped(self.model, self.data, self._geom[name], self._jaw_ids)
+
+    def _set_physics(self, seed, given=None):
+        """Friction and density for this episode, as MechSearchEnv._set_physics does for the bin."""
+        if given is None:
+            rng = np.random.default_rng([int(seed), 1]) if seed is not None else self.np_random
+            given = {"friction": round(float(rng.uniform(*FRICTION_RANGE)), 4),
+                     "density": round(float(rng.uniform(*DENSITY_RANGE)), 1)}
+        for g in (*self._cyl_geoms, *self._support_geoms):
+            self.model.geom_friction[g, 0] = given["friction"]
+        k = given["density"] / 1000.0
+        for n in self.cyls:
+            self.model.body_mass[self._body[n]] = self._nominal_mass[n] * k
+            self.model.body_inertia[self._body[n]] = self._nominal_inertia[n] * k
+        mujoco.mj_setConst(self.model, self.data)
+        return {"friction": float(given["friction"]), "density": float(given["density"])}
 
     def arm_hit(self):
         """Name of the shelf panel, leg or table an arm geom is touching, or None."""

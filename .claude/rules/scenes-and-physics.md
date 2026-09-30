@@ -59,3 +59,5 @@ evidence. The load follows the Read tool; if you read code with `cat` or `sed`, 
 - Reset holds a finished pile still for 5 s and rejects it if any cube moves over 0.5 mm (`CREEP_SECONDS`,
   `CREEP_MM` in `mechsearch.py`). The rest rule alone passed a cube creeping at 0.18 mm/s that later fell 32 mm
   (d1031).
+- `mj_setConst(model, data)` overwrites `data.qpos` with `qpos0` (checked 2026-09-30). The envs call it after changing
+  masses at the start of reset, before the scene is built; calling it mid-episode resets the scene.

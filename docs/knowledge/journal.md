@@ -1194,3 +1194,23 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   actions, images only, no undo, 20 primitives, no pushes (stiff contacts make every push topple a cylinder), notes in
   `outputs/shelf_demo_306.md`. The shelf keeps friction 1.0.
 - By: dm1487 asked; Claude chose seeds and set up.
+
+## [2026-09-30 17:07] result | Shelf seed 306: red found, not freed, stopped after two looks
+- Agent report: the red stands at about (0.429, -0.074), 5 mm behind gray B, gray A at its front-left, found from its
+  rim above B in the front view and a strip between A and B in the wrist view. With pushes ruled out (they topple
+  every cylinder at friction 1), no pick-and-place order freed it: the red pick's sweep cuts every centre from y
+  -0.005 to -0.115, the free spots are sealed, a pick of D was refused (shelf_right, frame 92). 69 tool calls, about
+  25 min. Files: `outputs/shelf_demo_306.md`, `outputs/shelf_demo_306/` (actions.json, the agent's helpers).
+- Lesson: the shelf task needs pushes, so the friction decision blocks it. Next: the shelf gets the same realistic
+  friction draw as the bin (dm1487 approved realistic friction), then a retry.
+- By: agent; Claude.
+
+## [2026-09-30 17:09] decision | The shelf gets the same friction and density draw; pushes work again
+- What: `ShelfEnv` draws friction U(0.4, 0.7) for cylinders and shelf boards and density U(600, 1200) per episode,
+  as the bin does, under dm1487's earlier yes to realistic friction. A lone cylinder pushed at the push height (2.5 cm)
+  slid 43 to 50 mm and stayed upright at every friction from 0.4 to 0.7 (friction 1.0 toppled it). The two shelf
+  push tests pass again, markers removed.
+- Trap found on the way: mj_setConst overwrites data.qpos with qpos0; in the rules file.
+- Shelf retry: seed 307 hidden (a fresh seed, since a player on 306 would start knowing where an earlier player saw
+  the red), pushes allowed, `outputs/shelf_demo_307`.
+- By: Claude, under dm1487's realistic-physics decision.
