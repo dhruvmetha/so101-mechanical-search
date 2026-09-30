@@ -38,8 +38,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Demos under the new rules, all with videos sent: bin b5000 (11 moves) and b5002 (13), shelf 307 (11 of 20);
-  shelf 306 stopped before realistic friction. Each took an agent 43 to 56 min and about 5M cached tokens (journal).
+- Nothing. Demos under the new rules (videos sent): bin b5000 (11 moves), b5002 (13), shelf 307 (11 of 20).
 
 ## Next
 
