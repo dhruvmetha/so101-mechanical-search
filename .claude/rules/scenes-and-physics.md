@@ -42,3 +42,7 @@ evidence. The load follows the Read tool; if you read code with `cat` or `sed`, 
 - Piles are chaotic. Moving one gray cube 1 micrometre at reset changed where 21 cubes ended up after seed 304's 10
   moves, and turned a success into a miss. A saved action list replays exactly only under the same code and physics
   settings. Every plan has to look again after each move.
+- A finger driven down onto a cube's top presses that cube into whatever holds it up: up to 13.5 mm below the floor's
+  surface in d1012 (miss study, 2026-09-30, `tgt_below_floor_mm`). The arm's stiff position servo outpushes the soft
+  contact. A real arm stalls on the top face instead. So after a sim miss the pile can shift in ways the real one
+  wouldn't; the miss itself is real either way.

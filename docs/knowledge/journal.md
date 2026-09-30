@@ -1043,3 +1043,40 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   segmentation; wrist camera colour and exact segmentation, no depth. The observe rework keeps wrist masks and drops
   wrist depth; wrist pixels reach 3D through the floor plane, the front camera's surface, or a known object size.
 - By: dm1487.
+
+## [2026-09-30 15:32] result | Why picks miss: fingers land on top surfaces
+- Run: `demonstrator/experiments/miss_study.py` (subagent), outputs `outputs/miss_study_2026-09-30/` (`rows.json`,
+  `summary.json`, raw traces, 4 pictures; outputs are not in git). All 33 replays matched their records, including
+  rebuilt undone lines. Claude re-checked the headline numbers from `rows.json`.
+- 32 misses in all episodes, not 22: 191 picks, 32 empty closes, 16.8%. The earlier count skipped episodes the
+  postmortem didn't cover and two undone misses.
+- Causes, for the 22 first asked about: 7 aims shifted over 4 mm toward the moving finger, so the fixed finger landed
+  on the target's own top; 5 a finger on a flush neighbour's top (3 more on deliberate nudges); 4 the fixed finger on
+  a tilted cube's upper face; 1 each a diagonal close (d1003), a tilted cube squeezed out (e402), and a target that
+  fell before the jaws arrived (d1031, a leaning cube creeping at 0.18 mm/s, under the 2 mm/s rest threshold).
+- What separates misses from hits: jaws a median 12 mm higher than planned when they start closing (hits 0,
+  p90 0.9). Among flat picks, 22 of 26 with the jaws 5 mm or more high missed, against 2 of 74. All 10 picks aimed
+  over 4 mm toward the moving finger missed; no hit was shifted more than 3.4 mm. Perception error: 0.4 mm in misses,
+  0.3 in hits, so not the cause.
+- Sim artifact: a finger on a cube's top pressed it up to 13.5 mm below the floor surface (d1012 undone m7). Trap in
+  `.claude/rules/scenes-and-physics.md`.
+- Not resolved: `tools.py` says the fixed finger lands 4 to 14 mm outside the face (from d1009); the study measured
+  the fixed tip geom's centre 2.8 mm out in hits. Different measures; reconcile before changing either. Why check
+  reported no hits for d1005 undone m1, where a finger landed on g19's top.
+- Homes: learnings ("The arm and gripper"), rulebook (the shift rule, with the numbers), state.md Next #1 (check
+  refuses big shifts and flags fingertips on top faces).
+- By: Claude; study by a subagent.
+
+## [2026-09-30 15:32] decision | Redo all demos under the new rules
+- What: dm1487: "We should redo the demos collected so far okay?" `outputs/mechsearch_demos_v1` (26 episodes) used
+  wrist depth and 13 chosen undos, so it is superseded. The records stay on disk as history.
+- Order (Claude): contact physics first (dm1487's next ask), then the tools (observe without wrist depth, the miss
+  checks, front depth in the export), then the honest planner, then the redo. Redoing earlier would repeat the flaws.
+- By: dm1487.
+
+## [2026-09-30 15:32] start | Contact stability and no penetration
+- What: dm1487: "Can we make sure the contact dynamics are stable overall? We should not be penetrating as well."
+  Prompted by the 13.5 mm press above. Plan: measure penetration in resting piles, pushes, sweeps, grasps and presses
+  first; find the cause (contact softness against the arm's servo force); then change settings and check rest,
+  reset acceptance, grasps, step cost and replay determinism.
+- By: dm1487 asked; Claude.

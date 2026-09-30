@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:25 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:32 by Claude.
 
 ## Goal right now
 
@@ -28,7 +28,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
   `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
-- Sweep pilot: `demonstrator/experiments/`, `outputs/sweep_pilot_2026-09-30/`.
+- Sweep pilot and miss study: `demonstrator/experiments/`, outputs in `outputs/`.
 - The knowledge system: `docs/knowledge/README.md`; `.claude/hooks/knowledge.sh` boots it, traps in `.claude/rules/`.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
   it judged moves with the true hidden state, so it cheats (`planner.md`). Its demos are not usable yet.
@@ -39,15 +39,16 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Since 14:56: a subagent replays the 22 missed picks to find why (`outputs/miss_study_2026-09-30/`). Then cut the
-  miss rate at its causes (dm1487).
+- Since 15:32: contact stability, no penetration (dm1487). Measuring first.
 
 ## Next
 
-1. After the miss study: observe without wrist depth, measured against what it had. Then make the planner honest
-   (Claude's design, 14:41): a per-episode memory of what the cameras saw (space seen empty,
+1. Fix the tools first: observe without wrist depth (measured against the old fusion); check refuses aims shifted
+   over 3 mm toward the moving finger and flags fingertips landing on any top face (miss study). Then the honest
+   planner (Claude's design, 14:41): a per-episode memory of what the cameras saw (space seen empty,
    where moved objects went, the target's last sighting, a map of where it could be), camera checks and rules as
-   code, looks as moves. No twin unless a measured failure needs one. Rerun the 13 pilot seeds against p0.3.
+   code, looks as moves. No twin unless a measured failure needs one. Rerun the 13 pilot seeds against p0.3. Then
+   redo all demos under the new rules (dm1487).
 2. The rest of the build order: aim-error scoring, cost logging with an export gate, a capped Claude rescue, looking
    from hover instead of parking; export the planner's solved episodes as demos, with front depth.
 3. Finish the bin-depth study from its partial files; then the container family and the object set.
@@ -66,6 +67,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
   journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
+- 2026-09-30: redo all demos; `outputs/mechsearch_demos_v1` used wrist depth and miss undos (dm1487).
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
   back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
 
@@ -75,6 +77,5 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
-- The 26 demos used wrist depth, and 10 hold miss undos: keep, mark or redo? Finish the 8 half-played episodes?
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap
   grasp sampler sooner (Fable's last point).

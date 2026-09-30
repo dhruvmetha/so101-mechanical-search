@@ -24,6 +24,11 @@ say where the evidence is. When a section passes about 40 lines, split it into i
 - Grasps that close across tilted or off-centre surfaces can read as holding and then drop the object on the swing
   to the place (five drops overnight). Prefer grasp surfaces that stay upright, and keep the carry short when you can't.
   Irregular objects will make this more common, not less.
+- A top-down pick misses when a finger comes down on a top surface instead of beside the object: the object's own top,
+  a flush neighbour's top, or a tilted object's upper face. The jaws then close above it. Replaying 32 misses and 97
+  hits (2026-09-30, `outputs/miss_study_2026-09-30/`): the jaws started closing a median 12 mm higher than planned in
+  misses and 0 mm in hits. Perception error did not differ (0.4 mm against 0.3). So misses come from where the
+  fingers land, which a height map can check before the move, not from seeing the object wrong.
 
 ## Containers
 

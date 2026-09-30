@@ -128,7 +128,8 @@ record and the dataset count every one. Plan so you never need them.
   once. In e402 it tilted the red 30 deg and the two high grasps after it both missed.
 - Never shift a grasp centre more than about 2 mm away from the fixed finger, toward the moving finger's side. The
   fixed finger lands only 4 mm outside its face, so a 4 mm shift that way puts it on the cube's own top edge, and check
-  does not flag that (d1009, whose aim moved 4 mm toward the moving finger). Until 2026-09-30 this rule and check's
+  does not flag that (d1009, whose aim moved 4 mm toward the moving finger). Replayed on 2026-09-30, all 10 picks
+  aimed more than 4 mm toward the moving finger missed, and no hit was shifted more than 3.4 mm. Until 2026-09-30 this rule and check's
   printout said "toward the fixed finger", which was backwards (d1033 noticed). Shifting toward the fixed finger is
   safe for the target and pushes that finger into whatever is on its side. Sliding
   the aim along the face, not across it, is safe: 4 mm along a face cut a tilted neighbour's hit from 10 to 4 mm.
