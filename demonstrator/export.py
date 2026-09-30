@@ -58,7 +58,9 @@ def record(name, size):
     matched = all(a == b for a, b in results)
     solved = ep.outcome() == "solved"
     meta = {"name": name, "seed": ep.rec["seed"], "buried": ep.rec["buried"], "moves": ep.moves(),
-            "undone": len(ep.rec.get("undone", [])), "robot_s": round(ep.robot_s, 1), "solved": solved,
+            "undone": len(ep.rec.get("undone", [])),
+            "resets": {g: sum(u.get("granted", "before v10") == g for u in ep.rec.get("undone", []))
+                       for g in ("spill", "miss draw", "before v10")}, "robot_s": round(ep.robot_s, 1), "solved": solved,
             "replay_matched": matched}
     ep.close()
     return {k: np.asarray(v) for k, v in frames.items()}, meta

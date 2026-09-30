@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 14:49 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 14:55 by Claude.
 
 ## Goal right now
 
@@ -21,27 +21,26 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   blocks each of the target's jaw axes), check (both wrist rolls, dense finger sweep against a height map, walls, arm
   clearance, which side the fixed finger lands), act, undo, places, list, status. Perception in `perception.py`, arm
   clearance in `reach.py`.
-- The rulebook the players follow: `demonstrator/instructions.md` v10. The agent brief: `demonstrator/AGENT_BRIEF.md`.
+- The rulebook the players follow: `demonstrator/instructions.md` v10.1. The agent brief: `demonstrator/AGENT_BRIEF.md`.
 - Demonstrations: 26 solved episodes exported to `outputs/mechsearch_demos_v1` (LeRobot format, 43,392 frames at 30 Hz,
   front and wrist images at 224). Episode files in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
 - Unfinished: d1000 failed (out of moves); d1002, d1014, d1020, d1022, d1025, d1029, d1032, d1034 are half played,
   stopped by the account's session limit at 02:33 on 2026-09-30. Their moves are saved and they can be finished.
-- Analysis: `demonstrator/REPORT.md` (overnight results and what would make demos cheaper),
+- Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
   `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
-- Sweep pilot: `demonstrator/experiments/`, pictures in `outputs/sweep_pilot_2026-09-30/`.
-- The knowledge system (2026-09-30): `.claude/hooks/knowledge.sh` boots this file, the index and the latest journal
-  headings; traps load from `.claude/rules/`. `docs/knowledge/README.md` explains it.
+- Sweep pilot: `demonstrator/experiments/`, `outputs/sweep_pilot_2026-09-30/`.
+- The knowledge system: `docs/knowledge/README.md`; `.claude/hooks/knowledge.sh` boots it, traps in `.claude/rules/`.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
   it judged moves with the true hidden state, so it cheats (learnings, "The planner"). Its demos are not usable yet.
-- Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` recommends Google Scanned Objects (MuJoCo port,
-  about 80 fit the gripper, about 20 toys) and staying on MuJoCo CPU; loading scripts `scripts/objects_*.py`, test scenes
-  `models/objects_test_*`. Bin depth, partial: tip reach z -0.225 to +0.085 m (journal, 2026-09-30).
+- Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` (Google Scanned Objects in MuJoCo, about 80
+  fit the gripper; stay on MuJoCo CPU), `scripts/objects_*.py`, `models/objects_test_*`. Bin depth, partial: tip reach
+  z -0.225 to +0.085 m (journal).
 - Work is committed on `mechanical-search`, from b0455b2 on; p0.3 is 9859fed.
 
 ## Running now
 
-Nothing.
+- Since 14:56: a subagent replays the 22 missed picks to find why (`outputs/miss_study_2026-09-30/`).
 
 ## Next
 
@@ -66,8 +65,8 @@ Nothing.
 - 2026-09-30: the planner commits only moves that help, rejects empty picks and wrong-cube picks, scores the target's
   better grasp axis, and looks two moves ahead over its three best first moves; no full search tree.
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
-- 2026-09-30: undo only resets a spill. It's privileged, allowed for now to get decent demos, discouraged, and
-  counted in every record; `tools.py undo` refuses anything else (dm1487; rulebook v10).
+- 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
+  back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
 
 ## Open questions
 

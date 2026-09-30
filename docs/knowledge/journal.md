@@ -929,3 +929,23 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   pick or a push when it made things worse": the red buried deeper, cubes tipped onto it, or the red wedged against a
   wall. Two undos (d1012, d1016) took back misses that moved nothing, as wasted moves.
 - Corrected in the learnings file and rulebook v10. Evidence: `demonstrator/episodes/*.json`, `undone[].why`.
+
+## [2026-09-30 14:55] decision | A missed pick resets with probability eps
+- What: dm1487: "lets allow reset on missed picks too but with a probabilty \epsilon ... Because this may happen
+  sometime sno?" Read as: real picks miss sometimes, so most misses stay in the demo with their recovery, and a
+  fraction eps get reset.
+- Claude's choices, open to change: eps = 0.1. A miss is a pick whose gripper closes on nothing (grip <= 14), which
+  the robot reads from its own joint. The tool draws, from sha256(seed, move, resets so far), so a rerun draws the
+  same and a retry draws again. The tool resets by itself below eps; the player never chooses, because choosing would
+  reset only the harmful misses. Cubes dropped on the way to a place are not picks and stay.
+- Code: `demonstrator/tools.py` (`MISS_RESET_EPS`, `draw`, `take_back`, `missed`, `reset_miss`, the hook in
+  `cmd_act`); new records store `miss_reset_eps`; each undone entry records `granted` (spill or miss draw);
+  `export.py` writes the split. Tests: `tests/test_demonstrator_undo.py`, 6 pass. Rulebook v10.1, agent brief.
+- By: dm1487 decided; Claude implemented.
+
+## [2026-09-30 14:56] start | Why picks miss: replay study
+- What: dm1487 asked "why did our pick miss?". The overnight demos hold 22 picks that closed on nothing: 12 kept,
+  10 undone. The postmortem's xy aim error was under 2 mm for 7 of the 12 kept ones, so xy aim isn't the main cause.
+  A subagent replays each miss and 20 or so good picks, and measures z, yaw, tilt, how far the jaws got down, and
+  what the fingers touched. Script `demonstrator/experiments/miss_study.py`, output `outputs/miss_study_2026-09-30/`.
+- By: Claude (main session), after dm1487's question.

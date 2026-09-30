@@ -56,20 +56,22 @@ Run from the repo root with the so101sim conda env active.
   the held cube's centre goes, using a spot from observe. For push, XYZ is where the closed jaws start, at the height
   to push at. DEG is the heading. The stroke is 5 cm.
 
-## Undo: spill resets only
+## Resets: spills, and a few missed picks by chance
 
-Undo takes back a move that knocked a cube out of the bin, and nothing else (dm1487, 2026-09-30). It is privileged: a
-real robot can't take a move back, and choosing the next move after seeing how the hidden pile answered uses what the
-cameras never saw. dm1487 allows it for spills for now, so one spill doesn't cost a whole demonstration, and
-discourages it. Plan so you never need it. The record and the dataset count every undo.
+Resets are privileged (dm1487, 2026-09-30). A real robot can't take a move back, and choosing the next move after
+seeing how the hidden pile answered uses what the cameras never saw. dm1487 allows two, discourages both, and the
+record and the dataset count every one. Plan so you never need them.
 
 - Undo every move that knocks a cube out of the bin. The episode ends on that frame, and undo is the only way on.
   `tools.py undo` refuses any other move.
-- Keep a missed pick, or a push that made things worse, and recover from it in the next moves. A miss and its
-  recovery are honest play. Until v10, a move that made things worse could be undone: the 13 undos in the 26
-  overnight demonstrations were 10 missed picks and 3 cubes dropped on the way to a place, and no spills.
-- After an undo, choose a different move. Repeating the same move repeats the same result, since the sim is exact.
-- At most 8 undos per episode. Every undo also costs the robot time of the move you took back, in real life.
+- A missed pick (the gripper closes on nothing) gets reset by chance, not by choice. After the miss, act draws a
+  number from the seed and the move; below eps (0.1 unless the record says otherwise) it resets the move itself and
+  says so. Otherwise the miss stays. Misses happen on real robots, so most demonstrations should show the recovery.
+- Keep every other result: a kept miss, a push that made things worse, a cube dropped on the way to a place. Recover
+  from it in the next moves. Until v10, a move that made things worse could be undone by choice: the 13 undos in the
+  26 overnight demonstrations were 10 missed picks and 3 cubes dropped on the way to a place, and no spills.
+- After a reset, choose a different move. Repeating the same move repeats the same result, since the sim is exact.
+- At most 8 resets per episode. Every reset also costs the robot time of the move taken back, in real life.
 - Never read the simulator's true cube poses while playing. Decide from observe, check and the image only.
 
 ## The loop
@@ -78,7 +80,8 @@ discourages it. Plan so you never need it. The record and the dataset count ever
 2. Decide on one move, using the rules below.
 3. check it. If it hits cubes you didn't mean to touch, adjust it or pick another move.
 4. act.
-5. If a cube left the bin, undo it and pick another move. Keep any other result, good or bad, and plan from it.
+5. If a cube left the bin, undo it and pick another move. If act reset a missed pick, observe again. Keep any
+   other result, good or bad, and plan from it.
 6. If it was a pick, read the gripper before doing anything else. Place only when holding. While holding, observe
    looks without parking, because a swing home shook a held cube out even with the grip closed (e400).
 7. Go back to 1. After the episode, update this file.
@@ -288,3 +291,4 @@ and the entries here are only the practice seeds that changed the tools.)
   from the red's neighbours; places doesn't screen for leaning neighbours; more ways to find a buried red.
 - v10, 2026-09-30 afternoon (dm1487): undo only resets a spill, and the tool refuses anything else. Misses stay in the
   demonstration and get recovered from.
+- v10.1, 2026-09-30 afternoon (dm1487): act resets a missed pick with probability eps = 0.1, by a fixed draw.

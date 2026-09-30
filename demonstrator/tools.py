@@ -18,6 +18,7 @@ Perception is depth plus MuJoCo segmentation from the fixed front camera (see pe
 seen cubes each finger would pass through, and where fingers enter space the camera can't see. It never blocks a
 move: deciding which contact is acceptable is the demonstrator's job.
 """
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -41,6 +42,9 @@ EPISODES = HERE / "episodes"
 CELL = 0.002
 MAX_MOVES = 15
 MAX_UNDOS = 8
+# The chance that a missed pick gets reset (dm1487, 2026-09-30). The rest stay in the demonstration with their recovery,
+# because real picks miss sometimes. The value is Claude's default; each record stores the one it was played with.
+MISS_RESET_EPS = 0.1
 TRUST = 0.6  # top-face coverage below this: the pose is only a rough guess
 MARGIN = 0.003  # a finger point this far below a seen surface counts as a hit
 # Empty-bin picks near the base, 2026-09-30, 182 runs. With the jaws 3 mm or more from every wall, a planned arm-to-itself
@@ -515,7 +519,8 @@ def cmd_new(name, seed, kind):
     path = EPISODES / f"{name}.json"
     if path.exists():
         sys.exit(f"{path} exists")
-    path.write_text(json.dumps({"seed": int(seed), "buried": kind == "buried", "ops": []}, indent=1))
+    path.write_text(json.dumps({"seed": int(seed), "buried": kind == "buried", "miss_reset_eps": MISS_RESET_EPS,
+                                "ops": []}, indent=1))
     print(f"episode {name}: seed {seed}, {kind}")
 
 
@@ -683,6 +688,13 @@ def cmd_act(ep, kind, x, y, z, deg, why):
     print(f"move {ep.moves()}: {kind} {fmt([x, y, z])} {deg:.0f} deg, wrist roll {flip} -> gripper {grip:.1f} "
           f"({holding(grip)}), success {res['success']}, failure {res['failure']}, refused {res['refused']}, "
           f"robot time {ep.robot_s:.1f} s")
+    if missed(op):
+        reset, u, eps = reset_miss(ep)
+        if reset:
+            print(f"missed pick: reset by the draw ({u:.3f} < eps {eps}). The scene is back as it was before this "
+                  f"move. Observe before the next move.")
+        else:
+            print(f"missed pick: kept (draw {u:.3f} >= eps {eps}). Observe and recover from it.")
 
 
 def spilled(act):
@@ -690,28 +702,62 @@ def spilled(act):
     return "left the bin" in str(act["result"].get("failure") or "")
 
 
-def cmd_undo(ep, why):
+def draw(seed, move, attempt):
+    """A fixed number in [0, 1) for an episode's move and attempt, so a replay or a rerun draws the same."""
+    h = hashlib.sha256(f"{seed}:{move}:{attempt}".encode()).digest()
+    return int.from_bytes(h[:8], "big") / 2 ** 64
+
+
+def take_back(ep, why, granted):
     """Drop the last act and whatever came after it. The dropped ops go into the record's "undone" list with the
-    reason, so the attempt stays on file. A demonstration keeps only what was kept."""
-    undone = ep.rec.setdefault("undone", [])
-    if len(undone) >= MAX_UNDOS:
-        sys.exit(f"undo limit ({MAX_UNDOS}) reached")
+    reason and what allowed it, so the attempt stays on file. A demonstration keeps only what was kept."""
     ops = ep.rec["ops"]
-    last = max((k for k, op in enumerate(ops) if op["op"] == "act"), default=None)
-    if last is None:
-        sys.exit("nothing to undo")
-    # Undo is privileged: the next move gets chosen after seeing how the hidden pile answered, which no real robot
-    # can do. dm1487 allows it only to reset a spill, and discourages even that (2026-09-30). Misses stay.
-    if not spilled(ops[last]):
-        sys.exit("undo only takes back a spill, and the last move spilled nothing. Keep it and recover from it.")
+    last = max(k for k, op in enumerate(ops) if op["op"] == "act")
     # Take back the park that led into the act too, so the scene is as it was when that decision was made.
     cut = last - 1 if last > 0 and ops[last - 1]["op"] == "park" else last
-    undone.append({"at_move": sum(1 for op in ops[:last] if op["op"] == "act") + 1, "why": why, "ops": ops[cut:]})
+    undone = ep.rec.setdefault("undone", [])
+    undone.append({"at_move": sum(1 for op in ops[:last] if op["op"] == "act") + 1, "why": why, "granted": granted,
+                   "ops": ops[cut:]})
     ep.rec["ops"] = ops[:cut]
     ep.save()
-    a = ops[last]
-    print(f"undid move {undone[-1]['at_move']}: {a['kind']} {fmt(a['xyz'])} {a['deg']:.0f} deg -> {a['result']}. "
-          f"{MAX_UNDOS - len(undone)} undos left. Observe before the next move.")
+    return ops[last]
+
+
+def cmd_undo(ep, why):
+    """Take back the last act if it spilled."""
+    if len(ep.rec.get("undone", [])) >= MAX_UNDOS:
+        sys.exit(f"undo limit ({MAX_UNDOS}) reached")
+    acts = [op for op in ep.rec["ops"] if op["op"] == "act"]
+    if not acts:
+        sys.exit("nothing to undo")
+    # Undo is privileged: the next move gets chosen after seeing how the hidden pile answered, which no real robot
+    # can do. dm1487 allows it to reset a spill, and discourages even that (2026-09-30). A missed pick gets reset
+    # only by the draw in act, never by choice.
+    if not spilled(acts[-1]):
+        sys.exit("undo only takes back a spill, and the last move spilled nothing. Keep it and recover from it.")
+    a = take_back(ep, why, "spill")
+    print(f"undid move {ep.rec['undone'][-1]['at_move']}: {a['kind']} {fmt(a['xyz'])} {a['deg']:.0f} deg -> "
+          f"{a['result']}. {MAX_UNDOS - len(ep.rec['undone'])} undos left. Observe before the next move.")
+
+
+def missed(act):
+    """A pick whose gripper closed on nothing. The robot reads that from its own gripper joint."""
+    return act["kind"] == "pick" and not act["result"]["terminated"] and act["result"]["grip"] <= 14
+
+
+def reset_miss(ep):
+    """After a missed pick, reset it with probability eps. The tool draws, not the player: if the player chose, it
+    would reset the misses that hurt and keep the ones that helped, and that choice uses what the cameras never saw.
+    Returns the draw and eps, and whether it reset."""
+    eps = ep.rec.setdefault("miss_reset_eps", MISS_RESET_EPS)
+    undone = ep.rec.get("undone", [])
+    u = draw(ep.rec["seed"], sum(1 for op in ep.rec["ops"] if op["op"] == "act"), len(undone))
+    reset = u < eps and len(undone) < MAX_UNDOS
+    if reset:
+        take_back(ep, f"missed pick, reset by the draw ({u:.3f} < {eps})", "miss draw")
+    else:
+        ep.save()
+    return reset, u, eps
 
 
 def cmd_list():
