@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:30 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 16:42 by Claude.
 
 ## Goal right now
 
@@ -38,9 +38,9 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Physics and tools fixed for the demo redo (journal, 15:32 to 16:21): stiff contacts, a creep gate, observe without wrist
-  depth, act refuses four kinds of bad pick (calibrated on 342 picks), GRIP_HOLDING 19.4, export with front depth,
-  demonstrator/video.py. CPU suite: 215 passed, 2 expected failures (shelf push). Next: dm1487 decides realistic friction first or the first demo.
+- Since 16:42: the first demos under the new rules (dm1487: at least one bin and one shelf, both hidden, then video).
+  Bin b5000 (seed 5000, buried) through tools.py, rulebook v10.2; shelf seed 306 hidden through shelf_play.py, no
+  pushes (they topple). One agent each. Tools and physics frozen (240a037) until both finish.
 
 ## Next
 

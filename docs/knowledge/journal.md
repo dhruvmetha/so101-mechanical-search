@@ -1185,3 +1185,12 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   free floor spot (12 seeds: 56 no free spot, 54 red too visible, 21 landed outside). Worth tuning later.
 - Not yet: the shelf task keeps friction 1.0; tests not rerun; pick calibration not redone under varied physics.
 - By: dm1487 decided; Claude chose the ranges.
+
+## [2026-09-30 16:42] start | First demos under the new rules
+- What: dm1487: "Start collecting a few demos after you finish. At least 1 in bin and 1 in shelf (both highly hidden
+  ones). And show me a video." Seeds fixed before looking: bin b5000 (seed 5000, buried), shelf 306 (hidden).
+- How: one agent each. Bin: `demonstrator/AGENT_BRIEF.md`, rulebook v10.2, tools at 240a037 (stiff contacts, friction
+  and density drawn per episode, observe without wrist depth, act refusals). Shelf: `scripts/shelf_play.py` pixel
+  actions, images only, no undo, 20 primitives, no pushes (stiff contacts make every push topple a cylinder), notes in
+  `outputs/shelf_demo_306.md`. The shelf keeps friction 1.0.
+- By: dm1487 asked; Claude chose seeds and set up.
