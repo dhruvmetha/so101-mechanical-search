@@ -1037,3 +1037,9 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Asked: may the expert also use exact segmentation on the wrist image? Claude's view: yes, since the masks only label
   what the wrist camera shows; without them the wrist finds the red by colour but can't tell gray cubes apart.
 - By: dm1487.
+
+## [2026-09-30 15:25] decision | The expert may use exact masks on the wrist image
+- What: dm1487: "Yes, expert can use masks." Final sensing for the expert in sim: front camera colour, depth and exact
+  segmentation; wrist camera colour and exact segmentation, no depth. The observe rework keeps wrist masks and drops
+  wrist depth; wrist pixels reach 3D through the floor plane, the front camera's surface, or a known object size.
+- By: dm1487.

@@ -59,8 +59,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
 - 2026-09-30: the expert runs only in sim, deciding from camera data (looks are real motions); a policy distilled
   from its demos runs on the real arm. The expert may use ideal perception of what the student's sensors see (exact
-  masks included), no other channel: front camera depth and exact segmentation, wrist colour only; wrist masks
-  asked of dm1487. No SAM for now; maybe later (dm1487).
+  masks included), no other channel: front camera depth and exact masks, wrist colour and exact masks, no wrist
+  depth. No SAM for now; maybe later (dm1487).
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
