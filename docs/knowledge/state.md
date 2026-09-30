@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 17:53 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 18:30 by Claude.
 
 ## Goal right now
 
@@ -38,8 +38,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Demos under the new rules (dm1487: at least one bin and one shelf, both hidden, with video). Done: bin b5000 solved
-  in 11 moves, shelf 307 solved in 11 primitives; both videos sent. Running: bin b5002 (buried).
+- Nothing. Demos under the new rules, all with videos sent: bin b5000 (11 moves) and b5002 (13), shelf 307 (11 of 20);
+  shelf 306 stopped before realistic friction. Each took an agent 43 to 56 min and about 5M cached tokens (journal).
 
 ## Next
 

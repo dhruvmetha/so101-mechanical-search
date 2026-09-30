@@ -1263,3 +1263,16 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Levers: fewer model turns (combine observe and check, shorter outputs) cut tokens; a persistent live process cuts
   replay minutes but not tokens; a program for routine moves cuts both.
 - By: Claude, measured after dm1487's question.
+
+## [2026-09-30 18:30] result | Bin demo b5002 solved in 13 moves; rulebook v10.3
+- Run: agent, rulebook v10.2, seed 5002 buried. Solved in 13 moves, 0 undos, 0 resets, 0 kept misses, 93.2 s robot
+  time; 38 tool uses, 56 min wall clock. Video `outputs/videos/b5002.mp4` (replay matched), sent to dm1487. Notes
+  `demonstrator/notes/b5002.md`.
+- The red was under g13, where a red line pointed; then boxed by flush floor cubes on four sides. The -y side was
+  stuck, so the player cleared the 0 deg axis: g0, g16, g10 (overhanging g6), g6, then the red at 177 deg.
+- Lessons, into rulebook v10.3 with b5000's: both ends of an axis need clearing under stiff contacts (the unavoidable
+  finger lands on the flush neighbour and act refuses); windows along the face; the push along the red's face from a
+  slot; rough neighbours at the fixed-finger end count as flush; most pushes in a dense pile fail check.
+- Tally of today's demos under the new rules: bin 2 of 2 solved (11 and 13 moves), shelf 1 of 2 (306 stopped before
+  realistic friction, 307 solved in 11).
+- By: agent; Claude.

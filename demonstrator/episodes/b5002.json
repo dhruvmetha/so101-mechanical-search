@@ -1,0 +1,295 @@
+{
+ "seed": 5002,
+ "buried": true,
+ "miss_reset_eps": 0.1,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.281,
+    -0.007,
+    -0.021
+   ],
+   "deg": 88.0,
+   "why": "g18 is the only layer-3 cube and sits beside g13, which covers the red line at (0.261,-0.041); clear it first, clean grasp",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 19.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.191,
+    -0.089,
+    -0.078
+   ],
+   "deg": 0.0,
+   "why": "set g18 on the open floor by the -y wall, 8 cm from the red and off both of its jaw axes; the g11/g2 tops sit beside leaning g17",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.249,
+    -0.029,
+    -0.051
+   ],
+   "deg": 0.0,
+   "why": "g13 is the layer-2 cover right over the red line at (0.261,-0.043); yaw 0 checks clean",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 19.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.139,
+    0.001,
+    -0.048
+   ],
+   "deg": 90.0,
+   "why": "park g13 on well-seen layer-1 g9, 11 cm from the red and clear of its neighbours; g11 and g2 sit beside leaning g17",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.288,
+    0.003,
+    -0.043
+   ],
+   "deg": 127.0,
+   "why": "g0 (layer 2) sits over the floor slot at g16's +y side; g16 is the red's +x neighbour and needs that slot to be pushed along the red's face; raised 8 mm to clear the far wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.177,
+    -0.092,
+    -0.048
+   ],
+   "deg": 177.0,
+   "why": "park g0 on well-seen layer-1 g18, away from the red's axes; the listed floor spot folds the arm, g11 and g7 sit beside leaning or layer-2 cubes",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.28,
+    -0.03,
+    -0.081
+   ],
+   "deg": 90.0,
+   "why": "g16 is flush on the red's +x face; with g0 gone it has room on both y sides; jaws parallel to the far wall",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.185,
+    0.085,
+    -0.048
+   ],
+   "deg": 4.0,
+   "why": "park g16 on g11 by the +y wall, the farthest clean spot from the red's axes; base-side floor spots fold the arm or go over the wall",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.199,
+    -0.009,
+    -0.051
+   ],
+   "deg": 17.0,
+   "why": "g10 (layer 2) overhangs g6 and puts a finger into it on every red grasp at yaw 0 (24 mm) and every g6 grasp; clean at 17",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.183,
+    0.051,
+    -0.048
+   ],
+   "deg": 7.0,
+   "why": "park g10 on g2, 9 cm from the red and off both its axes; g28 sits beside g6 and g17 beside g5",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.202,
+    -0.028,
+    -0.081
+   ],
+   "deg": 86.0,
+   "why": "g6 is the last cube on the red's 0-deg axis (flush on its -x face); with g10 gone its +y side is free; aim slid 7 mm along the face into the gap between g14 and g27",
+   "unpark": true,
+   "flip": 0,
+   "result": {
+    "grip": 19.2,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.224,
+    0.053,
+    -0.048
+   ],
+   "deg": 65.0,
+   "why": "park g6 on well-seen g17, 8 cm from the red and off its 0-deg axis; g28 borders the red's -x end and g23 sits beside tilted g3",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.26,
+    -0.03,
+    -0.081
+   ],
+   "deg": 177.0,
+   "why": "both ends of the red's 177-deg axis are clear now that g16 and g6 are out; check shows no hits",
+   "unpark": true,
+   "flip": 1,
+   "result": {
+    "grip": 19.4,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ]
+}
