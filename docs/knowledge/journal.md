@@ -1276,3 +1276,16 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Tally of today's demos under the new rules: bin 2 of 2 solved (11 and 13 moves), shelf 1 of 2 (306 stopped before
   realistic friction, 307 solved in 11).
 - By: agent; Claude.
+
+## [2026-09-30 18:33] finding | The bin expert almost never pushes, because of the tools
+- dm1487 asked whether we prioritize pick-and-place over pushes. Counted: today's bin demos 13 picks, 10 places, 1
+  push; the 26 overnight demos 134 picks, 93 places, 1 push; shelf 307 3 picks, 2 places, 3 pushes.
+- Causes, all in the tools, none decided: `tools.py` offers pick, place and a 5 cm push but no sweep (the env and the
+  planner have one); `check` counts every cube a push's fingers touch as a hit, so every push looks dangerous (b5002:
+  "every push I checked failed, 20 to 50 mm hits"); the rulebook grew from pick-heavy play. Rulebook v10.2 wrongly
+  told players to "push or sweep"; corrected.
+- Cost difference: relocating a cube takes 2 moves and about 12 s of robot time; b5000's one push cleared an end that
+  pick-and-place would have needed 4 or more moves for.
+- Proposal (Claude, awaiting dm1487): expose the sweep, a push check that reports spill risk, whether the red gets
+  shoved and which cubes move, a push calibration against outcomes, and a rulebook that prefers a push when it does
+  in one move what pick-and-place needs two for.

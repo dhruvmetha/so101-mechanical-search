@@ -137,7 +137,8 @@ record and the dataset count every one. Plan so you never need them.
 - Treat a rough neighbour at the fixed-finger end as flush: check said no hits and the pick missed (b5000 move 10).
 - Nudging, a pick on the red that lands the fingers on its neighbours, is gone since v10.2: act refuses a finger 10 mm
   or more into a neighbour. Under soft contacts it opened a 12 mm gap once (e400); under stiff ones the neighbour
-  doesn't give. To move a cube a little, push or sweep it. The nudges described in the bullet above predate this.
+  doesn't give. To move a cube a little, push it (the tools have no sweep yet; corrected 2026-09-30, this said "push or
+  sweep"). The nudges described in the bullet above predate this.
 - Never shift a grasp centre more than about 2 mm away from the fixed finger, toward the moving finger's side. The
   fixed finger lands only 4 mm outside its face, so a 4 mm shift that way puts it on the cube's own top edge, and check
   does not flag that (d1009, whose aim moved 4 mm toward the moving finger). Replayed on 2026-09-30, all 10 picks
