@@ -113,6 +113,10 @@ What they mean for search:
   contacts flattered the expert: fingers pressed neighbours down and still grasped, and pushes slid tall objects that
   real physics tips (a 15 mm radius cylinder with base friction 1 tips when pushed above about 15 mm). Under stiff
   contacts (2026-09-30), a finger 10 mm or more into a neighbour lifted the target in 33 of 209 picks.
+- Varying hidden physics (friction, mass) per episode makes the task need memory (dm1487, 2026-09-30): acting well
+  means remembering what objects did earlier in the episode. And whatever the expert remembers, the student must be
+  able to remember too, or it can't copy the choice from the current frame. An expert that looks after every move
+  corrects without that memory, at the cost of more moves; a narrow, realistic range keeps a memoryless policy viable.
 - Hand over a scene only once nothing in it creeps. A speed threshold passes slow creep; hold the scene still for a
   few seconds and measure displacement instead (0.5 mm in 5 s caught both creepers in 24 piles).
 

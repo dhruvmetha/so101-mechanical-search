@@ -1163,3 +1163,14 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   0 to 100. The comment on `GRIP_HOLDING` said 8 units was 13 mm, and Claude repeated it to dm1487 as "about 2 mm of
   place error"; the real error of the old constant was about 1 mm. Comment corrected in `so101sim/primitives.py`.
 - By: Claude, after dm1487 asked what the held-cube value means.
+
+## [2026-09-30 16:33] direction | Varying physics means remembering
+- What: Claude proposed realistic friction (the sim uses 1.0 everywhere, real wood and plastic sit near 0.3 to 0.6)
+  with per-episode variation, since the real objects' properties are unknown and the robot gets only images. dm1487:
+  "If we start varying friction, then we have to start remembering things in the environment yes? ... We have to
+  remember." Agreed on both counts: the environment must fix the values at reset from the seed and store them in the
+  episode record and dataset metadata, or replay and export break; and the agent must remember what objects did to
+  adapt, which makes anything the expert remembers a requirement on the student's memory too.
+- Claude's recommendation, not decided: a narrow realistic range (friction about 0.4 to 0.7), the expert re-observing
+  after every move as now, adaptive memory later if wanted.
+- By: dm1487 raised it; Claude.
