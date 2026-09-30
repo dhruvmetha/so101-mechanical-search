@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 18:30 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 19:10 by Claude.
 
 ## Goal right now
 
@@ -71,6 +71,9 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
 - Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
+- Awaiting dm1487 (19:10): a push with a chosen stroke (spec amendment); wall height (measure with the sizing script);
+  the expert as belief-space TAMP (plan on the belief, one move, look, replan); a stateless Claude player (fresh call
+  per move with a compact memory doc) as a cheap bridge. Measured: a Claude demo costs about 5M cached tokens.
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap

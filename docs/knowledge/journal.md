@@ -1289,3 +1289,18 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Proposal (Claude, awaiting dm1487): expose the sweep, a push check that reports spill risk, whether the red gets
   shoved and which cubes move, a push calibration against outcomes, and a rulebook that prefers a push when it does
   in one move what pick-and-place needs two for.
+
+## [2026-09-30 19:10] direction | Pushes, walls, TAMP, and why Claude-played demos cost so much
+- dm1487 asked: why only a 5 cm push (the spec of 2026-09-25 fixed it, with no measurement behind it; the sweep, a
+  push with a chosen stroke, only reached the planner); whether a mix of pushes and picks is right (yes: pushes clear
+  in bulk, picks handle boxed-in and wall-side blockers); whether taller walls help (fewer spills, but walls over
+  about 6 cm catch the camera mount and gripper housing at floor grasps and hide more from the front camera; measure
+  with scripts/size_search_bin.py); whether to think in TAMP terms (Claude: yes, belief-space TAMP with replanning;
+  check, places and the axis-ends report are its motion level and relations, the rulebook its task knowledge, and the
+  Claude player the expensive task planner); and why playing costs Claude so much (it reasons about geometry in text,
+  re-reads the whole growing conversation every request, makes one round trip per step, and learns nothing between
+  episodes except through documents).
+- Options offered, none decided: the push with a stroke plus a push check and calibration; the wall measurement; a
+  TAMP-style planner with Claude only when it finds no plan; a stateless Claude player as a bridge (about 150k tokens a
+  demo against 5M).
+- By: dm1487 asked; Claude answered.
