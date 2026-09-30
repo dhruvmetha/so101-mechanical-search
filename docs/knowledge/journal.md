@@ -1245,3 +1245,21 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   Re-estimate from every new wrist view: pixel estimates moved 1 cm between views, the whole margin in a packed corner,
   and one view invented a cylinder the next showed was empty board.
 - By: agent; Claude.
+
+## [2026-09-30 18:10] result | What one Claude-played demo costs, measured (b5000)
+- dm1487 asked why demos are expensive, then "Are we sure??". Claude had mixed estimates with measurements; these
+  are measured.
+- Tokens, from the player's usage records: 50 requests, 164k new tokens written to the context (the "165k" the agent
+  report shows), 5.1M tokens re-read from the prompt cache, about 100k of context per request on average. So the
+  cost is re-reading the growing conversation on every request: it scales with calls x context, about the square of
+  the number of calls. 44 Bash calls, 3 images opened.
+- Wall clock 46 min: replays of the episode from reset measured at 4 s (start), 11 s (3 moves), 22 s (6), 34 s (9),
+  44 s (11 moves, 89 s of robot time); over 30 to 40 tool calls that is roughly 12 to 16 min. The rest, about 30
+  min, is model time.
+- Corrections to what Claude told dm1487: observe prints about 3,000 characters (about 750 tokens), not 2,000 tokens;
+  replays were 12 to 16 min, not 15 to 20; "an honest planner should cost about the same as p0.3" was unsupported,
+  since p0.3's CPU went into simulating candidates on the real pile, which it may no longer do, and how often an honest
+  planner needs Claude is unknown until measured.
+- Levers: fewer model turns (combine observe and check, shorter outputs) cut tokens; a persistent live process cuts
+  replay minutes but not tokens; a program for routine moves cuts both.
+- By: Claude, measured after dm1487's question.
