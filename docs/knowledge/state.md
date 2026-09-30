@@ -22,9 +22,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   clearance, which side the fixed finger lands), act, undo, places, list, status. Perception in `perception.py`, arm
   clearance in `reach.py`.
 - The rulebook the players follow: `demonstrator/instructions.md` v10.1. The agent brief: `demonstrator/AGENT_BRIEF.md`.
-- Demonstrations: 26 solved episodes exported to `outputs/mechsearch_demos_v1` (LeRobot format, 43,392 frames at 30 Hz,
-  front and wrist images at 224). Episode files in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
-- Unfinished: d1000 failed (out of moves); 8 episodes are half played (journal, 2026-09-30 02:33), moves saved.
+- Demonstrations v1, superseded (redo, dm1487): 26 episodes in `outputs/mechsearch_demos_v1` (LeRobot, 43,392
+  frames); records in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
 - Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
   `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
   and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
