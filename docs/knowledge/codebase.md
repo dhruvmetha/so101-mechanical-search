@@ -61,6 +61,16 @@ behaviour or a measured number in it changes.
   plays through (new, observe, check, act, status), with episodes replayed exactly from `demonstrator/episodes/`.
   `perception.py` turns front-camera depth and segmentation into cube poses. `reach.py` has the arm clearance check.
   `instructions.md` is the rulebook and memory: read it before playing, and add each episode's lessons after.
+  `live.py` keeps an episode in memory with `snapshot()`/`restore()` (MuJoCo integration state including the warm
+  start, the env's counters, the episode's bookkeeping); a restored line replays bit for bit
+  (`tests/test_demonstrator_live.py`). `planner.py` is the expert as a program (see the learnings file, "The planner"):
+  `python demonstrator/planner.py --seeds S... --procs N --out DIR`, one process per seed, a record per seed with every
+  candidate it tried. `export.py` turns solved episodes into a LeRobot dataset; `report.py` and `postmortem.py` tally
+  and replay finished ones; `experiments/` holds the sweep pilot.
+- `MechSearchPrimitiveEnv` (since f5790cd) also takes a `sweep` kind (a push with its own `stroke`, starting up to 5 mm
+  from a wall and up to 3 cm above the rim, refused if it would end against a wall) and an optional `lift_z` on pick
+  (a higher final lift). `primitives.pick/place/push` take `flip` (the wrist roll) and `pick` takes `lift_z`. Records
+  without these keys replay unchanged.
   Cubes are the proof-of-concept rig; the expert should later handle YCB or other realistic objects. Record general
   lessons in `docs/knowledge/mechanical-search-learnings.md`, written for any objects, with cube-only details kept apart.
 - `so101sim/mjx.py` puts the unmodified scene on the GPU with the MuJoCo Warp backend, batched over N

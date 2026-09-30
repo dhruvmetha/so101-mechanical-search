@@ -797,3 +797,89 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Why: dm1487 asked for the system; the hook script only reads files (cat, find, stat, wc, awk) and prints context.
 - By: Claude (main session), after reading the script.
 - Evidence: `.claude/hooks/knowledge.sh`, `.claude/settings.json`.
+
+## [2026-09-30 11:54] result | Realistic objects: Google Scanned Objects in MuJoCo, stay on MuJoCo CPU
+
+- Report: docs/reports/2026-09-30-realistic-objects.md (agent). kevinzakka's MuJoCo port of Google Scanned Objects
+  (CC BY 4.0) compiles in 3.8.1; about 80 objects fit the gripper, about 20 of them toys. Its masses come out about 4x
+  too high and 32 hulls per object is costly. YCB (elpis-lab port) is the second choice, since the real objects exist.
+- Loading test, 20 objects, 12 cm walls, 8 seeds: rest in 0.5 to 2.1 s, nothing out, 10 s idle drift median 0.3 mm
+  (worst 18.7 mm), 4.1 ms per step against 0.76 for cubes. Sleeping islands froze 7 of 8 piles at 0.05 ms per step but
+  then snapshots need mj_copyData; restoring the state vector drifted. Piles reach 13 to 18 cm, into the jaws' start
+  pose: a sink-like bin needs the arm raised.
+- Simulator: stay on MuJoCo CPU. Isaac Sim needs driver 595 (arrakis has 570), ManiSkill has only the SO-100,
+  Genesis's piles are untested.
+
+## [2026-09-30 11:54] note | Usage limit reached mid-work
+
+- Planner p0.3 (commit 9859fed, two-step lookahead) was running on 13 seeds into outputs/planner_pilot_p0.3/ as a
+  plain script; check its summary.json. The bin-depth agent was stopped before finishing; its partial scripts are
+  scripts/bin_depth*.py and outputs/bin_depth_2026-09-30/. Not yet committed: the objects agent's scripts and models,
+  and these journal entries.
+
+## [2026-09-30 12:01] result | Planner p0.3 (two-step lookahead) on the same 13 seeds: 11 solved
+
+- Commit 9859fed. Per-seed lines, as printed:
+  seed 1004 buried  solved         moves  2 empty picks 0 robot  13.5 s  wall  274.7 s  sims 80
+  seed 1005 partial solved         moves  1 empty picks 0 robot   5.9 s  wall  104.4 s  sims 28
+  seed 1006 buried  solved         moves  2 empty picks 0 robot  11.2 s  wall  299.0 s  sims 66
+  seed 1009 partial solved         moves  2 empty picks 0 robot  18.1 s  wall  228.8 s  sims 46
+  seed 1012 buried  solved         moves  2 empty picks 0 robot  16.1 s  wall  185.7 s  sims 42
+  seed 1036 buried  solved         moves  3 empty picks 0 robot  21.2 s  wall  322.7 s  sims 74
+  seed 1037 partial solved         moves  1 empty picks 0 robot   6.7 s  wall   68.0 s  sims 17
+  seed 1038 buried  solved         moves  6 empty picks 0 robot  43.0 s  wall  844.4 s  sims 220
+  seed 1039 partial solved         moves  1 empty picks 0 robot   5.5 s  wall   42.0 s  sims 14
+  seed 1040 buried  solved         moves  2 empty picks 0 robot  18.0 s  wall  355.7 s  sims 106
+  seed 1041 partial solved         moves  2 empty picks 0 robot  13.2 s  wall  230.2 s  sims 50
+  
+  [exited with code 0]
+- Files: outputs/planner_pilot_p0.3/. Compare p0.2: 9 of 13.
+
+## [2026-09-30 14:14] result | Planner p0.3 solved all 13 seeds (correction: the earlier entry listed only 11)
+
+- 1000 solved in 6 moves (38.8 s robot, 682 s wall), 1003 in 2 moves (14.5 s, 297 s). The earlier result entry was
+  written from the last 11 lines of the run's output. All 13: buried 2 to 6 moves, partial 1 or 2; no empty picks.
+- Files: `outputs/planner_pilot_p0.3/summary.json` and one record per seed.
+
+## [2026-09-30 14:14] direction | Taller walls, and not throwing things out by mistake (reconstructed from the chat, about 12:50)
+
+- Decided: no assumption; the planner's rule is that a move is judged in the simulator first and any spilling move is
+  rejected, so the expert doesn't throw things out by mistake. Taller walls are a layout parameter, to be measured,
+  since they raise the success line and the travel height and may hit the gripper housing near walls.
+- By: dm1487 asked; Claude (main session) answered.
+- Evidence: this journal's planner rules; `docs/knowledge/mechanical-search-learnings.md`, "Containers".
+
+## [2026-09-30 14:14] direction | Spawn agents for bin depth and for realistic objects (reconstructed, about 12:55)
+
+- Decided: one agent measures how deep the end effector can work and which bins are doable; one surveys toy and
+  household assets, tests loading them, and weighs switching simulators ("If you think we should switch to IsaacLab or
+  something is also okay").
+- By: dm1487.
+- Evidence: `docs/reports/2026-09-30-realistic-objects.md`; `scripts/bin_depth*.py`, `outputs/bin_depth_2026-09-30/`.
+
+## [2026-09-30 14:14] result | Bin depth, partial: the gripper tip reaches from 22.5 cm below the base to 8.5 cm above it
+
+- The bin-depth agent was stopped at the usage limit before writing its report. Its envelope log: straight-down grasps
+  reach z -0.225 to +0.085 m relative to the base, clear of the arm with the right wrist roll, also holding a cube;
+  leaning grasps reach up to +0.15. The lattice of 7,000 bin configurations finished computing (`lattice.npz`) and was
+  never analysed. `reach_map.png` is in the same folder.
+- Evidence: `outputs/bin_depth_2026-09-30/envelope.log`, `scripts/bin_depth.py`.
+
+## [2026-09-30 14:14] direction | Prepare for compaction first (dm1487)
+
+- Decided: write back what the session holds before new work: this entry, `state.md`, the learnings and codebase
+  files, and a commit of everything pending (the objects agent's scripts, test models and report, and the bin-depth
+  scripts).
+- By: dm1487.
+
+## [2026-09-30 14:15] direction | Planning must not read hidden state
+
+- dm1487: "But the planning moves (backtracking) should not be hacking into active sensing?"
+- Decided: yes. p0.3 judged every candidate with the true pile (true poses in the score, and candidates tried on the
+  real hidden world), which leaks what the cameras can't see; its 13 of 13 is not honest play and its episodes are not
+  demos. The planner will judge candidates in several worlds rebuilt from perception instead, and the real world will
+  answer only the move actually made; looks become candidate moves.
+- By: dm1487 raised it; Claude (main session) agreed and set it as the next step.
+- Evidence: `demonstrator/planner.py` (`truth()` feeds `score()`; `decide()` runs candidates on `live`, the real
+  pile); `outputs/planner_pilot_p0.3/p1038.json` (no red pixels seen, scored by the red's true position).
+- Replaces: the planner caveat that treated this as luck to be fixed by aim-error scoring.

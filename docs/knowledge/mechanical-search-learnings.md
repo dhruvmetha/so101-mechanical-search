@@ -119,3 +119,36 @@ What they mean for search:
 - The success line is defined by the cube's lowest corner. For other objects, define it by the object's lowest point.
 - Placement spots are "tops of level cubes". Realistic objects need stable-placement checks: a flat enough, big enough
   patch, and objects that don't roll.
+
+## The planner
+
+Measured 2026-09-30 on 13 cube-bin seeds (7 played by agents overnight, 6 new), `demonstrator/planner.py`, records in
+`outputs/planner_pilot_p0*`.
+
+- Perception proposes, the simulator judges. Candidate moves come from camera data only (a pick on the target on both
+  grasp axes, slid along its faces; long sweeps across the target's spot when objects cover it; relocations of covers
+  and grasp-axis blockers to spots away from the target and its neighbours). Each is run on a snapshot; true poses only
+  score the outcome. This is object-agnostic: nothing in the loop needs cube geometry except the candidate generator.
+- Its numbers are not honest play (dm1487, 2026-09-30 14:15). It judged candidates with the simulator's true state, so it leaked
+  hidden information; see the last bullet. With that caveat, p0.3 solved 13 of 13, buried starts in 2 to 6 moves and partial ones in
+  1 or 2, 5 to 43 s of robot time, no tokens, 1 to 14 minutes of wall clock per seed on one core. The agents took 7 to
+  11 moves on the same seeds and failed seed 1000, which the planner solved in 6.
+- A long sweep across the target's spot was the first move of most buried solutions: it cleared the covers and often
+  loosened the flush neighbours at once. Judged in the simulator first, no sweep in a kept line spilled.
+- Never commit the least bad move. p0 did, and put a spill into a kept line. Commit only moves that score above zero;
+  the one exception is setting down an object already held.
+- Reject moves that look like progress but aren't: a pick that lifts nothing (it can knock covers off by luck), and a
+  target pick that lifts a neighbour instead.
+- Score progress per grasp axis: count the blocked ends of the target's better axis. Counting all neighbours hid real
+  progress on one axis.
+- One-step scoring is myopic. On seed 1004 a relocation beat a sweep by 0.2 points and stalled, where the sweep led to
+  success. Scoring the three best first moves by the best second move each allows (p0.3) solved all four seeds p0.2
+  stuck on, for 2 to 4 times the wall clock.
+- Lookahead on the true world is cheating, in two ways (dm1487's question, 2026-09-30 14:15). Scoring with true poses reads hidden
+  state: on seed 1038 the cameras saw no red at all and the score still knew where it was. And trying several moves on
+  the real hidden pile, then keeping the one that worked, picks moves by cubes nobody saw; the demo looks as if the
+  robot knew where to dig. Mechanical search is about acting to reveal what is hidden, so the expert has to plan with
+  what it believes: judge candidates in worlds rebuilt from perception (seen objects at their perceived poses, unseen
+  space filled with plausible objects, the target where the evidence allows), several of them, and let the real world
+  answer only the move actually made. Moves that uncover the target then score well because they shrink the doubt,
+  and a look becomes a move worth making. Scoring under aim errors (the build order) is a separate, smaller check.

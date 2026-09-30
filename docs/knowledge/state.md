@@ -2,8 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 11:40 by
-Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 14:14 by Claude.
 
 ## Goal right now
 
@@ -34,26 +33,26 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   `outputs/sweep_pilot_2026-09-30/`. Numbers in `mechanical-search-learnings.md`, "Strategy".
 - The knowledge system (2026-09-30): `.claude/hooks/knowledge.sh` boots this file, the index and the latest journal
   headings; traps load from `.claude/rules/`. `docs/knowledge/README.md` explains it.
-- Commits on `mechanical-search`: b0455b2 (11:26, everything up to then; observe PNGs and `MUJOCO_LOG.TXT` stay out
-  of git) and f5790cd (11:34, planner pilot p0).
+- The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
+  it judged moves with the true hidden state, so it cheats (learnings, "The planner"). Its demos are not usable yet.
+- Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` recommends Google Scanned Objects (MuJoCo port,
+  about 80 fit the gripper, about 20 toys) and staying on MuJoCo CPU; loading scripts `scripts/objects_*.py`, test scenes
+  `models/objects_test_*`. Bin depth, partial: tip reach z -0.225 to +0.085 m (journal, 2026-09-30).
+- Commits on `mechanical-search`: b0455b2, f5790cd (p0), 477b345 (memory system), 9859fed (p0.3), and the
+  compaction write-back after them.
 
 ## Running now
 
-- The main session runs the pilot of the Fable order (approved by dm1487): p0 is in f5790cd (sweep kind, pick
-  `lift_z`, `demonstrator/live.py`, `demonstrator/planner.py`); results land in `outputs/planner_pilot_p0*`. Also
-  under way, uncommitted: `scripts/objects_*.py` with `models/objects_test_*`, and `scripts/bin_depth.py`.
+Nothing. The session is between steps.
 
-## Next: the Fable order, approved as a pilot on a few seeds
+## Next
 
-The consult's order, which Claude agrees with: (1) keep the env alive on snapshots instead of replaying every
-tool call; (2) a depth-1 planner, where perception proposes candidate moves and the sim judges each on a copy, with
-relocate as one decision and a higher final lift for the red; (3) perturbation scoring at perception scale, cost and
-throughput logging, and an export gate; (4) a capped Claude rescue for when the planner is stuck. Commit and stamp
-versions before the planner runs at scale. Drop the full search tree unless the planner stalls on the neighbour step
-in more than about a fifth of buried seeds. The consult's other items (look from hover, sweeps as a candidate type,
-what the move cap counts, every cube-only assumption) are in the consult file.
-
-Separately: size the container family (how deep a sink the SO-101 can work top-down) with `search_layout.py`.
+1. Make the planner honest: judge candidates in several worlds rebuilt from perception (seen cubes at perceived poses,
+   unseen space filled by dropping cubes into it, the red sampled where pixels and covers allow), never the true one.
+   Looks become candidate moves. Then rerun the 13 pilot seeds and compare with p0.3.
+2. The rest of the build order: aim-error scoring, cost logging with an export gate, a capped Claude rescue, looking
+   from hover instead of parking; export the planner's solved episodes as demos.
+3. Finish the bin-depth study from its partial files; then the container family and the object set.
 
 ## Decisions in force
 
@@ -67,12 +66,15 @@ Separately: size the container family (how deep a sink the SO-101 can work top-d
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
   journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
+- 2026-09-30: the planner commits only moves that help, rejects empty picks and wrong-cube picks, scores the target's
+  better grasp axis, and looks two moves ahead over its three best first moves; no full search tree.
+- 2026-09-30: planning must not use hidden state; lookahead runs in worlds rebuilt from perception (dm1487).
 
 ## Open questions
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
-- Should the sweep become an action of its own, and should the little-used 5 cm push stay?
-- How much of the expert can be a program, and where does it still need Claude?
+- Keep the little-used 5 cm push? The sweep is now its own move and does most of the planner's work.
+- How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
 - Finish the 8 half-played episodes? Offered, not decided.
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap
