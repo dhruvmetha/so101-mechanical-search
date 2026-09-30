@@ -150,13 +150,14 @@ def _flipped(yaw, flip):
     return (yaw, False) if flip is None else (yaw + np.pi * int(flip), True)
 
 
-def pick(model, xy, yaw, hover_z=HOVER_Z, z=CUBE_HALF, flip=None):
+def pick(model, xy, yaw, hover_z=HOVER_Z, z=CUBE_HALF, flip=None, lift_z=None):
     """Grasp a cube at `xy` with its faces aligned to `yaw` and its centre at height `z`.
 
     The default `z` is a cube standing on the table. A cube in a pile sits higher, and a cube in a sunken
     bin sits lower. Hovers, descends with the jaws open, closes on the cube, lifts. The arm holds still
     while the jaws close, which is what the real servo does, so the moving jaw sweeps the cube against the
-    fixed one. `_flipped` explains `flip`.
+    fixed one. `_flipped` explains `flip`. `lift_z` ends the lift higher than `hover_z`, for a target that
+    has to clear a success line.
     """
     yaw, exact = _flipped(yaw, flip)
     x, y = float(xy[0]), float(xy[1])
@@ -166,7 +167,7 @@ def pick(model, xy, yaw, hover_z=HOVER_Z, z=CUBE_HALF, flip=None):
         _Waypoint(top, yaw, GRIP_OPEN),
         _Waypoint(grasp, yaw, GRIP_OPEN, hold=3),
         _Waypoint(grasp, yaw, GRIP_CLOSE, hold=8),
-        _Waypoint(top, yaw, GRIP_CLOSE, hold=3),
+        _Waypoint(top if lift_z is None else np.array([x, y, lift_z]), yaw, GRIP_CLOSE, hold=3),
     ]
     return _retime(*_trace(model, path, GRIP_PLAN, exact_yaw=exact))
 

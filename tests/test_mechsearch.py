@@ -366,6 +366,41 @@ def test_a_pick_can_ask_for_either_wrist_flip(prim):
     assert abs(abs((ends[1] - ends[0] + 180.0) % 360.0 - 180.0) - 180.0) < 8.0
 
 
+def test_a_sweep_drags_the_closed_jaws_the_whole_stroke_at_the_chosen_height(prim):
+    """A sweep is a push with its own stroke length and height, for clearing several cubes off the red at once."""
+    prim.reset(seed=0, options={"buried": True})
+    start = np.array([0.30, -0.06, prim.bin["rim_z"] + 0.008])
+    track = []
+    prim.on_frame = lambda p: track.append(primitives.tool_pose(p.model, p.env.joint_state)[0])
+    try:
+        _, _, _, _, info = prim.step({"kind": "sweep", "xyz": start, "angle": np.pi, "stroke": 0.12})
+    finally:
+        prim.on_frame = None
+    assert info["refused"] is None, info["refused"]
+    track = np.array(track)
+    low = track[np.abs(track[:, 2] - start[2]) < 0.004]  # the frames at stroke height
+    assert start[0] - low[:, 0].min() > 0.11
+
+
+def test_a_sweep_that_would_run_into_a_wall_is_refused(prim):
+    prim.reset(seed=0, options={"buried": True})
+    start = np.array([0.30, 0.0, prim.bin["rim_z"] + 0.008])
+    _, _, _, _, info = prim.step({"kind": "sweep", "xyz": start, "angle": 0.0, "stroke": 0.12})
+    assert info["refused"] and info["frames"] == 0
+
+
+def test_a_pick_can_end_higher_than_travel_height(prim):
+    """The red has to clear the success line; a held tilted cube missed it by 0.7 mm at travel height (e400)."""
+    prim.reset(seed=0, options={"buried": True})
+    xyz = np.array([0.20, 0.0, prim.action_space["xyz"].high[2]])
+    lift = prim.travel_z + 0.03
+    _, _, _, _, info = prim.step({"kind": "pick", "xyz": xyz, "angle": 0.3, "lift_z": lift})
+    assert info["refused"] is None, info["refused"]
+    end = prim.env.joint_state.copy()
+    end[5] = primitives.GRIP_PLAN  # measure the jaw midpoint where IK solved it
+    assert abs(primitives.tool_pose(prim.model, end)[0][2] - lift) < 0.004
+
+
 def test_the_episode_stops_on_the_frame_a_cube_leaves(prim):
     prim.reset(seed=0)
     gray = prim.env.grays[0]

@@ -73,6 +73,9 @@ SETTLE_MAX_FRAMES = 60
 # Positions this close outside the action box get clipped into it instead of refused. A cube resting on the
 # floor sinks a fraction of a millimetre into it, so its reported centre sits just under the box's lowest z.
 ACTION_TOLERANCE = 0.005
+SWEEP_INSET = 0.005  # a sweep may start this close to a wall, inside the bin
+SWEEP_MAX_ABOVE_RIM = 0.03  # and this far above the rim, to catch cubes standing above it
+SWEEP_MIN_STROKE, SWEEP_MAX_STROKE = 0.03, 0.18
 
 
 def face_pixels(mask, r=SEAM_RADIUS):
@@ -374,7 +377,10 @@ class MechSearchPrimitiveEnv(gym.Env):
     """One step is one whole pick, place or push inside the bin.
 
     The action is {"kind", "xyz", "angle"}, or the tuple (kind, xyz, angle). The dict may also carry
-    "flip", 0 or 1, to choose the wrist roll (see `primitives._flipped`). `xyz` is the jaw midpoint:
+    "flip", 0 or 1, to choose the wrist roll (see `primitives._flipped`), "lift_z" to end a pick higher than
+    travel height, and "stroke" for a sweep. A sweep is a push with its own stroke length that may start
+    anywhere in the bin up to SWEEP_INSET from a wall and at any height up to SWEEP_MAX_ABOVE_RIM over the
+    rim; its end must stay inside the action box. `xyz` is the jaw midpoint:
     the grasp point for pick, the held cube's centre at release for place, and the closed jaw tips' height
     along a push. z is in the action because one xy can hold a cube on any of three layers. The angle is
     jaw yaw for pick, the held cube's yaw for place, and the heading for push. Every move across the bin
@@ -386,7 +392,7 @@ class MechSearchPrimitiveEnv(gym.Env):
     """
 
     metadata = {"render_modes": ["rgb_array"], "render_fps": CONTROL_HZ}
-    PRIMITIVES = ("pick", "place", "push")
+    PRIMITIVES = ("pick", "place", "push", "sweep")
 
     def __init__(self, max_primitives=MAX_PRIMITIVES, push_stroke=PUSH_STROKE, on_frame=None, **env_kwargs):
         # A primitive runs to completion inside one step, so a recorder needs a hook to see the 30 Hz
@@ -418,12 +424,12 @@ class MechSearchPrimitiveEnv(gym.Env):
         return self.env.reset(seed=seed, options=options)
 
     def step(self, action):
-        kind, xyz, angle, flip = self._parse(action)
+        kind, xyz, angle, opts = self._parse(action)
         self._n += 1
         refused, terminated, frames = None, False, 0
         info = self.env.task_info()
         try:
-            traj = self._plan(kind, xyz, angle, flip)
+            traj = self._plan(kind, xyz, angle, **opts)
         except _Refused as exc:
             refused, traj = str(exc), None
         except primitives.Unreachable as exc:
@@ -461,26 +467,28 @@ class MechSearchPrimitiveEnv(gym.Env):
         return terminated, info
 
     def _parse(self, action):
-        flip = None
+        opts = {}
         if isinstance(action, dict):
             kind, xyz, angle = action["kind"], action["xyz"], action.get("angle", 0.0)
-            flip = action.get("flip")
+            opts = {k: action[k] for k in ("flip", "lift_z", "stroke") if action.get(k) is not None}
         else:
             kind, xyz, angle = action
         if isinstance(kind, (int, np.integer)):
             kind = self.PRIMITIVES[int(kind)]
         if kind not in self.PRIMITIVES:
             raise ValueError(f"unknown primitive {kind!r}, expected one of {self.PRIMITIVES}")
-        return kind, np.asarray(xyz, dtype=np.float64).reshape(3), float(angle), flip
+        return kind, np.asarray(xyz, dtype=np.float64).reshape(3), float(angle), opts
 
-    def _plan(self, kind, xyz, angle, flip=None):
+    def _plan(self, kind, xyz, angle, flip=None, lift_z=None, stroke=None):
+        if kind == "sweep":
+            return self._plan_sweep(np.asarray(xyz, float), angle, flip, stroke)
         box = self.action_space["xyz"]
         clipped = np.clip(xyz, box.low, box.high)
         if np.abs(xyz - clipped).max() > ACTION_TOLERANCE:
             raise _Refused(f"{np.round(xyz, 4).tolist()} is outside the action box")
         xy, z = clipped[:2], float(clipped[2])
         if kind == "pick":
-            return primitives.pick(self.model, xy, angle, hover_z=self.travel_z, z=z, flip=flip)
+            return primitives.pick(self.model, xy, angle, hover_z=self.travel_z, z=z, flip=flip, lift_z=lift_z)
         if kind == "place":
             return primitives.place(self.model, xy, angle, hover_z=self.travel_z, release_z=z, flip=flip)
         end = xy + self.push_stroke * np.array([np.cos(angle), np.sin(angle)])
@@ -488,4 +496,21 @@ class MechSearchPrimitiveEnv(gym.Env):
             raise _Refused(f"a push from {np.round(xy, 4).tolist()} heading {np.degrees(angle):.0f} deg "
                            "would end outside the bin")
         return primitives.push(self.model, xy, angle, stroke=self.push_stroke, hover_z=self.travel_z, push_z=z,
+                               flip=flip)
+
+    def _plan_sweep(self, xyz, angle, flip, stroke):
+        """A long push for clearing several cubes at once. See the class docstring for its limits."""
+        stroke = self.push_stroke if stroke is None else float(stroke)
+        c, h = np.asarray(self.bin["center"]), self.bin["half"]
+        if not SWEEP_MIN_STROKE <= stroke <= SWEEP_MAX_STROKE:
+            raise _Refused(f"sweep stroke {stroke:.3f} m is outside [{SWEEP_MIN_STROKE}, {SWEEP_MAX_STROKE}]")
+        if np.abs(xyz[:2] - c).max() > h - SWEEP_INSET + 1e-9:
+            raise _Refused(f"sweep start {np.round(xyz, 4).tolist()} is within {SWEEP_INSET} m of a wall")
+        if not self.bin["floor_z"] + CUBE_HALF <= xyz[2] <= self.bin["rim_z"] + SWEEP_MAX_ABOVE_RIM:
+            raise _Refused(f"sweep height {xyz[2]:.3f} is outside the bin's working heights")
+        end = xyz[:2] + stroke * np.array([np.cos(angle), np.sin(angle)])
+        if np.abs(end - c).max() > self._inset + 1e-9:
+            raise _Refused(f"a sweep from {np.round(xyz, 4).tolist()} heading {np.degrees(angle):.0f} deg "
+                           "would end against a wall")
+        return primitives.push(self.model, xyz[:2], angle, stroke=stroke, hover_z=self.travel_z, push_z=xyz[2],
                                flip=flip)

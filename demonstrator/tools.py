@@ -56,12 +56,14 @@ def short(name):
 
 
 class Episode:
-    def __init__(self, name, size=64, on_advance=None):
+    def __init__(self, name, size=64, on_advance=None, rec=None):
         """Rebuild episode `name` by replaying it. `size` is the camera image size, which doesn't touch the physics.
-        `on_advance(episode, row)` runs before every 30 Hz frame after reset; export.py records demos with it."""
+        `on_advance(episode, row)` runs before every 30 Hz frame after reset; export.py records demos with it.
+        `rec` supplies the record directly instead of reading the episode file (the planner keeps records in memory
+        until it saves them)."""
         self.path = EPISODES / f"{name}.json"
         self.name = name
-        self.rec = json.loads(self.path.read_text())
+        self.rec = json.loads(self.path.read_text()) if rec is None else rec
         self.prim = MechSearchPrimitiveEnv(height=size, width=size)
         self.env = self.prim.env
         self.m, self.d = self.env.model, self.env.data
@@ -135,7 +137,8 @@ class Episode:
         if op.get("unpark") and self.last is None:
             self._unpark()
         # Acts recorded before 2026-09-30 carry no flip and let IK choose the wrist roll, as they did then.
-        action = {"kind": op["kind"], "xyz": op["xyz"], "angle": float(np.radians(op["deg"])), "flip": op.get("flip")}
+        action = {"kind": op["kind"], "xyz": op["xyz"], "angle": float(np.radians(op["deg"])), "flip": op.get("flip"),
+                  "lift_z": op.get("lift_z"), "stroke": op.get("stroke")}
         _, reward, term, trunc, info = self.prim.step(action)
         self.robot_s += info.get("frames", 0) / 30
         self._settle()
