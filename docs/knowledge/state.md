@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:21 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 15:25 by Claude.
 
 ## Goal right now
 
@@ -59,7 +59,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-30: primitives take a wrist `flip`; check chooses the roll that keeps the arm clear of itself.
 - 2026-09-30: the expert runs only in sim, deciding from camera data (looks are real motions); a policy distilled
   from its demos runs on the real arm. The expert may use ideal perception of what the student's sensors see (exact
-  masks included), no other channel: front camera RGB-D, wrist colour only (dm1487).
+  masks included), no other channel: front camera depth and exact segmentation, wrist colour only; wrist masks
+  asked of dm1487. No SAM for now; maybe later (dm1487).
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The

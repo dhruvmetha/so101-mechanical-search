@@ -1029,3 +1029,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   camera-only line, merged into the distillation decision. Added to Next: observe without wrist depth, and front
   depth in the export.
 - The journal is 1,000+ lines but every entry is from 2026-09, so nothing moves to `journal/`.
+
+## [2026-09-30 15:25] decision | In sim, front camera depth and segmentation; no SAM for now
+- What: dm1487: "In reality, because we will try to distill this into a policy, we wont need SAM for now, but maybe
+  later. But in sim, we can use depth and segmentation from the front camera okay?" Confirmed: the expert uses the
+  front camera's rendered depth and exact segmentation. SAM stays out until something outside the sim needs it.
+- Asked: may the expert also use exact segmentation on the wrist image? Claude's view: yes, since the masks only label
+  what the wrist camera shows; without them the wrist finds the red by colour but can't tell gray cubes apart.
+- By: dm1487.
