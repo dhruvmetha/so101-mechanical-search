@@ -1478,3 +1478,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   expert that varies call to call gives the student conflicting examples. Claude still writes its belief each move,
   for its own consistency across fresh calls and for audits, and the export leaves it out.
 - By: dm1487; consequences Claude's reasoning.
+
+## [2026-10-01 00:05] decision | Claude is the teacher and acts on its belief; five rules for how it plays
+- dm1487: "No why are you worried about what the student needs to learn. You as the teacher will do things with
+  belief okay", then "Yes to all" to Claude's five points: moves follow from what the cameras showed; information
+  gathering is a visible move; similar situations get similar moves; the belief note is the teacher's tool, not data;
+  recoveries are worth showing, flailing is not.
+- Home: mechanical-search-learnings.md, "Running the expert". Claude stops raising student-side design questions.
+- By: dm1487.

@@ -163,6 +163,15 @@ What they mean for search:
   MjData 35 ms, so save and restore the state rather than copying data (2026-09-30). At 8 candidates per move that is
   about 25 to 45 episodes per core-hour. Every tool call that replays an episode from the start wastes this; keep the
   env alive and restore snapshots instead.
+- How the teacher plays, for demos a smaller model will learn from by imitation (dm1487 agreed, 2026-10-01). The
+  teacher keeps a belief and acts on it; the student only sees cameras and arm, so:
+  - every move follows from what the cameras showed up to then; the belief holds nothing that was never on camera;
+  - gathering information is a visible move (a look, a revealing push); a check run silently in the tools only shows
+    as the arm going elsewhere;
+  - similar situations get similar moves: follow one strategy and carry the belief note between calls, since separate
+    Claude calls vary and conflicting examples blur what the student learns;
+  - the belief note is the teacher's tool (cheap fresh calls, audits), not training data; the export leaves it out;
+  - recovering from a miss is worth showing, flailing is not; the eps miss reset keeps that balance.
 - Watch MuJoCo's log. `MUJOCO_LOG.TXT` recorded an arena memory overflow on 2026-09-30, which silently drops contacts.
 
 ## What is cube-specific and must change for realistic objects

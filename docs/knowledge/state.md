@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:56 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-10-01 by Claude.
 
 ## Goal right now
 
@@ -58,14 +58,15 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   depth. No SAM for now; maybe later (dm1487).
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
 - 2026-09-30: pushes and sweeps are first-class expert moves; act refuses the strokes calibration showed spill (dm1487).
-- 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
-  journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
+- 2026-09-30: the journal logs every decision, dm1487's and Claude's, enough to replicate the demos (dm1487).
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
 - 2026-09-30: friction U(0.4, 0.7) and density U(600, 1200) drawn per episode from the seed, hidden from players
   (`demonstrator/episodes/.hidden/`); stiff contacts at 1/600 s (dm1487: realistic, no penetration).
 - 2026-09-30: redo all demos; `outputs/mechsearch_demos_v1` used wrist depth and miss undos (dm1487).
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
   back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
+- 2026-10-01: Claude plays as the teacher, keeping its own belief; five rules for how (learnings, "Running the
+  expert"). The student's design is not Claude's concern (dm1487).
 
 ## Open questions
 
