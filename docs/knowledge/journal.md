@@ -1386,3 +1386,19 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Next: the same piles with pick-and-place of the same blockers, to compare; and a push report that predicts which
   sideways stroke works (it assumes the red stays put).
 - By: Claude.
+
+## [2026-09-30 20:13] result | Common sense, as encoded, does not pick the push that works
+- dm1487: "How many environments did you do this in? Are we using common sense or no?" The 1-in-4 rate came from 29
+  piles and a blind stroke list (every blocker, both sideways directions, 5 and 8 cm), not common-sense choices.
+- Test: `demonstrator/experiments/push_choice.py` rebuilt each pile's start, computed from the camera height map what a
+  person would check (far end of the axis already clear; open floor where the blocker lands; room for the finger), took
+  the stroke these favoured in each pile, and read its recorded outcome. Output
+  `outputs/push_goal_2026-09-30/choice.json`.
+- Result: the common-sense pick opened the red in 8 of 29 piles; a blind stroke 25%; the best stroke in hindsight
+  existed in 23 of 29. Cues alone: far end clear 19 of 38 worked against 38 of 194; open floor at the landing spot 3
+  of 29 against 54 of 203 (wrong way); room for the finger 16 of 72 against 41 of 160 (no signal).
+- Correction: rulebook v10.4 said "try the blocker whose other side has open floor"; replaced with the far-end cue and
+  the measured counter-result.
+- Not understood yet: why the landing-floor cue points the wrong way, and what does predict a working push. Next:
+  look at pictures of strokes that worked and didn't, before encoding another cue.
+- By: dm1487 asked; Claude.

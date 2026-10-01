@@ -143,7 +143,9 @@ record and the dataset count every one. Plan so you never need them.
   - Purposeful strokes, measured on 32 piles where the red was seen but not pickable (2026-09-30,
     \`outputs/push_goal_2026-09-30\`): one stroke made the red pickable in 25 of 29 piles. A blocker at an end of one of
     the red's jaw axes, pushed sideways off the axis, did it in 23 of 29 piles, but only 1 such stroke in 4 works: the
-    whole cluster tends to move together, the red included. Try the blocker whose other side has open floor. Pushing the
+    whole cluster tends to move together, the red included. Prefer a blocker on an axis whose other end is already
+    clear: those strokes worked 19 times in 38, the rest 38 in 194. Open floor where the blocker would land did not
+    help (3 in 29; this line said to prefer it until the same night, push_choice.py). Pushing the
     red itself toward room worked in 12 of 28 piles; sweeping a cover off in 5 of 14. 5 cm did as well as 8 cm.
   - Pushes reveal: half of all strokes near the red turned a rough red into a trusted pose. Use one to see.
   - Once the red is pickable, pick it. A push beside it kept it pickable only 10 times in 22.

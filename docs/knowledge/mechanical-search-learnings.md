@@ -125,7 +125,10 @@ What they mean for search:
     seed 5007, the red turned 50 deg with its cluster; shelf 307, a pushed gray pulled the red along).
   - Still, one well-chosen push often opens the way: in 25 of 29 bin piles one stroke made the target graspable, most
     often a blocker pushed sideways off the target's jaw axis (23 of 29), though only 1 stroke in 4 of that kind works.
-    Choosing the stroke is the skill; a check that assumes the target stays put predicts it badly.
+    Choosing the stroke is the skill, and common sense as first encoded did not have it: picking by "far end of the
+    axis already clear, then open floor where the blocker lands, then room for the finger" opened the target in 8 of
+    29 piles, little better than a blind stroke (25%). Only the first cue held (50% against 20%); open floor at the
+    landing spot pointed the wrong way. A check that assumes the target stays put predicts badly too.
   - Pushes reveal, even when they don't free: half of the bin strokes near the target turned a rough pose into a
     trusted one. And they can undo access: next to a graspable target, a push kept it graspable 10 times in 22.
   - Boundaries and height are where pushes fail: cubes riding above a wall's height spill when driven into it, tall

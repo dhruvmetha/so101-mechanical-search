@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:07 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:13 by Claude.
 
 ## Goal right now
 
@@ -35,16 +35,18 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Push study done (20:07): one stroke made the red pickable in 25 of 29 bin piles (journal). Pushes first-class
-  in the tools; reading list sent. Demos under the new rules so far: b5000, b5002, shelf 307.
+- Nothing. Pushes first-class in the tools (19:40). Push studies done (journal, 20:00 to 20:13): one stroke opened the red
+  in 25 of 29 piles, but my common-sense choice found it in only 8. Reading list sent. Demos so far: b5000, b5002,
+  shelf 307 (videos sent).
 
 ## Next
 
-1. Finish the tools (Running now). Then the honest planner (Claude's design, 14:41): a per-episode memory of what the
-   cameras saw and a map of where the target could be, rules as code, looks as moves, no twin unless a measured
-   failure needs one; rerun the 13 pilot seeds against p0.3. Then redo all demos (dm1487).
-2. The rest of the build order: cost logging with an export gate, a capped Claude rescue, looking from hover.
-3. Finish the bin-depth study from its partial files; then the container family and the object set.
+1. What predicts a working push: look at pictures of strokes that worked and didn't (`outputs/push_goal_2026-09-30`)
+   before encoding cues; then push against pick-and-place of the same blockers on the same piles.
+2. The expert as a program (belief-space TAMP: plan on the belief, one move, look, replan), using the calibrated checks
+   as its models; Claude only when it finds no plan. Then redo the demos (dm1487) and measure moves and cost.
+3. Smaller: rerun the pick calibration (it predates the third-layer contact fix); shelf sweeps with a calibration;
+   wall height with the sizing script; the bin-depth study; the container family and the object set.
 
 ## Decisions in force
 
@@ -56,7 +58,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   masks included), no other channel: front camera depth and exact masks, wrist colour and exact masks, no wrist
   depth. No SAM for now; maybe later (dm1487).
 - 2026-09-30: the goal is the expert, not the student; cubes are a proof of concept; knowledge lives in `docs/knowledge/`.
-- 2026-09-30: build in the Fable order, as a pilot on a few seeds first (dm1487).
+- 2026-09-30: pushes and sweeps are first-class expert moves; act refuses the strokes calibration showed spill (dm1487).
 - 2026-09-30: the knowledge system is in place: boot hook, journal, path-scoped traps, a trimmed CLAUDE.md. The
   journal logs every decision, dm1487's and Claude's, in enough detail to replicate the demos (dm1487).
 - 2026-09-30: planning must not use hidden state (dm1487). No trying moves on the real pile, no undo of misses.
@@ -69,9 +71,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## Open questions
 
 - Raise the 15-move cap, or cap robot time instead? d1000 needed about 16 moves. It's a spec change.
-- Awaiting dm1487 (19:10): the sweep is in the tools (a push with a chosen stroke); wall height (sizing script);
-  the expert as belief-space TAMP (plan on the belief, one move, look, replan); a stateless Claude player (fresh call
-  per move with a compact memory doc) as a cheap bridge. Measured: a Claude demo costs about 5M cached tokens.
+- Awaiting dm1487: wall height (sizing script); a stateless Claude player (fresh call per move with a compact memory
+  doc) as a bridge, since a Claude-played demo costs about 5M cached tokens.
 - How often will an honest planner still need Claude?
 - Perception for realistic objects: grasps from each object's points instead of fitted cube poses.
 - When do YCB or toy objects arrive? If within weeks, codify less of the cube rulebook and build the heightmap
