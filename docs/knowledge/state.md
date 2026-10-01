@@ -33,8 +33,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Paused for dm1487 to read (20:39). Rules baseline done: 9 to 11 of 29 piles in 5 moves; picks on a rough
-  red lifted it 1 in 11 (journal 20:50). Next: Claude plays piles itself, writing its belief each move.
+- The teacher driver (`demonstrator/driver.py`, journal 10-01 00:40): one Claude call per move. b5142 solved in 6
+  moves for about 35k tokens, $0.40 (01:05). A literature agent is writing `docs/reports/2026-10-01-planner-design.md`.
 
 ## Next
 

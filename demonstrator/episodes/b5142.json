@@ -1,0 +1,212 @@
+{
+ "seed": 5142,
+ "buried": true,
+ "miss_reset_eps": 0.1,
+ "ops": [
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.2211822613775487,
+    0.010544360081229859,
+    -0.05084130586770089
+   ],
+   "deg": 65.0,
+   "flip": 1,
+   "unpark": true,
+   "why": "The front camera can't see the red, and g19 is the layer-2 neighbour between it and the red's seam, so lifting g19 out is the cleanest way to show the red's top while also taking a gap-0 axis blocker away.",
+   "result": {
+    "grip": 19.3,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "act",
+   "kind": "place",
+   "xyz": [
+    0.11300000000000002,
+    0.071,
+    -0.04761635363022694
+   ],
+   "deg": 90.0,
+   "flip": 1,
+   "unpark": true,
+   "why": "program: set g19 down flat spot, the best checked spot away from the red",
+   "result": {
+    "grip": 35.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "push",
+   "xyz": [
+    0.21224576903454934,
+    0.018534759221401832,
+    -0.08064713755458937
+   ],
+   "deg": 245.0,
+   "flip": 1,
+   "unpark": true,
+   "why": "Of the pushes on blockers of the less-blocked 65 axis, this one drives g24 straight away from the red instead of into it, and it disturbs the fewest cubes (9).",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "push",
+   "xyz": [
+    0.199355412984231,
+    -0.08869835947281196,
+    -0.08071490788924743
+   ],
+   "deg": 137.0,
+   "flip": 0,
+   "unpark": true,
+   "why": "Axis 47 has a single blocker and a clear far end, which is the card's best case for a sideways blocker push, and heading 137 is predicted to add no cover, unlike heading 317.",
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "sweep",
+   "xyz": [
+    0.13531263404101407,
+    -0.015233885314695599,
+    -0.08083119454771233
+   ],
+   "deg": 302.0,
+   "flip": 1,
+   "unpark": true,
+   "why": "The far end of axis 32 is already clear, and this is the only sideways move on g24 predicted to clear the - end ([0,2]) while the red stays and only layer-1 cubes move.",
+   "stroke": 0.08,
+   "result": {
+    "grip": 10.0,
+    "success": false,
+    "failure": null,
+    "refused": null,
+    "terminated": false
+   }
+  },
+  {
+   "op": "park",
+   "keep_grip": true
+  },
+  {
+   "op": "act",
+   "kind": "pick",
+   "xyz": [
+    0.1952961410843054,
+    -0.02185858579714186,
+    -0.08079740871641114
+   ],
+   "deg": 20.0,
+   "flip": 0,
+   "unpark": true,
+   "why": "program: the red is well seen and act allows the pick",
+   "result": {
+    "grip": 19.3,
+    "success": true,
+    "failure": null,
+    "refused": null,
+    "terminated": true
+   }
+  }
+ ],
+ "teacher": {
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "card": "# Strategy card v1 (2026-10-01)",
+  "prompt_sha": "ae1318ca79f1",
+  "calls": [
+   {
+    "move": 1,
+    "model": [
+     "claude-opus-5-5"
+    ],
+    "effort": "xhigh",
+    "input": 2,
+    "cache_write": 5118,
+    "cache_read": 0,
+    "output": 4542,
+    "thinking": 4227,
+    "usd": 0.131792,
+    "seconds": 50.0
+   },
+   {
+    "move": 3,
+    "model": [
+     "claude-opus-5-5"
+    ],
+    "effort": "xhigh",
+    "input": 2,
+    "cache_write": 3528,
+    "cache_read": 1764,
+    "output": 6616,
+    "thinking": 6283,
+    "usd": 0.1609048,
+    "seconds": 68.7
+   },
+   {
+    "move": 4,
+    "model": [
+     "claude-opus-5-5"
+    ],
+    "effort": "xhigh",
+    "input": 2,
+    "cache_write": 3270,
+    "cache_read": 1764,
+    "output": 1573,
+    "thinking": 1277,
+    "usd": 0.0579808,
+    "seconds": 15.6
+   },
+   {
+    "move": 5,
+    "model": [
+     "claude-opus-5-5"
+    ],
+    "effort": "xhigh",
+    "input": 2,
+    "cache_write": 3433,
+    "cache_read": 1764,
+    "output": 1296,
+    "thinking": 982,
+    "usd": 0.0537448,
+    "seconds": 14.6
+   }
+  ]
+ }
+}

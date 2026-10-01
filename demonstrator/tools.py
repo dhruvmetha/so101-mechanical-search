@@ -848,11 +848,11 @@ def cmd_check(ep, kind, x, y, z, deg, stroke=None):
         print(f"  CAMERA MOUNT hits the scene: {mh or ''}{' bin wall ' + format(r['mount_wall_mm'], '.0f') + ' mm' if r['mount_wall_mm'] else ''}")
 
 
-def cmd_places(ep, avoid=None, k=6):
+def place_options(ep, v, avoid=None, k=6):
     """Where to set a held cube down: tops of well-seen layer-1 cubes and open floor, away from the dig, each checked
     at two yaws. Replaces checking spots one by one (agents found the flat-spot list often next to the dig or failing
-    check; the tops of trusted layer-1 cubes worked, d1003, d1006, d1015)."""
-    v = ep.see()
+    check; the tops of trusted layer-1 cubes worked, d1003, d1006, d1015). Returns (avoid, best first list of
+    (badness, xy, z, deg, what, check result))."""
     held = ep.held_cube()
     if avoid is None:
         red = v["cubes"].get(TARGET)
@@ -886,11 +886,18 @@ def cmd_places(ep, avoid=None, k=6):
                 + (r["self_mm"] < SELF_TIGHT_MM) * 30 + (0 if held else r["unseen_mm"] / 10)
             good.append((bad, xy, z, deg, what, r))
     good.sort(key=lambda t: t[0])
+    return avoid, good[:k]
+
+
+def cmd_places(ep, avoid=None, k=6):
+    v = ep.see()
+    held = ep.held_cube()
+    avoid, good = place_options(ep, v, avoid, k)
     where = f", at least 6 cm from {fmt(avoid)}" if avoid is not None else ""
     if held:
         print("holding: the arm blocks part of both views, so unseen space here is mostly the arm's shadow")
     print(f"places{where}, best first (place X Y Z DEG):")
-    for bad, xy, z, deg, what, r in good[:k]:
+    for bad, xy, z, deg, what, r in good:
         hits = ", ".join(f"{short(n) if n not in ('floor',) else n} {d * 1000:.0f} mm" for n, d in r["hits"].items())
         notes = [f"hits {hits}" if hits else "no hits", f"unseen {r['unseen_mm']:.0f} mm",
                  f"arm to itself {r['self_mm']:.0f} mm"]
@@ -901,33 +908,44 @@ def cmd_places(ep, avoid=None, k=6):
         print("  none found; check spots by hand")
 
 
+def refusal(kind, r):
+    """Why act refuses a move, given check's result r for the wrist roll choose kept, or None. The calibrated
+    refusals live here only; cmd_act and the driver both call it."""
+    if not r:
+        return None
+    if kind == "pick" and r.get("target"):
+        if r["trusted"] and r["shift_mm"] > SHIFT_MAX_MM:
+            return (f"the aim is {r['shift_mm']:.1f} mm off {short(r['target'])}'s centre toward the moving finger "
+                    f"(limit {SHIFT_MAX_MM:.0f} mm), so the fixed finger lands on its top.")
+        if r["on_top_mm"] > MARGIN * 1000:
+            return f"a finger comes down on {short(r['target'])}'s own top ({r['on_top_mm']:.0f} mm)."
+    if kind == "pick":
+        worst = max(((k, x) for k, x in r["hits"].items() if k != r.get("target")), key=lambda kx: kx[1],
+                    default=(None, 0.0))
+        if worst[1] * 1000 >= HIT_REFUSE_MM:
+            return (f"a finger goes {worst[1] * 1000:.0f} mm into "
+                    f"{short(worst[0]) if worst[0] != 'floor' else 'the floor'} (limit {HIT_REFUSE_MM:.0f} mm). Under "
+                    f"stiff contacts that closes the jaws above the target: 33 of 209 such picks lifted it. Clear that "
+                    f"side first.")
+    if kind in ("push", "sweep") and r["push"]["spill_risk"]:
+        return (f"{', '.join(short(n) for n in r['push']['spill_risk'])} rides at layer 2 or higher and would end "
+                f"within {PUSH_WALL_MM:.0f} mm of the wall ahead; 17% of such strokes spilled. Push away from the "
+                f"wall, shorten the stroke, or pick it off first.")
+    if r.get("self_mm", 0) < SELF_JAM_MM:
+        return (f"the arm overlaps itself by {-r['self_mm']:.0f} mm on this path; none of 23 such picks tracked. Try "
+                f"the other axis or a different spot.")
+    return None
+
+
 def cmd_act(ep, kind, x, y, z, deg, why, stroke=None):
     if ep.outcome():
         sys.exit(f"episode {ep.name} is over: {ep.outcome()}. Undo the last move to keep playing.")
     ep.see()
     flip, results = ep.choose(kind, [x, y, z], deg, stroke)
     r = results.get(flip, {}) if flip is not None else {}
-    if kind == "pick" and r.get("target"):
-        if r["trusted"] and r["shift_mm"] > SHIFT_MAX_MM:
-            sys.exit(f"refused: the aim is {r['shift_mm']:.1f} mm off {short(r['target'])}'s centre toward the moving "
-                     f"finger (limit {SHIFT_MAX_MM:.0f} mm), so the fixed finger lands on its top. Nothing moved.")
-        if r["on_top_mm"] > MARGIN * 1000:
-            sys.exit(f"refused: a finger comes down on {short(r['target'])}'s own top ({r['on_top_mm']:.0f} mm). "
-                     f"Nothing moved.")
-    if kind == "pick" and r:
-        worst = max(((k, x) for k, x in r["hits"].items() if k != r.get("target")), key=lambda kx: kx[1],
-                    default=(None, 0.0))
-        if worst[1] * 1000 >= HIT_REFUSE_MM:
-            sys.exit(f"refused: a finger goes {worst[1] * 1000:.0f} mm into {short(worst[0]) if worst[0] != 'floor' else 'the floor'}"
-                     f" (limit {HIT_REFUSE_MM:.0f} mm). Under stiff contacts that closes the jaws above the target: 33 of"
-                     f" 209 such picks lifted it. Clear that side first. Nothing moved.")
-    if kind in ("push", "sweep") and r and r["push"]["spill_risk"]:
-        sys.exit(f"refused: {', '.join(short(n) for n in r['push']['spill_risk'])} rides at layer 2 or higher and would "
-                 f"end within {PUSH_WALL_MM:.0f} mm of the wall ahead; 17% of such strokes spilled. Push away from the "
-                 f"wall, shorten the stroke, or pick it off first. Nothing moved.")
-    if r and r.get("self_mm", 0) < SELF_JAM_MM:
-        sys.exit(f"refused: the arm overlaps itself by {-r['self_mm']:.0f} mm on this path; none of 23 such picks "
-                 f"tracked. Try the other axis or a different spot. Nothing moved.")
+    why_not = refusal(kind, r)
+    if why_not:
+        sys.exit(f"refused: {why_not} Nothing moved.")
     op = {"op": "act", "kind": kind, "xyz": [x, y, z], "deg": deg, "why": why, "unpark": True, "flip": flip}
     if stroke is not None:
         op["stroke"] = stroke

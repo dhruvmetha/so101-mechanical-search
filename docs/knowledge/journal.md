@@ -1486,3 +1486,36 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   recoveries are worth showing, flailing is not.
 - Home: mechanical-search-learnings.md, "Running the expert". Claude stops raising student-side design questions.
 - By: dm1487.
+
+## [2026-10-01 00:40] start | The teacher driver: one fresh Claude call per move
+- dm1487: "How can we collect demos via you but spend as little tokens as possible?", "Opus 5.5 xhigh is good", and
+  asked how the five teacher rules will be kept. Also: "spawn a subagent to ... find out how we can get the best
+  planner ... from all the literature", with a hybrid of an implemented planner and Claude's common sense as the
+  fallback if Claude demos get expensive. That agent writes `docs/reports/2026-10-01-planner-design.md`.
+- Built `demonstrator/driver.py` and `demonstrator/strategy.md` (card v1). The program keeps the episode in memory,
+  looks, picks a well-seen red when act allows, and places a held gray on the best checked spot; every other move is
+  one `claude -p` call (Opus 5.5, effort xhigh, no tools) with the picture, a short summary, Claude's last belief
+  note, what changed, and checked candidates. Beliefs go to `demonstrator/beliefs/` (export never reads them; it
+  records images, joints, actions, depth and op indices only). The miss draw and spill undos are the program's;
+  three Claude moves without progress stop the episode. How each teacher rule is kept is in the driver's docstring.
+- Measured: a bare `claude -p` call loaded 139,573 tokens of Claude Code context (MCP connectors, skills, machine
+  sections), $1.12 for "OK". With `--setting-sources "" --strict-mcp-config --mcp-config '{"mcpServers":{}}'
+  --disable-slash-commands --exclude-dynamic-system-prompt-sections --system-prompt ... --tools ""` it took 466 input
+  tokens ($0.002). A call with the 1600 by 600 observe picture took about 1,770 input tokens.
+- Refactor: act's refusals are one function, `tools.refusal`, and the place finder is `tools.place_options`; cmd_act,
+  cmd_places and the driver share them. Undo tests pass.
+- First run: b5142 (seed 5142, buried; one of the piles the rules failed under every policy).
+- By: dm1487 asked; Claude.
+
+## [2026-10-01 01:05] result | First teacher-driver demo: b5142 solved in 6 moves for about 35k tokens
+- Run: `python demonstrator/driver.py b5142` (seed 5142, buried; strategy card v1; Opus 5.5 at xhigh). Log
+  `outputs/teacher/b5142.log`, beliefs `demonstrator/beliefs/b5142.md`, video `outputs/videos/b5142.mp4` (sent).
+- Solved in 6 moves, 49.7 s of robot time, no resets: Claude picked g19 (the layer-2 cube between the front camera and
+  the red's seam) to show the red; the program set g19 down; Claude pushed g24 three times off the red's better axis;
+  the program picked the red. 4 Claude calls: 15,349 tokens written to cache, 5,292 read, 14,027 output (most of it
+  thinking), $0.40, about 50 s per call. A Claude-played demo cost about 5.1M cached tokens before.
+- Replays exactly from its record (`tools.py status`, `video.py` both end solved).
+- Not perfect: move 3 expected the red to stay put though the candidate said it would move; it moved 55 mm, and two
+  more pushes went to the same blocker. The rules policies failed this pile with pushes only and 5 moves; the driver
+  had pick-and-place too and used 6, so the comparison is not like for like. One episode.
+- By: Claude.
