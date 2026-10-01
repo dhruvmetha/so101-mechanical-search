@@ -1468,3 +1468,13 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   Proposed, not done (dm1487 paused this line): act refuses picks of a rough red; recalibrate the pick check with
   real picks; look at 5135's spill.
 - By: Claude.
+
+## [2026-09-30 20:56] correction | Distillation is implicit; written beliefs are not training data
+- dm1487: "But I'm not going to distill your beliefs directly, I'm going to distill it implicitly." Corrects the 20:42
+  entry, which said demos must keep Claude's reasoning per move as data.
+- What follows: the student sees camera images and arm actions only, so the reasoning has to show in the moves. Each
+  move must follow from what the cameras showed up to then (anything Claude remembers must have been on camera
+  earlier); looks and reveals must be real, visible moves; similar situations should get similar moves, since an
+  expert that varies call to call gives the student conflicting examples. Claude still writes its belief each move,
+  for its own consistency across fresh calls and for audits, and the export leaves it out.
+- By: dm1487; consequences Claude's reasoning.

@@ -2,14 +2,14 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:50 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:56 by Claude.
 
 ## Goal right now
 
 An expert demonstrator that produces good demonstrations fast (dm1487, 2026-09-30). Good: solved, few wasted moves,
 sensible kept moves. Fast: wall-clock and token cost per demo, and robot time. The later aim (dm1487, 20:40): distill
-how Claude reasons through a task into a smaller model, so demos must keep Claude's reasoning per move: belief, goal,
-choice, prediction, and the check against what happened.
+how Claude reasons through a task into a smaller model, implicitly (20:55): the student learns from what the cameras
+show and what the arm does, not from Claude's written beliefs. So every move must follow from what the cameras showed.
 
 The cube bin is the proof-of-concept rig. The expert should later work with a family of containers: deeper bins up to
 sink-like basins, bins set into the table with the rim flush (which is how the current "bin 10 cm below the base"
