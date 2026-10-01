@@ -1534,3 +1534,22 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Claude's note: the plain driver already used about 35k tokens on b5142, near that estimate, so the hybrid's case
   now rests more on consistency and wall clock (about 50 s per call) than on tokens. One episode; measure on the bench.
 - By: dm1487 asked; subagent; Claude.
+
+## [2026-10-01 01:45] finding | The arm hits objects at full speed: pushes and some picks and places are impacts
+- dm1487, after the b5142 video: "Why are you crashing into objects and then causing them to move? Thats damaging to
+  the robot no", "Or the objects no".
+- Measured with `demonstrator/experiments/contact_load.py` (per physics substep, replaying b5142 and b5000):
+  pushes and sweeps meet cubes at 0.2 to 0.55 m/s, peak arm-on-cube force 28 to 108 N (cubes weigh 0.16 to 0.26 N),
+  over 10 N for 0.8 to 1.1 s, and the contact puts 6 to 17 N m on the arm's joints against the servos' 2.94 N m.
+  Two b5000 places swung the held cube into the pile at 0.58 and 0.63 m/s (56 and 73 N). Three b5000 picks jammed
+  (59 to 82 N, up to 24 N m on a joint), the fingers-into-neighbours kind act now refuses. Every pick also squeezes at
+  the gripper's torque limit, about 17 to 20 N on the cube, 60 to 100 times its weight.
+- Cause: `so101sim/primitives.py` runs every motion at its joint speed cap (2 deg per frame, 60 deg/s) and nothing
+  slows down near or in contact; the gripper closes to GRIP_CLOSE, far past the cube, so it squeezes at its limit.
+  Claude built and kept these primitives without checking contact loads; the "realistic sim" standard applied.
+- What the joint torques mean on the real arm (reasoning): loads several times what the motors can make go into the
+  gears and brackets as shocks; a fragile object (YCB, toys) would crack or be thrown.
+- Proposed, awaiting dm1487: guarded contact moves (slow last approach, slow strokes, stop on a load threshold, which
+  the real servos can read), a gentler grip, load limits recorded per move and checked by the tools, then redo the
+  push and pick calibrations, since they were measured with impacts.
+- By: dm1487 found it; Claude measured.
