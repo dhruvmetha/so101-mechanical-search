@@ -1452,3 +1452,19 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Supersedes in part 2026-09-30 "the student is out of scope": the student's design still is, but the demos must
   carry what it is meant to learn.
 - By: dm1487.
+
+## [2026-09-30 20:50] result | Rules baseline with real picks: 9 to 11 of 29 piles in 5 moves; picks on a rough red fail
+- Run: `demonstrator/experiments/look_first.py --procs 10` at d04150c (script committed after, a3bbccd), the 29
+  push_choice piles, rulebook v10.4 tools. Output `outputs/look_first_2026-09-30/rows.json`. About 15 minutes.
+- once (the push_choice stroke, then one real pick): solved 3 of 29, not the 8 the verdicts promised. Allowed picks
+  lifted the red 3 of 8. Picks act would refuse, tried anyway, lifted 2 of 20, so the refusals mostly hold.
+- loop (up to 5 moves, far-end-clear strokes): solved 9 of 29 in 3.2 moves on average. look (reveal first while the
+  red is rough): 11 of 29 in 3.1. Some policy solved 14 piles. The look gain is 2 piles, within noise at this size.
+- All 50 allowed picks: lifted the red 22 of 39 when its top was well seen, 1 of 11 when rough. Misses on a well-seen
+  red closed on nothing 11 times and on a gray 6 times.
+- Spills: 8 strokes over the three policies, 6 of them 5 cm sideways pushes that passed act's spill rule, 2 cover
+  sweeps of 8 cm; seed 5135 spilled on move 1 under every policy. The spill rule misses these.
+- Homes: learnings (don't grasp a roughly placed target; a grasp check is a hint until calibrated with real picks).
+  Proposed, not done (dm1487 paused this line): act refuses picks of a rough red; recalibrate the pick check with
+  real picks; look at 5135's spill.
+- By: Claude.

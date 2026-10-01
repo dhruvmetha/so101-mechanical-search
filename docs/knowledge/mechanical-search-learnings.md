@@ -131,6 +131,10 @@ What they mean for search:
     landing spot pointed the wrong way. A check that assumes the target stays put predicts badly too.
     The bigger cause is not knowing where the target is: with a trusted target pose the same choice worked in 3 of 4
     piles, with a rough one in 5 of 25. See the target clearly before choosing how to free it.
+    Those counts were the pick check's verdicts. Tried for real (2026-09-30, 50 picks on 29 piles), allowed picks of a
+    roughly placed target lifted it 1 time in 11, and of a well-seen one 22 in 39; the misses closed on nothing 11
+    times and on a neighbour 6. So don't grasp a target you can only roughly place, and treat a grasp check on a
+    perceived pose as a hint, not a verdict, until it is calibrated with real grasps.
   - Pushes reveal, even when they don't free: half of the bin strokes near the target turned a rough pose into a
     trusted one. And they can undo access: next to a graspable target, a push kept it graspable 10 times in 22.
   - Boundaries and height are where pushes fail: cubes riding above a wall's height spill when driven into it, tall
