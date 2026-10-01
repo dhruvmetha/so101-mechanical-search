@@ -2,13 +2,14 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:13 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:42 by Claude.
 
 ## Goal right now
 
 An expert demonstrator that produces good demonstrations fast (dm1487, 2026-09-30). Good: solved, few wasted moves,
-sensible kept moves. Fast: wall-clock and token cost per demo, and robot time. The student that learns from the demos
-is out of scope until dm1487 says otherwise.
+sensible kept moves. Fast: wall-clock and token cost per demo, and robot time. The later aim (dm1487, 20:40): distill
+how Claude reasons through a task into a smaller model, so demos must keep Claude's reasoning per move: belief, goal,
+choice, prediction, and the check against what happened.
 
 The cube bin is the proof-of-concept rig. The expert should later work with a family of containers: deeper bins up to
 sink-like basins, bins set into the table with the rim flush (which is how the current "bin 10 cm below the base"
@@ -21,10 +22,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   with calibrated refusals, undo (spills), places. Rulebook `demonstrator/instructions.md` v10.4; brief AGENT_BRIEF.md.
 - Demonstrations v1, superseded (redo, dm1487): 26 episodes in `outputs/mechsearch_demos_v1` (LeRobot, 43,392
   frames); records in `demonstrator/episodes/`, notes in `demonstrator/notes/`.
-- Analysis: `demonstrator/REPORT.md` (overnight results, what would make demos cheaper),
-  `demonstrator/RELATED_WORK.md` (sweeping, pushing and scripted planners), `outputs/postmortem_2026-09-30.json`,
-  and the Fable consult `demonstrator/consult/fable-2026-09-30.md`.
-- Sweep pilot and miss study: `demonstrator/experiments/`, outputs in `outputs/`.
+- Analysis: `demonstrator/REPORT.md`, `RELATED_WORK.md`, `consult/fable-2026-09-30.md`; studies in
+  `demonstrator/experiments/`, outputs in `outputs/`.
 - The knowledge system: `docs/knowledge/README.md`; `.claude/hooks/knowledge.sh` boots it, traps in `.claude/rules/`.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
   it judged moves with the true hidden state, so it cheats (`planner.md`). Its demos are not usable yet.
@@ -35,8 +34,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Pushes first-class in the tools; push studies done (journal, 19:40 to 20:20). Reading list sent. Demos
-  so far: b5000, b5002, shelf 307 (videos sent).
+- look_first.py on the 29 piles (journal 20:35), the rules baseline. Then paused for dm1487 to read (20:39); next,
+  Claude plays piles itself, writing its belief each move (journal 20:39). Demos so far: b5000, b5002, shelf 307.
 
 ## Next
 

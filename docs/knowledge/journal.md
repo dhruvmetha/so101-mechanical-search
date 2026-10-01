@@ -1412,3 +1412,43 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Implication to test: look first, then push. Pushes near the red turned a rough pose into a trusted one in 54% of
   strokes, so a revealing move may come before a freeing one. Verify pickable verdicts with real picks next time.
 - By: dm1487 asked; Claude.
+
+## [2026-09-30 20:35] start | Look first, then push, with real picks
+- What: `demonstrator/experiments/look_first.py` plays each of push_choice's 29 piles from its start, deciding from the
+  cameras only: observe; if act would allow a pick of the red, pick it for real; otherwise make a stroke act allows and
+  look again. Policies: once (the push_choice stroke, then one real pick; afterwards a pick act would refuse is tried
+  anyway, to see what the refusals throw away), loop (up to 5 moves, freeing strokes ranked by far end clear, 5 cm
+  first), look (as loop, but while the red's pose is rough, first sweep a cover off it or push the red toward a clear
+  axis end). The simulator only scores the outcome.
+- Why: the 8 of 29 result judged "pickable" on the perceived red pose, and no pick was tried; 25 of 29 reds were rough.
+- Also answered (dm1487, "Which model are you using for this?"): no learned model chooses pushes; hand-written cues
+  from the camera height map, outcomes from MuJoCo on the CPU; Claude Opus 5.5 writes and runs the studies.
+- By: Claude, following state.md Next 1.
+
+## [2026-09-30 20:39] decision | Claude in the loop; the learned-predictor idea paused
+- dm1487: "I think with you in the loop, this might be better? What do you think?", then, after Claude proposed a
+  learned push scorer and dm1487 asked whether that meant learning a transition model: "Lets pause on this for a bit,
+  i'll read and comeback to you. I really want you to look at the problems, maintain your own belief, lean back on
+  learnings if needed, etc."
+- What Claude proposed, now paused: the program plays routine moves and calls Claude only where it is stuck; a
+  one-step scorer (will the red be pickable after this push?) fit on recorded strokes, first with real picks as labels.
+  Claude's view: the scorer is not a transition model; the push report is our hand-written transition model and is
+  poor because it assumes the red stays put (seed 5007).
+- Evidence for Claude in the loop: Claude players solved 24 of 25 finished v1 episodes (REPORT.md) and b5000, b5002
+  under the new rules; encoded rules picked the working push in 8 of 29 piles.
+- Next, when dm1487 is back: Claude plays piles itself, one move at a time, writing its belief each move (where the
+  red is and how sure, what blocks the grasp, what the move should do) and checking it against what happened.
+  look_first.py keeps running to give the rules baseline.
+- By: dm1487.
+
+## [2026-09-30 20:42] decision | The aim behind Claude in the loop: distill Claude's reasoning
+- dm1487: "Because I want to distill how you process a task (the high level reasoning you have is very powerful), and
+  i want to distil that into a smaller model, if you know what I mean."
+- Consequence: a demo's value includes Claude's reasoning, not only its actions. Each move should record the belief
+  (where the red is, how sure, what blocks the grasp), the goal, the options weighed and why one won, the prediction,
+  and afterwards what happened and how the belief changed. Rules or a learned scorer lose that reasoning, which is why
+  dm1487 paused them. A per-move record of this kind is also the input a fresh Claude call per move would need, so it
+  cuts the 5M-token cost at the same time (Claude's reasoning, untested).
+- Supersedes in part 2026-09-30 "the student is out of scope": the student's design still is, but the demos must
+  carry what it is meant to learn.
+- By: dm1487.
