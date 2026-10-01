@@ -35,9 +35,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Pushes first-class in the tools (19:40). Push studies done (journal, 20:00 to 20:13): one stroke opened the red
-  in 25 of 29 piles, but my common-sense choice found it in only 8. Reading list sent. Demos so far: b5000, b5002,
-  shelf 307 (videos sent).
+- Nothing. Pushes first-class in the tools; push studies done (journal, 19:40 to 20:20). Reading list sent. Demos
+  so far: b5000, b5002, shelf 307 (videos sent).
 
 ## Next
 
