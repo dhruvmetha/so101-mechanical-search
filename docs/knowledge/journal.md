@@ -1553,3 +1553,11 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   the real servos can read), a gentler grip, load limits recorded per move and checked by the tools, then redo the
   push and pick calibrations, since they were measured with impacts.
 - By: dm1487 found it; Claude measured.
+
+## [2026-10-01 02:00] note | Imagine-TAMP read in full
+- dm1487 asked; notes appended to `docs/reports/2026-10-01-planner-design.md`. Closest published design, but it scores
+  finding the target (seen within 20 replans), with pick-and-place occluders one layer deep: no piles, pushes or
+  spills. To borrow: the negative-observation particle update, Claude as a soft prior over which cube hides the red
+  (floored, so a wrong guess only delays), and costing looks by how much of the hypothesised red they'd show, which
+  points at aimed wrist-camera looks as a new visible information move.
+- By: Claude.

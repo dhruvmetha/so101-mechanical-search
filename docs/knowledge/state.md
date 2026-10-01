@@ -34,7 +34,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## Running now
 
 - The teacher driver (`demonstrator/driver.py`, journal 10-01 00:40): one Claude call per move. b5142 solved in 6
-  moves for about 35k tokens, $0.40 (01:05). Planner design report done (01:20).
+  moves for about 35k tokens, $0.40 (01:05). Planner design report done (01:20). Contact loads: pushes hit cubes at
+  0.2 to 0.55 m/s, 28 to 108 N (journal 01:45); guarded moves proposed, awaiting dm1487.
 
 ## Next
 

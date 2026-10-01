@@ -215,3 +215,30 @@ Semantic Mechanical Search, KnowNo, LLM-Modulo, Silver 2024, Thought of Search, 
 Suh and Tedrake. Also read, not cited above: ThinkGrasp (GPT-4o picks which occluder to remove each step, CoRL 2024,
 <https://arxiv.org/abs/2407.11298>) and LLM-written POMDP models checked against data (Curtis et al., arXiv 2025,
 <https://arxiv.org/abs/2505.02216>).
+
+## Imagine-TAMP, read in full (added 2026-10-01 by Claude)
+
+Singha, Kumar, Kim and Sung, "Imagine-TAMP: Imagination-Guided Task and Motion Planning in Partial Observability",
+arXiv 2609.20396, 17 Sep 2026 (Nanyang Technological University and UT Austin), 8 pages.
+
+- Method. A particle belief over the target's pose. After each look, particles the view should have exposed lose weight
+  by (1 - p_det * visibility). A VLM ranks the visible objects by how likely each hides the target; ranks 1 to 4 get
+  scores 1.0, 0.1, 0.05, 0.02, the rest 0.01 or 0, and each particle is reweighted by (1e-4 + score)^lambda, so a wrong
+  guess slows the search but never rules out the true spot. SAM 3D imagines the hidden geometry. The heaviest particle
+  becomes a "ghost target" placed in that imagined scene. A BFS lists plan skeletons (DETECT, PICK, PLACE); each is
+  costed by arm effort (normalised joint travel to IK-feasible samples) and, for DETECT, by how many pixels of the
+  ghost a 64 by 64 render from each candidate viewpoint would show. The cheapest skeleton goes to cuTAMP for motion,
+  runs, and the loop replans on new observations.
+- Results (PyBullet, paired seeds). Shelf, 50 trials: success 46% with unit costs against 84% with effort and
+  visibility costs, replans 11.5 to 4.5; at 15 occluders 35% against 85%. The visibility term changed efficiency, not
+  success (occluders removed 2.46 to 2.12). VLM shaping on 30 cluster scenes: 83.3% to 100% success, replans 6.30 to
+  1.40, removals 3.90 to 0.40 (Gemini 3.8 Flash; Qwen3-VL 32B and GPT-4o-mini between). Real robot: 4 trials, replans
+  3.25 to 1.50, planning time 232 to 158.5 s.
+- Limits for us. Success means the target was seen within 20 replans, not retrieved. Occluders stand one layer deep
+  and leave by pick and place; no pushes, piles, stacking or spills. Our hard part, getting a grasp on a red boxed in
+  a three-layer pile without spilling, is outside it.
+- What carries over. (1) The negative-observation update: cells a look showed empty lower the red's chance of being
+  there, which formalises our hiding map. (2) Claude as a soft prior over which cube hides the red, with the floor
+  so a wrong guess only delays; one call when the red is unseen. (3) Costing a look by how much of the hypothesised
+  red it would show, from a render of the imagined scene. Our wrist camera only looks from the park pose today; a
+  wrist look aimed at the ghost red would be a real, visible information-gathering move, which the teacher rules want.
