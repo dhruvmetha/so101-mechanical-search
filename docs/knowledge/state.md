@@ -27,9 +27,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - The knowledge system: `docs/knowledge/README.md`; `.claude/hooks/knowledge.sh` boots it, traps in `.claude/rules/`.
 - The expert as a program: `demonstrator/planner.py` p0.3 (9859fed) solved 13 of 13 pilot seeds in 1 to 6 moves, but
   it judged moves with the true hidden state, so it cheats (`planner.md`). Its demos are not usable yet.
-- Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` (Google Scanned Objects in MuJoCo, about 80
-  fit the gripper; stay on MuJoCo CPU), `scripts/objects_*.py`, `models/objects_test_*`. Bin depth, partial: tip reach
-  z -0.225 to +0.085 m (journal).
+- Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` (about 80 scanned objects fit the gripper).
+  Bin depth, partial: tip reach z -0.225 to +0.085 m (journal).
 - Work is committed on `mechanical-search`, from b0455b2 on; p0.3 is 9859fed.
 
 ## Running now
