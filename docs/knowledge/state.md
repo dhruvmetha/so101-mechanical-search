@@ -2,7 +2,7 @@
 
 Where the project stands now. The boot hook loads this file at startup, resume, `/clear` and after every compaction.
 Edit it in place when anything starts, finishes, gets decided or gets blocked, and log the same event in `journal.md`.
-Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 19:40 by Claude.
+Keep it under 6,000 characters: finished work leaves this file for the journal. Last updated 2026-09-30 20:04 by Claude.
 
 ## Goal right now
 
@@ -35,8 +35,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Running now
 
-- Nothing. Pushes are first-class since 19:39 (sweep, push report, calibrated refusal; journal). Reading list sent:
-  `docs/reports/2026-09-30-reading-list.md`. Demos under the new rules so far: b5000, b5002, shelf 307.
+- Since 20:04: push_goal on 48 piles: do purposeful pushes make the red pickable? (journal). Pushes first-class in the
+  tools since 19:40; reading list sent. Demos under the new rules so far: b5000, b5002, shelf 307.
 
 ## Next
 

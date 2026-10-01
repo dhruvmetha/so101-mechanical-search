@@ -578,7 +578,17 @@ class Episode:
                          "jam": bool(jam), "high": bool(high)}
             if high and room < travel + PUSH_WALL_MM / 1000:
                 risky.append(n)
-        return {"push": {"moves": report, "spill_risk": risky, "moves_red": TARGET in carried, "stroke": stroke}}
+        out = {"moves": report, "spill_risk": risky, "moves_red": TARGET in carried, "stroke": stroke}
+        if TARGET in cubes:
+            # What the stroke does for the red's access: covers on its top and blocked ends of its two jaw axes, now
+            # and with every predicted mover shifted by its predicted travel.
+            after = {n: dict(cb) for n, cb in cubes.items()}
+            for n, m in report.items():
+                pos = np.array(after[n]["pos"], float)
+                pos[:2] += d * m["travel_mm"] / 1000
+                after[n]["pos"] = pos
+            out["red_access"] = {"before": red_access(cubes), "after": red_access(after)}
+        return {"push": out}
     def pick_target(self, full, xyz, fixed_deg):
         """For a pick: the cube it is aimed at, how far the aim sits off that cube's centre toward the moving finger,
         and how deep any finger comes down inside the cube's own top outline. The height-map hits leave the target
@@ -668,6 +678,16 @@ def axis_ends(view, name):
     return out
 
 
+def red_access(cubes):
+    """Covers on the red's top, and blocked ends of each of its two jaw axes, from listed cubes."""
+    red = cubes[TARGET]
+    rc = np.asarray(red["pos"])
+    covers = [n for n, cb in cubes.items() if n != TARGET and np.linalg.norm(np.asarray(cb["pos"][:2]) - rc[:2]) < CUBE * 0.8
+              and cb["pos"][2] > rc[2] + HALF]
+    axes = axis_ends({"cubes": cubes}, TARGET)
+    return {"covers": covers, "axes": [(round(yaw), sum(bool(v) for v in ends.values())) for yaw, ends in axes]}
+
+
 def print_push(p):
     moves = ", ".join(f"{short(n)} ~{m['travel_mm']:.0f} mm" + (" INTO THE WALL" if m["jam"] else "")
                       for n, m in sorted(p["moves"].items(), key=lambda kv: -kv[1]["travel_mm"])) or "nothing seen"
@@ -677,6 +697,11 @@ def print_push(p):
               f"would end within {PUSH_WALL_MM:.0f} mm of the wall ahead (17% of such strokes spilled in calibration)")
     if p["moves_red"]:
         print("  moves the red (check where it ends up: against a wall or under a cube is worse)")
+    if "red_access" in p:
+        b, a = p["red_access"]["before"], p["red_access"]["after"]
+        axes = "; ".join(f"axis {yb} deg: blocked ends {nb} -> {na}" + (" (OPENS)" if nb and not na else "")
+                         for (yb, nb), (_, na) in zip(b["axes"], a["axes"]))
+        print(f"  red's access, predicted: covers {len(b['covers'])} -> {len(a['covers'])}; {axes}")
 
 
 def rough_note(cb):

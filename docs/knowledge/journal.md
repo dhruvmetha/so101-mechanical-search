@@ -1358,3 +1358,18 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   and when to pick-and-place instead. The v10.4 text now says which is which. The rulebook's own convention is that
   rules come from episodes; v10.4 broke it without saying so.
 - Next: a calibration of purposeful pushes at the red's covers and blockers, measuring whether they open its access.
+
+## [2026-09-30 20:04] start | Push play: do purposeful pushes get us to the red?
+- What: dm1487 asked whether Claude had tried pushes hands-on ("play with pushes ... figure out when it might be useful
+  to push and when not"). It hadn't. `demonstrator/experiments/push_play.py` tries listed strokes from one snapshot
+  and saves before/after pictures; `push_goal.py` generates purposeful strokes (blockers sideways, covers swept off,
+  the red pushed toward room) on many piles and judges each by what observe sees after, including whether act would
+  allow a pick of the red.
+- Seed 5007 by hand (`outputs/push_play_2026-09-30/s5007`): sideways pushes of the blocker g20 turned the red from a
+  rough wrist-only pose into a trusted front-camera one (strokes 1 and 3), but every stroke moved 7 to 11 listed cubes,
+  the red turned about 50 deg with its neighbours, and its jaw axes stayed blocked at both ends. The push report's
+  predicted access gains didn't happen: it assumes the red stays put.
+- Seed 5107, one-pile test of push_goal: sideways pushes made the red pickable 3 of 3, red pushes 2 of 2.
+- Running: push_goal on seeds 5101 to 5148, 14 processes.
+- Also added: the push report predicts the red's covers and blocked axis ends after a stroke (`red_access`).
+- By: dm1487 asked; Claude.
