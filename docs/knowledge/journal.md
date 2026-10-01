@@ -1519,3 +1519,18 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   more pushes went to the same blocker. The rules policies failed this pile with pushes only and 5 moves; the driver
   had pick-and-place too and used 6, so the comparison is not like for like. One episode.
 - By: Claude.
+
+## [2026-10-01 01:20] result | Planner design from the literature
+- A subagent (asked by dm1487) wrote `docs/reports/2026-10-01-planner-design.md`, 20 sources. Claude spot-checked the
+  two least known: Imagine-TAMP (Singha et al., arXiv 2609.20396, 17 Sep 2026) and Agentic Plan Caching (Zhang et al.,
+  arXiv 2506.14852, 50% cost cut); both real and as described.
+- Recommends: plan on the belief one move at a time with a fixed phase skeleton (find, see clearly, free a grasp,
+  lift); score checked candidates by expected moves to the next phase, c + c'(1/p - 1), from calibrated models, with a
+  spill veto (Garrett 2020, TAMPURA); not POMCP (about 40 CPU-minutes per decision here); depth-2 only when stuck.
+  Models by payoff: grasp outcome, spill, pose reveal, stroke outcome, hiding map; twins last.
+- Hybrid: the program plays; Claude is called on five triggers (stuck, close call, surprise, budget, novelty) and picks
+  among checked candidates; answers cached by situation and promoted to code after three identical choices; between
+  batches Claude edits the strategy code, kept only if a bench shows no regressions. Estimated under 30k tokens a demo.
+- Claude's note: the plain driver already used about 35k tokens on b5142, near that estimate, so the hybrid's case
+  now rests more on consistency and wall clock (about 50 s per call) than on tokens. One episode; measure on the bench.
+- By: dm1487 asked; subagent; Claude.

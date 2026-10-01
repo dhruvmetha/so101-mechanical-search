@@ -34,17 +34,16 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 ## Running now
 
 - The teacher driver (`demonstrator/driver.py`, journal 10-01 00:40): one Claude call per move. b5142 solved in 6
-  moves for about 35k tokens, $0.40 (01:05). A literature agent is writing `docs/reports/2026-10-01-planner-design.md`.
+  moves for about 35k tokens, $0.40 (01:05). Planner design report done (01:20).
 
 ## Next
 
-1. What predicts a working push: the red's pose quality matters most (trusted 3 of 4, rough 5 of 25); test look-first,
-   verify pickable verdicts with real picks; look at pictures (`outputs/push_goal_2026-09-30`)
-   before encoding cues; then push against pick-and-place of the same blockers on the same piles.
-2. The expert as a program (belief-space TAMP: plan on the belief, one move, look, replan), using the calibrated checks
-   as its models; Claude only when it finds no plan. Then redo the demos (dm1487) and measure moves and cost.
-3. Smaller: rerun the pick calibration (it predates the third-layer contact fix); shelf sweeps with a calibration;
-   wall height with the sizing script; the bin-depth study; the container family and the object set.
+1. The bench (planner-design report, step 1 and 2): the teacher driver on the 29 look_first piles and 10 buried
+   seeds; solved, moves, spills, tokens per demo against the rules' 3, 9, 11 (14 together). Awaiting dm1487's go.
+2. Grasp and spill models from simulated picks and strokes on other seeds, camera features only (report step 3).
+3. Planner p1 on the belief (phases, expected moves c + c'(1/p - 1), spill veto), Claude as arbiter on triggers and
+   as strategy author between batches (`docs/reports/2026-10-01-planner-design.md`).
+4. Smaller: rerun the pick calibration; shelf sweeps; wall height; bin depth; the container family and object set.
 
 ## Decisions in force
 
