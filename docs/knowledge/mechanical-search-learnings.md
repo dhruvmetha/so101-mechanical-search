@@ -118,6 +118,20 @@ What they mean for search:
   means remembering what objects did earlier in the episode. And whatever the expert remembers, the student must be
   able to remember too, or it can't copy the choice from the current frame. An expert that looks after every move
   corrects without that memory, at the cost of more moves; a narrow, realistic range keeps a memoryless policy viable.
+- Rearrangement lessons that hold across the bin and the shelf (2026-09-30; evidence in brackets):
+  - Two kinds of obstacle: what hides the target and what stands where the gripper must go (bin covers and jaw-axis
+    neighbours; shelf front row and jaw corridor). Access is free space shaped like the gripper's path.
+  - A push moves whatever touches what it touches, as one group: pushing a target's neighbour drags the target (bin
+    seed 5007, the red turned 50 deg with its cluster; shelf 307, a pushed gray pulled the red along).
+  - Still, one well-chosen push often opens the way: in 25 of 29 bin piles one stroke made the target graspable, most
+    often a blocker pushed sideways off the target's jaw axis (23 of 29), though only 1 stroke in 4 of that kind works.
+    Choosing the stroke is the skill; a check that assumes the target stays put predicts it badly.
+  - Pushes reveal, even when they don't free: half of the bin strokes near the target turned a rough pose into a
+    trusted one. And they can undo access: next to a graspable target, a push kept it graspable 10 times in 22.
+  - Boundaries and height are where pushes fail: cubes riding above a wall's height spill when driven into it, tall
+    objects tip unless pushed below half-width / friction. Pushing along a boundary, not into it, worked (shelf 307).
+  - Free space is the scarce resource. Shelf 306 had no pushes and no free spots, and nothing freed the target; pushes
+    make room by packing objects, pick-and-place needs room first.
 - Judge a push by what it moves and where things end, not by what it touches. A pick-style check that flags every
   contact made every push look dangerous, and the players pushed once in 260 moves (2026-09-30). Measured on 768
   strokes: carrying a cube that rides above the lower layer to within 15 mm of the wall ahead spilled 18%; other

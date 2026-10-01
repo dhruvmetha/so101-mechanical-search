@@ -1373,3 +1373,16 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Running: push_goal on seeds 5101 to 5148, 14 processes.
 - Also added: the push report predicts the red's covers and blocked axis ends after a stroke (`red_access`).
 - By: dm1487 asked; Claude.
+
+## [2026-09-30 20:07] result | Purposeful pushes on 48 piles: one stroke often opens the red
+- Run: `demonstrator/experiments/push_goal.py`, seeds 5101 to 5148, 14 processes; output
+  `outputs/push_goal_2026-09-30/rows.json`. The red was listed in 32 piles and pickable at the start in 3.
+- Of the 29 where it wasn't pickable, one stroke made it pickable in 25: blockers pushed sideways in 23, the red pushed
+  toward room in 12 of 28, covers swept in 5 of 14. Per stroke: sideways 57 of 232 (25%; 5 cm 24%, 8 cm 26%), red 14
+  of 71, covers 8 of 27. Strokes turned an untrusted red into a trusted pose 173 times in 322. When the red was
+  already pickable, a sideways push kept it so 10 times in 22. Allowed strokes spilled 16 of 374 (4.3%); 158 of 532
+  candidates were refused by the spill rule.
+- Homes: rulebook (v10.4 push bullets, measured now), learnings (rearrangement lessons across bin and shelf).
+- Next: the same piles with pick-and-place of the same blockers, to compare; and a push report that predicts which
+  sideways stroke works (it assumes the red stays put).
+- By: Claude.
