@@ -129,6 +129,8 @@ What they mean for search:
     axis already clear, then open floor where the blocker lands, then room for the finger" opened the target in 8 of
     29 piles, little better than a blind stroke (25%). Only the first cue held (50% against 20%); open floor at the
     landing spot pointed the wrong way. A check that assumes the target stays put predicts badly too.
+    The bigger cause is not knowing where the target is: with a trusted target pose the same choice worked in 3 of 4
+    piles, with a rough one in 5 of 25. See the target clearly before choosing how to free it.
   - Pushes reveal, even when they don't free: half of the bin strokes near the target turned a rough pose into a
     trusted one. And they can undo access: next to a graspable target, a push kept it graspable 10 times in 22.
   - Boundaries and height are where pushes fail: cubes riding above a wall's height spill when driven into it, tall

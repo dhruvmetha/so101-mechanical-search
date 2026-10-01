@@ -41,7 +41,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## Next
 
-1. What predicts a working push: look at pictures of strokes that worked and didn't (`outputs/push_goal_2026-09-30`)
+1. What predicts a working push: the red's pose quality matters most (trusted 3 of 4, rough 5 of 25); test look-first,
+   verify pickable verdicts with real picks; look at pictures (`outputs/push_goal_2026-09-30`)
    before encoding cues; then push against pick-and-place of the same blockers on the same piles.
 2. The expert as a program (belief-space TAMP: plan on the belief, one move, look, replan), using the calibrated checks
    as its models; Claude only when it finds no plan. Then redo the demos (dm1487) and measure moves and cost.

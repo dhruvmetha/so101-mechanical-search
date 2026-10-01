@@ -1402,3 +1402,13 @@ time are in no known order. When this file passes 800 lines, entries from earlie
 - Not understood yet: why the landing-floor cue points the wrong way, and what does predict a working push. Next:
   look at pictures of strokes that worked and didn't, before encoding another cue.
 - By: dm1487 asked; Claude.
+
+## [2026-09-30 20:14] finding | Push choice fails mostly because the red's position is uncertain
+- dm1487: "But do you know where the red is?" Split of the push_choice result by the red's pose at the start: trusted
+  (top face well seen) 4 piles, the common-sense pick worked in 3; rough (box fit or wrist-only, often 15 mm off) 25
+  piles, worked in 5, though some stroke worked in 19. Small sample on the trusted side.
+- Also a weakness of the push studies: "pickable" there means act would allow the pick, judged on the perceived red
+  pose; no pick was attempted. With a rough pose, both the stroke choice and that verdict inherit the error.
+- Implication to test: look first, then push. Pushes near the red turned a rough pose into a trusted one in 54% of
+  strokes, so a revealing move may come before a freeing one. Verify pickable verdicts with real picks next time.
+- By: dm1487 asked; Claude.
