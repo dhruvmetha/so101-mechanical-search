@@ -45,6 +45,8 @@ In short, from `docs/knowledge/operating-principles.md`:
 - Measure before asserting, and check rules against geometry before writing them down.
 - Budget long or parallel runs (usage limits, recovery), freeze tools for a batch, one unit of work per agent.
 - Put recurring rules into the tools as checks, not more prose.
+- IMPORTANT (dm1487): when playing the expert, follow "IMPORTANT: how the teacher plays" at the top of
+  `docs/knowledge/mechanical-search-learnings.md`.
 
 ## Commands
 

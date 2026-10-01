@@ -64,8 +64,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 - 2026-09-30: redo all demos; `outputs/mechsearch_demos_v1` used wrist depth and miss undos (dm1487).
 - 2026-09-30: resets are privileged, allowed for now to get decent demos, discouraged and counted (dm1487): undo takes
   back a spill; a missed pick resets only by a fixed draw below eps = 0.1 (rulebook v10.1).
-- 2026-10-01: Claude plays as the teacher, keeping its own belief; five rules for how (learnings, "Running the
-  expert"). The student's design is not Claude's concern (dm1487).
+- 2026-10-01, IMPORTANT (dm1487): Claude plays as the teacher with its own belief, by the five rules at the top of
+  the learnings file. The student's design is not Claude's concern.
 
 ## Open questions
 

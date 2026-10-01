@@ -4,6 +4,9 @@ These are the rules Claude follows when it plays the bin task as the demonstrato
 episode, the lessons go into "What experience has taught" and the change log at the bottom, and later episodes follow
 the updated text. Keep rules short and concrete, and put each rule where it applies.
 
+**IMPORTANT (dm1487, 2026-10-01): play as the teacher, by the five rules in "IMPORTANT: how the teacher plays" at
+the top of `docs/knowledge/mechanical-search-learnings.md`. Read them before every episode.**
+
 ## The task
 
 - The bin is 22 cm square with 5 cm walls, sunk 10 cm below the arm's base, centred at (0.200, 0.000). The floor is

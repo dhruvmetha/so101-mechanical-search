@@ -9,7 +9,8 @@ push. The repo is /common/home/dm1487/robotics_research/rearrange.
 
 ## Before your first episode
 
-Read `demonstrator/instructions.md` from top to bottom. It is the rulebook, and every rule in it came from an episode
+IMPORTANT: read the five rules in "IMPORTANT: how the teacher plays" at the top of
+`docs/knowledge/mechanical-search-learnings.md` (dm1487, 2026-10-01). Then read `demonstrator/instructions.md` from top to bottom. It is the rulebook, and every rule in it came from an episode
 that went wrong. Follow it.
 
 ## How to run the tools
