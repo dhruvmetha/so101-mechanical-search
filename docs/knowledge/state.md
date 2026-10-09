@@ -17,7 +17,7 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
 
 ## What exists
 
-- Sim tasks: the bin (`so101sim/mechsearch.py`) and the shelf (`so101sim/shelf.py`), specs in `docs/superpowers/specs/`.
+- Sim tasks: the bin (`so101sim/mechsearch.py`) and the shelf (`so101sim/shelf.py`); specs in `docs/superpowers/`.
 - The expert's tools, `demonstrator/tools.py` (`codebase.md` has the parts): observe, check (picks and strokes), act
   with calibrated refusals, undo (spills), places. Rulebook `demonstrator/instructions.md` v10.4; brief AGENT_BRIEF.md.
 - Demonstrations v1, superseded (redo, dm1487): 26 episodes in `outputs/mechsearch_demos_v1` (LeRobot, 43,392
