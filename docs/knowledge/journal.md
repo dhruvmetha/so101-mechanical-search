@@ -1561,3 +1561,9 @@ time are in no known order. When this file passes 800 lines, entries from earlie
   (floored, so a wrong guess only delays), and costing looks by how much of the hypothesised red they'd show, which
   points at aimed wrist-camera looks as a new visible information move.
 - By: Claude.
+
+## [2026-10-09] decision | The repo is on GitHub, private
+- dm1487 approved. Created github.com/dhruvmetha/so101-mechanical-search (private) with `gh`, pushed
+  `mechanical-search` (the only branch) and made it the default. Before pushing, a scan of tracked files found no keys
+  or tokens. Outputs and videos stay local (git-ignored). Also committed b5142's hidden physics, as for b5000 and b5002.
+- By: dm1487; Claude.

@@ -29,7 +29,8 @@ would be built for real), and contents from cubes to YCB objects and toys (dm148
   it judged moves with the true hidden state, so it cheats (`planner.md`). Its demos are not usable yet.
 - Realistic objects: `docs/reports/2026-09-30-realistic-objects.md` (about 80 scanned objects fit the gripper).
   Bin depth, partial: tip reach z -0.225 to +0.085 m (journal).
-- Work is committed on `mechanical-search`, from b0455b2 on; p0.3 is 9859fed.
+- Work is committed on `mechanical-search`, pushed to github.com/dhruvmetha/so101-mechanical-search (private,
+  2026-10-09); p0.3 is 9859fed.
 
 ## Running now
 
