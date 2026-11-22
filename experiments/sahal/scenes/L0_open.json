@@ -1,0 +1,20 @@
+{
+ "name": "L0_open",
+ "level": "L0",
+ "description": "red in the open, both grays well out of the way",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.42,
+   0.0
+  ],
+  "cyl_gray_0": [
+   0.44,
+   0.1
+  ],
+  "cyl_gray_1": [
+   0.37,
+   -0.09
+  ]
+ }
+}

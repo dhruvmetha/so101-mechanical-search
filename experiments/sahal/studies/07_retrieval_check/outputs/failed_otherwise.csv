@@ -1,0 +1,27 @@
+scene,kind,real_reason,check_reason,plan_min_gray_clearance_mm,red_x_m,red_y_m,red_to_left_wall_mm,red_to_right_wall_mm,gripper_reading_after_pick,red_moved_mm,red_tilt_after_pick_deg,jaws_touch_after_pick,both_jaws_on_red,arm_touched_gray
+8,in the approach corridor,pick refused: the path would hit shelf_right at frame 115,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 66,-26.6,0.4157,-0.1251,270.1,19.9,,,,,,
+24,beside the red,pick refused: the path would hit shelf_right at frame 112,pick: arm (gripper#25) within 5 mm of cyl_gray_1 at frame 66,-26.0,0.4301,-0.132,277.0,13.0,,,,,,
+25,anywhere,pick refused: the path would hit shelf_right at frame 92,pick: arm within 6 mm of shelf_right at frame 92,37.1,0.3791,-0.13,275.0,15.0,,,,,,
+35,anywhere,pick refused: the path would hit shelf_left at frame 80,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 69,-8.1,0.4221,0.1314,13.6,276.4,,,,,,
+42,in the approach corridor,pick refused: the path would hit shelf_right at frame 78,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 64,-37.8,0.3677,-0.1397,284.7,5.3,,,,,,
+49,anywhere,pick refused: the path would hit shelf_right at frame 90,pick: arm within 6 mm of shelf_right at frame 90,50.0,0.3806,-0.134,279.0,11.0,,,,,,
+54,in the approach corridor,pick refused: the path would hit shelf_right at frame 105,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 71,-37.7,0.3936,-0.1264,271.4,18.6,,,,,,
+58,beside the red,pick refused: the path would hit shelf_right at frame 124,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 109,-16.9,0.4458,-0.1283,273.3,16.7,,,,,,
+65,beside the red,pull refused: pull needs a held cylinder and the gripper isn't holding one,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 94,-23.0,0.4455,-0.1096,254.6,35.4,10.0,21.3,0.0,,False,cyl_gray_0
+69,beside the red,pick refused: the path would hit shelf_left at frame 70,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 49,-24.9,0.3954,0.1324,12.6,277.4,,,,,,
+76,beside the red,pick refused: the path would hit shelf_right at frame 81,pick: arm within 6 mm of shelf_right at frame 81,18.9,0.3589,-0.1306,275.6,14.4,,,,,,
+80,in the approach corridor,pick refused: the path would hit shelf_right at frame 109,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 72,-29.8,0.4176,-0.1302,275.2,14.8,,,,,,
+88,anywhere,pick refused: the path would hit shelf_left at frame 98,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_1 at frame 48,-38.4,0.459,0.1357,9.3,280.7,,,,,,
+100,in the approach corridor,pick refused: the path would hit shelf_right at frame 144,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_1 at frame 64,-40.0,0.4578,-0.1227,267.7,22.3,,,,,,
+102,in the approach corridor,pull refused: pull needs a held cylinder and the gripper isn't holding one,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 74,-23.3,0.4075,-0.057,202.0,88.0,10.0,18.7,0.0,,False,cyl_gray_0
+142,beside the red,pick refused: the path would hit shelf_left at frame 72,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_1 at frame 27,-17.4,0.3999,0.1324,12.6,277.4,,,,,,
+145,in the approach corridor,pick refused: the path would hit shelf_right at frame 119,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 62,-27.8,0.4456,-0.1304,275.4,14.6,,,,,,
+152,in the approach corridor,pick refused: the path would hit shelf_left at frame 81,pick: arm (moving_jaw_sph_tip1) within 5 mm of cyl_gray_0 at frame 22,-29.5,0.4406,0.1359,9.1,280.9,,,,,,
+172,anywhere,pick refused: the path would hit shelf_left at frame 83,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 57,-32.3,0.449,0.1376,7.4,282.6,,,,,,
+203,in the approach corridor,pull refused: pull needs a held cylinder and the gripper isn't holding one,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 32,-39.4,0.3828,0.073,72.0,218.0,10.0,20.4,0.0,,False,cyl_gray_0
+209,beside the red,pick refused: the path would hit shelf_left at frame 89,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 74,-11.5,0.4535,0.1375,7.5,282.5,,,,,,
+223,in the approach corridor,pick refused: the path would hit shelf_right at frame 93,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 63,-39.6,0.3803,-0.1294,274.4,15.6,,,,,,
+239,in the approach corridor,pick refused: the path would hit shelf_left at frame 79,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 48,-24.1,0.4282,0.1347,10.3,279.7,,,,,,
+241,beside the red,pick refused: the path would hit shelf_right at frame 92,pick: arm (moving_jaw_so101_v1#41) within 5 mm of cyl_gray_0 at frame 78,-23.9,0.3961,-0.1383,283.3,6.7,,,,,,
+276,in the approach corridor,pick refused: the path would hit shelf_right at frame 115,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 77,-30.4,0.4125,-0.1241,269.1,20.9,,,,,,
+285,in the approach corridor,pick refused: the path would hit shelf_left at frame 84,pick: arm (gripper#25) within 5 mm of cyl_gray_0 at frame 37,-34.2,0.4501,0.1378,7.2,282.8,,,,,,

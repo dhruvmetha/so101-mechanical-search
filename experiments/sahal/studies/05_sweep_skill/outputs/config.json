@@ -1,0 +1,76 @@
+{
+  "command": "studies/05_sweep_skill/run.py --parts toward_robot",
+  "settings": {
+    "quick": false,
+    "spots_m": {
+      "centre": [
+        0.4075,
+        0.0
+      ],
+      "near left wall": [
+        0.4075,
+        0.12
+      ],
+      "near right wall": [
+        0.4075,
+        -0.12
+      ],
+      "front": [
+        0.33,
+        0.0
+      ],
+      "back": [
+        0.45,
+        0.0
+      ]
+    },
+    "directions_deg": [
+      0,
+      45,
+      90,
+      135,
+      225,
+      270,
+      315
+    ],
+    "lengths_m": [
+      0.03,
+      0.06,
+      0.1
+    ],
+    "frictions": [
+      0.55,
+      0.7
+    ],
+    "repetitions": 3,
+    "toward_robot_deg": 180,
+    "toward_robot_half_angle_deg": 22.5,
+    "density_kg_m3": 900.0,
+    "reset_seed": 0,
+    "study_seed": 5,
+    "sweep_heights_m": [
+      0.023,
+      0.024,
+      0.025,
+      0.026
+    ],
+    "contact_speed_m_s": 0.019999999999999997,
+    "contact_speed_fraction": 0.3333333333333333,
+    "normal_tool_speed_m_s": 0.06,
+    "start_gap_m": 0.005,
+    "glitch_contact_force_n": 100.0,
+    "jam_contact_force_n": 100.0,
+    "wall_geoms": [
+      "shelf_left",
+      "shelf_right",
+      "shelf_back",
+      "shelf_top"
+    ],
+    "glitch_speed_m_s": 1.0
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-21 20:11:43"
+}

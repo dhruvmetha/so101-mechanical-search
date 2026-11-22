@@ -21,7 +21,7 @@ from gymnasium import spaces
 from common import measures
 from so101sim import ik, rest, side_primitives, units
 from so101sim.primitives import GRIP_CLOSE, _grip_rad
-from so101sim.shelf import TARGET, TOPPLE_DEG, ShelfPrimitiveEnv
+from so101sim.shelf import TARGET, TOPPLE_DEG, ShelfPrimitiveEnv, _Refused
 from so101sim.shelf_layout import CYL_RADIUS
 
 MID_RANGE_PHYSICS = {"friction": 0.55, "density": 900.0}  # middle of the env's friction and density ranges
@@ -46,6 +46,12 @@ class RunLog:
     arm_contacts: list[measures.Contact] = field(default_factory=list)
     max_contact_force_n: float = 0.0
     max_red_speed_m_s: float = 0.0
+    max_contact_force_on_wall_n: float = 0.0  # peak arm-red force over substeps where the red touches a wall or top
+    red_wall_touch: str | None = None  # first wall or top board the red touched
+    arm_gray_touch: str | None = None  # first gray cylinder an arm geom touched
+    max_gray_contact_force_n: float = 0.0  # peak arm force on any one gray
+    max_gray_speed_m_s: float = 0.0
+    max_gray_force_on_wall_n: float = 0.0  # peak arm force on a gray while that gray touches a wall or the top board
     arm_shelf_touch: str | None = None
     substeps: list[dict] | None = None
     video: list[np.ndarray] = field(default_factory=list)
@@ -81,6 +87,7 @@ class SingleRedShelf(ShelfPrimitiveEnv):
         self.record_substeps = False
         self.base_geometry = self.geo
         self.push_speed_fraction = 1.0
+        self.planned_trajectory: np.ndarray | None = None
         self.would_refuse = None
         self.phase = None
         self.log = RunLog()
@@ -93,6 +100,11 @@ class SingleRedShelf(ShelfPrimitiveEnv):
     def reset(self, *, seed: int = 0, red_xy=None, physics: dict | str | None = None) -> dict:
         """Start pose, physics, and the red standing at `red_xy` (default: the region's centre). Returns place_red's
         report. `physics` is a {"friction", "density"} dict, SAMPLE_PHYSICS, or None for MID_RANGE_PHYSICS."""
+        self._start(seed, physics)
+        return self.place_red(np.array(REGION_CENTRE_XY_M) if red_xy is None else red_xy)
+
+    def _start(self, seed: int, physics: dict | str | None) -> None:
+        """Seed, physics, the arm at its start pose and every cylinder parked off stage (reset without placing)."""
         gym.Env.reset(self, seed=seed)
         inner = self.env
         gym.Env.reset(inner, seed=seed)
@@ -103,7 +115,6 @@ class SingleRedShelf(ShelfPrimitiveEnv):
         inner._steps, inner._streak = 0, 0
         inner._reset_info = {"hidden": False, "physics": dict(inner.physics)}
         self.log = RunLog()
-        return self.place_red(np.array(REGION_CENTRE_XY_M) if red_xy is None else red_xy)
 
     def place_red(self, xy) -> dict:
         """Stand the red upright at `xy` (anywhere on the board) and let it come to rest. Reports where it ended."""
@@ -144,7 +155,20 @@ class SingleRedShelf(ShelfPrimitiveEnv):
 
     # ---- overrides -------------------------------------------------------------------------------------------
 
+    def run_planned(self, trajectory: np.ndarray, xy, heading_rad: float):
+        """Run a trajectory planned outside the env (lerobot units, 30 Hz) through the env's own `step` as a push:
+        the same holding check, bridge from the current pose, path check, frame-by-frame checks and settle."""
+        self.planned_trajectory = np.asarray(trajectory, dtype=np.float32)
+        try:
+            return self.step(("push", np.asarray(xy, dtype=np.float64), float(heading_rad)))
+        finally:
+            self.planned_trajectory = None
+
     def _plan(self, kind, xy, angle):
+        if kind == "push" and self.planned_trajectory is not None:
+            if self.holding():
+                raise _Refused("push with a cylinder still in the gripper; place or pull it first (holding)")
+            return self.planned_trajectory
         trajectory = super()._plan(kind, xy, angle)
         if kind == "push":
             trajectory = resample_trajectory(trajectory, self.push_speed_fraction)
@@ -168,7 +192,8 @@ class SingleRedShelf(ShelfPrimitiveEnv):
 
     def _apply_and_measure(self, action) -> None:
         """ShelfEnv._apply (one 30 Hz control step, arm-shelf check every substep), plus arm-cylinder contacts,
-        their peak force and the cylinder's peak speed every substep. Reads state only, so physics is unchanged."""
+        their peak force, red-wall contacts and the cylinder's peak speed every substep. Reads state only, so physics
+        is unchanged."""
         inner, model, data, log = self.env, self.model, self.data, self.log
         action = np.clip(action, inner.action_space.low, inner.action_space.high)
         data.ctrl[:] = units.to_rad(action, inner._gripper_range)
@@ -176,6 +201,8 @@ class SingleRedShelf(ShelfPrimitiveEnv):
         red, board_z = inner._geom[TARGET], inner.layout.board_z
         dof = inner._dofadr[TARGET]
         board = frozenset({model.geom("shelf_board").id})
+        grays = inner._cyl_geoms - {red}
+        walls = frozenset(model.geom(name).id for name in measures.WALL_GEOMS)
         for _ in range(inner._n_substeps):
             mujoco.mj_step(model, data)
             if inner._hit is None:
@@ -186,8 +213,18 @@ class SingleRedShelf(ShelfPrimitiveEnv):
             log.arm_contacts += contacts
             speed = float(np.linalg.norm(data.qvel[dof:dof + 3]))
             log.max_red_speed_m_s = max(log.max_red_speed_m_s, speed)
+            if grays:
+                if log.arm_gray_touch is None:
+                    log.arm_gray_touch = _first_touch(model, data, inner._arm_ids, grays)
+                self._measure_grays(grays, walls)
+            on_wall = measures.red_contacts(model, data, red, walls, board_z)
+            if on_wall and log.red_wall_touch is None:
+                log.red_wall_touch = on_wall[0].geom
             if contacts:
-                log.max_contact_force_n = max(log.max_contact_force_n, sum(c.normal_force_n for c in contacts))
+                force = sum(c.normal_force_n for c in contacts)
+                log.max_contact_force_n = max(log.max_contact_force_n, force)
+                if on_wall:
+                    log.max_contact_force_on_wall_n = max(log.max_contact_force_on_wall_n, force)
             if self.record_substeps:
                 log.substeps = [] if log.substeps is None else log.substeps
                 base = measures.red_contacts(model, data, red, board, board_z, True)
@@ -201,6 +238,19 @@ class SingleRedShelf(ShelfPrimitiveEnv):
                     "base_slip_m_s": max((c.slip_speed_m_s for c in base), default=float("nan")),
                 })
 
+    def _measure_grays(self, grays: frozenset[int], walls: frozenset[int]) -> None:
+        """Peak arm force on each gray, the grays' peak speed, and the arm force on a gray pinned to a wall."""
+        model, data, log, inner = self.model, self.data, self.log, self.env
+        for gray in grays:
+            arm = measures.red_contacts(model, data, gray, inner._arm_ids, inner.layout.board_z)
+            force = sum(c.normal_force_n for c in arm)
+            log.max_gray_contact_force_n = max(log.max_gray_contact_force_n, force)
+            if arm and measures.red_contacts(model, data, gray, walls, inner.layout.board_z):
+                log.max_gray_force_on_wall_n = max(log.max_gray_force_on_wall_n, force)
+            name = model.body(model.geom_bodyid[gray]).name
+            dof = inner._dofadr[name]
+            log.max_gray_speed_m_s = max(log.max_gray_speed_m_s, float(np.linalg.norm(data.qvel[dof:dof + 3])))
+
     def _failure_ignoring_arm_touch(self):
         """ShelfEnv._failure without its first check: an arm-shelf touch is recorded, not an episode end."""
         inner = self.env
@@ -210,6 +260,45 @@ class SingleRedShelf(ShelfPrimitiveEnv):
             if not inner.layout.on_board(inner._xy(name)) and (name != TARGET or not inner.held(name)):
                 return f"left the shelf: {name}"
         return None
+
+
+class RedAndGraysShelf(SingleRedShelf):
+    """SingleRedShelf with some gray cylinders standing on the board too, placed by the caller. The grays placed join
+    the task's checks (topple, off the board, at rest); the rest stay parked off stage."""
+
+    def reset_scene(self, *, seed: int = 0, red_xy, gray_xys: dict[str, tuple[float, float]],
+                    physics: dict | str | None = None) -> dict:
+        """Stand the red at `red_xy` and each named gray at its xy, then let them come to rest. Returns where each
+        cylinder ended, its tilt, whether any touched the arm and whether they came to rest."""
+        self._start(seed, physics)
+        inner = self.env
+        names = (TARGET, *gray_xys)
+        inner.cyls, inner.grays = names, tuple(gray_xys)
+        inner._rest_dofs = rest.free_dofs(self.model, names)
+        inner._cyl_geoms = frozenset(inner._geom[n] for n in names)
+        inner._place(TARGET, np.asarray(red_xy, dtype=np.float64))
+        for name, xy in gray_xys.items():
+            inner._place(name, np.asarray(xy, dtype=np.float64))
+        touched = inner._settle()
+
+        def frame() -> None:
+            mujoco.mj_step(self.model, self.data, nstep=inner._n_substeps)
+
+        resting = rest.come_to_rest(frame, self.data, inner._rest_dofs)
+        mujoco.mj_forward(self.model, self.data)
+        poses = {n: inner.cylinder_pose(n) for n in names}
+        return {"xy": {n: poses[n]["pos"][:2].copy() for n in names}, "tilt": {n: poses[n]["tilt"] for n in names},
+                "touched_arm": bool(touched), "resting": bool(resting)}
+
+
+def _first_touch(model: mujoco.MjModel, data: mujoco.MjData, arm: frozenset[int], others: frozenset[int]) -> str | None:
+    """Name of the first geom in `others` that an arm geom is touching now, or None."""
+    for c in data.contact[: data.ncon]:
+        if c.geom1 in arm and c.geom2 in others:
+            return model.geom(c.geom2).name
+        if c.geom2 in arm and c.geom1 in others:
+            return model.geom(c.geom1).name
+    return None
 
 
 def resample_trajectory(trajectory: np.ndarray, speed_fraction: float) -> np.ndarray:
@@ -226,14 +315,15 @@ def resample_trajectory(trajectory: np.ndarray, speed_fraction: float) -> np.nda
 
 
 def push_start_back_distance(env: SingleRedShelf, cylinder_xy: np.ndarray, heading_rad: float,
-                             height_above_board_m: float) -> float:
+                             height_above_board_m: float, cylinder: str = TARGET) -> float:
     """How far behind the cylinder centre, against `heading_rad`, the push starts so that no arm geom comes within
-    PUSH_START_GAP_M of the cylinder on the way in or at the start. Kinematic, by bisection."""
+    PUSH_START_GAP_M of `cylinder` on the way in or at the start. Kinematic, by bisection. Other cylinders are not
+    checked."""
     model = env.model
     probe = mujoco.MjData(model)
     probe.qpos[:] = env.data.qpos
     inner = env.env
-    red = inner._geom[TARGET]
+    red = inner._geom[cylinder]
     saved_margin = model.geom_margin[red]
     model.geom_margin[red] = PUSH_START_GAP_M
     direction = np.array([np.cos(heading_rad), np.sin(heading_rad)])
@@ -266,16 +356,18 @@ def push_start_back_distance(env: SingleRedShelf, cylinder_xy: np.ndarray, headi
         model.geom_margin[red] = saved_margin
 
 
-def jitter_offset(repetition: int, height_cm: float, friction: float, direction: str) -> np.ndarray:
-    """A push-start offset of up to JITTER_RADIUS_M, fixed by the run's cell and repetition, not by the worker.
-
-    The seed rule is the one the earlier studies used, so the same cell and repetition get the same jitter.
-    """
-    direction_index = list(PUSH_DIRECTIONS_RAD).index(direction)
-    rng = np.random.default_rng([repetition, int(round(height_cm * 100)), int(round(friction * 100)),
-                                 direction_index])
+def seeded_jitter(seed: list[int]) -> np.ndarray:
+    """An xy offset uniform over a disc of radius JITTER_RADIUS_M (metres), fixed by `seed`, not by the worker."""
+    rng = np.random.default_rng(seed)
     angle, radius = rng.uniform(0, 2 * np.pi), JITTER_RADIUS_M * np.sqrt(rng.uniform())
     return radius * np.array([np.cos(angle), np.sin(angle)])
+
+
+def jitter_offset(repetition: int, height_cm: float, friction: float, direction: str) -> np.ndarray:
+    """The push-start jitter of studies 03 and 04: the seed is (repetition, height in cm x 100, friction x 100,
+    direction index), the rule those studies used, so the same cell and repetition get the same jitter."""
+    direction_index = list(PUSH_DIRECTIONS_RAD).index(direction)
+    return seeded_jitter([repetition, int(round(height_cm * 100)), int(round(friction * 100)), direction_index])
 
 
 def run_push(env: SingleRedShelf, *, direction: str, height_cm: float, friction: float,

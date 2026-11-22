@@ -1,0 +1,111 @@
+{
+ "scenes": 300,
+ "built": 300,
+ "not_built": 0,
+ "agreement_table": {
+  "check yes, succeeded": 142,
+  "check yes, failed": 0,
+  "check no, succeeded": 0,
+  "check no, failed": 158
+ },
+ "agree": 300,
+ "agreement_rate": 1.0,
+ "real_successes": 142,
+ "glitch_scenes": [
+  211,
+  215
+ ],
+ "by_kind": {
+  "anywhere": {
+   "check yes, succeeded": 69,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 21
+  },
+  "in the approach corridor": {
+   "check yes, succeeded": 32,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 105
+  },
+  "beside the red": {
+   "check yes, succeeded": 41,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 32
+  }
+ },
+ "check_reasons": {
+  "simulated": 300
+ },
+ "real_reasons": {
+  "ok": 142,
+  "gray toppled": 66,
+  "gray left the shelf": 64,
+  "refused: path check": 23,
+  "pull refused: pull needs a held cylinder": 3,
+  "red toppled": 1,
+  "red left the shelf": 1
+ },
+ "check_no_succeeded_by_reason": {},
+ "check_yes_failed_by_real_reason": {},
+ "arm_touched_gray_but_succeeded": 70,
+ "check_ms": {
+  "mean": 1104.3,
+  "median": 1229.0,
+  "p90": 1653.1,
+  "max": 2140.7
+ },
+ "check_ms_mean_by_reason": {
+  "simulated": 1104.3
+ },
+ "physics_s_median": 1.23,
+ "plan_min_gray_clearance_mm_by_outcome": {
+  "succeeded": {
+   "scenes": 142,
+   "min": -29.3,
+   "median": 0.6,
+   "max": 50.0
+  },
+  "a gray toppled or left the shelf": {
+   "scenes": 130,
+   "min": -53.9,
+   "median": -26.9,
+   "max": -8.8
+  },
+  "failed otherwise": {
+   "scenes": 28,
+   "min": -41.8,
+   "median": -23.2,
+   "max": 50.0
+  }
+ },
+ "examples": {
+  "check yes, failed": [],
+  "check no, succeeded": []
+ },
+ "check_ms_single_process": {
+  "scenes": 20,
+  "mean": 839.3,
+  "median": 1003.4,
+  "max": 1430.2
+ },
+ "margin_table_at_hybrid_thresholds": [
+  {
+   "threshold_mm": -5,
+   "judged_scenes": 277,
+   "yes": 79,
+   "false_yes": 0,
+   "no": 198,
+   "missed_successes": 63
+  },
+  {
+   "threshold_mm": -33,
+   "judged_scenes": 277,
+   "yes": 242,
+   "false_yes": 100,
+   "no": 35,
+   "missed_successes": 0
+  }
+ ]
+}

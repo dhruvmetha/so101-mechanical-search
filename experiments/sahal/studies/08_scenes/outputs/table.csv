@@ -1,0 +1,11 @@
+scene,level,needs,works_mu_0.55,works_mu_0.4,works_mu_0.7,start_as_expected,reversed_order_works,failures
+L0_open,L0,retrieve,True,True,True,True,-,
+L1_front,L1,1 sweep + retrieve,True,True,True,True,-,
+L1_front_offset,L1,1 sweep + retrieve,True,True,True,True,-,
+L1b_right_wall,L1b,sweep the red off the right wall (not possible),False,False,False,True,-,μ 0.55: sweep refused; μ 0.4: sweep refused; μ 0.7: sweep refused
+L2_two_in_line,L2,2 sweeps + retrieve,True,True,True,True,-,
+L2_side_by_side,L2,1 long sweep + retrieve,True,False,False,True,-,μ 0.4: gray toppled; μ 0.7: gray toppled
+L2b_order,L2b,2 sweeps in order + retrieve,True,True,True,True,μ 0.55: works;μ 0.4: gray toppled;μ 0.7: gray toppled,
+L2b_wall_order,L2b,2 sweeps in order + retrieve,True,True,False,True,μ 0.55: works;μ 0.4: works;μ 0.7: works,μ 0.7: gray toppled
+L3_right_wall,L3,1 sweep + retrieve,True,True,True,True,-,
+L3_left_wall_two,L3,2 sweeps + retrieve,True,True,True,True,-,

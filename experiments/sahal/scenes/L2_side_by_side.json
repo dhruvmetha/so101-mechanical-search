@@ -1,0 +1,20 @@
+{
+ "name": "L2_side_by_side",
+ "level": "L2",
+ "description": "two grays side by side across the approach corridor; one long sweep pushes both aside",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.44,
+   0.0
+  ],
+  "cyl_gray_0": [
+   0.375,
+   -0.019
+  ],
+  "cyl_gray_1": [
+   0.375,
+   0.019
+  ]
+ }
+}

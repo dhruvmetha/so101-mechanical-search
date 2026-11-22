@@ -1,6 +1,6 @@
-# Handoff: grasp, pull and push on the shelf, red cylinder alone
+# Handoff: grasp, pull, sweep and retrieval on the shelf
 
-For Dhruv, from Sahal, 2026-11-21. Results come from the output files named in each section; parameter values come
+For Dhruv, from Sahal, 2026-11-21 (studies 07 and 08 added 2026-11-22). Results come from the output files named in each section; parameter values come
 from the repo's code (`so101sim/side_primitives.py`, `so101sim/shelf.py`, `so101sim/shelf_layout.py`) and the
 generated scene. Nothing outside `experiments/sahal/` was changed.
 
@@ -9,11 +9,15 @@ generated scene. Nothing outside `experiments/sahal/` was changed.
 You asked: on an empty shelf with one red cylinder, grasp it and pull it out; should that be one skill or two? This
 is groundwork for a SPAR-style planner that needs a test of "can the red be grasped and pulled out from here?". It
 grew into a second question, from replacing the shelf push with a lower sweep: how low can the gripper push, and
-what makes a pushed cylinder slide instead of topple?
+what makes a pushed cylinder slide instead of topple? The answers became a sweep skill (`skills/sweep.py`), tested
+on a lone cylinder in study 05; section 9 gives its limits. Then the planner's test itself, with grays on the board:
+`common/retrieval_check.can_retrieve`, checked against physics in study 07 (section 10). Last, ten hand-made scenes
+with the red and two grays, each with a hand-written solution of sweeps then retrieve (study 08, section 11).
 
 Everything uses full simulator state (exact poses and geometry) and the repo's `ShelfPrimitiveEnv` with its
-primitives unchanged. The gray cylinders stay parked on the floor where `mj_resetData` puts them and are dropped from
-the task's checks; `common/shelf_env.py` explains why that rather than moving them or turning off their collisions.
+primitives unchanged. In studies 01 to 06 the gray cylinders stay parked on the floor where `mj_resetData` puts them
+and are dropped from the task's checks; `common/shelf_env.py` explains why that rather than moving them or turning
+off their collisions. Studies 07 and 08 stand two grays on the board (`RedAndGraysShelf`), and they join the checks.
 
 ## 2. Setup
 
@@ -35,6 +39,10 @@ MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/01_gr
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/02_sweep_height/run.py   # ~1.5 min
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/03_sweep_factors/run.py  # ~2 min
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/04_sweep_speed/run.py    # ~1 min
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/05_sweep_skill/run.py
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/06_entry_above/run.py   # seconds
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/07_retrieval_check/run.py --mode hybrid --seeds test
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/08_scenes/run.py         # ~35 s
 ```
 
 Every `run.py` takes `--quick` (a subset into `outputs/quick/`, seconds), `--workers N` (default 10) and, where it
@@ -52,10 +60,18 @@ has parts, `--parts`. Seeds are fixed and each job carries its own seed, so reru
 | `common/measures.py` | grasp conditions, tilt outcome, contacts, clearance, glitch detection |
 | `common/plotting.py` | colours, top-down shelf outline, rate and category maps |
 | `common/runner.py` | parallel runs, CSV writing, `config.json` |
+| `common/retrieval_check.py` | `can_retrieve(env, mode)`: can the red be picked and pulled out now (hybrid, exact, kinematic) |
+| `common/scenes.py` | 3-cylinder scenes as JSON: save, load, check, `place_scene` |
+| `scenes/` | the ten scene files of study 08 |
+| `skills/sweep.py` | the sweep skill: `sweep(x, y, direction, duration)`, `sweep_points(x0, y0, x1, y1)`, `sweep_cylinder(name, direction, distance)`, `execute` |
 | `studies/01_grasp_pull/` | grasp and pull-out over the floor, grasp offsets |
 | `studies/02_sweep_height/` | lowest push height, slide or topple vs height and friction; `tilted_gripper_proposal.md` |
 | `studies/03_sweep_factors/` | tilt vs direction, height, arm friction, speed, board friction |
 | `studies/04_sweep_speed/` | tilt vs speed in fine steps, quarter-speed traces |
+| `studies/05_sweep_skill/` | the sweep skill on a lone red: 5 spots, 7 directions, 3 lengths; refusals, distance, drift |
+| `studies/06_entry_above/` | whether the level gripper fits between the cylinder tops and the top board (kinematic) |
+| `studies/07_retrieval_check/` | the retrieval check against pick + pull in physics, red + 2 grays, 3 sets of 300 scenes |
+| `studies/08_scenes/` | ten hand-made scenes L0 to L3 with hand-written solutions, run at μ 0.55, 0.4 and 0.7 |
 | `studies/*/outputs/` | CSVs, PNGs, `summary.json` (the numbers quoted here), `config.json` (settings, versions) |
 
 ## 4. Definitions
@@ -73,8 +89,9 @@ has parts, `--parts`. Seeds are fixed and each job carries its own seed, so reru
 at least 2 cm in front of the board's front edge, tilt under 20°, all held for 5 consecutive frames, with no failure.
 A run counts as a pull-out success only if it gets there, so it includes the grasp.
 
-**Push outcome** (studies 02 to 04): slid (max tilt ≤ 5°), leaned (5° to 20°, stayed up), toppled (> 20°), or glitch
-(section 9).
+**Push outcome** (studies 02 to 05): slid (max tilt ≤ 5°), leaned (5° to 20°, stayed up), toppled (> 20°), or glitch
+(section 12). Study 05 adds **jammed** against a wall, a failure: the arm touches a side wall, the back wall or the
+top board, or pushes with more than 100 N while the red touches one.
 
 ## 5. Skills and parameters
 
@@ -190,7 +207,150 @@ Speed in finer steps (study 04, 288 runs at 2.5 cm, μ 0.55 and 0.7):
 - **Arm friction comes second**, mostly for pushes away; height matters least in the range the gripper allows.
 - The robot times slow the whole primitive, so they overstate the cost of slowing only the stroke.
 
-## 9. Decisions and deviations
+## 9. The sweep skill and its limits (studies 05 and 06)
+
+Outputs: `studies/05_sweep_skill/outputs/` (summary.json, sweep_runs.csv, toward_robot_runs.csv),
+`studies/06_entry_above/outputs/summary.json`.
+
+**The skill** (`skills/sweep.py`). The push's route with the jaws closed and the gripper level, slowed to 1/3 speed
+(0.020 m/s at the jaws) only over the stroke and the last 1 cm before it; the drop, approach, retrace and exit run at
+normal speed. Height: the lowest of 23 to 26 mm that passes the env's path check (23 mm in 246 executed runs, 24 mm in
+128). Two forms that give identical trajectories: `sweep(x, y, direction, duration)` (length = 0.020 m/s × duration)
+and `sweep_points(x0, y0, x1, y1)`. It reuses the repo's level IK, retiming, bridge and path check, and refuses with
+a reason. Robot time: 8.2 s for 3 cm, 9.7 s for 6 cm, 11.9 s for 10 cm.
+
+**Directions.**
+
+- **Supported: 0°, 45°, 90°, 135°, 225°, 270°, 315°** (0° = away from the robot, 90° = robot's left).
+- **Not supported: toward the robot (within 22.5° of 180°)**, refused by default. The route enters low at the front
+  edge, so it passes through the cylinder to get behind it: of 18 executed 180° sweeps (all from the front spot), 15
+  toppled and 3 leaned.
+- **Entering above the cylinders is not possible** with the level gripper (study 06). There are 70 mm between the
+  cylinder tops (80 mm) and the top board's underside (150 mm), but the level arm is 95.4 to 108.5 mm tall over the
+  board, because the wrist camera mount stands 79.7 to 80.6 mm above the jaw midpoint. Level IK is not the limit: it
+  solves at 400 to 470 of 480 targets at every height from 80 to 150 mm.
+
+**Outcomes** (630 runs: 5 spots × 7 directions × 3, 6, 10 cm × μ 0.55, 0.7 × 3 repeats): 374 executed, 256 refused.
+Executed: 312 slid, 21 leaned, 1 toppled, 29 jammed, 11 glitches.
+
+- **Jams against the back wall are the main failure**: 29, all with the red pinned against the back wall, 101 to
+  1404 N; 4 ended with the arm on the top board. Mostly the back spot (0°, 45°, 270°, 315°) and the centre at 45°.
+  The skill does not check where the red will end up, so a planner must keep sweeps from ending at the back wall.
+- **Topples outside jams: 1** of 333 clean runs (centre, 315°, 10 cm, μ 0.55).
+
+**Refusals** (256): IK 72, end off the board 66, start off the board 36, path check left wall 36, right wall 36, back
+wall 10. By spot (of 126 each): centre 6, near left wall 90, near right wall 90, front 0, back 70. Near the side walls
+the sweep is refused almost three times in four; it is never refused at the front.
+
+**Distance and drift** (clean runs; ratio = movement along the direction / intended, drift positive to the left of
+the direction):
+
+| direction | distance ratio, median | sideways drift, median |
+|---|---|---|
+| 0° away | 0.938 | 1.4 mm |
+| 45° | 0.75 | −9.3 mm |
+| 90° left | 0.849 | −8.9 mm |
+| 135° | 0.315 | −16.0 mm |
+| 225° | 0.538 | 9.4 mm |
+| 270° right | 0.821 | 9.9 mm |
+| 315° | 0.706 | 13.7 mm |
+
+The drift is always away from the robot (+x), and it grows with length (315°: 7.35, 14.3, 26.65 mm medians at 3, 6,
+10 cm). Away sweeps are accurate; sideways ones fall 15 to 18% short; diagonals toward the robot (135°, 225°) barely
+move the red toward the robot at all. A planner should model a sweep's result as "mostly along the direction, short,
+and bent away from the robot", not as an exact displacement.
+
+## 10. Can the red be retrieved now? (study 07)
+
+Outputs: `studies/07_retrieval_check/outputs/` (margin_table.csv, failed_otherwise.csv), `outputs/hybrid_test/` and
+`outputs/exact_test/` (summary.json, scenes.csv). `common/shelf_env.RedAndGraysShelf` stands the red and named grays
+where the caller says.
+
+**The check**, `can_retrieve(env, mode) -> (bool, reason)`, from full state, for the repo's pick then pull on the red:
+
+- `"hybrid"` (the default, for search). First the refusals the env itself would make: the red outside the action box,
+  level IK failing, the env's 6 mm path check against the shelf and table, the held red within 3 mm of a wall. Then
+  the plan's smallest distance from the arm or held red to any gray decides: −5 mm or more (overlap under 5 mm) is
+  yes; an overlap over 33 mm is no; in between it runs pick + pull in physics from the current state, puts the state
+  back exactly, and returns what happened.
+- `"exact"`: always simulates; for verifying scenes.
+- `"kinematic"`: no physics; the arm and held red must stay 5 mm from every gray.
+
+**Why not purely kinematic.** On 300 scenes (red + 2 grays; in 45% of draws a gray goes in the gripper's approach
+corridor, in 25% right beside the red) the kinematic check never said yes to a failure but refused 86 of the 148 real successes: pick + pull
+shove a gray aside and still succeed with planned overlaps down to 27 mm, while every gray that toppled or left the
+shelf had an overlap of at least 7.9 mm. No single margin separates the two.
+
+**How the thresholds were set and tested.** The cutoffs (fast yes at −5 mm or more, fast no below −33 mm) came from
+a table of false yes and missed successes per threshold on one set of 300 scenes (seed 7; `margin_table.csv`). Each
+set below is 300 new scenes drawn the same way; the hybrid runs (each 2×2 is yes succeeded / yes failed / no
+succeeded / no failed):
+
+| set | fast-no cutoff | hybrid 2×2 | wrong fast yes | wrong fast no | simulated |
+|---|---|---|---|---|---|
+| tuning (seed 7) | −25 mm | 147 / 0 / 1 / 152 | 0 of 89 | 1 of 67 | 121 |
+| held-out (seed 70) | −25 mm | 132 / 0 / 8 / 160 | 0 of 76 | 8 of 84 | 119 |
+| test (seed 700) | −33 mm | 142 / 0 / 0 / 158 | 0 of 78 | 0 of 35 | 164 |
+
+On the held-out set successes had overlaps up to 35.2 mm, so the fast-no cutoff moved from 25 to 33 mm before the
+test set, which was used for nothing else. On the test set, hybrid against exact:
+
+| mode | yes, succeeded | yes, failed | no, succeeded | no, failed | time per check, mean (10 workers) | one process, mean |
+|---|---|---|---|---|---|---|
+| hybrid | 142 | 0 | 0 | 158 | 884.0 ms | 525.4 ms |
+| exact | 142 | 0 | 0 | 158 | 1104.3 ms | 839.3 ms |
+
+Hybrid answered 78 fast yes, 35 fast no and 23 exact refusals, all right, and simulated 164. Its fast answers take
+about 0.2 s, a simulation about 1.4 s, so it saves only about a fifth of the time while 164 of 300 scenes need one.
+
+**Other failures** (seed 7, 26 of 300): 23 refused by the path check with the red 5.3 to 22.3 mm from a side wall
+(study 01's wall band; nothing to do with the grays), and 3 where the shoved gray moved the red 18.7 to 21.3 mm before
+the jaws closed, so they closed on nothing and pull was refused.
+
+**Caveats.** One friction (0.55) and density, two grays, 300 scenes per set. The simulated answers are exact here
+because the "real" run is the same simulator from the same state; with uncertain friction or poses, or on the real
+arm, they are predictions.
+
+## 11. Hand-made scenes (study 08)
+
+Outputs: `studies/08_scenes/outputs/` (table.csv, solutions.csv, gallery.png, images/); scenes in `scenes/`.
+
+Ten scenes of the red and two grays, from easy to hard, each with a hand-written solution: sweeps with
+`sweep_cylinder` (planned from the cylinder's pose at the time), then pick + pull. For each, `can_retrieve` in exact
+mode must say no at the start (it did, in every scene but L0, as intended), then the solution runs in physics at
+μ 0.55, 0.4 and 0.7.
+
+**These solutions are hand-designed and the layouts were tuned at μ 0.55 until the solutions worked there (L2b_order's
+layout was picked among three tried at all three frictions). So the table shows that the scenes are solvable with
+these skills, not how reliably: one run per scene and friction, at positions chosen to work.**
+
+| scene | needs | μ 0.55 | μ 0.4 | μ 0.7 |
+|---|---|---|---|---|
+| L0_open | retrieve | works | works | works |
+| L1_front | 1 sweep + retrieve | works | works | works |
+| L1_front_offset | 1 sweep + retrieve | works | works | works |
+| L1b_right_wall | sweep the red off the right wall | refused | refused | refused |
+| L2_two_in_line | 2 sweeps + retrieve | works | works | works |
+| L2_side_by_side | 1 long sweep + retrieve | works | gray toppled | gray toppled |
+| L2b_order | 2 sweeps in order + retrieve | works | works | works |
+| L2b_wall_order | 2 sweeps in order + retrieve | works | works | gray toppled (flagged as a glitch) |
+| L3_right_wall | 1 sweep + retrieve | works | works | works |
+| L3_left_wall_two | 2 sweeps + retrieve | works | works | works |
+
+**Findings.**
+
+- **Order matters only through physics.** The sweep skill checks the shelf, not other cylinders, so it never refuses
+  a sweep because of one. In L2b_order (gray B at the front edge, on the gripper's way to gray A) the reversed order
+  knocks B over at μ 0.4 and 0.7 but works at 0.55; in L2b_wall_order the reversed order works at all three, because
+  the arm shoves B aside.
+- **L1b is unsolvable with the current skills.** Where the red is too near the right wall to retrieve (y −0.125 m
+  here), no sweep moving it off the wall plans: at 90° the start is off the board, at 45° the path check refuses. Any
+  cylinder can be swept away from the right wall only from about y ≥ −0.09 m, and from the left wall only from about
+  y ≤ +0.09 m, because the sweep starts between the cylinder and the wall.
+- **One long sweep for two grays is fragile.** Pushing both side-by-side grays with one 10 cm sweep worked at μ 0.55
+  and toppled a gray at 0.4 and 0.7.
+
+## 12. Decisions and deviations
 
 - **Widened action box** (studies 01 heatmap, 02, 03, 04): picks and pushes are accepted anywhere a cylinder fits on
   the board, not only in the env's box, to measure what the arm can do. `in_action_box` records whether the
@@ -203,8 +363,13 @@ Speed in finer steps (study 04, 288 runs at 2.5 cm, μ 0.55 and 0.7):
   through reset's physics option, density 900.
 - **Glitch exclusion**: a run is a glitch when the arm-cylinder force passes 100 N (1000 N while the jaws squeeze the
   cylinder, which normally reaches 147 N) or the cylinder passes 1 m/s. Glitches are excluded from every rate and
-  mean. Counts: study 01 0 of 2456, study 02 1 of 120, study 03 8 of 750, study 04 5 of 288. The traced one: tilt
-  under 1.5° for most of a quarter-speed push, then 94.86° with a 15,492 N contact force.
+  mean. Counts: study 01 0 of 2456, study 02 1 of 120, study 03 8 of 750, study 04 5 of 288, study 05 11 of 374
+  executed. The traced one: tilt under 1.5° for most of a quarter-speed push, then 94.86° with a 15,492 N contact
+  force.
+- **Wall jams are failures, not glitches** (study 05): the 100 N rule was made for pushes in the open. Pinning the
+  red against the back wall gave 101 to 1404 N at 0.22 to 1.2 m/s; these runs are now "jammed" and count as
+  failures. Studies 01 to 04 were not recounted with this rule.
+- **Sweeps toward the robot are refused** by the skill for now (`allow_toward_robot=True` overrides, for studies).
 - **Jaw-friction test is a diagnostic only**: study 03 sets the arm geoms' friction for single runs and restores it;
   the env is not changed.
 - **Slower pushes** resample the push trajectory (float64 linear interpolation), the whole primitive, not only the
@@ -220,22 +385,36 @@ Other simulator caveats:
 - **Gripper friction.** The gripper geoms have friction 1.0 and MuJoCo uses the larger of a contact's two frictions,
   so the jaw-cylinder friction is 1.0 whatever the episode's friction is.
 
-## 10. Open questions for Dhruv
+## 13. Open questions for Dhruv
 
-1. **Sweep parameters.** Start and end points, or start, direction and duration?
-2. **What "duration" means.** Stroke length, time, or both (which would set the speed)?
+1. **Sweep parameters.** Both forms are built (`sweep` and `sweep_points`). Which should the planner use?
+2. **What "duration" means.** Built as stroke time at a fixed 0.020 m/s, so it sets the length. Is that right?
 3. **Tilting the gripper.** Worth building a pitched sweep (`tilted_gripper_proposal.md`), or is ~2.3 cm low enough
    given that speed mattered more than height?
 4. **Jaw friction 1.0.** Is it realistic for the real gripper's surface? It decides much of the lean on pushes away.
 5. **Sweep and push.** Should the sweep replace the push or join it as another action?
-6. **Entry height.** Should the sweep go in low (at sweep height from the front edge) or above the cylinders and drop
-   down at the start point?
+6. **Sweeps toward the robot.** Entering above the cylinders doesn't fit (study 06: the level arm is 95.4 to
+   108.5 mm tall over the board, against 70 mm of room, because of the camera mount). Options: leave them out; reach round the cylinder from the side; roll the
+   wrist so the camera mount is not on top (not checked); or a taller shelf. Which, if any?
+7. **Wall jams.** Should the skill refuse sweeps whose end point would put the red against a wall, or leave that to
+   the planner?
+8. **Shoving grays.** The hybrid check says yes when pick + pull would shove a gray aside without toppling it. Is a
+   gray moved a few centimetres acceptable for the task, or should "retrievable" also require the grays to stay put?
+9. **Simulating inside the check.** The hybrid check runs physics for about half the scenes. Fine for a planner on
+   full simulator state; for one on camera data it would need its own model of friction and poses. Which planner is
+   it for?
 
-## 11. Next steps
+## 14. Next steps
 
-1. A sweep skill at about 2.3 to 2.5 cm and about 1/3 of today's speed, in both parameterisations (start and end;
-   start, direction and duration).
-2. Tests with several cylinders: neighbours, sweeping one cylinder into another, grasping beside a gray.
-3. A depth-1 search baseline: try every candidate action one step ahead with the true state and pick the best.
-4. Then MCTS (UCT) over the skills.
-5. Later, a SPAR-style ranker as the prior for the search.
+1. **A sweep pre-check against other cylinders.** The sweep plans and its path check ignore cylinders other than the
+   one being swept; check the planned arm path against them (as the retrieval check does) and refuse or flag.
+2. **Robustness runs with jitter.** Rerun study 08's solutions over jittered positions and several physics draws
+   per friction, to get success rates instead of single runs.
+3. **Random, untuned scenes.** Generate 3-cylinder scenes at random (by level) that nobody adjusted, and see how
+   often a solution exists and how often the hand rules find it.
+4. **Brute-force search for the fewest sweeps.** Over a small set of candidate sweeps (each gray and the red, the
+   supported directions, two or three distances), search depth 1 to 3 with `can_retrieve` (hybrid) as the goal test:
+   the minimum number of sweeps per scene, and a reference for the solvers below.
+5. **A simple no-planning solver.** A greedy rule: sweep whatever the retrieval check says is in the way, sideways
+   away from the red's approach ray, then retry; compare with the brute-force minimum.
+6. **Then MCTS (UCT) over the skills**, and later a SPAR-style ranker as its prior.

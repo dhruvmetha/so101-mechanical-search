@@ -25,6 +25,12 @@ GRASP_MAX_TILT_DEG = 5.0
 GLITCH_CONTACT_FORCE_N = 100.0
 GLITCH_GRASP_CONTACT_FORCE_N = 1000.0
 GLITCH_SPEED_M_S = 1.0
+# A run is jammed against a wall, a failure and not a glitch, if the arm touches a shelf wall or the top board, or
+# pushes the red with more than JAM_CONTACT_FORCE_N while the red touches a wall or the top board. Study 05: sweeps
+# pinning the red against the back wall reached 101 to 1404 N at 0.22 to 1.2 m/s, and some ended with the arm on the
+# top board; the force rule above was made for pushes in the open.
+WALL_GEOMS = ("shelf_left", "shelf_right", "shelf_back", "shelf_top")
+JAM_CONTACT_FORCE_N = GLITCH_CONTACT_FORCE_N
 CLEARANCE_SEARCH_M = 0.03
 CLEARANCE_TOLERANCE_M = 1e-4
 
@@ -66,7 +72,8 @@ def _point_velocity(model: mujoco.MjModel, data: mujoco.MjData, body_id: int, po
 
 def red_contacts(model: mujoco.MjModel, data: mujoco.MjData, red_geom: int, other_geoms: frozenset[int],
                  board_z: float, with_slip: bool = False) -> list[Contact]:
-    """Every current contact between the red cylinder and a geom in `other_geoms`, with its forces.
+    """Every current contact between a cylinder (`red_geom`, usually the red) and a geom in `other_geoms`, with its
+    forces.
 
     `with_slip` also computes the tangential slip speed at each contact, which costs two velocity calls.
     """
@@ -97,10 +104,18 @@ def is_glitch(max_contact_force_n: float, max_speed_m_s: float, grasping: bool =
     return max_contact_force_n > force_limit or max_speed_m_s > GLITCH_SPEED_M_S
 
 
-def tilt_outcome(max_tilt_deg: float, glitch: bool) -> str:
-    """glitch, toppled (> 20 deg), leaned (> 5 deg) or slid."""
+def is_wall_jam(max_contact_force_on_wall_n: float, arm_shelf_touch: str | None) -> bool:
+    """True if the arm touched a shelf wall or the top board, or pushed the red with more than JAM_CONTACT_FORCE_N
+    while the red touched one (`max_contact_force_on_wall_n`: peak arm-red force over substeps with red-wall contact)."""
+    return arm_shelf_touch in WALL_GEOMS or max_contact_force_on_wall_n > JAM_CONTACT_FORCE_N
+
+
+def tilt_outcome(max_tilt_deg: float, glitch: bool, jammed: bool = False) -> str:
+    """glitch, jammed (against a wall; a failure), toppled (> 20 deg), leaned (> 5 deg) or slid."""
     if glitch:
         return "glitch"
+    if jammed:
+        return "jammed"
     if max_tilt_deg > TOPPLE_DEG:
         return "toppled"
     return "leaned" if max_tilt_deg > LEAN_DEG else "slid"
@@ -184,13 +199,15 @@ def clearance_to_shelf(env, trajectory: np.ndarray) -> tuple[float, str | None, 
 
 
 def cell_stats(rows: list[dict]) -> dict[str, float]:
-    """Topple rate, lean rate and max-tilt mean, median and standard error over the non-glitch rows of one cell."""
+    """Topple rate, jam rate, lean rate and max-tilt mean, median and standard error over the non-glitch rows of one
+    cell. Rows without a `jammed` column count as not jammed."""
     valid = [r for r in rows if not _true(r["glitch"])]
     tilts = np.array([float(r["max_tilt_deg"]) for r in valid])
     n = len(valid)
     return {
         "n_runs": len(rows), "n_glitch": len(rows) - n, "n_valid": n,
         "topple_rate": float(np.mean([_true(r["toppled"]) for r in valid])) if n else float("nan"),
+        "jam_rate": float(np.mean([_true(r.get("jammed")) for r in valid])) if n else float("nan"),
         "lean_rate": float(np.mean(tilts > LEAN_DEG)) if n else float("nan"),
         "mean_max_tilt_deg": float(tilts.mean()) if n else float("nan"),
         "median_max_tilt_deg": float(np.median(tilts)) if n else float("nan"),

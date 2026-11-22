@@ -1,0 +1,376 @@
+{
+ "sanity": {
+  "all_identical": true,
+  "motions": [
+   {
+    "motion_m": [
+     0.38,
+     0.0,
+     0.44,
+     0.0
+    ],
+    "direction_deg": 0.0,
+    "duration_s": 3.0,
+    "frames": 253,
+    "height_mm": 23,
+    "max_joint_difference_deg": 0.0,
+    "identical": true
+   },
+   {
+    "motion_m": [
+     0.4,
+     0.05,
+     0.4,
+     -0.03
+    ],
+    "direction_deg": -90.0,
+    "duration_s": 4.0,
+    "frames": 311,
+    "height_mm": 23,
+    "max_joint_difference_deg": 0.0,
+    "identical": true
+   },
+   {
+    "motion_m": [
+     0.37,
+     -0.06,
+     0.43,
+     0.0
+    ],
+    "direction_deg": 45.0,
+    "duration_s": 4.2426,
+    "frames": 278,
+    "height_mm": 23,
+    "max_joint_difference_deg": 0.0,
+    "identical": true
+   }
+  ]
+ },
+ "sweeps": {
+  "runs": 630,
+  "executed": 374,
+  "refused": 256,
+  "glitch_runs": 11,
+  "glitches": [
+   [
+    "centre",
+    90,
+    6.0,
+    0.55,
+    11746.63,
+    37.576
+   ],
+   [
+    "centre",
+    90,
+    6.0,
+    0.7,
+    19677.54,
+    45.697
+   ],
+   [
+    "centre",
+    90,
+    6.0,
+    0.7,
+    28638.4,
+    43.499
+   ],
+   [
+    "centre",
+    225,
+    6.0,
+    0.55,
+    43767.75,
+    18.443
+   ],
+   [
+    "centre",
+    225,
+    6.0,
+    0.7,
+    83.27,
+    7.059
+   ],
+   [
+    "centre",
+    225,
+    6.0,
+    0.7,
+    3.44,
+    8.636
+   ],
+   [
+    "centre",
+    225,
+    10.0,
+    0.7,
+    28.46,
+    6.899
+   ],
+   [
+    "centre",
+    270,
+    6.0,
+    0.7,
+    4.27,
+    8.56
+   ],
+   [
+    "centre",
+    270,
+    6.0,
+    0.7,
+    4.45,
+    8.547
+   ],
+   [
+    "centre",
+    270,
+    10.0,
+    0.55,
+    3.78,
+    8.646
+   ],
+   [
+    "front",
+    45,
+    10.0,
+    0.7,
+    496.2,
+    38.762
+   ]
+  ],
+  "jammed": 29,
+  "jammed_by_spot_direction": {
+   "back 315": 8,
+   "back 0": 6,
+   "back 45": 6,
+   "centre 45": 5,
+   "back 270": 3,
+   "centre 315": 1
+  },
+  "jammed_arm_on_wall_or_top": {
+   "shelf_top": 4
+  },
+  "jammed_force_on_wall_n_range": [
+   101.36,
+   1404.08
+  ],
+  "jammed_red_wall": {
+   "shelf_back": 29
+  },
+  "toppled": 3,
+  "toppled_and_jammed": 2,
+  "outcomes": {
+   "slid": 312,
+   "jammed": 29,
+   "leaned": 21,
+   "glitch": 11,
+   "toppled": 1
+  },
+  "clean_runs": 333,
+  "leaned": 21,
+  "slid": 312,
+  "failures": {
+   "toppled: cyl_red": 13,
+   "hit the shelf: shelf_top": 4
+  },
+  "refusals_by_kind": {
+   "IK": 72,
+   "end off board": 66,
+   "path check: shelf_left": 36,
+   "start off board": 36,
+   "path check: shelf_right": 36,
+   "path check: shelf_back": 10
+  },
+  "refusals_by_spot": {
+   "centre": 6,
+   "near left wall": 90,
+   "near right wall": 90,
+   "front": 0,
+   "back": 70
+  },
+  "runs_by_spot": {
+   "centre": 126,
+   "near left wall": 126,
+   "near right wall": 126,
+   "front": 126,
+   "back": 126
+  },
+  "height_mm_used": {
+   "23": 246,
+   "24": 128
+  },
+  "max_tilt_deg_non_glitch": 25.32,
+  "mean_max_tilt_deg": 1.92,
+  "distance_ratio_median": 0.744,
+  "distance_ratio_p10_p90": [
+   0.345,
+   0.919
+  ],
+  "sideways_drift_mm_abs_median": 8.9,
+  "sideways_drift_mm_abs_p90": 21.3,
+  "direction_error_deg_abs_median": 16.7,
+  "robot_time_s_by_length": {
+   "3.0": 8.2,
+   "6.0": 9.7,
+   "10.0": 11.9
+  },
+  "slow_time_s_by_length": {
+   "3.0": 2.2,
+   "6.0": 3.8,
+   "10.0": 5.9
+  },
+  "by_direction": {
+   "0": {
+    "executed": 60,
+    "refused": 30,
+    "clean_runs": 54,
+    "distance_ratio_median": 0.938,
+    "distance_ratio_range": [
+     0.718,
+     1.01
+    ],
+    "sideways_drift_mm_median": 1.4,
+    "sideways_drift_mm_range": [
+     -9.0,
+     6.5
+    ],
+    "topple_rate": 0.0,
+    "jam_rate": 0.1,
+    "mean_max_tilt_deg": 3.6
+   },
+   "45": {
+    "executed": 48,
+    "refused": 42,
+    "clean_runs": 36,
+    "distance_ratio_median": 0.75,
+    "distance_ratio_range": [
+     0.574,
+     0.821
+    ],
+    "sideways_drift_mm_median": -9.3,
+    "sideways_drift_mm_range": [
+     -26.3,
+     -5.0
+    ],
+    "topple_rate": 0.043,
+    "jam_rate": 0.234,
+    "mean_max_tilt_deg": 2.38
+   },
+   "90": {
+    "executed": 60,
+    "refused": 30,
+    "clean_runs": 57,
+    "distance_ratio_median": 0.849,
+    "distance_ratio_range": [
+     0.659,
+     0.928
+    ],
+    "sideways_drift_mm_median": -8.9,
+    "sideways_drift_mm_range": [
+     -17.9,
+     -3.0
+    ],
+    "topple_rate": 0.0,
+    "jam_rate": 0.0,
+    "mean_max_tilt_deg": 0.76
+   },
+   "135": {
+    "executed": 48,
+    "refused": 42,
+    "clean_runs": 48,
+    "distance_ratio_median": 0.315,
+    "distance_ratio_range": [
+     0.181,
+     0.494
+    ],
+    "sideways_drift_mm_median": -16.0,
+    "sideways_drift_mm_range": [
+     -29.3,
+     -4.9
+    ],
+    "topple_rate": 0.0,
+    "jam_rate": 0.0,
+    "mean_max_tilt_deg": 2.33
+   },
+   "225": {
+    "executed": 48,
+    "refused": 42,
+    "clean_runs": 44,
+    "distance_ratio_median": 0.538,
+    "distance_ratio_range": [
+     0.365,
+     0.734
+    ],
+    "sideways_drift_mm_median": 9.4,
+    "sideways_drift_mm_range": [
+     4.5,
+     23.7
+    ],
+    "topple_rate": 0.0,
+    "jam_rate": 0.0,
+    "mean_max_tilt_deg": 1.31
+   },
+   "270": {
+    "executed": 60,
+    "refused": 30,
+    "clean_runs": 54,
+    "distance_ratio_median": 0.821,
+    "distance_ratio_range": [
+     0.597,
+     0.949
+    ],
+    "sideways_drift_mm_median": 9.9,
+    "sideways_drift_mm_range": [
+     3.8,
+     19.8
+    ],
+    "topple_rate": 0.0,
+    "jam_rate": 0.053,
+    "mean_max_tilt_deg": 0.74
+   },
+   "315": {
+    "executed": 50,
+    "refused": 40,
+    "clean_runs": 40,
+    "distance_ratio_median": 0.706,
+    "distance_ratio_range": [
+     0.552,
+     0.797
+    ],
+    "sideways_drift_mm_median": 13.7,
+    "sideways_drift_mm_range": [
+     6.0,
+     28.6
+    ],
+    "topple_rate": 0.02,
+    "jam_rate": 0.18,
+    "mean_max_tilt_deg": 2.28
+   }
+  },
+  "plan_wall_s_median": 0.15,
+  "run_wall_s_median": 1.46
+ },
+ "toward_robot": {
+  "runs": 90,
+  "executed": 18,
+  "glitch_runs": 0,
+  "toppled": 15,
+  "jammed": 0,
+  "outcomes_by_spot": {
+   "front": {
+    "toppled": 15,
+    "leaned": 3
+   }
+  },
+  "refusals_by_kind": {
+   "IK": 54,
+   "start off board": 18
+  },
+  "first_contact_part": {
+   "jaw (box or mesh)": 18
+  }
+ }
+}

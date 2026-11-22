@@ -1,0 +1,336 @@
+{
+ "board_top_z_m": 0.09,
+ "cylinder_tops_above_board_mm": 80.0,
+ "top_board_underside_above_board_mm": 150.0,
+ "room_between_cylinder_tops_and_top_board_mm": 70.0,
+ "arm_extent_below_jaw_midpoint_mm_range": [
+  7.0,
+  28.7
+ ],
+ "arm_extent_above_jaw_midpoint_mm_range": [
+  7.1,
+  80.6
+ ],
+ "arm_vertical_extent_over_board_mm_range": [
+  14.1,
+  108.5
+ ],
+ "in_action_box": {
+  "front_x_m": 0.355,
+  "solved_poses": 4860,
+  "arm_extent_below_jaw_midpoint_mm_range": [
+   14.8,
+   28.7
+  ],
+  "arm_extent_above_jaw_midpoint_mm_range": [
+   79.7,
+   80.6
+  ],
+  "arm_vertical_extent_over_board_mm_range": [
+   95.4,
+   108.5
+  ],
+  "highest_geoms": {
+   "camera_mount#38": 4860
+  },
+  "fits": 0,
+  "best_gap_to_top_board_mm_with_cylinder_gap_6mm": -35.5
+ },
+ "ik_failures_x_m_min": 0.435,
+ "targets_per_height": 480,
+ "any_fit": true,
+ "by_height": {
+  "80": {
+   "targets": 480,
+   "ik_ok": 470,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": -28.0,
+   "gap_to_top_board_mm_min": -10.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 374,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 278,
+    "moving_jaw_so101_v1#41": 102,
+    "fixed_jaw_box6": 51,
+    "fixed_jaw_box7": 11,
+    "fixed_jaw_box2": 10,
+    "moving_jaw_so101_v1#42": 9,
+    "gripper#32": 4,
+    "moving_jaw_box1": 4,
+    "moving_jaw_so101_v1#43": 1
+   }
+  },
+  "85": {
+   "targets": 480,
+   "ik_ok": 470,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": -23.3,
+   "gap_to_top_board_mm_min": -15.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 374,
+    "camera_box2": 1
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 278,
+    "moving_jaw_so101_v1#41": 102,
+    "fixed_jaw_box6": 51,
+    "fixed_jaw_box7": 11,
+    "fixed_jaw_box2": 10,
+    "moving_jaw_so101_v1#42": 9,
+    "gripper#32": 4,
+    "moving_jaw_box1": 4,
+    "moving_jaw_so101_v1#43": 1
+   }
+  },
+  "90": {
+   "targets": 480,
+   "ik_ok": 468,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": -18.3,
+   "gap_to_top_board_mm_min": -20.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 372,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 275,
+    "moving_jaw_so101_v1#41": 103,
+    "fixed_jaw_box6": 51,
+    "fixed_jaw_box7": 11,
+    "fixed_jaw_box2": 10,
+    "moving_jaw_so101_v1#42": 9,
+    "gripper#32": 5,
+    "moving_jaw_box1": 3,
+    "moving_jaw_so101_v1#43": 1
+   }
+  },
+  "95": {
+   "targets": 480,
+   "ik_ok": 464,
+   "fits": 76,
+   "gap_to_cylinder_tops_mm_min": -12.9,
+   "gap_to_top_board_mm_min": -25.6,
+   "fits_x_m_range": [
+    0.315,
+    0.335
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 368,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 263,
+    "moving_jaw_so101_v1#41": 96,
+    "fixed_jaw_box7": 11,
+    "fixed_jaw_box2": 10,
+    "gripper#32": 4,
+    "moving_jaw_box1": 4
+   }
+  },
+  "100": {
+   "targets": 480,
+   "ik_ok": 464,
+   "fits": 95,
+   "gap_to_cylinder_tops_mm_min": -8.3,
+   "gap_to_top_board_mm_min": -30.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 367,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 252,
+    "moving_jaw_so101_v1#41": 87,
+    "fixed_jaw_box2": 10,
+    "gripper#32": 4,
+    "moving_jaw_box1": 4
+   }
+  },
+  "105": {
+   "targets": 480,
+   "ik_ok": 460,
+   "fits": 94,
+   "gap_to_cylinder_tops_mm_min": -3.3,
+   "gap_to_top_board_mm_min": -35.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 364,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 245,
+    "moving_jaw_so101_v1#41": 87
+   }
+  },
+  "110": {
+   "targets": 480,
+   "ik_ok": 456,
+   "fits": 94,
+   "gap_to_cylinder_tops_mm_min": 1.6,
+   "gap_to_top_board_mm_min": -40.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 360,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {
+    "gripper#25": 225
+   }
+  },
+  "115": {
+   "targets": 480,
+   "ik_ok": 452,
+   "fits": 95,
+   "gap_to_cylinder_tops_mm_min": 6.5,
+   "gap_to_top_board_mm_min": -45.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 355,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "120": {
+   "targets": 480,
+   "ik_ok": 444,
+   "fits": 94,
+   "gap_to_cylinder_tops_mm_min": 11.5,
+   "gap_to_top_board_mm_min": -50.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 348,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "125": {
+   "targets": 480,
+   "ik_ok": 434,
+   "fits": 94,
+   "gap_to_cylinder_tops_mm_min": 16.7,
+   "gap_to_top_board_mm_min": -55.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 338,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "130": {
+   "targets": 480,
+   "ik_ok": 430,
+   "fits": 95,
+   "gap_to_cylinder_tops_mm_min": 21.7,
+   "gap_to_top_board_mm_min": -60.6,
+   "fits_x_m_range": [
+    0.315,
+    0.345
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 333,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "135": {
+   "targets": 480,
+   "ik_ok": 424,
+   "fits": 24,
+   "gap_to_cylinder_tops_mm_min": 26.4,
+   "gap_to_top_board_mm_min": -65.6,
+   "fits_x_m_range": [
+    0.315,
+    0.315
+   ],
+   "limits_top_board": {
+    "camera_mount#38": 328,
+    "fixed_jaw_box6": 53,
+    "fixed_jaw_box7": 11,
+    "moving_jaw_so101_v1#41": 5,
+    "camera_box2": 2,
+    "gripper#25": 1
+   },
+   "limits_cylinder_tops": {}
+  },
+  "140": {
+   "targets": 480,
+   "ik_ok": 418,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": 31.4,
+   "gap_to_top_board_mm_min": -70.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 322,
+    "fixed_jaw_box6": 53,
+    "moving_jaw_so101_v1#41": 14,
+    "fixed_jaw_box7": 11,
+    "gripper#25": 7,
+    "moving_jaw_so101_v1#42": 5,
+    "moving_jaw_so101_v1#43": 4,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "145": {
+   "targets": 480,
+   "ik_ok": 406,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": 36.3,
+   "gap_to_top_board_mm_min": -75.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 309,
+    "fixed_jaw_box6": 53,
+    "moving_jaw_so101_v1#41": 14,
+    "fixed_jaw_box7": 12,
+    "gripper#25": 7,
+    "moving_jaw_so101_v1#42": 5,
+    "moving_jaw_so101_v1#43": 4,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  },
+  "150": {
+   "targets": 480,
+   "ik_ok": 400,
+   "fits": 0,
+   "gap_to_cylinder_tops_mm_min": 41.4,
+   "gap_to_top_board_mm_min": -80.6,
+   "fits_x_m_range": null,
+   "limits_top_board": {
+    "camera_mount#38": 304,
+    "fixed_jaw_box6": 53,
+    "moving_jaw_so101_v1#41": 14,
+    "fixed_jaw_box7": 11,
+    "gripper#25": 7,
+    "moving_jaw_so101_v1#42": 5,
+    "moving_jaw_so101_v1#43": 4,
+    "camera_box2": 2
+   },
+   "limits_cylinder_tops": {}
+  }
+ }
+}

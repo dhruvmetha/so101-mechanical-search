@@ -19,6 +19,7 @@ OUTCOME_STYLE = {
     "slid": ("#0ca30c", "o", "slid, max tilt ≤ 5°"),
     "leaned": ("#fab219", "D", "leaned 5–20°, stayed up"),
     "toppled": ("#d03b3b", "X", "toppled (> 20°)"),
+    "jammed": ("#6250d6", "P", "jammed against a wall (failure)"),
     "glitch": ("#b5b5b0", "s", "simulator glitch (excluded)"),
 }
 # Categorical colours, fixed order: push directions, then anything else.
@@ -106,8 +107,10 @@ def category_map(path: Path, categories: dict[tuple[float, float], str], cell_m:
     save(fig, path, dpi=140)
 
 
-def outcome_legend_handles(include_refused: bool = True, include_touch: bool = True) -> list:
-    handles = [Line2D([], [], color=c, marker=m, ls="", ms=9, label=label) for c, m, label in OUTCOME_STYLE.values()]
+def outcome_legend_handles(include_refused: bool = True, include_touch: bool = True,
+                           include_jammed: bool = False) -> list:
+    handles = [Line2D([], [], color=c, marker=m, ls="", ms=9, label=label) for outcome, (c, m, label)
+               in OUTCOME_STYLE.items() if include_jammed or outcome != "jammed"]
     if include_refused:
         handles.append(Line2D([], [], color="#888", marker="o", ls="", ms=9, mfc="#ddd", mec="#222", mew=1.8,
                               label="dark ring: the path check would refuse"))

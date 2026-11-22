@@ -1,0 +1,308 @@
+{
+  "command": "studies/08_scenes/run.py",
+  "settings": {
+    "quick": false,
+    "frictions": [
+      0.55,
+      0.4,
+      0.7
+    ],
+    "scene_friction": 0.55,
+    "image_friction": 0.55,
+    "scenes_dir": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/scenes",
+    "density_kg_m3": 900.0,
+    "scene_specs": [
+      {
+        "name": "L0_open",
+        "level": "L0",
+        "needs": "retrieve",
+        "description": "red in the open, both grays well out of the way",
+        "positions": {
+          "cyl_red": [
+            0.42,
+            0.0
+          ],
+          "cyl_gray_0": [
+            0.44,
+            0.1
+          ],
+          "cyl_gray_1": [
+            0.37,
+            -0.09
+          ]
+        },
+        "sweeps": []
+      },
+      {
+        "name": "L1_front",
+        "level": "L1",
+        "needs": "1 sweep + retrieve",
+        "description": "one gray straight in front of the red, on its approach ray",
+        "positions": {
+          "cyl_red": [
+            0.43,
+            0.0
+          ],
+          "cyl_gray_0": [
+            0.37,
+            0.0
+          ],
+          "cyl_gray_1": [
+            0.44,
+            0.11
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_0",
+            90,
+            0.07
+          ]
+        ]
+      },
+      {
+        "name": "L1_front_offset",
+        "level": "L1",
+        "needs": "1 sweep + retrieve",
+        "description": "one gray in front of the red and a little to its right; sweep it right",
+        "positions": {
+          "cyl_red": [
+            0.43,
+            0.03
+          ],
+          "cyl_gray_0": [
+            0.375,
+            0.015
+          ],
+          "cyl_gray_1": [
+            0.44,
+            0.12
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_0",
+            270,
+            0.07
+          ]
+        ]
+      },
+      {
+        "name": "L1b_right_wall",
+        "level": "L1b",
+        "needs": "sweep the red off the right wall (not possible)",
+        "description": "red 1 cm from the right wall, in the band where pick is refused; nothing else in the way",
+        "positions": {
+          "cyl_red": [
+            0.4,
+            -0.125
+          ],
+          "cyl_gray_0": [
+            0.44,
+            0.08
+          ],
+          "cyl_gray_1": [
+            0.37,
+            0.1
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_red",
+            90,
+            0.03
+          ]
+        ]
+      },
+      {
+        "name": "L2_two_in_line",
+        "level": "L2",
+        "needs": "2 sweeps + retrieve",
+        "description": "two grays one behind the other on the red's approach ray",
+        "positions": {
+          "cyl_red": [
+            0.45,
+            0.0
+          ],
+          "cyl_gray_0": [
+            0.395,
+            0.0
+          ],
+          "cyl_gray_1": [
+            0.345,
+            0.0
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_1",
+            90,
+            0.07
+          ],
+          [
+            "cyl_gray_0",
+            270,
+            0.07
+          ]
+        ]
+      },
+      {
+        "name": "L2_side_by_side",
+        "level": "L2",
+        "needs": "1 long sweep + retrieve",
+        "description": "two grays side by side across the approach corridor; one long sweep pushes both aside",
+        "positions": {
+          "cyl_red": [
+            0.44,
+            0.0
+          ],
+          "cyl_gray_0": [
+            0.375,
+            -0.019
+          ],
+          "cyl_gray_1": [
+            0.375,
+            0.019
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_0",
+            90,
+            0.1
+          ]
+        ]
+      },
+      {
+        "name": "L2b_order",
+        "level": "L2b",
+        "needs": "2 sweeps in order + retrieve",
+        "description": "gray A in front of the red; gray B at the front edge on the gripper's way to A's sweep: B first",
+        "positions": {
+          "cyl_red": [
+            0.43,
+            0.0
+          ],
+          "cyl_gray_0": [
+            0.37,
+            0.0
+          ],
+          "cyl_gray_1": [
+            0.33,
+            -0.035
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_1",
+            270,
+            0.06
+          ],
+          [
+            "cyl_gray_0",
+            90,
+            0.07
+          ]
+        ],
+        "order_matters": true
+      },
+      {
+        "name": "L2b_wall_order",
+        "level": "L2b",
+        "needs": "2 sweeps in order + retrieve",
+        "description": "gray A in front of the red near the left wall (little room left); gray B on A's right: B first",
+        "positions": {
+          "cyl_red": [
+            0.43,
+            0.105
+          ],
+          "cyl_gray_0": [
+            0.37,
+            0.085
+          ],
+          "cyl_gray_1": [
+            0.37,
+            0.035
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_1",
+            270,
+            0.07
+          ],
+          [
+            "cyl_gray_0",
+            270,
+            0.07
+          ]
+        ],
+        "order_matters": true
+      },
+      {
+        "name": "L3_right_wall",
+        "level": "L3",
+        "needs": "1 sweep + retrieve",
+        "description": "red near the right wall (still graspable) behind a gray; the wall leaves only a sweep left",
+        "positions": {
+          "cyl_red": [
+            0.42,
+            -0.105
+          ],
+          "cyl_gray_0": [
+            0.36,
+            -0.088
+          ],
+          "cyl_gray_1": [
+            0.44,
+            0.06
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_0",
+            90,
+            0.07
+          ]
+        ]
+      },
+      {
+        "name": "L3_left_wall_two",
+        "level": "L3",
+        "needs": "2 sweeps + retrieve",
+        "description": "red near the left wall behind a gray, a second gray just right of the red where the jaw opens",
+        "positions": {
+          "cyl_red": [
+            0.44,
+            0.105
+          ],
+          "cyl_gray_0": [
+            0.37,
+            0.088
+          ],
+          "cyl_gray_1": [
+            0.425,
+            0.06
+          ]
+        },
+        "sweeps": [
+          [
+            "cyl_gray_1",
+            315,
+            0.05
+          ],
+          [
+            "cyl_gray_0",
+            270,
+            0.07
+          ]
+        ]
+      }
+    ]
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-22 00:53:00"
+}

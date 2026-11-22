@@ -1,0 +1,32 @@
+{
+  "command": "studies/06_entry_above/run.py",
+  "settings": {
+    "quick": false,
+    "jaw_heights_mm": [
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150
+    ],
+    "grid_step_m": 0.01,
+    "cylinder_height_m": 0.08,
+    "path_check_margin_m": 0.006,
+    "grip": 10.0
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-21 20:13:05"
+}

@@ -1,0 +1,106 @@
+{
+ "scenes": 300,
+ "built": 300,
+ "not_built": 0,
+ "agreement_table": {
+  "check yes, succeeded": 147,
+  "check yes, failed": 0,
+  "check no, succeeded": 1,
+  "check no, failed": 152
+ },
+ "agree": 299,
+ "agreement_rate": 0.997,
+ "real_successes": 148,
+ "glitch_scenes": [],
+ "by_kind": {
+  "anywhere": {
+   "check yes, succeeded": 68,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 26
+  },
+  "in the approach corridor": {
+   "check yes, succeeded": 36,
+   "check yes, failed": 0,
+   "check no, succeeded": 1,
+   "check no, failed": 93
+  },
+  "beside the red": {
+   "check yes, succeeded": 43,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 33
+  }
+ },
+ "check_reasons": {
+  "simulated": 121,
+  "fast yes: clear": 89,
+  "fast no: deep overlap": 67,
+  "arm near shelf": 23
+ },
+ "real_reasons": {
+  "ok": 148,
+  "gray left the shelf": 71,
+  "gray toppled": 55,
+  "refused: path check": 23,
+  "pull refused: pull needs a held cylinder": 3
+ },
+ "check_no_succeeded_by_reason": {
+  "fast no: deep overlap": 1
+ },
+ "check_yes_failed_by_real_reason": {},
+ "arm_touched_gray_but_succeeded": 76,
+ "check_ms": {
+  "mean": 759.4,
+  "median": 284.0,
+  "p90": 1891.1,
+  "max": 2452.0
+ },
+ "check_ms_mean_by_reason": {
+  "simulated": 1549.8,
+  "fast yes: clear": 229.9,
+  "fast no: deep overlap": 262.3,
+  "arm near shelf": 98.0
+ },
+ "physics_s_median": 1.24,
+ "plan_min_gray_clearance_mm_by_outcome": {
+  "succeeded": {
+   "scenes": 148,
+   "min": -27.0,
+   "median": -0.9,
+   "max": 50.0
+  },
+  "a gray toppled or left the shelf": {
+   "scenes": 126,
+   "min": -42.0,
+   "median": -25.3,
+   "max": -7.9
+  },
+  "failed otherwise": {
+   "scenes": 26,
+   "min": -40.0,
+   "median": -26.3,
+   "max": 50.0
+  }
+ },
+ "examples": {
+  "check yes, failed": [],
+  "check no, succeeded": [
+   {
+    "scene": 212,
+    "kind": "in the approach corridor",
+    "picture": "examples/example_no_succeeded_scene212.png",
+    "plan_min_gray_clearance_mm": -27.0,
+    "check": "plan overlaps a gray by 25.1 mm or more",
+    "real": "retrieved",
+    "arm_touched_gray": "cyl_gray_0"
+   }
+  ]
+ },
+ "check_ms_single_process": {
+  "scenes": 20,
+  "mean": 406.2,
+  "median": 227.8,
+  "max": 1597.4
+ }
+}

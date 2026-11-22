@@ -4,3 +4,4 @@ __pycache__/
 # the repo-wide .gitignore ignores outputs/; keep each study's full outputs, not the --quick copies
 !studies/*/outputs/
 studies/*/outputs/quick/
+studies/*/outputs/*/quick/

@@ -7,7 +7,9 @@ dm1487's. Subclass or wrap repo code here instead.
 
 - `common/`: anything two studies use. `shelf_env.py` (SingleRedShelf, placing the red, the shared push run),
   `measures.py` (grasp conditions, tilt outcome, contacts, clearance, glitch detection), `plotting.py` (colours,
-  shelf outline, maps), `runner.py` (parallel runs, CSV, config.json).
+  shelf outline, maps), `runner.py` (parallel runs, CSV, config.json), `retrieval_check.py` (can the red be picked and pulled
+  now: hybrid, exact, kinematic), `scenes.py` (3-cylinder scenes stored as JSON in `scenes/`).
+- `skills/`: new skills built on the repo's primitives, reusing its IK, retiming and path check (`sweep.py`).
 - `studies/NN_name/`: `run.py` (the only entry point, settings at the top, `--quick`), `README.md` (question,
   method, how to run, results, caveats), `outputs/` (CSVs, PNGs, summary.json, config.json).
 
@@ -27,7 +29,9 @@ dm1487's. Subclass or wrap repo code here instead.
 
 - Flag simulator glitches with `measures.is_glitch` and exclude them from topple counts and means: arm-cylinder
   contact force over 100 N (1000 N while the jaws squeeze the cylinder, which normally reaches 147 N) or the
-  cylinder faster than 1 m/s. Glitches seen so far reached 428 N to 15 kN.
+  cylinder faster than 1 m/s. Glitches seen so far reached 428 N to 44 kN, or 6.9 to 46 m/s.
+- Near walls, check `measures.is_wall_jam` first: the arm on a side wall, the back wall or the top board, or over
+  100 N while the red touches one, is a jam against a wall. It is a failure, never a glitch (study 05: 101 to 1404 N).
 - Read contacts every physics substep (`SingleRedShelf` does). A 30 Hz frame-end sample misses most push contacts.
 - Pushes are chaotic: a float32 instead of float64 interpolation of the same trajectory flipped outcomes. Report
   rates over jittered repeats, not single runs.

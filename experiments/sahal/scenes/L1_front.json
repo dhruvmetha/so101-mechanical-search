@@ -1,0 +1,20 @@
+{
+ "name": "L1_front",
+ "level": "L1",
+ "description": "one gray straight in front of the red, on its approach ray",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.43,
+   0.0
+  ],
+  "cyl_gray_0": [
+   0.37,
+   0.0
+  ],
+  "cyl_gray_1": [
+   0.44,
+   0.11
+  ]
+ }
+}

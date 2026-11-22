@@ -1,0 +1,20 @@
+{
+ "name": "L1_front_offset",
+ "level": "L1",
+ "description": "one gray in front of the red and a little to its right; sweep it right",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.43,
+   0.03
+  ],
+  "cyl_gray_0": [
+   0.375,
+   0.015
+  ],
+  "cyl_gray_1": [
+   0.44,
+   0.12
+  ]
+ }
+}

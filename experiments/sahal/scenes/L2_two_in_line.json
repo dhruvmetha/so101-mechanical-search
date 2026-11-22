@@ -1,0 +1,20 @@
+{
+ "name": "L2_two_in_line",
+ "level": "L2",
+ "description": "two grays one behind the other on the red's approach ray",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.45,
+   0.0
+  ],
+  "cyl_gray_0": [
+   0.395,
+   0.0
+  ],
+  "cyl_gray_1": [
+   0.345,
+   0.0
+  ]
+ }
+}

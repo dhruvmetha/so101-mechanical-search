@@ -1,0 +1,20 @@
+{
+ "name": "L3_right_wall",
+ "level": "L3",
+ "description": "red near the right wall (still graspable) behind a gray; the wall leaves only a sweep left",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.42,
+   -0.105
+  ],
+  "cyl_gray_0": [
+   0.36,
+   -0.088
+  ],
+  "cyl_gray_1": [
+   0.44,
+   0.06
+  ]
+ }
+}

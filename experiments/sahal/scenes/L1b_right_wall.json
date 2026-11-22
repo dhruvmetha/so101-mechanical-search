@@ -1,0 +1,20 @@
+{
+ "name": "L1b_right_wall",
+ "level": "L1b",
+ "description": "red 1 cm from the right wall, in the band where pick is refused; nothing else in the way",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.4,
+   -0.125
+  ],
+  "cyl_gray_0": [
+   0.44,
+   0.08
+  ],
+  "cyl_gray_1": [
+   0.37,
+   0.1
+  ]
+ }
+}

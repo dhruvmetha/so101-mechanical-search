@@ -1,0 +1,78 @@
+{
+  "command": "studies/07_retrieval_check/run.py --mode hybrid --heldout",
+  "settings": {
+    "quick": false,
+    "mode": "hybrid",
+    "parts": [
+      "scenes"
+    ],
+    "scenes": 300,
+    "study_seed": 70,
+    "reset_seed": 0,
+    "physics": {
+      "friction": 0.55,
+      "density": 900.0
+    },
+    "grays": [
+      "cyl_gray_0",
+      "cyl_gray_1"
+    ],
+    "scene_kinds": {
+      "anywhere": 0.3,
+      "in the approach corridor": 0.45,
+      "beside the red": 0.25
+    },
+    "corridor_half_width_m": 0.05,
+    "beside_max_gap_m": 0.06,
+    "min_spacing_m": 0.034999999999999996,
+    "max_start_tilt_deg": 2.0,
+    "arm_gray_margin_m": 0.005,
+    "held_red_gray_margin_m": 0.005,
+    "held_red_shelf_margin_m": 0.003,
+    "hybrid_clear_m": -0.005,
+    "hybrid_deep_m": -0.025,
+    "margin_table_mm": [
+      5,
+      4,
+      3,
+      2,
+      1,
+      0,
+      -1,
+      -2,
+      -3,
+      -4,
+      -5,
+      -6,
+      -7,
+      -8,
+      -9,
+      -10,
+      -11,
+      -12,
+      -13,
+      -14,
+      -15,
+      -16,
+      -17,
+      -18,
+      -19,
+      -20,
+      -21,
+      -22,
+      -23,
+      -24,
+      -25,
+      -26,
+      -27,
+      -28,
+      -29,
+      -30
+    ]
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-21 20:51:06"
+}

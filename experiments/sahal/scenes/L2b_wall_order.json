@@ -1,0 +1,20 @@
+{
+ "name": "L2b_wall_order",
+ "level": "L2b",
+ "description": "gray A in front of the red near the left wall (little room left); gray B on A's right: B first",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.43,
+   0.105
+  ],
+  "cyl_gray_0": [
+   0.37,
+   0.085
+  ],
+  "cyl_gray_1": [
+   0.37,
+   0.035
+  ]
+ }
+}

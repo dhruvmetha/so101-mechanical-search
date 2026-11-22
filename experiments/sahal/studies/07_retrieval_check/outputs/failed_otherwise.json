@@ -1,0 +1,95 @@
+{
+ "scenes": 26,
+ "by_reason": {
+  "refused: path check": 23,
+  "pull refused: pull needs a held cylinder": 3
+ },
+ "refused_by_wall": {
+  "shelf_right": 14,
+  "shelf_left": 9
+ },
+ "refused_red_to_nearest_side_wall_mm": [
+  5.3,
+  22.3
+ ],
+ "refused_red_y_m": [
+  -0.1397,
+  0.1378
+ ],
+ "positive_gap": [
+  {
+   "scene": 25,
+   "real_reason": "pick refused: the path would hit shelf_right at frame 92",
+   "check_reason": "pick: arm within 6 mm of shelf_right at frame 92",
+   "plan_min_gray_clearance_mm": "37.1",
+   "red_x_m": 0.3791,
+   "red_y_m": -0.13
+  },
+  {
+   "scene": 49,
+   "real_reason": "pick refused: the path would hit shelf_right at frame 90",
+   "check_reason": "pick: arm within 6 mm of shelf_right at frame 90",
+   "plan_min_gray_clearance_mm": "50.0",
+   "red_x_m": 0.3806,
+   "red_y_m": -0.134
+  },
+  {
+   "scene": 76,
+   "real_reason": "pick refused: the path would hit shelf_right at frame 81",
+   "check_reason": "pick: arm within 6 mm of shelf_right at frame 81",
+   "plan_min_gray_clearance_mm": "18.9",
+   "red_x_m": 0.3589,
+   "red_y_m": -0.1306
+  }
+ ],
+ "nothing_held": [
+  {
+   "scene": 65,
+   "kind": "beside the red",
+   "real_reason": "pull refused: pull needs a held cylinder and the gripper isn't holding one",
+   "plan_min_gray_clearance_mm": "-23.0",
+   "red_x_m": 0.4455,
+   "red_y_m": -0.1096,
+   "red_to_left_wall_mm": 254.6,
+   "red_to_right_wall_mm": 35.4,
+   "gripper_reading_after_pick": 10.0,
+   "red_moved_mm": 21.3,
+   "red_tilt_after_pick_deg": 0.0,
+   "jaws_touch_after_pick": "",
+   "both_jaws_on_red": false,
+   "arm_touched_gray": "cyl_gray_0"
+  },
+  {
+   "scene": 102,
+   "kind": "in the approach corridor",
+   "real_reason": "pull refused: pull needs a held cylinder and the gripper isn't holding one",
+   "plan_min_gray_clearance_mm": "-23.3",
+   "red_x_m": 0.4075,
+   "red_y_m": -0.057,
+   "red_to_left_wall_mm": 202.0,
+   "red_to_right_wall_mm": 88.0,
+   "gripper_reading_after_pick": 10.0,
+   "red_moved_mm": 18.7,
+   "red_tilt_after_pick_deg": 0.0,
+   "jaws_touch_after_pick": "",
+   "both_jaws_on_red": false,
+   "arm_touched_gray": "cyl_gray_0"
+  },
+  {
+   "scene": 203,
+   "kind": "in the approach corridor",
+   "real_reason": "pull refused: pull needs a held cylinder and the gripper isn't holding one",
+   "plan_min_gray_clearance_mm": "-39.4",
+   "red_x_m": 0.3828,
+   "red_y_m": 0.073,
+   "red_to_left_wall_mm": 72.0,
+   "red_to_right_wall_mm": 218.0,
+   "gripper_reading_after_pick": 10.0,
+   "red_moved_mm": 20.4,
+   "red_tilt_after_pick_deg": 0.0,
+   "jaws_touch_after_pick": "",
+   "both_jaws_on_red": false,
+   "arm_touched_gray": "cyl_gray_0"
+  }
+ ]
+}

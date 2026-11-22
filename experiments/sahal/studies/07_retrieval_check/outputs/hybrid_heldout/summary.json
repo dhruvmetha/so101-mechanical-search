@@ -1,0 +1,136 @@
+{
+ "scenes": 300,
+ "built": 300,
+ "not_built": 0,
+ "agreement_table": {
+  "check yes, succeeded": 132,
+  "check yes, failed": 0,
+  "check no, succeeded": 8,
+  "check no, failed": 160
+ },
+ "agree": 292,
+ "agreement_rate": 0.973,
+ "real_successes": 140,
+ "glitch_scenes": [
+  108
+ ],
+ "by_kind": {
+  "anywhere": {
+   "check yes, succeeded": 58,
+   "check yes, failed": 0,
+   "check no, succeeded": 1,
+   "check no, failed": 31
+  },
+  "in the approach corridor": {
+   "check yes, succeeded": 38,
+   "check yes, failed": 0,
+   "check no, succeeded": 7,
+   "check no, failed": 89
+  },
+  "beside the red": {
+   "check yes, succeeded": 36,
+   "check yes, failed": 0,
+   "check no, succeeded": 0,
+   "check no, failed": 40
+  }
+ },
+ "check_reasons": {
+  "simulated": 119,
+  "fast no: deep overlap": 84,
+  "fast yes: clear": 76,
+  "arm near shelf": 21
+ },
+ "real_reasons": {
+  "ok": 140,
+  "gray toppled": 69,
+  "gray left the shelf": 67,
+  "refused: path check": 21,
+  "red toppled": 2,
+  "pull refused: pull needs a held cylinder": 1
+ },
+ "check_no_succeeded_by_reason": {
+  "fast no: deep overlap": 8
+ },
+ "check_yes_failed_by_real_reason": {},
+ "arm_touched_gray_but_succeeded": 73,
+ "check_ms": {
+  "mean": 685.9,
+  "median": 272.4,
+  "p90": 1809.8,
+  "max": 2304.5
+ },
+ "check_ms_mean_by_reason": {
+  "simulated": 1402.7,
+  "fast no: deep overlap": 245.0,
+  "fast yes: clear": 215.6,
+  "arm near shelf": 90.0
+ },
+ "physics_s_median": 1.14,
+ "plan_min_gray_clearance_mm_by_outcome": {
+  "succeeded": {
+   "scenes": 140,
+   "min": -35.2,
+   "median": -2.0,
+   "max": 50.0
+  },
+  "a gray toppled or left the shelf": {
+   "scenes": 136,
+   "min": -42.6,
+   "median": -27.1,
+   "max": -8.5
+  },
+  "failed otherwise": {
+   "scenes": 24,
+   "min": -39.9,
+   "median": -23.5,
+   "max": 50.0
+  }
+ },
+ "examples": {
+  "check yes, failed": [],
+  "check no, succeeded": [
+   {
+    "scene": 83,
+    "kind": "anywhere",
+    "picture": "examples/example_no_succeeded_scene083.png",
+    "plan_min_gray_clearance_mm": -27.1,
+    "check": "plan overlaps a gray by 25.1 mm or more",
+    "real": "retrieved",
+    "arm_touched_gray": "cyl_gray_0"
+   },
+   {
+    "scene": 113,
+    "kind": "in the approach corridor",
+    "picture": "examples/example_no_succeeded_scene113.png",
+    "plan_min_gray_clearance_mm": -35.2,
+    "check": "plan overlaps a gray by 25.1 mm or more",
+    "real": "retrieved",
+    "arm_touched_gray": "cyl_gray_0"
+   }
+  ]
+ },
+ "check_ms_single_process": {
+  "scenes": 20,
+  "mean": 541.5,
+  "median": 235.7,
+  "max": 1756.8
+ },
+ "margin_table_at_hybrid_thresholds": [
+  {
+   "threshold_mm": -5,
+   "judged_scenes": 279,
+   "yes": 76,
+   "false_yes": 0,
+   "no": 203,
+   "missed_successes": 64
+  },
+  {
+   "threshold_mm": -25,
+   "judged_scenes": 279,
+   "yes": 195,
+   "false_yes": 63,
+   "no": 84,
+   "missed_successes": 8
+  }
+ ]
+}

@@ -1,0 +1,230 @@
+{
+ "table": [
+  {
+   "scene": "L0_open",
+   "level": "L0",
+   "needs": "retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  },
+  {
+   "scene": "L1_front",
+   "level": "L1",
+   "needs": "1 sweep + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  },
+  {
+   "scene": "L1_front_offset",
+   "level": "L1",
+   "needs": "1 sweep + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  },
+  {
+   "scene": "L1b_right_wall",
+   "level": "L1b",
+   "needs": "sweep the red off the right wall (not possible)",
+   "works_mu_0.55": false,
+   "works_mu_0.4": false,
+   "works_mu_0.7": false,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": "\u03bc 0.55: sweep refused; \u03bc 0.4: sweep refused; \u03bc 0.7: sweep refused"
+  },
+  {
+   "scene": "L2_two_in_line",
+   "level": "L2",
+   "needs": "2 sweeps + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  },
+  {
+   "scene": "L2_side_by_side",
+   "level": "L2",
+   "needs": "1 long sweep + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": false,
+   "works_mu_0.7": false,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": "\u03bc 0.4: gray toppled; \u03bc 0.7: gray toppled"
+  },
+  {
+   "scene": "L2b_order",
+   "level": "L2b",
+   "needs": "2 sweeps in order + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "\u03bc 0.55: works;\u03bc 0.4: gray toppled;\u03bc 0.7: gray toppled",
+   "failures": ""
+  },
+  {
+   "scene": "L2b_wall_order",
+   "level": "L2b",
+   "needs": "2 sweeps in order + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": false,
+   "start_as_expected": true,
+   "reversed_order_works": "\u03bc 0.55: works;\u03bc 0.4: works;\u03bc 0.7: works",
+   "failures": "\u03bc 0.7: gray toppled"
+  },
+  {
+   "scene": "L3_right_wall",
+   "level": "L3",
+   "needs": "1 sweep + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  },
+  {
+   "scene": "L3_left_wall_two",
+   "level": "L3",
+   "needs": "2 sweeps + retrieve",
+   "works_mu_0.55": true,
+   "works_mu_0.4": true,
+   "works_mu_0.7": true,
+   "start_as_expected": true,
+   "reversed_order_works": "-",
+   "failures": ""
+  }
+ ],
+ "solutions": {
+  "L0_open": {
+   "needs": "retrieve",
+   "sweeps": []
+  },
+  "L1_front": {
+   "needs": "1 sweep + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_0",
+     90,
+     0.07
+    ]
+   ]
+  },
+  "L1_front_offset": {
+   "needs": "1 sweep + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_0",
+     270,
+     0.07
+    ]
+   ]
+  },
+  "L1b_right_wall": {
+   "needs": "sweep the red off the right wall (not possible)",
+   "sweeps": [
+    [
+     "cyl_red",
+     90,
+     0.03
+    ]
+   ]
+  },
+  "L2_two_in_line": {
+   "needs": "2 sweeps + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_1",
+     90,
+     0.07
+    ],
+    [
+     "cyl_gray_0",
+     270,
+     0.07
+    ]
+   ]
+  },
+  "L2_side_by_side": {
+   "needs": "1 long sweep + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_0",
+     90,
+     0.1
+    ]
+   ]
+  },
+  "L2b_order": {
+   "needs": "2 sweeps in order + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_1",
+     270,
+     0.06
+    ],
+    [
+     "cyl_gray_0",
+     90,
+     0.07
+    ]
+   ]
+  },
+  "L2b_wall_order": {
+   "needs": "2 sweeps in order + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_1",
+     270,
+     0.07
+    ],
+    [
+     "cyl_gray_0",
+     270,
+     0.07
+    ]
+   ]
+  },
+  "L3_right_wall": {
+   "needs": "1 sweep + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_0",
+     90,
+     0.07
+    ]
+   ]
+  },
+  "L3_left_wall_two": {
+   "needs": "2 sweeps + retrieve",
+   "sweeps": [
+    [
+     "cyl_gray_1",
+     315,
+     0.05
+    ],
+    [
+     "cyl_gray_0",
+     270,
+     0.07
+    ]
+   ]
+  }
+ }
+}
