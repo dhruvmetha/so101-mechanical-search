@@ -1,0 +1,93 @@
+{
+  "command": "experiments/sahal/studies/02_sweep_height/run.py --workers 10",
+  "settings": {
+    "quick": false,
+    "parts": [
+      "reach",
+      "slide_topple"
+    ],
+    "reach_heights_mm": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "reach_starts_m": {
+      "centre": [
+        0.4075,
+        0.0
+      ],
+      "front": [
+        0.355,
+        0.0
+      ],
+      "back": [
+        0.46,
+        0.0
+      ],
+      "near left wall": [
+        0.4075,
+        0.125
+      ],
+      "near right wall": [
+        0.4075,
+        -0.115
+      ]
+    },
+    "sweep_heights_cm": [
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5
+    ],
+    "sweep_frictions": [
+      0.4,
+      0.5,
+      0.55,
+      0.6,
+      0.7
+    ],
+    "push_density_kg_m3": 900.0,
+    "reset_seed": 0,
+    "path_check": "bypassed, verdict recorded",
+    "arm_shelf_touch": "recorded, does not end the run",
+    "glitch_contact_force_n": 100.0,
+    "glitch_speed_m_s": 1.0
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-21 18:49:22"
+}

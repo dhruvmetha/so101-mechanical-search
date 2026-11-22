@@ -1,0 +1,110 @@
+{
+ "sweep": {
+  "runs": 288,
+  "glitch_runs": 5,
+  "glitch_runs_by_speed": {
+   "0.25": 2,
+   "0.33": 2,
+   "0.5": 0,
+   "0.67": 0,
+   "0.75": 0,
+   "1.0": 1
+  },
+  "toppled_runs_by_speed": {
+   "0.25": 0,
+   "0.33": 0,
+   "0.5": 0,
+   "0.67": 6,
+   "0.75": 2,
+   "1.0": 6
+  },
+  "worst_cell_mean_tilt_by_speed": {
+   "0.25": 1.67,
+   "0.33": 5.15,
+   "0.5": 9.15,
+   "0.67": 16.71,
+   "0.75": 12.89,
+   "1.0": 16.59
+  },
+  "max_single_tilt_by_speed": {
+   "0.25": 3.11,
+   "0.33": 6.22,
+   "0.5": 13.62,
+   "0.67": 27.53,
+   "0.75": 22.08,
+   "1.0": 29.32
+  },
+  "robot_time_s_by_speed": {
+   "0.25": 24.5,
+   "0.33": 18.9,
+   "0.5": 12.8,
+   "0.67": 9.3,
+   "0.75": 8.8,
+   "1.0": 6.6
+  }
+ },
+ "traces": {
+  "runs": [
+   {
+    "direction": "left",
+    "friction": 0.7,
+    "repetition": 1,
+    "outcome": "glitch",
+    "max_tilt_deg": 94.86,
+    "max_contact_force_n": 15492.09,
+    "touch_episodes": 42,
+    "median_gap_between_touches_s": 0.0317,
+    "median_tangential_over_normal": 0.965,
+    "base_on_board_while_touching": 0.275,
+    "base_on_board_before_push": 1.0,
+    "max_jaw_speed_mm_s": 1226.8,
+    "max_arm_normal_force_n": 15492.09
+   },
+   {
+    "direction": "left",
+    "friction": 0.7,
+    "repetition": 2,
+    "outcome": "slid",
+    "max_tilt_deg": 1.34,
+    "max_contact_force_n": 6.43,
+    "touch_episodes": 40,
+    "median_gap_between_touches_s": 0.0383,
+    "median_tangential_over_normal": 0.973,
+    "base_on_board_while_touching": 0.298,
+    "base_on_board_before_push": 1.0,
+    "max_jaw_speed_mm_s": 318.1,
+    "max_arm_normal_force_n": 6.43
+   },
+   {
+    "direction": "right",
+    "friction": 0.6,
+    "repetition": 0,
+    "outcome": "slid",
+    "max_tilt_deg": 0.93,
+    "max_contact_force_n": 6.25,
+    "touch_episodes": 52,
+    "median_gap_between_touches_s": 0.0317,
+    "median_tangential_over_normal": 0.984,
+    "base_on_board_while_touching": 0.382,
+    "base_on_board_before_push": 1.0,
+    "max_jaw_speed_mm_s": 311.5,
+    "max_arm_normal_force_n": 6.25
+   },
+   {
+    "direction": "left",
+    "friction": 0.55,
+    "repetition": 0,
+    "outcome": "slid",
+    "max_tilt_deg": 1.02,
+    "max_contact_force_n": 5.31,
+    "touch_episodes": 46,
+    "median_gap_between_touches_s": 0.0333,
+    "median_tangential_over_normal": 0.989,
+    "base_on_board_while_touching": 0.328,
+    "base_on_board_before_push": 1.0,
+    "max_jaw_speed_mm_s": 333.1,
+    "max_arm_normal_force_n": 5.31
+   }
+  ]
+ }
+}

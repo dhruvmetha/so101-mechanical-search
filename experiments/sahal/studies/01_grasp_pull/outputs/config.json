@@ -1,0 +1,65 @@
+{
+  "command": "experiments/sahal/studies/01_grasp_pull/run.py --parts offsets",
+  "settings": {
+    "quick": false,
+    "parts": [
+      "offsets"
+    ],
+    "single_red_xy_m": [
+      0.4075,
+      0.0
+    ],
+    "heatmap_cell_m": 0.01,
+    "heatmap_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "offset_seed": 0,
+    "offset_physics": {
+      "friction": 0.55,
+      "density": 900.0
+    },
+    "offset_spots_m": [
+      [
+        0.4075,
+        0.0
+      ],
+      [
+        0.38,
+        0.07
+      ],
+      [
+        0.435,
+        -0.07
+      ],
+      [
+        0.435,
+        0.07
+      ]
+    ],
+    "offset_small_mm": [
+      2,
+      5
+    ],
+    "offset_large_mm": [
+      8,
+      10,
+      12,
+      15,
+      20
+    ],
+    "grasp_centre_tolerance_m": 0.01,
+    "grasp_min_lift_m": 0.005,
+    "grasp_max_tilt_deg": 5.0,
+    "glitch_grasp_contact_force_n": 1000.0,
+    "glitch_speed_m_s": 1.0
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-21 18:54:06"
+}

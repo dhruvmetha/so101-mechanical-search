@@ -1,0 +1,104 @@
+{
+ "empty": {
+  "grays_on_board_max": 0
+ },
+ "single": {
+  "reason": "success",
+  "pick_frames": 163,
+  "pull_frames": 32,
+  "max_tilt_deg": 1.67,
+  "after_pick_x": 0.3205,
+  "final_x": 0.2739
+ },
+ "heatmap": {
+  "cells": 480,
+  "runs": 2400,
+  "cells_in_action_box": 360,
+  "glitch_runs": 0,
+  "grasp_100_cells": 396,
+  "pull_100_cells": 396,
+  "pull_partial_cells": 0,
+  "pull_100_cells_in_box": 296,
+  "grasp_ok_pull_failed_runs": 0,
+  "reasons": {
+   "success": 1980,
+   "refused: right wall": 225,
+   "refused: left wall": 150,
+   "refused: IK": 30,
+   "refused: shelf_back": 15
+  },
+  "max_contact_force_n": 147.28,
+  "max_red_speed_m_s": 0.326
+ },
+ "offsets": {
+  "runs": 56,
+  "pull_success": 47,
+  "failed": [
+   [
+    0.4075,
+    0.0,
+    "front",
+    10,
+    "grasp: not both jaws"
+   ],
+   [
+    0.4075,
+    0.0,
+    "right",
+    10,
+    "grasp: not both jaws"
+   ],
+   [
+    0.4075,
+    0.0,
+    "front",
+    12,
+    "grasp: not both jaws"
+   ],
+   [
+    0.4075,
+    0.0,
+    "right",
+    12,
+    "grasp: toppled: cyl_red"
+   ],
+   [
+    0.4075,
+    0.0,
+    "front",
+    15,
+    "grasp: not both jaws"
+   ],
+   [
+    0.4075,
+    0.0,
+    "right",
+    15,
+    "grasp: toppled: cyl_red"
+   ],
+   [
+    0.4075,
+    0.0,
+    "front",
+    20,
+    "grasp: not both jaws"
+   ],
+   [
+    0.4075,
+    0.0,
+    "left",
+    20,
+    "grasp: toppled: cyl_red"
+   ],
+   [
+    0.4075,
+    0.0,
+    "right",
+    20,
+    "grasp: not both jaws"
+   ]
+  ],
+  "glitch_runs": 0,
+  "holding_but_not_both_jaws": 2
+ }
+}

@@ -1,0 +1,121 @@
+direction,height_cm,friction,speed_fraction,arm_friction,r_over_mu_cm,jitter_x_mm,jitter_y_mm,start_back_mm,refused,would_refuse,arm_touched_shelf,max_tilt_deg,final_tilt_deg,max_tilt_jump_per_frame_deg,glitch,toppled,outcome,moved_mm,moved_along_mm,max_contact_force_n,max_red_speed_m_s,first_contact_geom,first_contact_part,first_contact_height_mm,contact_height_min_mm,contact_height_max_mm,contact_substeps,share_jaw_tip,share_jaw_box,share_gripper_body,failure,frames
+away,1.75,0.4,1.0,default,3.75,0.0,0.0,22.0,,shelf_board,shelf_board,6.1,0.0,4.85,False,False,leaned,48.6,48.5,5.33,0.177,moving_jaw_so101_v1#43,jaw (box or mesh),16.7,13.8,19.4,29,0.0,1.0,0.0,,216
+away,2.0,0.4,1.0,default,3.75,0.0,0.0,22.0,,shelf_board,,13.82,0.0,4.62,False,False,leaned,43.9,43.8,7.31,0.19,moving_jaw_so101_v1#43,jaw (box or mesh),18.3,14.9,20.8,20,0.0,1.0,0.0,,216
+away,2.25,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,7.82,0.0,3.35,False,False,leaned,44.4,44.3,8.34,0.177,moving_jaw_so101_v1#43,jaw (box or mesh),20.9,18.0,23.4,18,0.0,1.0,0.0,,212
+away,2.5,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,7.6,0.0,4.33,False,False,leaned,45.1,45.1,6.55,0.192,moving_jaw_so101_v1#43,jaw (box or mesh),22.7,20.3,24.4,34,0.0,1.0,0.0,,209
+away,2.75,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,16.47,0.0,6.65,False,False,leaned,42.5,42.5,11.45,0.245,moving_jaw_so101_v1#43,jaw (box or mesh),25.3,23.4,30.0,21,0.0,1.0,0.0,,209
+away,3.0,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,6.51,0.0,3.3,False,False,leaned,44.0,44.0,9.9,0.186,moving_jaw_so101_v1#43,jaw (box or mesh),27.1,25.5,32.0,31,0.0,1.0,0.0,,206
+away,3.25,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,10.45,0.0,5.4,False,False,leaned,43.9,43.9,11.89,0.233,moving_jaw_so101_v1#43,jaw (box or mesh),29.7,27.9,33.4,21,0.0,1.0,0.0,,204
+away,3.5,0.4,1.0,default,3.75,0.0,0.0,22.0,,,,7.49,0.0,5.0,False,False,leaned,45.8,45.8,15.53,0.166,moving_jaw_so101_v1#43,jaw (box or mesh),32.3,30.3,35.5,46,0.0,1.0,0.0,,206
+away,1.75,0.5,1.0,default,3.0,0.0,0.0,22.0,,shelf_board,shelf_board,9.43,0.0,4.63,False,False,leaned,44.4,44.4,14.1,0.219,moving_jaw_so101_v1#43,jaw (box or mesh),16.7,14.4,19.2,31,0.0,1.0,0.0,,216
+away,2.0,0.5,1.0,default,3.0,0.0,0.0,22.0,,shelf_board,,9.32,0.0,4.53,False,False,leaned,46.6,46.6,11.22,0.204,moving_jaw_so101_v1#43,jaw (box or mesh),18.3,15.1,21.6,37,0.0,1.0,0.0,,216
+away,2.25,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,4.84,0.0,2.65,False,False,slid,45.0,45.0,5.93,0.169,moving_jaw_so101_v1#43,jaw (box or mesh),20.9,17.9,24.5,32,0.0,1.0,0.0,,212
+away,2.5,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,8.92,0.0,5.64,False,False,leaned,46.6,46.5,10.97,0.172,moving_jaw_so101_v1#43,jaw (box or mesh),22.7,20.2,25.8,25,0.0,1.0,0.0,,209
+away,2.75,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,20.46,20.46,8.64,False,True,toppled,24.8,24.3,16.17,0.304,moving_jaw_so101_v1#43,jaw (box or mesh),25.3,22.8,29.4,13,0.0,1.0,0.0,toppled: cyl_red,103
+away,3.0,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,10.92,0.0,4.58,False,False,leaned,45.8,45.7,16.09,0.233,moving_jaw_so101_v1#43,jaw (box or mesh),27.1,26.1,30.7,15,0.0,1.0,0.0,,206
+away,3.25,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,16.25,0.0,6.68,False,False,leaned,45.0,45.0,24.0,0.242,moving_jaw_so101_v1#43,jaw (box or mesh),29.7,28.2,33.5,25,0.0,0.92,0.08,,204
+away,3.5,0.5,1.0,default,3.0,0.0,0.0,22.0,,,,21.99,21.99,2.98,False,True,toppled,43.6,43.6,25.77,0.198,moving_jaw_so101_v1#43,jaw (box or mesh),32.3,30.7,33.1,25,0.0,1.0,0.0,toppled: cyl_red,114
+away,1.75,0.55,1.0,default,2.73,0.0,0.0,22.0,,shelf_board,shelf_board,9.83,0.0,4.15,False,False,leaned,47.2,47.2,11.08,0.208,moving_jaw_so101_v1#43,jaw (box or mesh),16.7,13.6,19.9,54,0.0,1.0,0.0,,216
+away,2.0,0.55,1.0,default,2.73,0.0,0.0,22.0,,shelf_board,,24.32,24.32,5.67,False,True,toppled,37.8,37.3,18.61,0.299,moving_jaw_so101_v1#43,jaw (box or mesh),18.3,16.7,21.5,10,0.0,1.0,0.0,toppled: cyl_red,111
+away,2.25,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,17.04,0.0,6.98,False,False,leaned,54.6,54.6,18.35,0.24,moving_jaw_so101_v1#43,jaw (box or mesh),20.9,17.8,23.0,23,0.0,1.0,0.0,,212
+away,2.5,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,8.92,0.0,6.52,False,False,leaned,44.3,44.3,26.35,0.195,moving_jaw_so101_v1#43,jaw (box or mesh),22.7,20.2,27.0,29,0.0,1.0,0.0,,209
+away,2.75,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,24.33,24.33,7.64,False,True,toppled,43.8,43.0,11.11,0.259,moving_jaw_so101_v1#43,jaw (box or mesh),25.3,22.8,28.4,20,0.0,1.0,0.0,toppled: cyl_red,111
+away,3.0,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,12.92,0.0,5.83,False,False,leaned,43.0,42.9,15.3,0.188,moving_jaw_so101_v1#43,jaw (box or mesh),27.1,25.0,31.8,29,0.0,1.0,0.0,,206
+away,3.25,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,22.08,22.08,6.15,False,True,toppled,35.0,31.3,15.19,0.196,moving_jaw_so101_v1#43,jaw (box or mesh),29.7,27.7,31.3,14,0.0,0.857,0.143,toppled: cyl_red,105
+away,3.5,0.55,1.0,default,2.73,0.0,0.0,22.0,,,,6.53,0.0,3.41,False,False,leaned,46.8,46.8,12.06,0.193,moving_jaw_so101_v1#43,jaw (box or mesh),32.3,30.4,35.4,34,0.0,1.0,0.0,,206
+away,1.75,0.6,1.0,default,2.5,0.0,0.0,22.0,,shelf_board,shelf_board,6.49,0.0,4.88,False,False,leaned,45.2,45.2,9.85,0.216,moving_jaw_so101_v1#43,jaw (box or mesh),16.7,14.1,19.0,35,0.0,1.0,0.0,,216
+away,2.0,0.6,1.0,default,2.5,0.0,0.0,22.0,,shelf_board,,7.67,0.0,4.26,False,False,leaned,43.7,43.6,12.86,0.181,moving_jaw_so101_v1#43,jaw (box or mesh),18.3,15.3,20.2,49,0.0,1.0,0.0,,216
+away,2.25,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,14.74,0.0,7.62,False,False,leaned,44.9,44.9,14.98,0.232,moving_jaw_so101_v1#43,jaw (box or mesh),20.9,18.5,23.1,21,0.0,1.0,0.0,,212
+away,2.5,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,22.37,22.37,8.4,False,True,toppled,41.3,40.3,11.02,0.256,moving_jaw_so101_v1#43,jaw (box or mesh),22.7,20.3,27.9,21,0.0,1.0,0.0,toppled: cyl_red,111
+away,2.75,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,12.88,0.0,5.3,False,False,leaned,51.5,51.4,19.63,0.3,moving_jaw_so101_v1#43,jaw (box or mesh),25.3,22.8,27.8,23,0.0,1.0,0.0,,209
+away,3.0,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,12.89,0.0,6.83,False,False,leaned,43.7,43.7,21.53,0.253,moving_jaw_so101_v1#43,jaw (box or mesh),27.1,25.8,31.7,27,0.0,1.0,0.0,,206
+away,3.25,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,14.56,0.0,5.4,False,False,leaned,42.1,42.1,21.21,0.216,moving_jaw_so101_v1#43,jaw (box or mesh),29.7,27.4,32.9,37,0.0,1.0,0.0,,204
+away,3.5,0.6,1.0,default,2.5,0.0,0.0,22.0,,,,10.34,0.0,6.28,False,False,leaned,47.4,47.2,22.15,0.302,moving_jaw_so101_v1#43,jaw (box or mesh),32.3,30.3,34.7,29,0.0,1.0,0.0,,206
+away,1.75,0.7,1.0,default,2.14,0.0,0.0,22.0,,shelf_board,shelf_board,5.89,0.0,5.14,False,False,leaned,50.8,50.8,10.35,0.198,moving_jaw_so101_v1#43,jaw (box or mesh),16.7,13.5,19.2,33,0.0,1.0,0.0,,216
+away,2.0,0.7,1.0,default,2.14,0.0,0.0,22.0,,shelf_board,,12.09,0.0,6.96,False,False,leaned,48.4,48.4,10.22,0.193,moving_jaw_so101_v1#43,jaw (box or mesh),18.3,15.3,21.3,19,0.0,1.0,0.0,,216
+away,2.25,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,10.46,0.0,5.35,False,False,leaned,45.5,45.5,17.28,0.243,moving_jaw_so101_v1#43,jaw (box or mesh),20.9,17.9,23.2,23,0.0,1.0,0.0,,212
+away,2.5,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,9.71,0.0,5.73,False,False,leaned,53.7,53.7,16.99,0.242,moving_jaw_so101_v1#43,jaw (box or mesh),22.7,20.3,25.8,20,0.0,1.0,0.0,,209
+away,2.75,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,12.69,0.0,3.84,False,False,leaned,42.4,42.2,12.97,0.188,moving_jaw_so101_v1#43,jaw (box or mesh),25.3,22.8,27.7,41,0.0,1.0,0.0,,209
+away,3.0,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,12.27,0.0,5.36,False,False,leaned,43.1,43.1,27.53,0.258,moving_jaw_so101_v1#43,jaw (box or mesh),27.1,25.1,32.9,21,0.0,1.0,0.0,,206
+away,3.25,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,23.86,23.86,4.81,False,True,toppled,39.3,38.5,23.28,0.182,moving_jaw_so101_v1#43,jaw (box or mesh),29.7,27.9,32.9,19,0.0,1.0,0.0,toppled: cyl_red,108
+away,3.5,0.7,1.0,default,2.14,0.0,0.0,22.0,,,,21.9,21.9,4.58,False,True,toppled,25.3,25.2,27.82,0.177,moving_jaw_so101_v1#43,jaw (box or mesh),32.3,30.9,32.9,21,0.0,1.0,0.0,toppled: cyl_red,104
+left,1.75,0.4,1.0,default,3.75,0.0,0.0,38.4,,shelf_board,shelf_board,3.13,0.0,2.06,False,False,slid,45.2,44.2,6.39,0.194,gripper#32,gripper body,19.7,15.7,20.0,28,0.0,0.0,1.0,,220
+left,2.0,0.4,1.0,default,3.75,0.0,0.0,38.4,,shelf_board,,3.72,0.0,2.17,False,False,slid,44.6,43.9,8.45,0.186,gripper#32,gripper body,22.9,17.9,23.0,37,0.0,0.0,1.0,,220
+left,2.25,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,3.79,0.0,2.85,False,False,slid,44.1,42.5,7.95,0.2,gripper#32,gripper body,25.2,20.4,25.5,24,0.0,0.0,1.0,,216
+left,2.5,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,5.0,0.0,3.22,False,False,slid,43.3,41.9,7.94,0.206,gripper#32,gripper body,27.7,22.9,28.0,30,0.0,0.0,1.0,,212
+left,2.75,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,4.3,0.0,3.21,False,False,slid,40.6,39.4,7.5,0.209,gripper#32,gripper body,30.1,25.4,30.4,25,0.0,0.0,1.0,,212
+left,3.0,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,6.0,0.0,4.25,False,False,leaned,38.8,37.8,7.54,0.218,gripper#32,gripper body,32.5,28.0,32.8,25,0.0,0.0,1.0,,209
+left,3.25,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,5.5,0.0,3.9,False,False,leaned,47.0,45.8,7.92,0.238,gripper#32,gripper body,34.9,30.5,35.2,25,0.0,0.0,1.0,,206
+left,3.5,0.4,1.0,default,3.75,0.0,0.0,38.4,,,,6.38,0.0,4.06,False,False,leaned,45.7,43.6,8.13,0.273,gripper#32,gripper body,37.4,33.0,37.6,22,0.0,0.0,1.0,,206
+left,1.75,0.5,1.0,default,3.0,0.0,0.0,38.4,,shelf_board,shelf_board,6.76,0.0,5.61,False,False,leaned,44.7,43.9,9.82,0.26,gripper#32,gripper body,19.7,15.7,20.1,25,0.0,0.0,1.0,,220
+left,2.0,0.5,1.0,default,3.0,0.0,0.0,38.4,,shelf_board,,12.5,0.0,5.3,False,False,leaned,43.5,43.0,10.1,0.222,gripper#32,gripper body,22.9,17.9,23.1,31,0.0,0.0,1.0,,220
+left,2.25,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,3.15,0.0,2.89,False,False,slid,44.3,43.7,15.53,0.202,gripper#32,gripper body,25.2,20.4,25.5,30,0.0,0.0,1.0,,216
+left,2.5,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,4.56,0.0,3.47,False,False,slid,44.6,43.5,9.49,0.205,gripper#32,gripper body,27.7,22.8,28.0,23,0.0,0.0,1.0,,212
+left,2.75,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,9.83,0.0,5.36,False,False,leaned,50.4,49.7,10.85,0.23,gripper#32,gripper body,30.1,25.3,30.4,25,0.0,0.0,1.0,,212
+left,3.0,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,6.64,0.0,4.59,False,False,leaned,47.9,46.3,10.11,0.248,gripper#32,gripper body,32.5,27.8,32.9,27,0.0,0.0,1.0,,209
+left,3.25,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,9.43,0.0,4.37,False,False,leaned,40.4,39.6,9.55,0.243,gripper#32,gripper body,34.9,30.3,35.3,23,0.0,0.0,1.0,,206
+left,3.5,0.5,1.0,default,3.0,0.0,0.0,38.4,,,,7.04,0.0,4.46,False,False,leaned,37.4,36.5,12.21,0.261,gripper#32,gripper body,37.4,32.8,37.8,28,0.0,0.0,1.0,,206
+left,1.75,0.55,1.0,default,2.73,0.0,0.0,38.4,,shelf_board,shelf_board,6.4,0.0,4.01,False,False,leaned,48.5,47.7,10.81,0.26,gripper#32,gripper body,19.7,15.4,20.2,23,0.0,0.0,1.0,,220
+left,2.0,0.55,1.0,default,2.73,0.0,0.0,38.4,,shelf_board,,11.25,0.0,5.29,False,False,leaned,43.2,42.7,11.03,0.236,gripper#32,gripper body,22.9,17.9,23.1,27,0.0,0.0,1.0,,220
+left,2.25,0.55,1.0,default,2.73,0.0,0.0,38.4,,,,5.12,0.0,3.56,False,False,leaned,44.4,43.4,10.21,0.244,gripper#32,gripper body,25.2,20.3,25.6,28,0.0,0.0,1.0,,216
+left,2.5,0.55,1.0,default,2.73,0.0,0.0,38.4,,,,3.28,0.0,2.08,False,False,slid,42.7,41.5,10.19,0.202,gripper#32,gripper body,27.7,22.9,28.0,24,0.0,0.0,1.0,,212
+left,2.75,0.55,1.0,default,2.73,0.0,0.0,38.4,,,,3.98,0.0,2.31,False,False,slid,46.5,45.8,9.57,0.234,gripper#32,gripper body,30.1,25.3,30.5,31,0.0,0.0,1.0,,212
+left,3.0,0.55,1.0,default,2.73,0.0,0.0,38.4,,,,7.52,0.0,4.47,False,False,leaned,48.4,47.0,11.42,0.241,gripper#32,gripper body,32.5,27.8,32.9,30,0.0,0.0,1.0,,209
+left,3.25,0.55,1.0,default,2.73,0.0,0.0,38.4,,,shelf_board,98.2,98.2,98.13,True,False,glitch,121.6,18.0,427.85,29.806,gripper#32,gripper body,34.9,30.3,45.2,39,0.0,0.128,0.872,toppled: cyl_red,128
+left,3.5,0.55,1.0,default,2.73,0.0,0.0,38.4,,,,7.59,0.0,3.71,False,False,leaned,40.6,39.4,11.07,0.263,gripper#32,gripper body,37.4,32.8,37.8,30,0.0,0.0,1.0,,206
+left,1.75,0.6,1.0,default,2.5,0.0,0.0,38.4,,shelf_board,shelf_board,6.5,0.0,3.39,False,False,leaned,47.2,46.3,9.5,0.263,gripper#32,gripper body,19.7,15.6,20.2,31,0.0,0.0,1.0,,220
+left,2.0,0.6,1.0,default,2.5,0.0,0.0,38.4,,shelf_board,,6.08,0.0,3.95,False,False,leaned,45.8,45.1,11.9,0.231,gripper#32,gripper body,22.9,17.9,23.2,23,0.0,0.0,1.0,,220
+left,2.25,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,10.1,0.0,5.01,False,False,leaned,44.1,42.8,11.19,0.257,gripper#32,gripper body,25.2,20.4,25.6,28,0.0,0.0,1.0,,216
+left,2.5,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,5.67,0.0,4.29,False,False,leaned,45.6,44.2,11.14,0.218,gripper#32,gripper body,27.7,22.8,28.1,28,0.0,0.0,1.0,,212
+left,2.75,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,7.3,0.0,3.21,False,False,leaned,45.8,44.6,12.31,0.217,gripper#32,gripper body,30.1,25.3,30.5,22,0.0,0.0,1.0,,212
+left,3.0,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,5.22,0.0,2.58,False,False,leaned,40.8,39.6,12.91,0.232,gripper#32,gripper body,32.5,27.8,32.9,22,0.0,0.0,1.0,,209
+left,3.25,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,6.14,0.0,4.5,False,False,leaned,37.3,35.6,13.41,0.253,gripper#32,gripper body,34.9,30.3,35.3,28,0.0,0.0,1.0,,206
+left,3.5,0.6,1.0,default,2.5,0.0,0.0,38.4,,,,6.47,0.0,3.89,False,False,leaned,41.6,40.5,16.56,0.279,gripper#32,gripper body,37.4,32.8,37.8,27,0.0,0.0,1.0,,206
+left,1.75,0.7,1.0,default,2.14,0.0,0.0,38.4,,shelf_board,shelf_board,7.0,0.0,4.91,False,False,leaned,40.8,38.9,11.09,0.253,gripper#32,gripper body,19.7,15.6,20.3,26,0.0,0.0,1.0,,220
+left,2.0,0.7,1.0,default,2.14,0.0,0.0,38.4,,shelf_board,,10.62,0.0,5.31,False,False,leaned,48.4,48.0,13.59,0.281,gripper#32,gripper body,22.9,17.9,23.2,24,0.0,0.0,1.0,,220
+left,2.25,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,25.81,25.81,7.42,False,True,toppled,58.5,54.6,12.79,0.266,gripper#32,gripper body,25.2,20.4,25.6,25,0.0,0.0,1.0,toppled: cyl_red,128
+left,2.5,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,7.22,0.0,4.99,False,False,leaned,41.7,41.3,13.88,0.239,gripper#32,gripper body,27.7,22.8,28.1,22,0.0,0.0,1.0,,212
+left,2.75,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,5.27,0.0,3.24,False,False,leaned,46.6,45.4,12.61,0.246,gripper#32,gripper body,30.1,25.3,30.5,25,0.0,0.0,1.0,,212
+left,3.0,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,22.44,22.44,7.54,False,True,toppled,52.2,47.0,16.86,0.246,gripper#32,gripper body,32.5,27.8,33.0,27,0.0,0.0,1.0,toppled: cyl_red,124
+left,3.25,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,7.08,0.0,4.22,False,False,leaned,42.9,41.1,17.5,0.253,gripper#32,gripper body,34.9,30.3,35.4,33,0.0,0.0,1.0,,206
+left,3.5,0.7,1.0,default,2.14,0.0,0.0,38.4,,,,24.87,24.87,7.6,False,True,toppled,30.2,29.7,19.66,0.222,gripper#32,gripper body,37.4,30.1,37.9,26,0.0,0.0,1.0,toppled: cyl_red,115
+right,1.75,0.4,1.0,default,3.75,0.0,0.0,40.3,,shelf_board,shelf_board,3.84,0.0,2.44,False,False,slid,43.3,42.1,7.21,0.205,moving_jaw_so101_v1#43,jaw (box or mesh),19.6,13.8,20.2,67,0.0,1.0,0.0,,207
+right,2.0,0.4,1.0,default,3.75,0.0,0.0,40.3,,shelf_board,,2.95,0.0,2.2,False,False,slid,44.3,43.3,9.77,0.206,moving_jaw_so101_v1#43,jaw (box or mesh),18.5,16.3,23.1,91,0.0,1.0,0.0,,207
+right,2.25,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,4.32,0.0,3.35,False,False,slid,44.4,42.7,9.21,0.219,moving_jaw_so101_v1#43,jaw (box or mesh),24.3,18.8,25.5,79,0.0,1.0,0.0,,203
+right,2.5,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,4.48,0.0,3.83,False,False,slid,42.1,41.0,9.29,0.216,moving_jaw_so101_v1#43,jaw (box or mesh),23.4,21.4,28.0,73,0.0,1.0,0.0,,199
+right,2.75,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,5.03,0.0,3.31,False,False,leaned,39.5,38.1,8.75,0.212,moving_jaw_so101_v1#43,jaw (box or mesh),29.9,23.6,30.4,68,0.0,1.0,0.0,,199
+right,3.0,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,4.95,0.0,3.06,False,False,slid,38.4,36.9,8.79,0.212,moving_jaw_so101_v1#43,jaw (box or mesh),31.2,26.2,32.8,65,0.0,1.0,0.0,,196
+right,3.25,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,3.77,0.0,2.86,False,False,slid,39.0,37.3,8.63,0.212,moving_jaw_so101_v1#43,jaw (box or mesh),34.8,28.6,35.3,56,0.0,1.0,0.0,,193
+right,3.5,0.4,1.0,default,3.75,0.0,0.0,40.3,,,,5.34,0.0,3.56,False,False,leaned,43.0,40.1,8.7,0.245,moving_jaw_so101_v1#43,jaw (box or mesh),37.3,31.5,37.7,54,0.0,1.0,0.0,,194
+right,1.75,0.5,1.0,default,3.0,0.0,0.0,40.3,,shelf_board,shelf_board,5.32,0.0,2.62,False,False,leaned,42.9,41.7,9.04,0.215,moving_jaw_so101_v1#43,jaw (box or mesh),19.6,13.9,20.2,67,0.0,1.0,0.0,,207
+right,2.0,0.5,1.0,default,3.0,0.0,0.0,40.3,,shelf_board,,3.71,0.0,3.03,False,False,slid,40.9,39.9,11.9,0.208,moving_jaw_so101_v1#43,jaw (box or mesh),18.5,16.4,23.1,76,0.0,1.0,0.0,,207
+right,2.25,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,3.9,0.0,3.42,False,False,slid,42.5,41.7,11.03,0.21,moving_jaw_so101_v1#43,jaw (box or mesh),24.3,18.9,25.5,74,0.0,1.0,0.0,,203
+right,2.5,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,4.44,0.0,3.95,False,False,slid,41.2,39.7,11.22,0.21,moving_jaw_so101_v1#43,jaw (box or mesh),23.4,21.5,28.0,68,0.0,1.0,0.0,,199
+right,2.75,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,4.05,0.0,3.53,False,False,slid,40.1,38.7,10.5,0.212,moving_jaw_so101_v1#43,jaw (box or mesh),29.9,24.1,30.4,62,0.0,1.0,0.0,,199
+right,3.0,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,4.6,0.0,3.48,False,False,slid,40.0,38.3,10.42,0.216,moving_jaw_so101_v1#43,jaw (box or mesh),31.2,26.1,32.7,58,0.0,1.0,0.0,,196
+right,3.25,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,7.51,0.0,3.63,False,False,leaned,41.5,40.3,10.29,0.219,moving_jaw_so101_v1#43,jaw (box or mesh),34.8,28.6,35.2,71,0.0,1.0,0.0,,193
+right,3.5,0.5,1.0,default,3.0,0.0,0.0,40.3,,,,4.87,0.0,3.43,False,False,slid,42.9,40.5,10.38,0.246,moving_jaw_so101_v1#43,jaw (box or mesh),37.3,31.4,37.5,54,0.0,1.0,0.0,,194
+right,1.75,0.55,1.0,default,2.73,0.0,0.0,40.3,,shelf_board,shelf_board,3.6,0.0,2.87,False,False,slid,41.1,40.1,9.94,0.22,moving_jaw_so101_v1#43,jaw (box or mesh),19.6,14.0,20.2,61,0.0,1.0,0.0,,207
+right,2.0,0.55,1.0,default,2.73,0.0,0.0,40.3,,shelf_board,,3.98,0.0,3.33,False,False,slid,41.5,40.4,13.05,0.206,moving_jaw_so101_v1#43,jaw (box or mesh),18.5,16.4,23.1,74,0.0,1.0,0.0,,207
+right,2.25,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,7.34,0.0,3.94,False,False,leaned,38.5,37.1,12.19,0.21,moving_jaw_so101_v1#43,jaw (box or mesh),24.3,19.0,25.5,61,0.0,1.0,0.0,,203
+right,2.5,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,6.78,0.0,3.94,False,False,leaned,45.7,44.3,12.27,0.214,moving_jaw_so101_v1#43,jaw (box or mesh),23.4,21.5,28.0,62,0.0,1.0,0.0,,199
+right,2.75,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,6.42,0.0,5.01,False,False,leaned,47.7,46.8,11.45,0.24,moving_jaw_so101_v1#43,jaw (box or mesh),29.9,24.0,30.4,72,0.0,1.0,0.0,,199
+right,3.0,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,4.43,0.0,3.63,False,False,slid,43.0,40.8,11.46,0.225,moving_jaw_so101_v1#43,jaw (box or mesh),31.2,26.4,32.8,66,0.0,1.0,0.0,,196
+right,3.25,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,7.15,0.0,4.23,False,False,leaned,40.6,38.8,14.64,0.266,moving_jaw_so101_v1#43,jaw (box or mesh),34.8,28.8,35.2,52,0.0,1.0,0.0,,193
+right,3.5,0.55,1.0,default,2.73,0.0,0.0,40.3,,,,5.24,0.0,3.84,False,False,leaned,39.0,37.4,13.31,0.257,moving_jaw_so101_v1#43,jaw (box or mesh),37.3,31.3,37.5,65,0.0,1.0,0.0,,194
+right,1.75,0.6,1.0,default,2.5,0.0,0.0,40.3,,shelf_board,shelf_board,7.43,0.0,7.09,False,False,leaned,44.4,43.0,36.56,0.301,moving_jaw_so101_v1#43,jaw (box or mesh),19.6,14.0,20.2,79,0.0,1.0,0.0,,207
+right,2.0,0.6,1.0,default,2.5,0.0,0.0,40.3,,shelf_board,,22.47,22.47,6.01,False,True,toppled,54.9,54.0,14.32,0.295,moving_jaw_so101_v1#43,jaw (box or mesh),18.5,16.4,23.1,70,0.0,1.0,0.0,toppled: cyl_red,117
+right,2.25,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,5.18,0.0,3.46,False,False,leaned,44.5,43.4,13.27,0.235,moving_jaw_so101_v1#43,jaw (box or mesh),24.3,18.9,25.6,81,0.0,1.0,0.0,,203
+right,2.5,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,17.19,0.0,8.9,False,False,leaned,42.4,40.9,16.89,0.278,moving_jaw_so101_v1#43,jaw (box or mesh),23.4,21.5,28.0,74,0.0,1.0,0.0,,199
+right,2.75,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,5.49,0.0,4.74,False,False,leaned,43.9,43.1,12.41,0.21,moving_jaw_so101_v1#43,jaw (box or mesh),29.9,23.7,30.4,60,0.0,1.0,0.0,,199
+right,3.0,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,8.55,0.0,4.63,False,False,leaned,47.4,46.0,13.55,0.236,moving_jaw_so101_v1#43,jaw (box or mesh),31.2,26.3,32.8,60,0.0,1.0,0.0,,196
+right,3.25,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,5.84,0.0,4.11,False,False,leaned,41.8,39.7,13.29,0.241,moving_jaw_so101_v1#43,jaw (box or mesh),34.8,28.8,35.0,59,0.0,1.0,0.0,,193
+right,3.5,0.6,1.0,default,2.5,0.0,0.0,40.3,,,,6.71,0.0,3.98,False,False,leaned,39.3,37.3,14.57,0.239,moving_jaw_so101_v1#43,jaw (box or mesh),37.3,31.3,37.5,70,0.0,1.0,0.0,,194
+right,1.75,0.7,1.0,default,2.14,0.0,0.0,40.3,,shelf_board,shelf_board,5.12,0.0,3.3,False,False,leaned,47.7,46.7,12.93,0.282,moving_jaw_so101_v1#43,jaw (box or mesh),19.6,13.5,20.7,86,0.0,1.0,0.0,,207
+right,2.0,0.7,1.0,default,2.14,0.0,0.0,40.3,,shelf_board,,20.19,20.19,7.65,False,True,toppled,53.8,50.4,16.64,0.266,moving_jaw_so101_v1#43,jaw (box or mesh),18.5,16.4,23.1,68,0.0,1.0,0.0,toppled: cyl_red,116
+right,2.25,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,15.63,0.0,7.61,False,False,leaned,37.4,36.1,19.19,0.274,moving_jaw_so101_v1#43,jaw (box or mesh),24.3,18.9,25.6,68,0.0,1.0,0.0,,203
+right,2.5,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,12.07,0.0,7.11,False,False,leaned,42.1,41.3,15.45,0.261,moving_jaw_so101_v1#43,jaw (box or mesh),23.4,21.4,28.1,80,0.0,1.0,0.0,,199
+right,2.75,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,5.33,0.0,3.18,False,False,leaned,38.8,37.3,14.51,0.232,moving_jaw_so101_v1#43,jaw (box or mesh),29.9,23.8,30.3,59,0.0,1.0,0.0,,199
+right,3.0,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,6.02,0.0,3.0,False,False,leaned,36.9,35.2,19.48,0.249,moving_jaw_so101_v1#43,jaw (box or mesh),31.2,26.3,32.6,58,0.0,1.0,0.0,,196
+right,3.25,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,10.71,0.0,4.37,False,False,leaned,38.4,36.5,16.71,0.245,moving_jaw_so101_v1#43,jaw (box or mesh),34.8,28.8,35.0,75,0.0,1.0,0.0,,193
+right,3.5,0.7,1.0,default,2.14,0.0,0.0,40.3,,,,10.94,0.0,4.56,False,False,leaned,37.0,35.6,19.91,0.243,moving_jaw_so101_v1#43,jaw (box or mesh),37.3,31.1,37.3,84,0.0,1.0,0.0,,194

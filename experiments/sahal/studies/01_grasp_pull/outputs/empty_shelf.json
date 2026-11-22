@@ -1,0 +1,58 @@
+[
+ {
+  "asked_xy": [
+   0.4075,
+   0.0
+  ],
+  "pos": [
+   0.4075,
+   0.0,
+   0.13
+  ],
+  "tilt_deg": 0.002,
+  "resting": true,
+  "grays_on_board": 0
+ },
+ {
+  "asked_xy": [
+   0.36,
+   0.1
+  ],
+  "pos": [
+   0.36,
+   0.1,
+   0.13
+  ],
+  "tilt_deg": 0.0,
+  "resting": true,
+  "grays_on_board": 0
+ },
+ {
+  "asked_xy": [
+   0.46,
+   -0.12
+  ],
+  "pos": [
+   0.46,
+   -0.12,
+   0.13
+  ],
+  "tilt_deg": 0.002,
+  "resting": true,
+  "grays_on_board": 0
+ },
+ {
+  "asked_xy": [
+   0.32,
+   0.0
+  ],
+  "pos": [
+   0.32,
+   -0.0,
+   0.13
+  ],
+  "tilt_deg": 0.002,
+  "resting": true,
+  "grays_on_board": 0
+ }
+]
