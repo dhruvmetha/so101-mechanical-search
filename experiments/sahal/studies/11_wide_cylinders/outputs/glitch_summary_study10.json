@@ -1,0 +1,20 @@
+{
+ "flagged": 140,
+ "replayed_as_glitch": 139,
+ "env_failure": {
+  "hit the shelf": 2,
+  "left the shelf": 2,
+  "none": 3,
+  "toppled": 133
+ },
+ "a_cylinder_tilted_past_topple": 135,
+ "force_at_most_glitch_limit": 67,
+ "of_those_a_cylinder_tilted_past_topple": 63,
+ "of_those_largest_tilt_deg_quantiles": [
+  20.9,
+  33.0,
+  94.7
+ ],
+ "fastest_was_swept": 87,
+ "in_scene_with_friction_bug": 3
+}

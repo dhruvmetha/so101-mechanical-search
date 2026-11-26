@@ -1,0 +1,24 @@
+{
+ "name": "wide4_0025",
+ "level": "random",
+ "description": "random: red in the r2.25 h5 graspable zone, 3 grays anywhere, not retrievable at start",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.4148,
+   0.0994
+  ],
+  "cyl_gray_0": [
+   0.3754,
+   -0.1231
+  ],
+  "cyl_gray_1": [
+   0.3851,
+   -0.0241
+  ],
+  "cyl_gray_2": [
+   0.34,
+   0.0665
+  ]
+ }
+}

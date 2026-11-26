@@ -1,0 +1,62 @@
+{
+  "command": "experiments/sahal/studies/10_random_sweeps/run.py --parts analyse",
+  "settings": {
+    "quick": false,
+    "parts": [
+      "analyse"
+    ],
+    "study_seed": 10,
+    "scene_dir": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/scenes/random4",
+    "out_dir": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/studies/10_random_sweeps/outputs",
+    "scene_prefix": "random4",
+    "size": {
+      "radius_m": 0.015,
+      "height_m": 0.08,
+      "grasp_up_m": 0.04
+    },
+    "friction": 0.55,
+    "n_scenes": 10,
+    "n_grays": 3,
+    "candidate_batch": 40,
+    "max_candidates": 2000,
+    "max_placement_tries": 500,
+    "trials_per_scene": 500,
+    "trials_per_job": 25,
+    "quick_trials": 20,
+    "length_range_m": [
+      0.02,
+      0.12
+    ],
+    "max_direction_deg": 157.5,
+    "start_sideways_m": 0.01,
+    "start_back_m": 0.01,
+    "max_attempts": 200,
+    "length_bins_cm": [
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        8
+      ],
+      [
+        8,
+        12
+      ]
+    ],
+    "description": "random: red in the graspable zone, 3 grays anywhere, not retrievable at start",
+    "sweep_heights_m": [
+      0.023,
+      0.024,
+      0.025,
+      0.026
+    ],
+    "contact_speed_m_s": 0.019999999999999997
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-25 18:55:29"
+}

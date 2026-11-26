@@ -8,7 +8,9 @@ dm1487's. Subclass or wrap repo code here instead.
 - `common/`: anything two studies use. `shelf_env.py` (SingleRedShelf, placing the red, the shared push run),
   `measures.py` (grasp conditions, tilt outcome, contacts, clearance, glitch detection), `plotting.py` (colours,
   shelf outline, maps), `runner.py` (parallel runs, CSV, config.json), `retrieval_check.py` (can the red be picked and pulled
-  now: hybrid, exact, kinematic), `scenes.py` (3-cylinder scenes stored as JSON in `scenes/`).
+  now: hybrid, exact, kinematic), `scenes.py` (scenes of the red and grays as JSON in `scenes/`, study 01's graspable zone), `cylinder_size.py`
+  (other cylinder sizes without repo changes), `random_sweeps.py` (random scenes and random single sweeps, studies 10
+  and 11), `sweep_videos.py` (demo videos of saved trials; they go in `videos/`, the only mp4s kept in git).
 - `skills/`: new skills built on the repo's primitives, reusing its IK, retiming and path check (`sweep.py`).
 - `studies/NN_name/`: `run.py` (the only entry point, settings at the top, `--quick`), `README.md` (question,
   method, how to run, results, caveats), `outputs/` (CSVs, PNGs, summary.json, config.json).

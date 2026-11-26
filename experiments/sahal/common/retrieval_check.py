@@ -47,7 +47,7 @@ import numpy as np
 
 from common.measures import geom_label
 from so101sim import ik, side_primitives, units
-from so101sim.primitives import GRIP_CLOSE, GRIP_HOLDING, Unreachable, _grip_rad
+from so101sim.primitives import GRIP_CLOSE, Unreachable, _grip_rad
 from so101sim.shelf import ACTION_TOLERANCE, TARGET, ShelfPrimitiveEnv
 
 ARM_GRAY_MARGIN_M = 0.005  # no arm geom nearer than this to a gray; the executed arm strays a few mm from its plan
@@ -227,7 +227,7 @@ def _posed_frames(env: ShelfPrimitiveEnv, ids: _Ids, trajectory: np.ndarray, fir
     frame index with the probe posed."""
     model, probe = env.model, ids.probe
     probe.qpos[:] = env.data.qpos
-    holding_rad = _grip_rad(model, GRIP_HOLDING)
+    holding_rad = _grip_rad(model, side_primitives.GRIP_HOLDING)  # call time: cylinder_size may set it
     for k, row in enumerate(trajectory):
         held = k >= first_held
         probe.qpos[ids.arm_qpos] = units.to_rad(np.asarray(row, dtype=np.float64), ids.gripper_range)

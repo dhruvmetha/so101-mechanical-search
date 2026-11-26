@@ -9,10 +9,9 @@ import common  # noqa: F401  sets sys.path and MUJOCO_GL before mujoco loads
 import mujoco
 import numpy as np
 
-from so101sim import ik, units
+from so101sim import ik, shelf_layout, units
 from so101sim.shelf import TARGET, TOPPLE_DEG
 from so101sim.shelf_checks import add_clearance
-from so101sim.shelf_layout import GRASP_UP
 
 LEAN_DEG = 5.0  # a cylinder tilting more than this leaned; more than TOPPLE_DEG (20) toppled
 GRASP_CENTRE_TOLERANCE_M = 0.01  # red centre to jaw midpoint at the end of pick
@@ -130,7 +129,7 @@ def grasp_conditions(env, refused: str | None, failure: str | None) -> dict[str,
     inner = env.env
     pose = inner.cylinder_pose(TARGET)
     jaw_midpoint = ik.grasp_point(env.model, env.data)
-    resting_z = inner.layout.board_z + GRASP_UP
+    resting_z = inner.layout.board_z + shelf_layout.CYL_HALF_HEIGHT  # a standing cylinder's centre
     distance = float(np.linalg.norm(pose["pos"] - jaw_midpoint))
     lift = float(pose["pos"][2] - resting_z)
     return {

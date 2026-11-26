@@ -18,11 +18,10 @@ import mujoco
 import numpy as np
 from gymnasium import spaces
 
-from common import measures
-from so101sim import ik, rest, side_primitives, units
+from common import cylinder_size, measures
+from so101sim import ik, rest, shelf_layout, side_primitives, units
 from so101sim.primitives import GRIP_CLOSE, _grip_rad
 from so101sim.shelf import TARGET, TOPPLE_DEG, ShelfPrimitiveEnv, _Refused
-from so101sim.shelf_layout import CYL_RADIUS
 
 MID_RANGE_PHYSICS = {"friction": 0.55, "density": 900.0}  # middle of the env's friction and density ranges
 SAMPLE_PHYSICS = "sample"  # draw friction and density from the env's ranges for the seed, as ShelfEnv does
@@ -69,6 +68,7 @@ class SingleRedShelf(ShelfPrimitiveEnv):
     def __init__(self, *, widen_action_box: bool = False, bypass_path_check: bool = False,
                  arm_touch_ends_episode: bool = True, record_video: bool = False) -> None:
         super().__init__(on_frame=self._on_frame)
+        self.open_value = side_primitives.side_open_value(self.model, cylinder_size.open_gap_m())
         inner = self.env
         inner.cyls, inner.grays = (TARGET,), ()
         inner._rest_dofs = rest.free_dofs(self.model, inner.cyls)
@@ -79,8 +79,9 @@ class SingleRedShelf(ShelfPrimitiveEnv):
         self.strict_action_box = self.action_space["xy"]
         if widen_action_box:
             layout = inner.layout
-            low = np.array([layout.front_x + CYL_RADIUS, -layout.half_width + CYL_RADIUS], dtype=np.float32)
-            high = np.array([layout.back_x - CYL_RADIUS, layout.half_width - CYL_RADIUS], dtype=np.float32)
+            radius = shelf_layout.CYL_RADIUS  # read at call time: common.cylinder_size may change it
+            low = np.array([layout.front_x + radius, -layout.half_width + radius], dtype=np.float32)
+            high = np.array([layout.back_x - radius, layout.half_width - radius], dtype=np.float32)
             self.action_space = spaces.Dict({**self.action_space.spaces, "xy": spaces.Box(low, high)})
         self.bypass_path_check = bypass_path_check
         self.record_video = record_video
@@ -269,13 +270,17 @@ class RedAndGraysShelf(SingleRedShelf):
     def reset_scene(self, *, seed: int = 0, red_xy, gray_xys: dict[str, tuple[float, float]],
                     physics: dict | str | None = None) -> dict:
         """Stand the red at `red_xy` and each named gray at its xy, then let them come to rest. Returns where each
-        cylinder ended, its tilt, whether any touched the arm and whether they came to rest."""
-        self._start(seed, physics)
+        cylinder ended, its tilt, whether any touched the arm and whether they came to rest.
+
+        The scene's cylinders join the task before `_start` sets friction and density, which apply only to the task's
+        cylinders. (Fixed 2026-11-25: they joined after, so a gray kept whatever friction and density it last had:
+        the model's stock friction 1.0 and density 1000 in a new env's first scene.)"""
         inner = self.env
         names = (TARGET, *gray_xys)
         inner.cyls, inner.grays = names, tuple(gray_xys)
         inner._rest_dofs = rest.free_dofs(self.model, names)
         inner._cyl_geoms = frozenset(inner._geom[n] for n in names)
+        self._start(seed, physics)
         inner._place(TARGET, np.asarray(red_xy, dtype=np.float64))
         for name, xy in gray_xys.items():
             inner._place(name, np.asarray(xy, dtype=np.float64))
@@ -347,7 +352,7 @@ def push_start_back_distance(env: SingleRedShelf, cylinder_xy: np.ndarray, headi
         return True
 
     try:
-        low, high = CYL_RADIUS, CYL_RADIUS + PUSH_START_SEARCH_M
+        low, high = shelf_layout.CYL_RADIUS, shelf_layout.CYL_RADIUS + PUSH_START_SEARCH_M
         while high - low > PUSH_START_TOLERANCE_M:
             middle = 0.5 * (low + high)
             low, high = (low, middle) if clear(middle) else (middle, high)
@@ -418,7 +423,7 @@ def run_push(env: SingleRedShelf, *, direction: str, height_cm: float, friction:
     return {
         "direction": direction, "height_cm": height_cm, "friction": friction,
         "speed_fraction": speed_fraction, "arm_friction": arm_friction if arm_friction is not None else "default",
-        "r_over_mu_cm": round(100 * CYL_RADIUS / friction, 2),
+        "r_over_mu_cm": round(100 * shelf_layout.CYL_RADIUS / friction, 2),
         "jitter_x_mm": round(float(jitter_xy[0]) * 1000, 2), "jitter_y_mm": round(float(jitter_xy[1]) * 1000, 2),
         "start_back_mm": round(back * 1000, 1),
         "refused": info["refused"], "would_refuse": env.would_refuse[1] if env.would_refuse else None,

@@ -1,0 +1,25 @@
+index,kept,why
+0,True,simulated: pick: toppled: cyl_gray_0
+1,False,retrievable at start
+2,False,retrievable at start
+3,True,simulated: pick: toppled: cyl_gray_1
+4,True,simulated: pick: toppled: cyl_gray_2
+5,False,retrievable at start
+6,True,simulated: pick: toppled: cyl_gray_1
+7,False,retrievable at start
+8,False,retrievable at start
+9,True,simulated: pick: toppled: cyl_gray_0
+10,False,retrievable at start
+11,False,retrievable at start
+12,False,retrievable at start
+13,False,retrievable at start
+14,False,retrievable at start
+15,True,simulated: pull: left the shelf: cyl_gray_2
+16,True,simulated: pick: toppled: cyl_gray_1
+17,False,retrievable at start
+18,True,simulated: pick: toppled: cyl_gray_2
+19,True,simulated: pick: toppled: cyl_gray_0
+20,False,retrievable at start
+21,False,retrievable at start
+22,False,retrievable at start
+23,True,simulated: pick: toppled: cyl_gray_1

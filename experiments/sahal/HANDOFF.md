@@ -1,6 +1,6 @@
 # Handoff: grasp, pull, sweep and retrieval on the shelf
 
-For Dhruv, from Sahal, 2026-11-21 (studies 07 and 08 added 2026-11-22). Results come from the output files named in each section; parameter values come
+For Dhruv, from Sahal, 2026-11-21 (studies 07 and 08 added 2026-11-22, studies 10 and 11 2026-11-25). Results come from the output files named in each section; parameter values come
 from the repo's code (`so101sim/side_primitives.py`, `so101sim/shelf.py`, `so101sim/shelf_layout.py`) and the
 generated scene. Nothing outside `experiments/sahal/` was changed.
 
@@ -12,12 +12,16 @@ grew into a second question, from replacing the shelf push with a lower sweep: h
 what makes a pushed cylinder slide instead of topple? The answers became a sweep skill (`skills/sweep.py`), tested
 on a lone cylinder in study 05; section 9 gives its limits. Then the planner's test itself, with grays on the board:
 `common/retrieval_check.can_retrieve`, checked against physics in study 07 (section 10). Last, ten hand-made scenes
-with the red and two grays, each with a hand-written solution of sweeps then retrieve (study 08, section 11).
+with the red and two grays, each with a hand-written solution of sweeps then retrieve (study 08, section 11). Then,
+on random blocked scenes of the red and three grays, how often one random sweep makes the red retrievable (study 10,
+section 12), and the same with wider, shorter cylinders that should not topple (study 11, section 13). **Section 14
+lists known issues that are not fixed yet; read it before using the topple numbers.** Demo videos: `videos/`.
 
 Everything uses full simulator state (exact poses and geometry) and the repo's `ShelfPrimitiveEnv` with its
 primitives unchanged. In studies 01 to 06 the gray cylinders stay parked on the floor where `mj_resetData` puts them
 and are dropped from the task's checks; `common/shelf_env.py` explains why that rather than moving them or turning
-off their collisions. Studies 07 and 08 stand two grays on the board (`RedAndGraysShelf`), and they join the checks.
+off their collisions. Studies 07 and 08 stand two grays on the board (`RedAndGraysShelf`), and they join the checks;
+studies 10 and 11 stand three.
 
 ## 2. Setup
 
@@ -43,6 +47,9 @@ MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/05_sw
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/06_entry_above/run.py   # seconds
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/07_retrieval_check/run.py --mode hybrid --seeds test
 MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/08_scenes/run.py         # ~35 s
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/10_random_sweeps/run.py --parts scenes trials   # ~50 min
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/11_wide_cylinders/run.py --parts gripper sizes  # ~5 min
+MUJOCO_GL=cgl experiments/sahal/.venv/bin/python experiments/sahal/studies/11_wide_cylinders/run.py --parts reach check scenes trials compare glitches  # ~55 min
 ```
 
 Every `run.py` takes `--quick` (a subset into `outputs/quick/`, seconds), `--workers N` (default 10) and, where it
@@ -55,14 +62,18 @@ has parts, `--parts`. Seeds are fixed and each job carries its own seed, so reru
 | `HANDOFF.md` | this document |
 | `README.md` | one line per study and how to run it |
 | `CLAUDE.md` | coding rules for this folder, read by Claude Code sessions |
-| `.gitignore` | `.venv/`, `__pycache__/`, `*.mp4` |
+| `.gitignore` | `.venv/`, `__pycache__/`, `*.mp4` except `videos/**/*.mp4` |
 | `common/shelf_env.py` | `SingleRedShelf` (the env with only the red, its options) and the shared push run |
 | `common/measures.py` | grasp conditions, tilt outcome, contacts, clearance, glitch detection |
 | `common/plotting.py` | colours, top-down shelf outline, rate and category maps |
 | `common/runner.py` | parallel runs, CSV writing, `config.json` |
 | `common/retrieval_check.py` | `can_retrieve(env, mode)`: can the red be picked and pulled out now (hybrid, exact, kinematic) |
-| `common/scenes.py` | 3-cylinder scenes as JSON: save, load, check, `place_scene` |
-| `scenes/` | the ten scene files of study 08 |
+| `common/scenes.py` | scenes of the red and grays as JSON: save, load, check, `place_scene`; the graspable zone |
+| `common/cylinder_size.py` | other cylinder sizes without repo changes: `use(CylinderSize(r, h))` before building an env |
+| `common/random_sweeps.py` | random blocked scenes and random single sweeps, their trials and analysis (studies 10, 11) |
+| `common/sweep_videos.py` | demo videos of saved trials: exact replay, front, top-down and wrist views |
+| `scenes/` | the ten scene files of study 08; `random4/` (study 10) and `wide4/` (study 11), JSON and a picture each |
+| `videos/` | demo videos of studies 10 and 11, with `videos/README.md` |
 | `skills/sweep.py` | the sweep skill: `sweep(x, y, direction, duration)`, `sweep_points(x0, y0, x1, y1)`, `sweep_cylinder(name, direction, distance)`, `execute` |
 | `studies/01_grasp_pull/` | grasp and pull-out over the floor, grasp offsets |
 | `studies/02_sweep_height/` | lowest push height, slide or topple vs height and friction; `tilted_gripper_proposal.md` |
@@ -72,6 +83,8 @@ has parts, `--parts`. Seeds are fixed and each job carries its own seed, so reru
 | `studies/06_entry_above/` | whether the level gripper fits between the cylinder tops and the top board (kinematic) |
 | `studies/07_retrieval_check/` | the retrieval check against pick + pull in physics, red + 2 grays, 3 sets of 300 scenes |
 | `studies/08_scenes/` | ten hand-made scenes L0 to L3 with hand-written solutions, run at μ 0.55, 0.4 and 0.7 |
+| `studies/10_random_sweeps/` | 10 random blocked scenes (red + 3 grays), 500 random single sweeps each |
+| `studies/11_wide_cylinders/` | gripper limit and size choice for wider, shorter cylinders; study 10 again at r 2.25 cm, 5 cm tall |
 | `studies/*/outputs/` | CSVs, PNGs, `summary.json` (the numbers quoted here), `config.json` (settings, versions) |
 
 ## 4. Definitions
@@ -90,7 +103,7 @@ at least 2 cm in front of the board's front edge, tilt under 20°, all held for 
 A run counts as a pull-out success only if it gets there, so it includes the grasp.
 
 **Push outcome** (studies 02 to 05): slid (max tilt ≤ 5°), leaned (5° to 20°, stayed up), toppled (> 20°), or glitch
-(section 12). Study 05 adds **jammed** against a wall, a failure: the arm touches a side wall, the back wall or the
+(section 15). Study 05 adds **jammed** against a wall, a failure: the arm touches a side wall, the back wall or the
 top board, or pushes with more than 100 N while the red touches one.
 
 ## 5. Skills and parameters
@@ -350,7 +363,100 @@ these skills, not how reliably: one run per scene and friction, at positions cho
 - **One long sweep for two grays is fragile.** Pushing both side-by-side grays with one 10 cm sweep worked at μ 0.55
   and toppled a gray at 0.4 and 0.7.
 
-## 12. Decisions and deviations
+## 12. One random sweep (study 10)
+
+Outputs: `studies/10_random_sweeps/outputs/` (summary.json, scene_table.csv, by_cylinder.csv, trials.csv,
+sweeps/*.png); scenes in `scenes/random4/`; videos in `videos/study10/`.
+
+Dhruv's question: in a random scene where the red can't be retrieved, how often does one random but sensible sweep
+make it retrievable? 10 scenes, drawn with fixed seeds and not tuned: the red in study 01's graspable zone (inside the
+env's action box), 3 grays anywhere on the board, kept only if `can_retrieve(mode="exact")` says no (10 of 24
+candidates). 500 trials per scene from the same settled start, friction 0.55: one of the 4 cylinders at random, a
+direction within ±157.5° of straight away from the robot, a stroke of 2 to 12 cm (the jaw's travel from the skill's
+start, 5 mm short of the cylinder, moved up to ±1 cm sideways and 0 to 1 cm back). A sweep refused before moving is
+redrawn and counted; then jammed, glitch, toppled, off the board, or the exact check decides.
+
+- **27.1% of trials made the red retrievable** (1315 of 4860 non-glitch; 95% interval 25.8 to 28.3%). Still blocked
+  55.6%, toppled 10.6%, jammed 6.0%, gray off the board 0.7%; 140 glitches excluded (but see section 14). 45% of
+  sampled sweeps were refused before moving.
+- **Which cylinder matters most.** In every scene exactly one gray gives 42 to 79% success; the other two give 0 to
+  22% (both 0 in 5 scenes). Sweeping the red gives 15 to 58%.
+- **Longer strokes help**: 19% at 2 to 5 cm, 28% at 5 to 8 cm, 36% at 8 to 12 cm, with more topples and jams.
+- **Progress** (the plan's gap to the nearest gray, after minus before) tracks success: successes +27.9 mm mean, still
+  blocked +4.3 mm.
+
+## 13. Wider, shorter cylinders (study 11)
+
+Outputs: `studies/11_wide_cylinders/outputs/` (gripper_table.csv, size_table.csv, reach.png, check_summary.json,
+summary.json, comparison.csv, comparison.png, glitch_summary*.json); scenes in `scenes/wide4/`; videos in
+`videos/study11/`.
+
+Dhruv's simplification: make the cylinders wide and short enough that sweeps never topple them, redo the random
+sweeps, then raise the difficulty slowly. The size is changed in our code only (`common/cylinder_size.py`): the
+model's cylinders, grasp height (half the height), carry height (+1 cm), side opening (diameter + 13 mm) and the
+gripper values IK plans with.
+
+- **Gripper limit.** Pick + pull worked in 30 of 30 runs for every radius from 1.5 to 4 cm (5 cm tall; centre, near
+  each wall, front; μ 0.4 and 0.7), so the limit is above 4 cm.
+- **Size chosen: radius 2.25 cm, 5 cm tall, grasped 2.5 cm up.** On a lone cylinder (126 sweeps: 7 directions, 3, 6
+  and 10 cm, μ 0.4 and 0.7, 3 repeats) it had no topple and a largest tilt of 2.9° (jammed runs included). Radius 2 cm
+  still toppled or tilted past 5°; 4 cm tall can't be grasped at half its height (the path check refuses picks 2 cm
+  above the board); 2.25 cm at 6 cm tall tilted 12.1° while jammed.
+- **Regression.** Pick + pull works at 60 of 70 grid points in the action box (64 for the repo's size; the wider
+  cylinder also loses the column by the left wall). The hybrid retrieval check agrees with physics in 47 of 50 random
+  scenes with no false yes; its 3 misses are fast no's at 33 to 40 mm of planned overlap, a cutoff set on 3 cm
+  cylinders.
+
+**Study 10 against study 11** (5000 trials each; rates of non-glitch trials unless marked; 95% intervals):
+
+| outcome | study 10 (r 1.5 cm, 8 cm tall) | study 11 (r 2.25 cm, 5 cm tall) |
+|---|---|---|
+| success | 27.1% (25.8 to 28.3) | 20.5% (19.3 to 21.6) |
+| still blocked | 55.6% | 70.5% |
+| toppled, as reported | 10.6% (9.7 to 11.5) | 0.55% (0.4 to 0.8) |
+| toppled, counting glitch-flagged trials that toppled (of all 5000; section 14) | 12.9% (12.0 to 13.9) | 4.4% (3.9 to 5.0) |
+| jammed | 6.0% (5.4 to 6.7) | 8.3% (7.5 to 9.1) |
+| gray left the board | 0.74% | 0.17% |
+| glitch-flagged (of all 5000) | 2.8% | 5.8% |
+| refused before moving | 45.0% | 32.1% |
+| mean progress | 12.0 mm | 7.3 mm |
+
+- **Topples fall to about a third, not to zero.** A lone cylinder never toppled, but in clutter a swept cylinder
+  pushes or pinches a neighbour, which falls (the fastest cylinder was the swept one in only 88 of the 291 glitch
+  replays).
+- **Success falls**, because 4.5 cm cylinders crowd the same board: the plan's starting overlap with the nearest gray
+  is 31 to 49 mm against 16 to 38 mm in study 10, and 70.5% of sweeps leave the red still blocked.
+- The patterns of study 10 hold: one key gray per scene (40 to 75% in 8 of 10 scenes), the red 28.7%, longer strokes
+  better (14.5%, 19.3%, 27.6%).
+
+Videos (`videos/README.md`): study 10 front | wrist; study 11 top-down with the sweep drawn | wrist, 3 successes and
+3 failures each.
+
+## 14. Known issues (not yet fixed)
+
+1. **The glitch rule hides real topples in clutter.** A trial is a glitch when an arm-cylinder force passes 100 N or
+   any cylinder passes 1 m/s, and that test comes before the topple outcome. The limits were set on lone-cylinder
+   pushes. Replaying every glitch-flagged trial (same seed, same sweep; study 11 `--parts glitches`): 133 of study
+   10's 140 and 195 of study 11's 291 ended with a cylinder toppled (the env's own check). In study 11, 130 of the 140
+   flagged with forces of 100 N or less had a cylinder past the topple angle (median largest tilt 37.2°). **Corrected
+   topple rates: 12.9% (study 10) and 4.4% (study 11), against the reported 10.6% and 0.55%.** Studies 01 to 08 used
+   the same rule, mostly on lone cylinders where it was measured; studies 07 and 08 have grays and were not checked.
+2. **Friction order in `common/shelf_env.py` (fixed 2026-11-25, the affected studies not rerun).**
+   `RedAndGraysShelf.reset_scene` set friction and density before the scene's grays joined the task, so the grays
+   kept whatever they last had: in each new env's first scene, the model's stock friction 1.0 and density 1000
+   instead of the scene's (0.55, 0.4 or 0.7, and 900). So each worker's first scene ran with grays at μ 1.0. Re-running
+   study 10's random4_0000 trials 0 to 24 reproduced all 25 saved outcomes with the bug and changed 9 without it; up
+   to 250 of that scene's 500 trials are affected, and the scene search's first candidate per worker. Now placing a
+   scene gives the same state whatever ran before. **Studies 07, 08 and 10 ran with the bug and have not been rerun.**
+   Study 11 ran after the fix.
+3. **The hybrid check's fast-no cutoff (−33 mm) was tuned on 3 cm cylinders**; at 4.5 cm it missed 3 of 41
+   retrievable scenes (section 13). The exact mode, which studies 10 and 11 use, is unaffected.
+
+**Next:** fix the glitch rule (count a trial where the env reports a topple and the forces stay normal as a topple,
+and recheck the limits in clutter); rerun studies 07, 08 and 10 with both fixes; then, in clutter, test a lower sweep
+height and slower contact (and radius 2.5 cm) to push topples toward zero.
+
+## 15. Decisions and deviations
 
 - **Widened action box** (studies 01 heatmap, 02, 03, 04): picks and pushes are accepted anywhere a cylinder fits on
   the board, not only in the env's box, to measure what the arm can do. `in_action_box` records whether the
@@ -372,6 +478,8 @@ these skills, not how reliably: one run per scene and friction, at positions cho
 - **Sweeps toward the robot are refused** by the skill for now (`allow_toward_robot=True` overrides, for studies).
 - **Jaw-friction test is a diagnostic only**: study 03 sets the arm geoms' friction for single runs and restores it;
   the env is not changed.
+- **Wider cylinders for the random sweeps** (study 11, Dhruv): radius 2.25 cm, 5 cm tall, chosen on a lone
+  cylinder; the repo's files are unchanged and every other study keeps the repo's size.
 - **Slower pushes** resample the push trajectory (float64 linear interpolation), the whole primitive, not only the
   stroke.
 
@@ -385,7 +493,7 @@ Other simulator caveats:
 - **Gripper friction.** The gripper geoms have friction 1.0 and MuJoCo uses the larger of a contact's two frictions,
   so the jaw-cylinder friction is 1.0 whatever the episode's friction is.
 
-## 13. Open questions for Dhruv
+## 16. Open questions for Dhruv
 
 1. **Sweep parameters.** Both forms are built (`sweep` and `sweep_points`). Which should the planner use?
 2. **What "duration" means.** Built as stroke time at a fixed 0.020 m/s, so it sets the length. Is that right?
@@ -403,15 +511,19 @@ Other simulator caveats:
 9. **Simulating inside the check.** The hybrid check runs physics for about half the scenes. Fine for a planner on
    full simulator state; for one on camera data it would need its own model of friction and poses. Which planner is
    it for?
+10. **Cylinder size.** Keep 2.25 cm (topples down to about a third, success down from 27% to 20%), or try 2.5 cm or
+    a lower, slower sweep first? And should the glitch rule be redefined for clutter as section 14 suggests?
 
-## 14. Next steps
+## 17. Next steps
 
+0. **First, the known issues (section 14):** fix the glitch rule, rerun studies 07, 08 and 10, and test a lower
+   sweep height and slower contact in clutter.
 1. **A sweep pre-check against other cylinders.** The sweep plans and its path check ignore cylinders other than the
    one being swept; check the planned arm path against them (as the retrieval check does) and refuse or flag.
 2. **Robustness runs with jitter.** Rerun study 08's solutions over jittered positions and several physics draws
    per friction, to get success rates instead of single runs.
-3. **Random, untuned scenes.** Generate 3-cylinder scenes at random (by level) that nobody adjusted, and see how
-   often a solution exists and how often the hand rules find it.
+3. **Random, untuned scenes.** Started: studies 10 and 11 draw random blocked scenes and measure one random sweep.
+   Still to do: by level, and how often a solution exists and the hand rules find it.
 4. **Brute-force search for the fewest sweeps.** Over a small set of candidate sweeps (each gray and the red, the
    supported directions, two or three distances), search depth 1 to 3 with `can_retrieve` (hybrid) as the goal test:
    the minimum number of sweeps per scene, and a reference for the solvers below.

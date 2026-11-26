@@ -1,0 +1,234 @@
+{
+ "rates": {
+  "study 10 (r1.5 h8)": {
+   "success": {
+    "count": 1315,
+    "of": 4860,
+    "rate": 0.2706,
+    "ci95": [
+     0.258,
+     0.283
+    ]
+   },
+   "still blocked": {
+    "count": 2704,
+    "of": 4860,
+    "rate": 0.5564,
+    "ci95": [
+     0.542,
+     0.57
+    ]
+   },
+   "toppled": {
+    "count": 514,
+    "of": 4860,
+    "rate": 0.1058,
+    "ci95": [
+     0.097,
+     0.115
+    ]
+   },
+   "jammed": {
+    "count": 291,
+    "of": 4860,
+    "rate": 0.0599,
+    "ci95": [
+     0.054,
+     0.067
+    ]
+   },
+   "gray left the board": {
+    "count": 36,
+    "of": 4860,
+    "rate": 0.0074,
+    "ci95": [
+     0.005,
+     0.01
+    ]
+   },
+   "red left the board": {
+    "count": 0,
+    "of": 4860,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.001
+    ]
+   },
+   "arm hit the shelf": {
+    "count": 0,
+    "of": 4860,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.001
+    ]
+   },
+   "glitch": {
+    "count": 140,
+    "of": 5000,
+    "rate": 0.028,
+    "ci95": [
+     0.024,
+     0.033
+    ]
+   },
+   "refused before moving": {
+    "count": 4092,
+    "of": 9092,
+    "rate": 0.45,
+    "ci95": null
+   },
+   "toppled (incl. glitch-flagged that toppled)": {
+    "count": 647,
+    "of": 5000,
+    "rate": 0.1294,
+    "ci95": [
+     0.12,
+     0.139
+    ]
+   }
+  },
+  "study 11 (r2.25 h5)": {
+   "success": {
+    "count": 964,
+    "of": 4709,
+    "rate": 0.2047,
+    "ci95": [
+     0.193,
+     0.216
+    ]
+   },
+   "still blocked": {
+    "count": 3318,
+    "of": 4709,
+    "rate": 0.7046,
+    "ci95": [
+     0.691,
+     0.717
+    ]
+   },
+   "toppled": {
+    "count": 26,
+    "of": 4709,
+    "rate": 0.0055,
+    "ci95": [
+     0.004,
+     0.008
+    ]
+   },
+   "jammed": {
+    "count": 391,
+    "of": 4709,
+    "rate": 0.083,
+    "ci95": [
+     0.075,
+     0.091
+    ]
+   },
+   "gray left the board": {
+    "count": 8,
+    "of": 4709,
+    "rate": 0.0017,
+    "ci95": [
+     0.001,
+     0.003
+    ]
+   },
+   "red left the board": {
+    "count": 0,
+    "of": 4709,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.001
+    ]
+   },
+   "arm hit the shelf": {
+    "count": 2,
+    "of": 4709,
+    "rate": 0.0004,
+    "ci95": [
+     0.0,
+     0.002
+    ]
+   },
+   "glitch": {
+    "count": 291,
+    "of": 5000,
+    "rate": 0.0582,
+    "ci95": [
+     0.052,
+     0.065
+    ]
+   },
+   "refused before moving": {
+    "count": 2363,
+    "of": 7363,
+    "rate": 0.321,
+    "ci95": null
+   },
+   "toppled (incl. glitch-flagged that toppled)": {
+    "count": 221,
+    "of": 5000,
+    "rate": 0.0442,
+    "ci95": [
+     0.039,
+     0.05
+    ]
+   }
+  }
+ },
+ "other": {
+  "study 10 (r1.5 h8)": {
+   "mean_progress_mm": 12.0,
+   "success_by_swept_cylinder": {
+    "red": 0.348,
+    "a gray": 0.24
+   },
+   "success_by_length": {
+    "2-5 cm": 0.19,
+    "5-8 cm": 0.276,
+    "8-12 cm": 0.359
+   },
+   "success_by_scene": [
+    0.316,
+    0.229,
+    0.282,
+    0.19,
+    0.23,
+    0.287,
+    0.232,
+    0.287,
+    0.375,
+    0.281
+   ],
+   "trial_wall_s_median": 5.61
+  },
+  "study 11 (r2.25 h5)": {
+   "mean_progress_mm": 7.3,
+   "success_by_swept_cylinder": {
+    "red": 0.287,
+    "a gray": 0.185
+   },
+   "success_by_length": {
+    "2-5 cm": 0.145,
+    "5-8 cm": 0.193,
+    "8-12 cm": 0.276
+   },
+   "success_by_scene": [
+    0.248,
+    0.239,
+    0.405,
+    0.204,
+    0.203,
+    0.063,
+    0.263,
+    0.107,
+    0.121,
+    0.199
+   ],
+   "trial_wall_s_median": 6.08
+  }
+ }
+}

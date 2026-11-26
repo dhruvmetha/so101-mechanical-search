@@ -1,0 +1,7 @@
+video,scene,trial,cylinder,direction_deg,length_cm,saved_outcome,replayed_outcome,replay_matches,retrieve_reason,seconds,over_limit,size_mb,cylinder_size
+success_key_gray.mp4,random4_0019,38,cyl_gray_0,67.71,5.21,success,success,True,retrieved,15.5,False,1.4,r1.5_h8_g4
+success_red.mp4,random4_0019,12,cyl_red,33.97,3.31,success,success,True,retrieved,15.9,False,1.41,r1.5_h8_g4
+success_long.mp4,random4_0019,0,cyl_gray_0,59.95,10.02,success,success,True,retrieved,18.2,False,1.71,r1.5_h8_g4
+fail_still_blocked.mp4,random4_0019,4,cyl_gray_0,-110.95,5.97,still blocked,still blocked,True,pull: left the shelf: cyl_gray_0,15.3,False,1.43,r1.5_h8_g4
+fail_toppled.mp4,random4_0019,5,cyl_gray_2,119.03,8.14,toppled,toppled,True,,4.4,False,0.46,r1.5_h8_g4
+fail_jammed.mp4,random4_0019,9,cyl_gray_2,125.44,5.42,jammed,jammed,True,,7.0,False,0.66,r1.5_h8_g4

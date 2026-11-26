@@ -1,0 +1,132 @@
+{
+  "command": "experiments/sahal/studies/11_wide_cylinders/run.py --parts compare",
+  "settings": {
+    "quick": false,
+    "parts": [
+      "compare"
+    ],
+    "study_seed": 11,
+    "frictions": [
+      0.4,
+      0.7
+    ],
+    "density_kg_m3": 900.0,
+    "gripper_height_m": 0.05,
+    "gripper_radii_m": [
+      0.015,
+      0.02,
+      0.025,
+      0.03,
+      0.035,
+      0.04
+    ],
+    "grasp_wall_gap_m": 0.025,
+    "grasp_front_inset_m": 0.005,
+    "grasp_repetitions": 3,
+    "grasp_jitter_m": 0.002,
+    "candidate_radii_m": [
+      0.02,
+      0.0225,
+      0.025
+    ],
+    "candidate_heights_m": [
+      0.04,
+      0.05,
+      0.06
+    ],
+    "sweep_spot_m": [
+      0.4075,
+      0.0
+    ],
+    "directions_deg": [
+      0,
+      45,
+      90,
+      135,
+      225,
+      270,
+      315
+    ],
+    "lengths_m": [
+      0.03,
+      0.06,
+      0.1
+    ],
+    "repetitions": 3,
+    "max_tilt_deg": 5.0,
+    "sweep_heights_m": [
+      0.023,
+      0.024,
+      0.025,
+      0.026
+    ],
+    "open_gap_slack_m": 0.012999999999999998,
+    "pick_lift_m": 0.010000000000000002,
+    "chosen_size": {
+      "radius_m": 0.0225,
+      "height_m": 0.05,
+      "grasp_up_m": null
+    },
+    "reach_grid_m": 0.02,
+    "reach_x_m": [
+      0.33,
+      0.45
+    ],
+    "reach_y_m": [
+      -0.13,
+      0.13
+    ],
+    "check_scenes": 50,
+    "check_seed": 111,
+    "random_sweeps": {
+      "study_seed": 11,
+      "scene_dir": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/scenes/wide4",
+      "out_dir": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/studies/11_wide_cylinders/outputs",
+      "scene_prefix": "wide4",
+      "size": {
+        "radius_m": 0.0225,
+        "height_m": 0.05,
+        "grasp_up_m": null
+      },
+      "friction": 0.55,
+      "n_scenes": 10,
+      "n_grays": 3,
+      "candidate_batch": 40,
+      "max_candidates": 2000,
+      "max_placement_tries": 500,
+      "trials_per_scene": 500,
+      "trials_per_job": 25,
+      "quick_trials": 20,
+      "length_range_m": [
+        0.02,
+        0.12
+      ],
+      "max_direction_deg": 157.5,
+      "start_sideways_m": 0.01,
+      "start_back_m": 0.01,
+      "max_attempts": 200,
+      "length_bins_cm": [
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          8,
+          12
+        ]
+      ],
+      "zone_csv": "/Users/sahalpatel/Downloads/so101-mechanical-search-mechanical-search/experiments/sahal/studies/11_wide_cylinders/outputs/reach_grid.csv",
+      "zone_grid_m": 0.02,
+      "description": "random: red in the r2.25 h5 graspable zone, 3 grays anywhere, not retrievable at start"
+    }
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-25 19:57:52"
+}

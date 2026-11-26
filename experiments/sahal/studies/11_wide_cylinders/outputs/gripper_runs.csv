@@ -1,0 +1,211 @@
+size,radius_cm,height_cm,grasp_height_cm,spot,friction,repetition,x,y,success,reason,gripper_at_end,open_value,glitch
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.4,0,0.4089,-0.0012,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.4,1,0.407,0.0003,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.4,2,0.4087,-0.0,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.7,0,0.4073,-0.0005,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.7,1,0.4071,0.0012,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.7,2,0.4084,0.0007,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.4,0,0.4093,0.1186,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.4,1,0.4086,0.1186,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.4,2,0.4057,0.1205,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.7,0,0.4062,0.1191,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.7,1,0.4072,0.122,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.7,2,0.4068,0.1209,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.4,0,0.409,-0.1208,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.4,1,0.4073,-0.1199,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.4,2,0.4091,-0.1192,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.7,0,0.4065,-0.1205,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.7,1,0.4084,-0.1202,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.7,2,0.4059,-0.1184,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.4,0,0.4413,0.0011,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.4,1,0.4416,0.0006,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.4,2,0.4384,-0.0005,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.7,0,0.4405,0.0006,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.7,1,0.4397,-0.0001,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.7,2,0.441,0.0006,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.4,0,0.359,0.0019,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.4,1,0.3604,0.0002,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.4,2,0.3618,-0.0011,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.7,0,0.3587,0.0013,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.7,1,0.3619,0.0016,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.7,2,0.3611,0.0013,True,retrieved,19.0,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.4,0,0.407,-0.0015,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.4,1,0.4069,0.0019,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.4,2,0.4079,0.0016,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.7,0,0.406,-0.001,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.7,1,0.4083,-0.0019,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,centre,0.7,2,0.408,-0.0009,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.4,0,0.4062,0.1187,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.4,1,0.4079,0.1213,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.4,2,0.4076,0.1193,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.7,0,0.4094,0.1201,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.7,1,0.4085,0.12,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near left wall,0.7,2,0.4088,0.122,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.4,0,0.4063,-0.1218,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.4,1,0.4087,-0.1195,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.4,2,0.4092,-0.1182,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.7,0,0.409,-0.1214,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.7,1,0.4081,-0.1193,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near right wall,0.7,2,0.4073,-0.1207,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.4,0,0.4401,0.001,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.4,1,0.441,0.0016,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.4,2,0.4395,-0.0017,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.7,0,0.4398,0.0012,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.7,1,0.4381,-0.001,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,near back wall,0.7,2,0.4412,0.0013,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.4,0,0.3614,-0.0003,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.4,1,0.3593,-0.0014,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.4,2,0.359,-0.0019,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.7,0,0.3617,-0.0005,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.7,1,0.3582,0.0004,True,retrieved,18.8,28.0,True
+r1.5_h5_g2.5,1.5,5.0,2.5,front,0.7,2,0.3599,-0.0007,True,retrieved,18.8,28.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.4,0,0.4087,0.0018,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.4,1,0.4064,0.0012,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.4,2,0.4069,-0.0018,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.7,0,0.4065,-0.0008,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.7,1,0.4056,-0.0008,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.7,2,0.4084,-0.0001,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.4,0,0.4079,0.1168,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.4,1,0.4092,0.1153,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.4,2,0.4065,0.1141,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.7,0,0.4077,0.1145,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.7,1,0.408,0.116,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.7,2,0.4058,0.1143,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.4,0,0.4079,-0.1146,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.4,1,0.4076,-0.113,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.4,2,0.408,-0.1162,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.7,0,0.4062,-0.1151,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.7,1,0.4072,-0.1132,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.7,2,0.4087,-0.1156,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.4,0,0.4334,0.0015,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.4,1,0.4345,-0.001,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.4,2,0.4359,-0.0017,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.7,0,0.4361,-0.0008,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.7,1,0.4348,-0.0,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.7,2,0.4342,0.0009,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.4,0,0.3612,-0.0011,True,retrieved,26.0,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.4,1,0.3598,0.0016,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.4,2,0.3582,0.0003,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.7,0,0.361,0.0018,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.7,1,0.3583,0.0003,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.7,2,0.3599,-0.0012,True,retrieved,25.9,35.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.4,0,0.409,0.002,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.4,1,0.4084,0.0015,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.4,2,0.4063,0.0018,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.7,0,0.4072,0.0013,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.7,1,0.4076,0.0005,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.7,2,0.4059,-0.0011,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.4,0,0.4085,0.1101,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.4,1,0.4069,0.1115,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.4,2,0.4088,0.1103,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.7,0,0.4065,0.1116,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.7,1,0.4079,0.1119,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.7,2,0.409,0.1088,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.4,0,0.4057,-0.111,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.4,1,0.4067,-0.1085,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.4,2,0.4085,-0.1083,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.7,0,0.4066,-0.1095,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.7,1,0.4059,-0.1119,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.7,2,0.4084,-0.1096,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.4,0,0.4289,-0.0016,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.4,1,0.4313,-0.0008,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.4,2,0.4301,0.001,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.7,0,0.4293,0.0004,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.7,1,0.4298,-0.0012,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.7,2,0.4294,0.001,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.4,0,0.3609,-0.0011,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.4,1,0.3598,0.0,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.4,2,0.3617,-0.0014,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.7,0,0.3598,-0.0006,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.7,1,0.361,0.0002,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.7,2,0.3608,-0.0017,True,retrieved,33.2,42.0,True
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.4,0,0.4062,-0.0002,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.4,1,0.4082,-0.0003,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.4,2,0.4056,0.0015,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.7,0,0.4083,0.0005,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.7,1,0.4085,-0.0019,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,centre,0.7,2,0.408,0.0007,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.4,0,0.4069,0.103,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.4,1,0.4083,0.1051,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.4,2,0.4077,0.1034,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.7,0,0.4091,0.1047,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.7,1,0.4095,0.1048,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near left wall,0.7,2,0.408,0.1053,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.4,0,0.4091,-0.1049,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.4,1,0.4094,-0.1057,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.4,2,0.4084,-0.1066,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.7,0,0.409,-0.1067,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.7,1,0.4087,-0.1061,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near right wall,0.7,2,0.4091,-0.1059,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.4,0,0.4231,-0.0016,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.4,1,0.4247,-0.0018,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.4,2,0.4242,0.0005,True,retrieved,40.6,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.7,0,0.4232,-0.0016,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.7,1,0.4236,0.001,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,near back wall,0.7,2,0.4258,-0.0017,True,retrieved,40.6,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,front,0.4,0,0.3582,-0.0019,True,retrieved,40.7,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,front,0.4,1,0.3612,-0.0016,True,retrieved,40.7,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,front,0.4,2,0.3603,-0.0005,True,retrieved,40.7,49.0,True
+r3_h5_g2.5,3.0,5.0,2.5,front,0.7,0,0.3591,0.0,True,retrieved,40.7,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,front,0.7,1,0.3608,-0.0,True,retrieved,40.7,49.0,False
+r3_h5_g2.5,3.0,5.0,2.5,front,0.7,2,0.3612,-0.0009,True,retrieved,40.7,49.0,False
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.4,0,0.4068,-0.0009,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.4,1,0.4075,-0.0011,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.4,2,0.4058,-0.0014,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.7,0,0.4081,0.0015,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.7,1,0.406,-0.0011,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,centre,0.7,2,0.4075,0.0009,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.4,0,0.4082,0.0991,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.4,1,0.4059,0.1017,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.4,2,0.4093,0.0991,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.7,0,0.4081,0.1016,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.7,1,0.407,0.1002,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near left wall,0.7,2,0.408,0.0997,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.4,0,0.4085,-0.0997,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.4,1,0.4059,-0.1018,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.4,2,0.4091,-0.0996,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.7,0,0.4075,-0.0996,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.7,1,0.4058,-0.1004,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near right wall,0.7,2,0.4079,-0.1004,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.4,0,0.4185,-0.0009,True,retrieved,49.1,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.4,1,0.4182,0.0004,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.4,2,0.4212,0.0009,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.7,0,0.4181,0.0002,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.7,1,0.418,-0.0006,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,near back wall,0.7,2,0.4204,0.0004,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.4,0,0.3598,-0.0007,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.4,1,0.3618,-0.0009,True,retrieved,49.1,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.4,2,0.358,0.0017,True,retrieved,49.1,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.7,0,0.3604,-0.0014,True,retrieved,49.1,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.7,1,0.3615,0.0001,True,retrieved,49.0,57.0,True
+r3.5_h5_g2.5,3.5,5.0,2.5,front,0.7,2,0.3609,0.0001,True,retrieved,49.1,57.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.4,0,0.4065,-0.0013,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.4,1,0.4065,-0.0014,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.4,2,0.4058,0.0013,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.7,0,0.4061,0.0011,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.7,1,0.4091,-0.0005,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,centre,0.7,2,0.4082,0.0002,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.4,0,0.4073,0.0937,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.4,1,0.4092,0.0935,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.4,2,0.4087,0.0938,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.7,0,0.4094,0.0936,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.7,1,0.4084,0.0965,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near left wall,0.7,2,0.408,0.0949,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.4,0,0.4069,-0.0947,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.4,1,0.4067,-0.0937,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.4,2,0.4069,-0.0961,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.7,0,0.4088,-0.0945,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.7,1,0.4069,-0.0967,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near right wall,0.7,2,0.4088,-0.0944,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.4,0,0.4147,-0.0019,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.4,1,0.4161,-0.0013,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.4,2,0.4149,-0.001,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.7,0,0.4137,-0.0006,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.7,1,0.4169,-0.0005,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,near back wall,0.7,2,0.4158,0.0014,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.4,0,0.3594,0.0005,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.4,1,0.3586,0.001,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.4,2,0.3616,-0.0004,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.7,0,0.3583,-0.0015,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.7,1,0.361,-0.0011,True,retrieved,57.9,64.0,True
+r4_h5_g2.5,4.0,5.0,2.5,front,0.7,2,0.3612,-0.0013,True,retrieved,57.9,64.0,True

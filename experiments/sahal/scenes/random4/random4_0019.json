@@ -1,0 +1,24 @@
+{
+ "name": "random4_0019",
+ "level": "random",
+ "description": "random: red in the graspable zone, 3 grays anywhere, not retrievable at start",
+ "friction": 0.55,
+ "positions": {
+  "cyl_red": [
+   0.3685,
+   -0.0018
+  ],
+  "cyl_gray_0": [
+   0.3316,
+   0.0183
+  ],
+  "cyl_gray_1": [
+   0.3345,
+   0.0997
+  ],
+  "cyl_gray_2": [
+   0.4217,
+   0.0703
+  ]
+ }
+}

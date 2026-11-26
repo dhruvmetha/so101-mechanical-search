@@ -1,0 +1,101 @@
+size,radius_cm,height_cm,grasp_height_cm,spot,friction,repetition,x,y,success,reason,gripper_at_end,open_value,glitch
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.4,0,0.4089,-0.0012,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,centre,0.7,0,0.4073,-0.0005,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.4,0,0.4093,0.1186,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near left wall,0.7,0,0.4062,0.1191,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.4,0,0.409,-0.1208,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near right wall,0.7,0,0.4065,-0.1205,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.4,0,0.4413,0.0011,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,near back wall,0.7,0,0.4405,0.0006,True,retrieved,18.9,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.4,0,0.359,0.0019,True,retrieved,19.0,28.0,True
+r1.5_h8_g4,1.5,8.0,4.0,front,0.7,0,0.3587,0.0013,True,retrieved,19.0,28.0,True
+r2_h4_g2,2.0,4.0,2.0,centre,0.4,0,0.4067,-0.0017,False,pick refused: the path would hit shelf_board at frame 72,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,centre,0.7,0,0.4063,-0.0007,False,pick refused: the path would hit shelf_board at frame 69,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near left wall,0.4,0,0.4078,0.116,False,pick refused: the path would hit shelf_board at frame 49,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near left wall,0.7,0,0.4065,0.1169,False,pick refused: the path would hit shelf_board at frame 52,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near right wall,0.4,0,0.4063,-0.1149,False,pick refused: the path would hit shelf_board at frame 84,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near right wall,0.7,0,0.4056,-0.1168,False,pick refused: the path would hit shelf_board at frame 85,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near back wall,0.4,0,0.4355,0.0002,False,pick refused: the path would hit shelf_board at frame 72,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,near back wall,0.7,0,0.4361,0.0014,False,pick refused: the path would hit shelf_board at frame 73,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,front,0.4,0,0.3593,-0.0005,False,pick refused: the path would hit shelf_board at frame 70,22.0,35.0,False
+r2_h4_g2,2.0,4.0,2.0,front,0.7,0,0.3593,0.0001,False,pick refused: the path would hit shelf_board at frame 70,22.0,35.0,False
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.4,0,0.4087,0.0018,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,centre,0.7,0,0.4065,-0.0008,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.4,0,0.4079,0.1168,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near left wall,0.7,0,0.4077,0.1145,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.4,0,0.4079,-0.1146,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near right wall,0.7,0,0.4062,-0.1151,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.4,0,0.4334,0.0015,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,near back wall,0.7,0,0.4361,-0.0008,True,retrieved,25.9,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.4,0,0.3612,-0.0011,True,retrieved,26.0,35.0,True
+r2_h5_g2.5,2.0,5.0,2.5,front,0.7,0,0.361,0.0018,True,retrieved,25.9,35.0,True
+r2_h6_g3,2.0,6.0,3.0,centre,0.4,0,0.4078,0.0015,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,centre,0.7,0,0.4067,0.0003,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near left wall,0.4,0,0.4062,0.1147,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near left wall,0.7,0,0.4055,0.1144,True,retrieved,25.9,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near right wall,0.4,0,0.4075,-0.1165,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near right wall,0.7,0,0.4068,-0.1149,True,retrieved,25.9,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near back wall,0.4,0,0.4332,0.0003,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,near back wall,0.7,0,0.4334,0.0011,True,retrieved,25.9,35.0,True
+r2_h6_g3,2.0,6.0,3.0,front,0.4,0,0.3583,0.0016,True,retrieved,26.0,35.0,True
+r2_h6_g3,2.0,6.0,3.0,front,0.7,0,0.358,0.0009,True,retrieved,26.0,35.0,True
+r2.25_h4_g2,2.25,4.0,2.0,centre,0.4,0,0.4068,-0.0019,False,pick refused: the path would hit shelf_board at frame 72,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,centre,0.7,0,0.4076,-0.0019,False,pick refused: the path would hit shelf_board at frame 73,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near left wall,0.4,0,0.4088,0.1141,False,pick refused: the path would hit shelf_board at frame 51,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near left wall,0.7,0,0.4079,0.1134,False,pick refused: the path would hit shelf_board at frame 50,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near right wall,0.4,0,0.4078,-0.1144,False,pick refused: the path would hit shelf_board at frame 83,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near right wall,0.7,0,0.4063,-0.114,False,pick refused: the path would hit shelf_board at frame 86,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near back wall,0.4,0,0.4313,-0.0018,False,pick refused: the path would hit shelf_board at frame 73,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,near back wall,0.7,0,0.4318,-0.0016,False,pick refused: the path would hit shelf_board at frame 74,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,front,0.4,0,0.3588,-0.0004,False,pick refused: the path would hit shelf_board at frame 71,22.0,39.0,False
+r2.25_h4_g2,2.25,4.0,2.0,front,0.7,0,0.3587,0.0018,False,pick refused: the path would hit shelf_board at frame 70,22.0,39.0,False
+r2.25_h5_g2.5,2.25,5.0,2.5,centre,0.4,0,0.4061,0.0014,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,centre,0.7,0,0.408,0.0006,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near left wall,0.4,0,0.406,0.1136,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near left wall,0.7,0,0.4073,0.1143,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near right wall,0.4,0,0.4085,-0.1137,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near right wall,0.7,0,0.4085,-0.1145,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near back wall,0.4,0,0.4329,0.0006,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,near back wall,0.7,0,0.4322,-0.0019,True,retrieved,29.5,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,front,0.4,0,0.3609,-0.0004,True,retrieved,29.6,39.0,True
+r2.25_h5_g2.5,2.25,5.0,2.5,front,0.7,0,0.3598,0.0009,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,centre,0.4,0,0.409,0.0017,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,centre,0.7,0,0.4075,0.0019,True,retrieved,29.5,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near left wall,0.4,0,0.4076,0.1128,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near left wall,0.7,0,0.4081,0.112,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near right wall,0.4,0,0.4092,-0.1137,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near right wall,0.7,0,0.407,-0.114,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near back wall,0.4,0,0.4333,0.0004,True,retrieved,29.5,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,near back wall,0.7,0,0.4328,0.0006,True,retrieved,29.5,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,front,0.4,0,0.3597,-0.0001,True,retrieved,29.6,39.0,True
+r2.25_h6_g3,2.25,6.0,3.0,front,0.7,0,0.3585,0.0015,True,retrieved,29.6,39.0,True
+r2.5_h4_g2,2.5,4.0,2.0,centre,0.4,0,0.4085,-0.0007,False,pick refused: the path would hit shelf_board at frame 73,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,centre,0.7,0,0.408,0.0011,False,pick refused: the path would hit shelf_board at frame 73,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near left wall,0.4,0,0.4088,0.1119,False,pick refused: the path would hit shelf_board at frame 52,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near left wall,0.7,0,0.4078,0.1109,False,pick refused: the path would hit shelf_board at frame 55,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near right wall,0.4,0,0.4067,-0.109,False,pick refused: the path would hit shelf_board at frame 84,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near right wall,0.7,0,0.4079,-0.1096,False,pick refused: the path would hit shelf_board at frame 86,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near back wall,0.4,0,0.4297,-0.0004,False,pick refused: the path would hit shelf_board at frame 75,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,near back wall,0.7,0,0.4297,0.0009,False,pick refused: the path would hit shelf_board at frame 75,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,front,0.4,0,0.3596,0.0007,False,pick refused: the path would hit shelf_board at frame 72,22.0,42.0,False
+r2.5_h4_g2,2.5,4.0,2.0,front,0.7,0,0.362,-0.0001,False,pick refused: the path would hit shelf_board at frame 76,22.0,42.0,False
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.4,0,0.409,0.002,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,centre,0.7,0,0.4072,0.0013,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.4,0,0.4085,0.1101,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near left wall,0.7,0,0.4065,0.1116,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.4,0,0.4057,-0.111,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near right wall,0.7,0,0.4066,-0.1095,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.4,0,0.4289,-0.0016,True,retrieved,33.1,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,near back wall,0.7,0,0.4293,0.0004,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.4,0,0.3609,-0.0011,True,retrieved,33.2,42.0,True
+r2.5_h5_g2.5,2.5,5.0,2.5,front,0.7,0,0.3598,-0.0006,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,centre,0.4,0,0.4058,0.0017,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,centre,0.7,0,0.4071,0.0016,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near left wall,0.4,0,0.4094,0.1111,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near left wall,0.7,0,0.4089,0.1082,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near right wall,0.4,0,0.4091,-0.1095,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near right wall,0.7,0,0.4074,-0.1086,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near back wall,0.4,0,0.4302,-0.0008,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,near back wall,0.7,0,0.4295,0.0,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,front,0.4,0,0.3598,-0.001,True,retrieved,33.2,42.0,True
+r2.5_h6_g3,2.5,6.0,3.0,front,0.7,0,0.3616,0.0016,True,retrieved,33.2,42.0,True

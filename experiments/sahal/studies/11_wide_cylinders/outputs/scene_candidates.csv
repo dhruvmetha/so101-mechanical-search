@@ -1,0 +1,29 @@
+index,kept,why
+0,True,simulated: pick: left the shelf: cyl_gray_0
+1,False,retrievable at start
+2,True,simulated: pick: left the shelf: cyl_gray_2
+3,False,retrievable at start
+4,False,retrievable at start
+5,False,retrievable at start
+6,False,retrievable at start
+7,True,simulated: pull refused: pull needs a held cylinder and the gripper isn't holding one
+8,False,retrievable at start
+9,False,retrievable at start
+10,False,retrievable at start
+11,False,retrievable at start
+12,False,retrievable at start
+13,False,retrievable at start
+14,False,retrievable at start
+15,True,simulated: pick: left the shelf: cyl_gray_0
+16,True,simulated: pull refused: pull needs a held cylinder and the gripper isn't holding one
+17,False,retrievable at start
+18,True,simulated: pick: left the shelf: cyl_gray_1
+19,False,retrievable at start
+20,False,retrievable at start
+21,True,simulated: pick: left the shelf: cyl_gray_1
+22,False,retrievable at start
+23,False,retrievable at start
+24,True,simulated: pick: left the shelf: cyl_gray_2
+25,True,simulated: pick: left the shelf: cyl_gray_2
+26,False,retrievable at start
+27,True,simulated: pick: left the shelf: cyl_gray_2

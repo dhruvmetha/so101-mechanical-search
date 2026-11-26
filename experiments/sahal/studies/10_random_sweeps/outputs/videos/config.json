@@ -1,0 +1,77 @@
+{
+  "command": "experiments/sahal/studies/10_random_sweeps/run.py --parts videos",
+  "settings": {
+    "picks": [
+      {
+        "name": "success_key_gray",
+        "scene": "random4_0019",
+        "outcome": "success",
+        "cylinder": "cyl_gray_0",
+        "length_cm": [
+          0.0,
+          8.0
+        ]
+      },
+      {
+        "name": "success_red",
+        "scene": "random4_0019",
+        "outcome": "success",
+        "cylinder": "cyl_red",
+        "length_cm": [
+          0.0,
+          8.0
+        ]
+      },
+      {
+        "name": "success_long",
+        "scene": "random4_0019",
+        "outcome": "success",
+        "cylinder": null,
+        "length_cm": [
+          8.0,
+          100.0
+        ]
+      },
+      {
+        "name": "fail_still_blocked",
+        "scene": "random4_0019",
+        "outcome": "still blocked",
+        "cylinder": "cyl_gray_0",
+        "length_cm": [
+          0.0,
+          100.0
+        ]
+      },
+      {
+        "name": "fail_toppled",
+        "scene": "random4_0019",
+        "outcome": "toppled",
+        "cylinder": null,
+        "length_cm": [
+          0.0,
+          100.0
+        ]
+      },
+      {
+        "name": "fail_jammed",
+        "scene": "random4_0019",
+        "outcome": "jammed",
+        "cylinder": null,
+        "length_cm": [
+          0.0,
+          100.0
+        ]
+      }
+    ],
+    "layout": "front+wrist",
+    "fps": 30,
+    "slow_motion_repeat": 2,
+    "slow_motion_pad_frames": 6,
+    "end_hold_s": 1.0
+  },
+  "python": "3.11.17",
+  "mujoco": "3.8.1",
+  "numpy": "2.4.6",
+  "machine": "arm64",
+  "written": "2026-11-25 23:59:26"
+}

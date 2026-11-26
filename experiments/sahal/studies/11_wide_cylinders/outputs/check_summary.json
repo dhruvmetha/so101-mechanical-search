@@ -1,0 +1,46 @@
+{
+ "wall_s": 26.6,
+ "scenes": 50,
+ "placed": 50,
+ "physics_yes": 41,
+ "hybrid": {
+  "check yes, physics yes": 38,
+  "check yes, physics no": 0,
+  "check no, physics yes": 3,
+  "check no, physics no": 9,
+  "agree": 47
+ },
+ "kinematic": {
+  "check yes, physics yes": 20,
+  "check yes, physics no": 0,
+  "check no, physics yes": 21,
+  "check no, physics no": 9,
+  "agree": 29
+ },
+ "hybrid_simulated": 16,
+ "hybrid_wrong": [
+  {
+   "scene": "wide4_0013",
+   "plan_gray_clearance_mm": -33.1,
+   "hybrid_reason": "plan overlaps a gray by 33.1 mm or more",
+   "exact_reason": "simulated: retrieved"
+  },
+  {
+   "scene": "wide4_0023",
+   "plan_gray_clearance_mm": -40.0,
+   "hybrid_reason": "plan overlaps a gray by 40.0 mm or more",
+   "exact_reason": "simulated: retrieved"
+  },
+  {
+   "scene": "wide4_0035",
+   "plan_gray_clearance_mm": -34.5,
+   "hybrid_reason": "plan overlaps a gray by 33.4 mm or more",
+   "exact_reason": "simulated: retrieved"
+  }
+ ],
+ "median_s": {
+  "hybrid": 0.404,
+  "kinematic": 0.222,
+  "exact": 2.297
+ }
+}
